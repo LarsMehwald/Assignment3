@@ -43,6 +43,29 @@ Marriages_2013 <- read.csv(file="data/177-31-4_Marriages_2013.csv",
                                        "EhemannesDeutscher/EhefrauAuslaenderin",
                                        "EhemannesAuslaender/EhefrauTotal",
                                        "EhemannesAuslaender/EhefrauDeutsche",
-                                       "EhemannesAuslaender/EhefrauAuslaender"),
+                                       "EhemannesAuslaender/EhefrauAuslaender")
                            )
-summary(Marriages_2013)
+# Saving the data
+write.csv(Marriages_2013, file = "data/Marriages2013.csv")
+
+# Removing observation for Germany as a whole
+Marriages_2013 <- Marriages_2013[-1,]
+
+# Changing the class of Variables 
+Marriages_2013[,2] <- as.numeric(as.character(Marriages_2013[,2]))
+Marriages_2013[,3] <- as.character(Marriages_2013[,3])
+Marriages_2013[,4] <- as.numeric(as.character(Marriages_2013[,4]))
+Marriages_2013[,5] <- as.numeric(as.character(Marriages_2013[,5]))
+Marriages_2013[,6] <- as.numeric(as.character(Marriages_2013[,6]))
+Marriages_2013[,7] <- as.numeric(as.character(Marriages_2013[,7]))
+Marriages_2013[,8] <- as.numeric(as.character(Marriages_2013[,8]))
+Marriages_2013[,9] <- as.numeric(as.character(Marriages_2013[,9]))
+Marriages_2013[,10] <- as.numeric(as.character(Marriages_2013[,10]))
+Marriages_2013[,11] <- as.numeric(as.character(Marriages_2013[,11]))
+Marriages_2013[,12] <- as.numeric(as.character(Marriages_2013[,12]))
+
+# Problem with Hamburg and Berlin
+MarriageBerHam <- Marriages_2013$District[c(2, 11)]
+Marriages_2013 <- Marriages_2013[Marriages_2013$District > 1000,]
+Marriages_2013 <- rbind(Marriages_2013, MarriageBerHam)
+
