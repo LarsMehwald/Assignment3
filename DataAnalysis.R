@@ -147,7 +147,7 @@ Graduates <- read.csv(file = "data/192-71-4_GraduatesFromDifferentHighSchool.csv
                skip = 10,
                nrows = 524, 
                col.names = c("Year", 
-                             "DistrictNumber", 
+                             "district", 
                              "DistrictName", 
                              "GraduatesTotal", 
                              "GraduatesTotalFemale", 
@@ -179,8 +179,21 @@ class(Graduates$DistrictNumber) # integer
 class(Graduates$DistrictName) # factor
 class(Graduates$GraduatesTotal) # integer 
 
-# Changing the class of DistrictNumber to numeric 
+# Changing the class of some variables to numeric 
+Graduates[,1] <- as.numeric(as.character(Graduates[,1]))
 Graduates[,2] <- as.numeric(as.character(Graduates[,2]))
+Graduates[,4] <- as.numeric(as.character(Graduates[,4]))
+Graduates[,5] <- as.numeric(as.character(Graduates[,5]))
+Graduates[,6] <- as.numeric(as.character(Graduates[,6]))
+Graduates[,7] <- as.numeric(as.character(Graduates[,7]))
+Graduates[,8] <- as.numeric(as.character(Graduates[,8]))
+Graduates[,9] <- as.numeric(as.character(Graduates[,9]))
+Graduates[,10] <- as.numeric(as.character(Graduates[,10]))
+Graduates[,11] <- as.numeric(as.character(Graduates[,11]))
+Graduates[,12] <- as.numeric(as.character(Graduates[,12]))
+Graduates[,13] <- as.numeric(as.character(Graduates[,13]))
+Graduates[,14] <- as.numeric(as.character(Graduates[,14]))
+Graduates[,15] <- as.numeric(as.character(Graduates[,15]))
 
 # Removing higher political units (they are coded with numbers below 1000)
 # Hamburg and Berlin problematic: they have no further subunits 
@@ -189,28 +202,22 @@ Graduates[,2] <- as.numeric(as.character(Graduates[,2]))
 # Attention: row numbers are not correctly counted as first row has been deleted 
 
 GraduatesHamburgBerlin <- Graduates[c(17, 365),] 
-Graduates <- Graduates[Graduates$DistrictNumber > 1000,]
+Graduates <- Graduates[Graduates$district > 1000,]
 Graduates <- rbind(Graduates, GraduatesHamburgBerlin)
 rm(GraduatesHamburgBerlin)
 
 ########################
-# Merging Kreise 2013 with 
-# German Elections 2013
+# Merging Kreise 2013 
+# with Graduattion 2013
 ########################
 
-# Creating a PKS data frame only for 2013
-
-# Problem with factors? 
-
-PKS_Kreise_13 <- PKS_Kreise[PKS_Kreise$year == 2013,]
-
 # Chechking whether both data frames are actually data frames
-class (GermanElection2013)
+class (Graduates)
 class(PKS_Kreise_13)
 
 # Merging the data frames by the variable district
 # Districts that have no corresponding district are dropped
-ElectionCrime <- merge(GermanElection2013, PKS_Kreise_13, by="district")
+GraduatesCrime <- merge(Graduates, PKS_Kreise_13, by="district")
 
 # Linear regression model 
 fit <- lm(robbery ~ G?ltige.Zweitstimmen.CDU.CSU, data=ElectionCrime)
