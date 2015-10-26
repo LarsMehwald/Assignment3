@@ -7,8 +7,8 @@
 ########################
 
 # Setting the working directory
-#setwd("D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3")
-#setwd("~/HSoG/DataAnalysis/GitHub/Assignment3")
+# setwd("D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3")
+# setwd("~/HSoG/DataAnalysis/GitHub/Assignment3")
 
 # Loading required packages 
 library("rio")
