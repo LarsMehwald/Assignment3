@@ -11,19 +11,21 @@ library("repmis")
 pkgs <- c('dplyr', 'ggplot2', 'rio', 'tidyr', 'repmis')
 LoadandCite(pkgs, file = 'References/RpackageCitations.bib')
 rm(pkgs)
-varclass <- c(data,
-              numeric,
-              character,
-              numeric,
-              numeric,
-              numeric,
-              numeric,
-              numeric,
-              numeric,
-              numeric,
-              numeric,
-              numeric
+
+# varclass <- c("Date",
+              "numeric",
+              "character",
+              "numeric",
+              "numeric",
+              "numeric",
+              "numeric",
+              "numeric",
+              "numeric",
+              "numeric",
+              "numeric",
+              "numeric"
 )
+
 Marriages_2013 <- read.csv(file="data/177-31-4_Marriages_2013.csv", 
                            sep=";", 
                            na.strings = c("-","."),
@@ -42,6 +44,5 @@ Marriages_2013 <- read.csv(file="data/177-31-4_Marriages_2013.csv",
                                        "EhemannesAuslaender/EhefrauTotal",
                                        "EhemannesAuslaender/EhefrauDeutsche",
                                        "EhemannesAuslaender/EhefrauAuslaender"),
-                           colClasses = varclass
                            )
-
+summary(Marriages_2013)

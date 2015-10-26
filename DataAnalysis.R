@@ -49,7 +49,7 @@ PKS_Kreise_13 <- PKS_Kreise_13_14[,c(1,2,3)]
 # PKS_Kreise_14 <- PKS_Kreise_13_14[,c(1,2,4)]
 rm(PKS_Kreise_13_14)
 
-# Spread data from width to long format
+# Spread data from wide to long format
 PKS_Kreise_13_spread <- spread(PKS_Kreise_13, "Straftat", "2013 - erfasste Faelle")
 # PKS_Kreise_14_spread <- spread(PKS_Kreise_14, "Straftat", "2014 - erfasste Faelle")
 rm(PKS_Kreise_13)
