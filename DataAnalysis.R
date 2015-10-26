@@ -224,6 +224,9 @@ class(PKS_Kreise_13)
 # Districts that have no corresponding district are dropped
 GraduatesCrime <- merge(Graduates, PKS_Kreise_13, by="district")
 
+# Saving the merged data frame
+write.csv(GraduatesCrime, file = "data/MergedGraduatesCrime.csv")
+
 # Linear regression model 
 fit <- lm(robbery ~ GraduatesWithHouthDegreeTotal, data=GraduatesCrime)
 summary(fit)
