@@ -12,20 +12,7 @@ pkgs <- c('dplyr', 'ggplot2', 'rio', 'tidyr', 'repmis')
 LoadandCite(pkgs, file = 'References/RpackageCitations.bib')
 rm(pkgs)
 
-# varclass <- c("Date",
-              "numeric",
-              "character",
-              "numeric",
-              "numeric",
-              "numeric",
-              "numeric",
-              "numeric",
-              "numeric",
-              "numeric",
-              "numeric",
-              "numeric"
-)
-
+#Reading Marriages 2013 csv file. 
 Marriages_2013 <- read.csv(file="data/177-31-4_Marriages_2013.csv", 
                            sep=";", 
                            na.strings = c("-","."),
@@ -33,8 +20,8 @@ Marriages_2013 <- read.csv(file="data/177-31-4_Marriages_2013.csv",
                            skip = 9,
                            header=FALSE,
                            col.names=c("Year",
-                                       "District",
-                                       "Name", 
+                                       "district",
+                                       "name", 
                                        "EhemannesTotal/EhefrauTotal",
                                        "EhemannesTotal/EhefrauDeutsche",
                                        "EhemannesTotal/EhefrauAuslaenderin",
@@ -69,4 +56,8 @@ MarriageBerHam <- Marriages_2013[c(17, 365),]
 Marriages_2013 <- Marriages_2013[Marriages_2013$District > 1000,]
 Marriages_2013 <- rbind(Marriages_2013, MarriageBerHam)
 
+## Merging
+MarriagesGraduatesCrimes2013 <- merge()
 
+# Removing everything from workspace
+rm(list=ls()) 
