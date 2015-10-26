@@ -62,5 +62,11 @@ graduatescrime <- read.csv(file="data/MergedGraduatesCrime.csv")
 graduatescrime[,2] <-as.numeric((as.character(graduatescrime[,2])))
 MarriagesGraduatesCrimes2013 <- merge(graduatescrime, Marriages_2013, by="district")
 
+# Linear regression model 
+names(MarriagesGraduatesCrimes2013)
+fit <- lm(robbery ~ GraduatesWithHouthDegreeTotal + EhemannesTotal.EhefrauTotal, data=MarriagesGraduatesCrimes2013)
+summary(fit)
+rm(fit)
+
 # Removing everything from workspace
 rm(list=ls()) 
