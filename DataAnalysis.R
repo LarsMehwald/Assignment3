@@ -227,12 +227,8 @@ GraduatesCrime <- merge(Graduates, PKS_Kreise_13, by="district")
 # Linear regression model 
 names(Graduates)
 fit <- lm(robbery ~ GraduatesWithHouthDegreeTotal, data=GraduatesCrime)
-
 summary(fit)
-
 rm(fit)
-
-# Somehow it doesnt work 
 
 # Removing everything from workspace
 rm(list=ls()) 
