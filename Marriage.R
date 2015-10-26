@@ -68,5 +68,7 @@ fit <- lm(robbery ~ GraduatesWithHouthDegreeTotal + EhemannesTotal.EhefrauTotal,
 summary(fit)
 rm(fit)
 
+
+
 # Removing everything from workspace
 rm(list=ls()) 
