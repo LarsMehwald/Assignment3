@@ -109,7 +109,7 @@ rm(title1)
 # rm(title2)
 
 # Saving the data 
-write.csv(PKS_Kreise_13, file = "data/PKS_Kreise.csv", append = "TRUE")
+write.csv(PKS_Kreise_13, file = "data/PKS_Kreise.csv")
 
 ########################
 # German Elections 2013
@@ -217,7 +217,7 @@ rm(GraduatesHamburgBerlin)
 ########################
 
 # Chechking whether both data frames are actually data frames
-class (Graduates)
+class(Graduates)
 class(PKS_Kreise_13)
 
 # Merging the data frames by the variable district
@@ -225,7 +225,6 @@ class(PKS_Kreise_13)
 GraduatesCrime <- merge(Graduates, PKS_Kreise_13, by="district")
 
 # Linear regression model 
-names(Graduates)
 fit <- lm(robbery ~ GraduatesWithHouthDegreeTotal, data=GraduatesCrime)
 summary(fit)
 rm(fit)
