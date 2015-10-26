@@ -7,7 +7,8 @@
 ########################
 
 # Setting the working directory
-setwd("D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3")
+#setwd("D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3")
+#setwd("~/HSoG/DataAnalysis/GitHub/Assignment3")
 
 # Loading required packages 
 library("rio")
@@ -33,7 +34,7 @@ rm(URL_PKS_Kreise_13_14)
 PKS_Kreise_13_14 <- PKS_Kreise_13_14[,-c(1, 4, 7:15)]
 
 # Renaming manually 
-NameofVariables <- c("Straftat", "Gemeindeschlüssel", "2014 - erfasste Fälle", "2013 - erfasste Fälle")
+NameofVariables <- c("Straftat", "Gemeindeschl?ssel", "2014 - erfasste F?lle", "2013 - erfasste F?lle")
 names(PKS_Kreise_13_14) <- NameofVariables 
 rm(NameofVariables)
 
@@ -49,9 +50,9 @@ PKS_Kreise_13 <- PKS_Kreise_13_14[,c(1,2,3)]
 PKS_Kreise_14 <- PKS_Kreise_13_14[,c(1,2,4)]
 rm(PKS_Kreise_13_14)
 
-# Spread data
-PKS_Kreise_13_spread <- spread(PKS_Kreise_13, "Straftat", "2013 - erfasste Fälle")
-PKS_Kreise_14_spread <- spread(PKS_Kreise_14, "Straftat", "2014 - erfasste Fälle")
+# Spread data from width to long format
+PKS_Kreise_13_spread <- spread(PKS_Kreise_13, "Straftat", "2013 - erfasste F?lle")
+PKS_Kreise_14_spread <- spread(PKS_Kreise_14, "Straftat", "2014 - erfasste F?lle")
 rm(PKS_Kreise_13)
 rm(PKS_Kreise_14)
 
@@ -71,11 +72,11 @@ PKS_Kreise_13_spread$year <- 2013
 PKS_Kreise_14_spread$year <- 2014
 
 # Combining district variable with year and rearranging
-PKS_Kreise_13_spread$district_year <- paste(PKS_Kreise_13_spread$district, "2013", sep = "_")
+PKS_Kreise_13_spread$district_year <- paste(PKS_Kreise_13_spread$district, "2013", sep = "y")
 PKS_Kreise_13 <- PKS_Kreise_13_spread[,c(8,1,2,3,4,5,6,7)]
 rm(PKS_Kreise_13_spread)
 
-PKS_Kreise_14_spread$district_year <- paste(PKS_Kreise_14_spread$district, "2014", sep = "_")
+PKS_Kreise_14_spread$district_year <- paste(PKS_Kreise_14_spread$district, "2014", sep = "y")
 PKS_Kreise_14 <- PKS_Kreise_14_spread[,c(8,1,2,3,4,5,6,7)]
 rm(PKS_Kreise_14_spread)
 
@@ -93,23 +94,12 @@ PKS_Kreise[,6] <- as.numeric(as.character(PKS_Kreise[,6]))
 PKS_Kreise[,7] <- as.numeric(as.character(PKS_Kreise[,7]))
 PKS_Kreise[,8] <- as.numeric(as.character(PKS_Kreise[,8]))
 
-# Alternative changing of class - only for 2013
-# PKS_Kreise_13_spread[,1] <- as.numeric(as.character(PKS_Kreise_13_spread[,1]))
-# PKS_Kreise_13_spread[,2] <- as.numeric(as.character(PKS_Kreise_13_spread[,2]))
-# PKS_Kreise_13_spread[,3] <- as.numeric(as.character(PKS_Kreise_13_spread[,3]))
-# PKS_Kreise_13_spread[,4] <- as.numeric(as.character(PKS_Kreise_13_spread[,4]))
-# PKS_Kreise_13_spread[,5] <- as.numeric(as.character(PKS_Kreise_13_spread[,5]))
-# PKS_Kreise_13_spread[,6] <- as.numeric(as.character(PKS_Kreise_13_spread[,6]))
-# PKS_Kreise_13_spread[,7] <- as.numeric(as.character(PKS_Kreise_13_spread[,7]))
-
-# Summarising data - commented out due to change in data frame 
-
 # Problem: treated (again) as factor variable
 
 title1 <- "These are the summary statistics for the year 2013"
 print(title1)
 PKS_Kreise_13 <- PKS_Kreise[PKS_Kreise$year == 2013,]
-summary(PKS_Kreise_13[,c(3:7)])
+summary(PKS_Kreise_13[,c(3:7)])  #look for a if option
 rm(title1)
 rm(PKS_Kreise_13)
 
@@ -172,7 +162,7 @@ class(PKS_Kreise_13)
 ElectionCrime <- merge(GermanElection2013, PKS_Kreise_13, by="district")
 
 # Linear regression model 
-fit <- lm(robbery ~ Gültige.Zweitstimmen.CDU.CSU, data=ElectionCrime)
+fit <- lm(robbery ~ G?ltige.Zweitstimmen.CDU.CSU, data=ElectionCrime)
 summary(fit)
 
 rm(fit)
