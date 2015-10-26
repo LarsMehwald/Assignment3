@@ -136,6 +136,37 @@ GermanElection2013 <- GermanElection2013[GermanElection2013$district > 1000,]
 summary(GermanElection2013$district)
 
 ########################
+# Loading new data: 
+# Regionalstatistik
+########################
+
+Graduates.df <- read.csv(file = "data/192-71-4_GraduatesFromDifferentHighSchool.csv", 
+               sep=";", 
+               na.strings=c("-", "."), 
+               skip = 10,
+               nrows = 524, 
+               col.names = c("Year", 
+                             "DistrictNumber", 
+                             "DistrictName", 
+                             "GraduatesTotal", 
+                             "GraduatesTotalFemale", 
+                             "GraduatesWithHouthDegreeTotal", 
+                             "GraduatesWithouthDegreeFemale", 
+                             "GraduatesWithHauptschulDegreeTotal", 
+                             "GraduatesWithHauptschulDegreeFemale",
+                             "GraduatesWithRealschulDegreeTotal",
+                             "GraduatesWithRealschulDegreeFemale",
+                             "GraduatesWithFachhochschulDegreeTotal",
+                             "GraduatesWithFachhochschulDegreeFemale",
+                             "GraduatesWithHochschulreifeDegreeTotal",
+                             "GraduatesWithHochschulreifeDegreeFemale"
+                             )
+               )
+
+# Alternative: read data in as vector
+df <- readLines("data/192-71-4_GraduatesFromDifferentHighSchool.csv") # Important: Capital Letter L 
+
+########################
 # Merging Kreise 2013 with 
 # German Elections 2013
 ########################
