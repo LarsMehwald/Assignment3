@@ -220,12 +220,12 @@ class(PKS_Kreise_13)
 GraduatesCrime <- merge(Graduates, PKS_Kreise_13, by="district")
 
 # Linear regression model 
-fit <- lm(robbery ~ G?ltige.Zweitstimmen.CDU.CSU, data=ElectionCrime)
+names(Graduates)
+fit <- lm(robbery ~ GraduatesWithHouthDegreeTotal, data=GraduatesCrime)
+
 summary(fit)
 
 rm(fit)
-?lm
-names(total)
 
 # Somehow it doesnt work 
 
