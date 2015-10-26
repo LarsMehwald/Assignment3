@@ -140,9 +140,10 @@ summary(GermanElection2013$district)
 # Regionalstatistik
 ########################
 
-Graduates.df <- read.csv(file = "data/192-71-4_GraduatesFromDifferentHighSchool.csv", 
+Graduates <- read.csv(file = "data/192-71-4_GraduatesFromDifferentHighSchool.csv", 
                sep=";", 
                na.strings=c("-", "."), 
+               header = FALSE,
                skip = 10,
                nrows = 524, 
                col.names = c("Year", 
@@ -164,7 +165,33 @@ Graduates.df <- read.csv(file = "data/192-71-4_GraduatesFromDifferentHighSchool.
                )
 
 # Alternative: read data in as vector
-df <- readLines("data/192-71-4_GraduatesFromDifferentHighSchool.csv") # Important: Capital Letter L 
+# df <- readLines("data/192-71-4_GraduatesFromDifferentHighSchool.csv") # Important: Capital Letter L 
+
+# Saving the data 
+write.csv(Graduates, file = "data/Graduates2013.csv")
+
+# Removing observation for Germany as a whole
+Graduates <- Graduates[-1,]
+
+# Checking the class of variables 
+class(Graduates$Year) # integer
+class(Graduates$DistrictNumber) # integer
+class(Graduates$DistrictName) # factor
+class(Graduates$GraduatesTotal) # integer 
+
+# Changing the class of DistrictNumber to numeric 
+Graduates[,2] <- as.numeric(as.character(Graduates[,2]))
+
+# Removing higher political units (they are coded with numbers below 1000)
+# Hamburg and Berlin problematic: they have no further subunits 
+# Extract them first and then rbind them after all smaller units are removed 
+# 17 (02) is Hamburg; 365 is Berlin (11)
+# Attention: row numbers are not correctly counted as first row has been deleted 
+
+GraduatesHamburgBerlin <- Graduates[c(17, 365),] 
+Graduates <- Graduates[Graduates$DistrictNumber > 1000,]
+Graduates <- rbind(Graduates, GraduatesHamburgBerlin)
+rm(GraduatesHamburgBerlin)
 
 ########################
 # Merging Kreise 2013 with 
