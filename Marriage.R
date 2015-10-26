@@ -65,7 +65,8 @@ Marriages_2013[,11] <- as.numeric(as.character(Marriages_2013[,11]))
 Marriages_2013[,12] <- as.numeric(as.character(Marriages_2013[,12]))
 
 # Problem with Hamburg and Berlin
-MarriageBerHam <- Marriages_2013$District[c(2, 11)]
+MarriageBerHam <- Marriages_2013[c(17, 365),]
 Marriages_2013 <- Marriages_2013[Marriages_2013$District > 1000,]
 Marriages_2013 <- rbind(Marriages_2013, MarriageBerHam)
+
 

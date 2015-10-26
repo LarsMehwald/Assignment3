@@ -69,6 +69,11 @@ rm(NameofVariables)
 PKS_Kreise_13_spread$year <- 2013
 # PKS_Kreise_14_spread$year <- 2014
 
+# Correcting problem with Hamburg and Berlin. 
+PKS_Kreise_13_spread[,1] <- as.numeric(as.character(PKS_Kreise_13_spread[,1]))
+PKS_Kreise_13_spread[22,1]=11
+PKS_Kreise_13_spread[99,1]=2  
+
 # Combining district variable with year and rearranging
 PKS_Kreise_13_spread$district_year <- paste(PKS_Kreise_13_spread$district, "2013", sep = "y")
 PKS_Kreise_13 <- PKS_Kreise_13_spread[,c(8,1,7,2,3,4,5,6)]
