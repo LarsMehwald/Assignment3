@@ -15,6 +15,7 @@ library("rio")
 library("dplyr")
 library("tidyr")
 library("repmis")
+library("httr")
 
 # Citing R packages 
 pkgs <- c('dplyr', 'ggplot2', 'rio', 'tidyr', 'repmis')
