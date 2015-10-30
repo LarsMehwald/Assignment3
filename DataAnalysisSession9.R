@@ -29,9 +29,18 @@ MarriagesGraduatesCrimes2013 <- read.csv(file='data/MarriagesGraduatesCrimes2013
 
 # Linear regression model 
 names(MarriagesGraduatesCrimes2013)
-fit <- lm(robbery ~ GraduatesWithHouthDegreeTotal + EhemannesTotal.EhefrauTotal, data=MarriagesGraduatesCrimes2013)
-summary(fit)
-rm(fit)
+regrobbery <- lm(robbery ~ GraduatesWithHouthDegreeTotal + EhemannesTotal.EhefrauTotal, data=MarriagesGraduatesCrimes2013)
+summary(regrobbery)
+
+#After running regression
+regrobbery_hat <-fitted(regrobbery) #predicted values
+as.data.frame(regrobbery_hat)
+
+regrobbery_res <- residuals(regrobbery) #residuals 
+as.data.frame(regrobbery_res)
+
+# Removing all estimations from lm
+rm(regrobbery)
 
 # Removing everything from workspace
 rm(list=ls()) 

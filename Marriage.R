@@ -11,7 +11,8 @@ library("dplyr")
 library("tidyr")
 library("repmis")
 library("httr")
-library("car")
+library("lmtest")
+library("sandwich")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', '~/HSoG/DataAnalysis/GitHub/Assignment3')
@@ -81,8 +82,6 @@ write.csv(MarriagesGraduatesCrimes2013, file = "data/MarriagesGraduatesCrimes201
 names(MarriagesGraduatesCrimes2013)
 regrobbery <- lm(robbery ~ GraduatesWithHouthDegreeTotal + EhemannesTotal.EhefrauTotal, data=MarriagesGraduatesCrimes2013)
 summary(regrobbery)
-rm(regrobbery)
-
 
 
 # Removing everything from workspace
