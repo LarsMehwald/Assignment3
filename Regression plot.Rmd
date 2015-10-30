@@ -1,0 +1,16 @@
+---
+title: "Untitled"
+author: "Lars Mehwald"
+date: "October 30, 2015"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r plot, echo=FALSE}
+source("DataAnalysisSession9.R")
+```
