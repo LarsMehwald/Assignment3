@@ -216,7 +216,7 @@ rm(GraduatesHamburgBerlin)
 
 ########################
 # Merging Kreise 2013 
-# with Graduattion 2013
+# with Graduation 2013
 ########################
 
 # Chechking whether both data frames are actually data frames

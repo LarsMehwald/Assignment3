@@ -68,10 +68,10 @@ Marriages_2013 <- Marriages_2013[Marriages_2013$district > 1000,]
 Marriages_2013 <- rbind(Marriages_2013, MarriageBerHam)
 rm(MarriageBerHam)
 
-## Merging with Merged Graduates and Crime
-graduatescrime <- read.csv(file="data/MergedGraduatesCrime.csv")
-graduatescrime[,2] <-as.numeric((as.character(graduatescrime[,2])))
-MarriagesGraduatesCrimes2013 <- merge(graduatescrime, Marriages_2013, by="district")
+# Merging with Merged Graduates and Crime
+GraduatesCrime <- read.csv(file="data/MergedGraduatesCrime.csv")
+GraduatesCrime[,2] <- as.numeric(as.character(GraduatesCrime[,2]))
+MarriagesGraduatesCrimes2013 <- merge(GraduatesCrime, Marriages_2013, by="district")
 
 # Linear regression model 
 names(MarriagesGraduatesCrimes2013)
