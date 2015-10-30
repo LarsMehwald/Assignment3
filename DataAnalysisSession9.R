@@ -13,15 +13,11 @@ library("repmis")
 library("httr")
 library("knitr")
 library("xtable")
-<<<<<<< HEAD
 library("stargazer")
 library("texreg")
 library("lmtest")
 library("sandwich")
-=======
-library("texreg")
-library("stargazer")
-
+library("Zelig")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', '~/HSoG/DataAnalysis/GitHub/Assignment3')
