@@ -11,6 +11,7 @@ library("dplyr")
 library("tidyr")
 library("repmis")
 library("httr")
+library("knitr")
 library("xtable")
 <<<<<<< HEAD
 library("stargazer")
