@@ -14,6 +14,7 @@ library("httr")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', '~/HSoG/DataAnalysis/GitHub/Assignment3')
+rm(possible_dir)
 
 # Set to first valid directory in the possible_dir vector
 set_valid_wd(possible_dir)
