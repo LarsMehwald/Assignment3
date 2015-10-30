@@ -26,7 +26,11 @@ rm(pkgs)
 # Loading merged data set for analysis
 MarriagesGraduatesCrimes2013 <- read.csv(file='data/MarriagesGraduatesCrimes2013.csv')
 
-
+# Linear regression model 
+names(MarriagesGraduatesCrimes2013)
+fit <- lm(robbery ~ GraduatesWithHouthDegreeTotal + EhemannesTotal.EhefrauTotal, data=MarriagesGraduatesCrimes2013)
+summary(fit)
+rm(fit)
 
 # Removing everything from workspace
 rm(list=ls()) 
