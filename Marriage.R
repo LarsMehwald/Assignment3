@@ -62,7 +62,7 @@ Marriages_2013[,10] <- as.numeric(as.character(Marriages_2013[,10]))
 Marriages_2013[,11] <- as.numeric(as.character(Marriages_2013[,11]))
 Marriages_2013[,12] <- as.numeric(as.character(Marriages_2013[,12]))
 
-# Problem with Hamburg and Berlin
+# Problem with Hamburg and Berlin: recoding
 MarriageBerHam <- Marriages_2013[c(17, 365),]
 Marriages_2013 <- Marriages_2013[Marriages_2013$district > 1000,]
 Marriages_2013 <- rbind(Marriages_2013, MarriageBerHam)
@@ -78,7 +78,6 @@ names(MarriagesGraduatesCrimes2013)
 fit <- lm(robbery ~ GraduatesWithHouthDegreeTotal + EhemannesTotal.EhefrauTotal, data=MarriagesGraduatesCrimes2013)
 summary(fit)
 rm(fit)
-
 
 
 # Removing everything from workspace
