@@ -1,16 +1,19 @@
 ---
-title: "Untitled"
-author: "Lars Mehwald"
-date: "October 30, 2015"
-output: html_document
+title: "Assignment3"
+author: "Lars Mehwald and Daniel Salgado Moreno"
+date: "13 November 2015"
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Stargazer output 
 
-```{r plot, echo=FALSE}
+```{r plot, echo=FALSE, message=FALSE, cache=TRUE}
 source("DataAnalysisSession9.R")
+rm(regrobbery)
+regrobbery <- lm(robbery ~ GraduatesWithHouthDegreeTotal + HusbandAndWifeTotal, data=CrimesMarriagesGraduates2013)
+stargazer(regrobbery, type = "latex")
 ```
