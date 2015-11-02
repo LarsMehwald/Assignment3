@@ -49,26 +49,34 @@ rm(pkgs)
 source("PksKreise.R")
 source("Marriage.R")
 source("Graduates.R")
+source("LaborMarket.R")
 
 # Merging the data frames by district
 # Districts that have no corresponding district are dropped
 CrimesMarriages2013 <- merge(PKS_Kreise_13, Marriages_2013, by="district")
 CrimesMarriagesGraduates2013 <- merge(CrimesMarriages2013, Graduates, by="district")
+CrimesMarriagesGraduatesLabor2013 <- merge(CrimesMarriagesGraduates2013, LaborMarket, by="district")
 rm(CrimesMarriages2013)
+rm(CrimesMarriagesGraduates2013)
 
 # Removing individual data frames
-rm(Graduates)
-rm(Marriages_2013)
 rm(PKS_Kreise_13)
+rm(Marriages_2013)
+rm(Graduates)
+rm(LaborMarket)
 
 # Removing redundant variables
-CrimesMarriagesGraduates2013 <- CrimesMarriagesGraduates2013[,-c(3,9)]
+CrimesMarriagesGraduatesLabor2013 <- CrimesMarriagesGraduatesLabor2013[,-c(3,9,11)]
 
 # Saving the data
-write.csv(CrimesMarriagesGraduates2013, file = "data/CrimesMarriagesGraduates2013.csv")
+write.csv(CrimesMarriagesGraduatesLabor2013, file = "data/CrimesMarriagesGraduatesLabor2013.csv")
 
 # Linear regression model 
-regrobbery <- lm(robbery ~ GraduatesWithHouthDegreeTotal + HusbandAndWifeTotal, data=CrimesMarriagesGraduates2013)
+regrobbery <- lm(robbery ~ 
+                   GraduatesWithHouthDegreeTotal + 
+                   HusbandAndWifeTotal +
+                   UnemployedPercentage, 
+                 data=CrimesMarriagesGraduatesLabor2013)
 summary(regrobbery)
 
 # After running regression
