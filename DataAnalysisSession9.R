@@ -74,7 +74,7 @@ CrimesMarriagesGraduatesLabor2013 <- CrimesMarriagesGraduatesLabor2013[,-c(4,10,
 write.csv(CrimesMarriagesGraduatesLabor2013, file = "data/CrimesMarriagesGraduatesLabor2013.csv")
 
 ########################
-# Geo codes
+# Geo codes and maps 
 ########################
 
 # Creating a variable countaining the names of districts
@@ -120,6 +120,7 @@ CrimesMarriagesGraduatesLaborGeo2013[,8] <- as.numeric(as.character(CrimesMarria
 GermanyPoints <- ggmap(GermanyGoogle) + 
   geom_point(aes(x = lon, y = lat, size = robbery), data = CrimesMarriagesGraduatesLaborGeo2013, alpha = .5)
 GermanyPoints
+rm(GermanyGoogle)
 rm(GermanyPoints)
 
 ########################
