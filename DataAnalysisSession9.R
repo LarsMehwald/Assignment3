@@ -96,13 +96,31 @@ summary(districtLonLat$lat) # This all seems reasonable
 # Combining the data frames 
 CrimesMarriagesGraduatesLaborGeo2013 <- cbind(CrimesMarriagesGraduatesLabor2013, districtLonLat)
 rm(CrimesMarriagesGraduatesLabor2013)
-# rm(districtLonLat)
+rm(districtLonLat)
+
+# The following section has been developed on the basis of:
+# http://www.milanor.net/blog/?p=594
 
 # Creating a map
-newmap <- getMap(resolution = "low")
-plot(newmap, xlim = c(8, 13), ylim = c(46, 56), asp = 1)
+Germany <- getMap(resolution = "low") # from rworldmap package 
+plot(Germany, xlim = c(8, 13), ylim = c(46, 56), asp = 1)
+points(CrimesMarriagesGraduatesLaborGeo2013$lon, CrimesMarriagesGraduatesLaborGeo2013$lat, col = "red", cex = .6) # cex defines diameter of circle 
+rm(Germany)
 
+# Alternative map (using ggmap)
+EuropeGoogle <- get_map(location = 'Europe', zoom = 4) 
+# zoom is independent of the location selected
+# location centers the map 
+ggmap(EuropeGoogle)
+rm(EuropeGoogle)
 
+GermanyGoogle <- get_map(location = 'Germany', zoom = 6)
+ggmap(GermanyGoogle)
+CrimesMarriagesGraduatesLaborGeo2013[,8] <- as.numeric(as.character(CrimesMarriagesGraduatesLaborGeo2013[,8]))
+GermanyPoints <- ggmap(GermanyGoogle) + 
+  geom_point(aes(x = lon, y = lat, size = robbery), data = CrimesMarriagesGraduatesLaborGeo2013, alpha = .5)
+GermanyPoints
+rm(GermanyPoints)
 
 ########################
 # Linear regression
