@@ -21,6 +21,7 @@ library("lmtest")
 library("sandwich")
 library("Zelig") # capital letter Z
 library("ggmap")
+library("rworldmap")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -96,6 +97,10 @@ summary(districtLonLat$lat) # This all seems reasonable
 CrimesMarriagesGraduatesLaborGeo2013 <- cbind(CrimesMarriagesGraduatesLabor2013, districtLonLat)
 rm(CrimesMarriagesGraduatesLabor2013)
 # rm(districtLonLat)
+
+# Creating a map
+newmap <- getMap(resolution = "low")
+plot(newmap, xlim = c(8, 13), ylim = c(46, 56), asp = 1)
 
 
 
