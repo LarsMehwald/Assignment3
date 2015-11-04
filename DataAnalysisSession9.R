@@ -20,6 +20,7 @@ library("texreg")
 library("lmtest")
 library("sandwich")
 library("Zelig") # capital letter Z
+library("ggmap")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -65,11 +66,42 @@ rm(Marriages_2013)
 rm(Graduates)
 rm(LaborMarket)
 
-# Removing redundant variables
-CrimesMarriagesGraduatesLabor2013 <- CrimesMarriagesGraduatesLabor2013[,-c(3,9,11)]
+# Removing redundant variables (year variables)
+CrimesMarriagesGraduatesLabor2013 <- CrimesMarriagesGraduatesLabor2013[,-c(4,10,12,19)]
 
 # Saving the data
 write.csv(CrimesMarriagesGraduatesLabor2013, file = "data/CrimesMarriagesGraduatesLabor2013.csv")
+
+########################
+# Geo codes
+########################
+
+# Creating a variable countaining the names of districts
+DistrictNames <- CrimesMarriagesGraduatesLabor2013$districtName
+length(DistrictNames) # Checking whether all observations are contained in var
+DistrictNames <- as.character(DistrictNames)
+class(DistrictNames)
+
+# Creating a geo code for every district (using ggmap)
+# districtLonLat <- geocode(DistrictNames, source="google", messaging=FALSE) # takes a lot of time!
+# write.csv(districtLonLat, file = "data/districtLonLat.csv")
+districtLonLat <- read.csv("data/districtLonLat.csv")
+rm(DistrictNames)
+
+# Checking whether Lon Lat has reasonable values
+summary(districtLonLat$lon) # Some values are extremely small
+summary(districtLonLat$lat) # This all seems reasonable 
+
+# Combining the data frames 
+CrimesMarriagesGraduatesLaborGeo2013 <- cbind(CrimesMarriagesGraduatesLabor2013, districtLonLat)
+rm(CrimesMarriagesGraduatesLabor2013)
+# rm(districtLonLat)
+
+
+
+########################
+# Linear regression
+########################
 
 # Linear regression model 
 regrobbery <- lm(robbery ~ 
