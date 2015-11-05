@@ -9,7 +9,7 @@
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
               "ggmap", "rworldmap")
-lapply(Packages, require, character.only = TRUE, suppressPackageStartupMessages)
+lapply(Packages, require, character.only = TRUE)
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -44,9 +44,11 @@ summary(regrobbery)
 # as.data.frame(regrobbery_res)
 
 # Creating table output 
+
 stargazer(regrobbery, 
           type = "latex",
-          title = "",
+          header = FALSE, # important not to have stargazer information in markdown file 
+          title = "Regression analysis regarding robbery",
           digits = 2)
 
 rm(regrobbery)

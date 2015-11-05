@@ -9,11 +9,12 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Stargazer output 
+## Regression analysis 
 
-```{r plot, echo=FALSE, results='asis', message=FALSE, cache=TRUE}
+```{r plot, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 # It is important to add asis in order for markdown to compile the document 
+# If cache is added then it is not re-run, even if file changes
 # Info on options: http://yihui.name/knitr/options/
 
 source("DataAnalysis.R")
