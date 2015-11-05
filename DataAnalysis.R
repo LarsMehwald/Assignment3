@@ -2,7 +2,7 @@
 # Lars Mehwald and Daniel Salgado Moreno
 # 13 November 2015
 # Assignment 3
-# Creating maps with geocoding and geolocation
+# Data analysis
 ########################
 
 # Loading required packages 
@@ -23,18 +23,31 @@ LoadandCite(Packages, file = 'References/RpackageCitations.bib')
 rm(Packages)
 
 # Loading data set from csv file
-CrimesMarriagesGraduatesLabor2013 <- read.csv(file="data/CrimesMarriagesGraduatesLabor2013.csv")
+DATA <- read.csv(file="data/CrimesMarriagesGraduatesLaborPopulation2013.csv")
+
+########################
+# Creation of relative measurements
+########################
+
+# Percentage of robbery (could be more than 100%)
+DATA$robberyRel <- DATA$robbery / DATA$PopulationTotal * 100
+
+# Percentage of graduates without degree
+DATA$GraduatesWithHouthDegreeRel <- DATA$GraduatesWithHouthDegreeTotal / DATA$PopulationTotal * 100
+
+# Percentage of marraiged persons 
+DATA$marriageRel <- DATA$HusbandAndWifeTotal / DATA$PopulationTotal * 100
 
 ########################
 # Linear regression
 ########################
 
 # Linear regression model 
-regrobbery <- lm(robbery ~ 
-                   GraduatesWithHouthDegreeTotal + 
-                   HusbandAndWifeTotal +
+regrobbery <- lm(robberyRel ~ 
+                   GraduatesWithHouthDegreeRel + 
+                   marriageRel +
                    UnemployedPercentage, 
-                 data=CrimesMarriagesGraduatesLabor2013)
+                 data=DATA)
 summary(regrobbery)
 
 # After running regression
