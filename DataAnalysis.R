@@ -45,6 +45,8 @@ summary(regrobbery)
 
 # Creating table output 
 stargazer(regrobbery, 
-          title = 'Logistic Regression Estimates of Grad School Acceptance',
+          type = "latex",
+          title = "",
           digits = 2)
+
 rm(regrobbery)

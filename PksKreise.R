@@ -69,7 +69,6 @@ rm(PKS_Kreise_13_spread)
 
 # Changing the class of variables
 PKS_Kreise_13[,2] <- as.numeric(as.character(PKS_Kreise_13[,2]))
-PKS_Kreise_13[,3] <- as.numeric(as.character(PKS_Kreise_13[,3]))
 PKS_Kreise_13[,4] <- as.numeric(as.character(PKS_Kreise_13[,4]))
 PKS_Kreise_13[,5] <- as.numeric(as.character(PKS_Kreise_13[,5]))
 PKS_Kreise_13[,6] <- as.numeric(as.character(PKS_Kreise_13[,6]))
