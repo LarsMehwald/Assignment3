@@ -54,7 +54,7 @@ Graduates[,6] <- as.numeric(as.character(Graduates[,6]))
 Graduates[,7] <- as.numeric(as.character(Graduates[,7]))
 Graduates[,8] <- as.numeric(as.character(Graduates[,8]))
 
-# Removing higher political units (they are coded with numbers below 1000)
+# Removing higher political units, which are coded with numbers below 1000 (Länder) 
 # Hamburg and Berlin problematic: they have no further subunits 
 # Extract them first and then rbind them after all smaller units are removed 
 # 17 (02) is Hamburg; 365 is Berlin (11)
