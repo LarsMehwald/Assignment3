@@ -23,7 +23,7 @@ LoadandCite(Packages, file = 'References/RpackageCitations.bib')
 rm(Packages)
 
 # Loading data set from csv file
-CrimesMarriagesGraduatesLabor2013<-read.csv(file="data/CrimesMarriagesGraduatesLabor2013.csv")
+CrimesMarriagesGraduatesLabor2013 <- read.csv(file="data/CrimesMarriagesGraduatesLabor2013.csv")
 
 ########################
 # Linear regression
@@ -47,3 +47,4 @@ summary(regrobbery)
 stargazer(regrobbery, 
           title = 'Logistic Regression Estimates of Grad School Acceptance',
           digits = 2)
+rm(regrobbery)

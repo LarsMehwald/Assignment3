@@ -12,8 +12,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Stargazer output 
 
 ```{r plot, echo=FALSE, message=FALSE, cache=TRUE}
-source("DataAnalysisSession9.R")
-rm(regrobbery)
-regrobbery <- lm(robbery ~ GraduatesWithHouthDegreeTotal + HusbandAndWifeTotal, data=CrimesMarriagesGraduates2013)
+source("DataAnalysis.R")
+
+regrobbery <- lm(robbery ~ 
+                   GraduatesWithHouthDegreeTotal +
+                   HusbandAndWifeTotal,
+                 data=CrimesMarriagesGraduatesLabor2013)
 stargazer(regrobbery, type = "latex")
 ```
