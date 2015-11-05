@@ -9,7 +9,7 @@
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
               "ggmap", "rworldmap")
-lapply(Packages, require, character.only = TRUE)
+lapply(Packages, require, character.only = TRUE) 
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -23,20 +23,23 @@ LoadandCite(Packages, file = 'References/RpackageCitations.bib')
 rm(Packages)
 
 # Loading data set from csv file
-DATA <- read.csv(file="data/CrimesMarriagesGraduatesLaborPopulation2013.csv")
+DATA <- read.csv(file="data/DistrictDataCrimeRate2013.csv")
 
 ########################
 # Creation of relative measurements
 ########################
 
 # Percentage of robbery (could be more than 100%)
-DATA$robberyRel <- DATA$robbery / DATA$PopulationTotal * 100
+DATA$robberyRel <- DATA$robbery / DATA$TotalPopulation * 100
 
 # Percentage of graduates without degree
-DATA$GraduatesWithHouthDegreeRel <- DATA$GraduatesWithHouthDegreeTotal / DATA$PopulationTotal * 100
+DATA$GraduatesWithHouthDegreeRel <- DATA$GraduatesWithHouthDegreeTotal / DATA$TotalPopulation * 100
 
 # Percentage of marraiged persons 
-DATA$marriageRel <- DATA$HusbandAndWifeTotal / DATA$PopulationTotal * 100
+DATA$marriageRel <- DATA$HusbandAndWifeTotal / DATA$TotalPopulation * 100
+
+# Percentage of male population
+DATA$MalePopulationRel <- DATA$MalePopulation / DATA$TotalPopulation * 100
 
 ########################
 # Linear regression
@@ -46,7 +49,9 @@ DATA$marriageRel <- DATA$HusbandAndWifeTotal / DATA$PopulationTotal * 100
 regrobbery <- lm(robberyRel ~ 
                    GraduatesWithHouthDegreeRel + 
                    marriageRel +
-                   UnemployedPercentage, 
+                   UnemployedPercentage +
+                   DensityPerSQRTkm +
+                   MalePopulationRel,
                  data=DATA)
 summary(regrobbery)
 
@@ -63,5 +68,4 @@ stargazer(regrobbery,
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding robbery",
           digits = 2)
-
 rm(regrobbery)

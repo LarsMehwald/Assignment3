@@ -28,11 +28,11 @@ DistrictData <- read.csv (file = "data/mergedDistrictCrime2013.csv")
 # Remove automatic generated "x" variable in the first column.
 DistrictData <- DistrictData[,-c(1)]
 
-# Generating Crime rate variable: 
+# Generating Crime rate variable for robberies: 
 # #Crimes / Total Population * 100,000
 CrimeRate <- DistrictData$robbery / DistrictData$TotalPopulation * 100000
 
-# Adding new variable Crime Rate to District Data Frame
+# Adding new variable Robbery Crime Rate to District Data Frame
 DistrictData <- cbind(DistrictData, CrimeRate)
 
 # Saving data
