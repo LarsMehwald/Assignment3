@@ -7,21 +7,10 @@
 ########################
 
 # Loading required packages 
-library("rio")
-library("dplyr")
-library("tidyr")
-library("repmis")
-library("httr")
-library("knitr")
-library("ggplot2")
-library("xtable")
-library("stargazer")
-library("texreg")
-library("lmtest")
-library("sandwich")
-library("Zelig") # capital letter Z
-library("ggmap")
-library("rworldmap")
+Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
+          "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
+          "ggmap", "rworldmap")
+lapply(Packages, require, character.only = TRUE, suppressPackageStartupMessages)
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -31,21 +20,8 @@ rm(possible_dir)
 # setwd("D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3")
 
 # Citing R packages 
-pkgs <- c('dplyr', 
-          'ggplot2', 
-          'rio', 
-          'tidyr', 
-          'repmis', 
-          'httr',
-          'knitr',
-          'xtable',
-          'stargazer',
-          'texreg',
-          'lmtest',
-          'sandwich',
-          'Zelig')
-LoadandCite(pkgs, file = 'References/RpackageCitations.bib')
-rm(pkgs)
+LoadandCite(Packages, file = 'References/RpackageCitations.bib')
+rm(Packages)
 
 # Sourcing the R files that load and prepare data
 source("PksKreise.R")
