@@ -11,7 +11,7 @@ PKS_Kreise_13_14 <- read.csv(URL_PKS_Kreise_13_14, sep=";")
 rm(URL_PKS_Kreise_13_14)
 
 # Delete (for now) unimportant variables
-PKS_Kreise_13_14 <- PKS_Kreise_13_14[,-c(1, 4, 7:15)]
+PKS_Kreise_13_14 <- PKS_Kreise_13_14[,-c(1, 7:15)]
 
 # Renaming manually 
 NameofVariables <- c("Straftat", "Gemeindeschluessel", "GemeindeName", "2014 - erfasste Faelle", "2013 - erfasste Faelle")
