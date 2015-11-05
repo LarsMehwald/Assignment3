@@ -9,19 +9,18 @@
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
           "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-          "ggmap", "rworldmap")
-lapply(Packages, require, character.only = TRUE, suppressPackageStartupMessages)
+          "ggmap", "rworldmap", "sp", "RColorBrewer")
+lapply(Packages, require, character.only = TRUE)
+
+# Citing R packages 
+LoadandCite(Packages, file = 'References/RpackageCitations.bib')
+rm(Packages)
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
 set_valid_wd(possible_dir)
 rm(possible_dir)
-# setwd("D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3")
-
-# Citing R packages 
-LoadandCite(Packages, file = 'References/RpackageCitations.bib')
-rm(Packages)
 
 # Sourcing the R files that load and prepare data
 source("PksKreise.R")
@@ -47,57 +46,13 @@ rm(LaborMarket)
 CrimesMarriagesGraduatesLabor2013 <- CrimesMarriagesGraduatesLabor2013[,-c(4,10,12,19)]
 
 # Saving the data
-write.csv(CrimesMarriagesGraduatesLabor2013, file = "data/CrimesMarriagesGraduatesLabor2013.csv")
+# write.csv(CrimesMarriagesGraduatesLabor2013, file = "data/CrimesMarriagesGraduatesLabor2013.csv")
 
 ########################
 # Geo codes and maps 
 ########################
 
-# Creating a variable countaining the names of districts
-DistrictNames <- CrimesMarriagesGraduatesLabor2013$districtName
-length(DistrictNames) # Checking whether all observations are contained in var
-DistrictNames <- as.character(DistrictNames)
-class(DistrictNames)
-
-# Creating a geo code for every district (using ggmap)
-# districtLonLat <- geocode(DistrictNames, source="google", messaging=FALSE) # takes a lot of time!
-# write.csv(districtLonLat, file = "data/districtLonLat.csv")
-districtLonLat <- read.csv("data/districtLonLat.csv")
-rm(DistrictNames)
-
-# Checking whether Lon Lat has reasonable values
-summary(districtLonLat$lon) # Some values are extremely small
-summary(districtLonLat$lat) # This all seems reasonable 
-
-# Combining the data frames 
-CrimesMarriagesGraduatesLaborGeo2013 <- cbind(CrimesMarriagesGraduatesLabor2013, districtLonLat)
-rm(CrimesMarriagesGraduatesLabor2013)
-rm(districtLonLat)
-
-# The following section has been developed on the basis of:
-# http://www.milanor.net/blog/?p=594
-
-# Creating a map
-Germany <- getMap(resolution = "low") # from rworldmap package 
-plot(Germany, xlim = c(8, 13), ylim = c(46, 56), asp = 1)
-points(CrimesMarriagesGraduatesLaborGeo2013$lon, CrimesMarriagesGraduatesLaborGeo2013$lat, col = "red", cex = .6) # cex defines diameter of circle 
-rm(Germany)
-
-# Alternative map (using ggmap)
-EuropeGoogle <- get_map(location = 'Europe', zoom = 4) 
-# zoom is independent of the location selected
-# location centers the map 
-ggmap(EuropeGoogle)
-rm(EuropeGoogle)
-
-GermanyGoogle <- get_map(location = 'Germany', zoom = 6)
-ggmap(GermanyGoogle)
-CrimesMarriagesGraduatesLaborGeo2013[,8] <- as.numeric(as.character(CrimesMarriagesGraduatesLaborGeo2013[,8]))
-GermanyPoints <- ggmap(GermanyGoogle) + 
-  geom_point(aes(x = lon, y = lat, size = robbery), data = CrimesMarriagesGraduatesLaborGeo2013, alpha = .5)
-GermanyPoints
-rm(GermanyGoogle)
-rm(GermanyPoints)
+# source("GeoCodesMaps.R")
 
 ########################
 # Linear regression
