@@ -5,6 +5,12 @@
 # PKS data: Kreise 2013 2014
 ########################
 
+# Setting the commonly used working directory
+possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
+                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
+set_valid_wd(possible_dir)
+rm(possible_dir)
+
 # Scrapping the data
 URL_PKS_Kreise_13_14 <- "http://www.bka.de/SharedDocs/Downloads/DE/Publikationen/PolizeilicheKriminalstatistik/2014/BKATabellen/FaelleLaenderKreiseStaedte/tb01__FaelleGrundtabelleKreiseFallentwicklung__csv,templateId=raw,property=publicationFile.csv/tb01__FaelleGrundtabelleKreiseFallentwicklung__csv.csv"
 PKS_Kreise_13_14 <- read.csv(URL_PKS_Kreise_13_14, sep=";")

@@ -27,24 +27,28 @@ source("PksKreise.R")
 source("Marriage.R")
 source("Graduates.R")
 source("LaborMarket.R")
+source("Population.R")
 
 # Merging the data frames by district
 # Districts that have no corresponding district are dropped
 CrimesMarriages2013 <- merge(PKS_Kreise_13, Marriages_2013, by="district")
 CrimesMarriagesGraduates2013 <- merge(CrimesMarriages2013, Graduates, by="district")
 CrimesMarriagesGraduatesLabor2013 <- merge(CrimesMarriagesGraduates2013, LaborMarket, by="district")
+CrimesMarriagesGraduatesLaborPopulation2013 <- merge(CrimesMarriagesGraduatesLabor2013, Population, by="district")
 rm(CrimesMarriages2013)
 rm(CrimesMarriagesGraduates2013)
+rm(CrimesMarriagesGraduatesLabor2013)
 
 # Removing individual data frames
 rm(PKS_Kreise_13)
 rm(Marriages_2013)
 rm(Graduates)
 rm(LaborMarket)
+rm(Population)
 
 # Removing redundant variables (year variables)
-CrimesMarriagesGraduatesLabor2013 <- CrimesMarriagesGraduatesLabor2013[,-c(4,10,12,19)]
+CrimesMarriagesGraduatesLaborPopulation2013 <- CrimesMarriagesGraduatesLaborPopulation2013[,-c(4,10,12,19)]
 
 # Saving the data
-write.csv(CrimesMarriagesGraduatesLabor2013, file = "data/CrimesMarriagesGraduatesLabor2013.csv")
+write.csv(CrimesMarriagesGraduatesLaborPopulation2013, file = "data/CrimesMarriagesGraduatesLaborPopulation2013.csv")
 

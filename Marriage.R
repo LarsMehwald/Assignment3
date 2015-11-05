@@ -5,6 +5,12 @@
 # Loading Marriage data from the SBA
 ########################
 
+# Setting the commonly used working directory
+possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
+                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
+set_valid_wd(possible_dir)
+rm(possible_dir)
+
 # Reading Marriages 2013 csv file 
 Marriages_2013 <- read.csv(file="data/177-31-4_Marriages_2013.csv", 
                            sep=";", 
