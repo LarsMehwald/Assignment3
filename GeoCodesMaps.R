@@ -1,4 +1,11 @@
 ########################
+# Lars Mehwald and Daniel Salgado Moreno
+# 13 November 2015
+# Assignment 3
+# Creating maps with geocoding and geolocation
+########################
+
+########################
 # Geo codes and maps 
 ########################
 
@@ -18,6 +25,7 @@ pkgs <- c('ggmap',
 LoadandCite(pkgs, file = 'References/RpackageCitationsGeoMap.bib')
 rm(pkgs)
 
+# Loading data set from csv file
 CrimesMarriagesGraduatesLabor2013<-read.csv(file="data/CrimesMarriagesGraduatesLabor2013.csv")
 
 # Creating a variable countaining the names of districts

@@ -3,7 +3,6 @@
 # 13 November 2015
 # Assignment 3
 # Loading data, merging, 
-# analyses
 ########################
 
 # Loading required packages 
@@ -49,25 +48,3 @@ CrimesMarriagesGraduatesLabor2013 <- CrimesMarriagesGraduatesLabor2013[,-c(4,10,
 # Saving the data
 write.csv(CrimesMarriagesGraduatesLabor2013, file = "data/CrimesMarriagesGraduatesLabor2013.csv")
 
-########################
-# Linear regression
-########################
-
-# Linear regression model 
-regrobbery <- lm(robbery ~ 
-                   GraduatesWithHouthDegreeTotal + 
-                   HusbandAndWifeTotal +
-                   UnemployedPercentage, 
-                 data=CrimesMarriagesGraduatesLabor2013)
-summary(regrobbery)
-
-# After running regression
-# regrobbery_hat <- fitted(regrobbery) #predicted values
-# as.data.frame(regrobbery_hat)
-# regrobbery_res <- residuals(regrobbery) #residuals 
-# as.data.frame(regrobbery_res)
-
-# Creating table output 
-stargazer(regrobbery, 
-          title = 'Logistic Regression Estimates of Grad School Acceptance',
-          digits = 2)
