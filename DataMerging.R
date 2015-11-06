@@ -34,7 +34,8 @@ source("Religion.R")
 #source("GermanElections2013.R")
 
 # Merging the data frames by district
-# Districts that have no corresponding district are dropped
+# Districts that are not matched with a corresponding district are dropped
+# Only mathched observations are kept. 
 CrimesMarriages2013 <- merge(PKS_Kreise_13, Marriages_2013, by="district")
 CrimesMarriagesGraduates2013 <- merge(CrimesMarriages2013, Graduates, by="district")
 CrimesMarriagesGraduatesLabor2013 <- merge(CrimesMarriagesGraduates2013, LaborMarket, by="district")
@@ -72,6 +73,9 @@ DistrictData <- cbind(DistrictData, CrimeRate)
 
 # Removing redundant variables (year variables)
 DistrictData <- DistrictData[,-c(4,10,12,19)]
+
+# Rearrenging variable order: bringin Year to the 2 position
+DistrictData <- DistrictData[,c(1,29,2:28,30:36)]
 
 # Saving the data
 write.csv(DistrictData, file = "data/DistrictData2013.csv")
