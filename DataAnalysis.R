@@ -92,4 +92,4 @@ stargazer(regrobbery1, regrobbery2, regrobbery3, regrobbery4,
           title = "Regression analysis regarding robbery",
           digits = 2)
 
-rm(c(regrobbery1, regrobbery2, regrobbery3, regrobbery4))
+rm(regrobbery1, regrobbery2, regrobbery3, regrobbery4)
