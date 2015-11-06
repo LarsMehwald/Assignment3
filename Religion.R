@@ -11,6 +11,9 @@ possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to
 set_valid_wd(possible_dir)
 rm(possible_dir)
 
+# Loading requires packages 
+library("tidyr")
+
 # Reading Religion 2011 csv file 
 Religion <- read.csv(file="data/160-04-4_Religion_2011.csv", 
                            sep=";", 
@@ -36,16 +39,16 @@ Religion <- Religion[,-c(2,5:8)]
 
 # Changing the class of Variables 
 Religion[,1] <- as.numeric(as.character(Religion[,1]))
-Religion[,2] <- as.numeric(as.character(Religion[,2]))
 Religion[,3] <- as.numeric(as.character(Religion[,3]))
 
 # Spreading the data 
+Religion <- spread(Religion, "religion", "BelieversTotal")
 
 # Problem with Hamburg and Berlin: recoding
-MarriageBerHam <- Marriages_2013[c(17, 365),]
-Marriages_2013 <- Marriages_2013[Marriages_2013$district > 1000,]
-Marriages_2013 <- rbind(Marriages_2013, MarriageBerHam)
-rm(MarriageBerHam)
+ReligionBerHam <- Religion[c(2, 11),]
+Religion <- Religion[Religion$district > 1000,]
+Religion <- rbind(Religion, ReligionBerHam)
+rm(ReligionBerHam)
 
 # Saving the data
-write.csv(Marriages_2013, file = "data/Marriages2013.csv")
+write.csv(Religion, file = "data/Religion.csv")
