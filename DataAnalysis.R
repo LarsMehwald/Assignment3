@@ -45,15 +45,39 @@ DATA$MalePopulationRel <- DATA$MalePopulation / DATA$TotalPopulation * 100
 # Linear regression
 ########################
 
-# Linear regression model 
-regrobbery <- lm(robberyRel ~ 
+# Linear regression model 1
+regrobbery1 <- lm(robberyRel ~ 
+                   GraduatesWithHouthDegreeRel + 
+                   marriageRel,
+                 data=DATA)
+summary(regrobbery1)
+
+# Linear regression model 2
+regrobbery2 <- lm(robberyRel ~ 
+                   GraduatesWithHouthDegreeRel + 
+                   marriageRel +
+                   UnemployedPercentage,
+                 data=DATA)
+summary(regrobbery2)
+
+# Linear regression model 3
+regrobbery3 <- lm(robberyRel ~ 
                    GraduatesWithHouthDegreeRel + 
                    marriageRel +
                    UnemployedPercentage +
-                   DensityPerSQRTkm +
-                   MalePopulationRel,
+                   DensityPerSQRTkm,
                  data=DATA)
-summary(regrobbery)
+summary(regrobbery3)
+
+# Linear regression model 4
+regrobbery4 <- lm(robberyRel ~ 
+                    GraduatesWithHouthDegreeRel + 
+                    marriageRel +
+                    UnemployedPercentage +
+                    DensityPerSQRTkm +
+                    MalePopulationRel,
+                  data=DATA)
+summary(regrobbery4)
 
 # After running regression
 # regrobbery_hat <- fitted(regrobbery) #predicted values
@@ -62,10 +86,10 @@ summary(regrobbery)
 # as.data.frame(regrobbery_res)
 
 # Creating table output 
-
-stargazer(regrobbery, 
+stargazer(regrobbery1, regrobbery2, regrobbery3, regrobbery4,
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding robbery",
           digits = 2)
-rm(regrobbery)
+
+rm(c(regrobbery1, regrobbery2, regrobbery3, regrobbery4))
