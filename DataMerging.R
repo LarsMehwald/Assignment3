@@ -31,7 +31,7 @@ source("Popdensity.R")
 source("PopAgeGroup.R")
 source("Migration.R")
 source("Religion.R")
-#source("GermanElections2013.R")
+source("Elections.R")
 
 # Merging the data frames by district
 # Districts that are not matched with a corresponding district are dropped
@@ -43,6 +43,7 @@ CrimesMarriagesGraduatesLaborPopdensity2013 <- merge(CrimesMarriagesGraduatesLab
 CrMaGrLaPoDPoA <- merge(CrimesMarriagesGraduatesLaborPopdensity2013, PopAgeGroup, by="district")
 CrMaGrLaPoDPoAMi <- merge(CrMaGrLaPoDPoA, Migration, by="district")
 CrMaGrLaPoDPoAMiRe <- merge(CrMaGrLaPoDPoAMi, Religion, by="district")
+
 rm(CrimesMarriages2013)
 rm(CrimesMarriagesGraduates2013)
 rm(CrimesMarriagesGraduatesLabor2013)
