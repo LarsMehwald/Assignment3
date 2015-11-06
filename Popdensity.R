@@ -9,7 +9,7 @@
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
               "ggmap", "rworldmap")
-lapply(Packages, require, character.only = TRUE, suppressPackageStartupMessages)
+lapply(Packages, require, character.only = TRUE)
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
