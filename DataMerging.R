@@ -28,6 +28,7 @@ source("Marriage.R")
 source("Graduates.R")
 source("LaborMarket.R")
 source("Popdensity.R")
+source("PopAgeGroup.R")
 
 # Merging the data frames by district
 # Districts that have no corresponding district are dropped
@@ -35,9 +36,11 @@ CrimesMarriages2013 <- merge(PKS_Kreise_13, Marriages_2013, by="district")
 CrimesMarriagesGraduates2013 <- merge(CrimesMarriages2013, Graduates, by="district")
 CrimesMarriagesGraduatesLabor2013 <- merge(CrimesMarriagesGraduates2013, LaborMarket, by="district")
 CrimesMarriagesGraduatesLaborPopdensity2013 <- merge(CrimesMarriagesGraduatesLabor2013, Popdensity, by="district")
+DistrictData <- merge(CrimesMarriagesGraduatesLaborPopdensity2013, PopAgeGroup, by="district")
 rm(CrimesMarriages2013)
 rm(CrimesMarriagesGraduates2013)
 rm(CrimesMarriagesGraduatesLabor2013)
+rm(CrimesMarriagesGraduatesLaborPopdensity2013)
 
 # Removing individual data frames
 rm(PKS_Kreise_13)
@@ -45,10 +48,18 @@ rm(Marriages_2013)
 rm(Graduates)
 rm(LaborMarket)
 rm(Popdensity)
+rm(PopAgeGroup)
+
+# Generating Crime rate variable for robberies: 
+# #Crimes / Total Population * 100,000
+CrimeRate <- DistrictData$robbery / DistrictData$TotalPopulation * 100000
+
+# Adding new variable Robbery Crime Rate to District Data Frame
+DistrictData <- cbind(DistrictData, CrimeRate)
 
 # Removing redundant variables (year variables)
-CrimesMarriagesGraduatesLaborPopdensity2013 <- CrimesMarriagesGraduatesLaborPopdensity2013[,-c(4,10,12,19)]
+DistrictData <- DistrictData[,-c(4,10,12,19)]
 
 # Saving the data
-write.csv(CrimesMarriagesGraduatesLaborPopdensity2013, file = "data/mergedDistrictCrime2013.csv")
+write.csv(DistrictData, file = "data/DistrictData2013.csv")
 

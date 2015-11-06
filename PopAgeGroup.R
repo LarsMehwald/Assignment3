@@ -17,7 +17,7 @@ possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to
 set_valid_wd(possible_dir)
 rm(possible_dir)
 
-popagegroup <- read.csv(file="data/PopAge.csv",
+PopAgeGroup <- read.csv(file="data/PopAge.csv",
                           sep=",", 
                           dec=",",
                           na.strings=c("."), 
@@ -35,18 +35,26 @@ popagegroup <- read.csv(file="data/PopAge.csv",
                           ))
 
 # Removing not relevant rows
-popagegroup <- popagegroup[-c(524:530),]
+PopAgeGroup <- PopAgeGroup[-c(524:530),]
 
 # Saving Berlin and Hamburg and removing all regional observations
 #Berlin 364 and Hamburg 16
-popagegroupBerHam <- popagegroup[c(16,364),]
-popagegroup <- popagegroup[popagegroup$district > 1000,]
-popagegroup <- rbind(popagegroup, popagegroupBerHam)
-rm(popagegroupBerHam)
+PopAgeGroupBerHam <- PopAgeGroup[c(16,364),]
+PopAgeGroup <- PopAgeGroup[PopAgeGroup$district > 1000,]
+PopAgeGroup <- rbind(PopAgeGroup, PopAgeGroupBerHam)
+rm(PopAgeGroupBerHam)
 
 # Preparing for merging: deleting some columns 
-popagegroup <- popagegroup[,-c(1,3)]
+PopAgeGroup <- PopAgeGroup[,-c(1,3)]
+
+# Changing the class of Variables 
+PopAgeGroup[,1] <- as.numeric(as.character(PopAgeGroup[,1]))
+PopAgeGroup[,2] <- as.numeric(as.character(PopAgeGroup[,2]))
+PopAgeGroup[,3] <- as.numeric(as.character(PopAgeGroup[,3]))
+PopAgeGroup[,4] <- as.numeric(as.character(PopAgeGroup[,4]))
+PopAgeGroup[,5] <- as.numeric(as.character(PopAgeGroup[,5]))
+PopAgeGroup[,6] <- as.numeric(as.character(PopAgeGroup[,6]))
 
 #saving population groups data frame 
-write.csv(popagegroup, file = "data/PopAgeGroup.csv")
+write.csv(PopAgeGroup, file = "data/PopAgeGroup.csv")
 
