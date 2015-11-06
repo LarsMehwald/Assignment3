@@ -29,6 +29,9 @@ source("Graduates.R")
 source("LaborMarket.R")
 source("Popdensity.R")
 source("PopAgeGroup.R")
+source("Migration.R")
+source("Religion.R")
+#source("GermanElections2013.R")
 
 # Merging the data frames by district
 # Districts that have no corresponding district are dropped
@@ -36,11 +39,15 @@ CrimesMarriages2013 <- merge(PKS_Kreise_13, Marriages_2013, by="district")
 CrimesMarriagesGraduates2013 <- merge(CrimesMarriages2013, Graduates, by="district")
 CrimesMarriagesGraduatesLabor2013 <- merge(CrimesMarriagesGraduates2013, LaborMarket, by="district")
 CrimesMarriagesGraduatesLaborPopdensity2013 <- merge(CrimesMarriagesGraduatesLabor2013, Popdensity, by="district")
-DistrictData <- merge(CrimesMarriagesGraduatesLaborPopdensity2013, PopAgeGroup, by="district")
+CrMaGrLaPoDPoA <- merge(CrimesMarriagesGraduatesLaborPopdensity2013, PopAgeGroup, by="district")
+CrMaGrLaPoDPoAMi <- merge(CrMaGrLaPoDPoA, Migration, by="district")
+CrMaGrLaPoDPoAMiRe <- merge(CrMaGrLaPoDPoAMi, Religion, by="district")
 rm(CrimesMarriages2013)
 rm(CrimesMarriagesGraduates2013)
 rm(CrimesMarriagesGraduatesLabor2013)
 rm(CrimesMarriagesGraduatesLaborPopdensity2013)
+rm(CrMaGrLaPoDPoA)
+rm(CrMaGrLaPoDPoAMi)
 
 # Removing individual data frames
 rm(PKS_Kreise_13)
@@ -49,6 +56,12 @@ rm(Graduates)
 rm(LaborMarket)
 rm(Popdensity)
 rm(PopAgeGroup)
+rm(Migration)
+rm(Religion)
+
+#Renaming Data Frame
+DistrictData <- CrMaGrLaPoDPoAMiRe
+rm(CrMaGrLaPoDPoAMiRe)
 
 # Generating Crime rate variable for robberies: 
 # #Crimes / Total Population * 100,000
