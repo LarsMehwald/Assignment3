@@ -74,7 +74,7 @@ DistrictData <- cbind(DistrictData, CrimeRate)
 # Removing redundant variables (year variables)
 DistrictData <- DistrictData[,-c(4,10,12,19)]
 
-# Rearrenging variable order: bringin Year to the 2 position
+# Rearranging variable order: bringin Year to the 2 position
 DistrictData <- DistrictData[,c(1,29,2:28,30:36)]
 
 # Saving the data
