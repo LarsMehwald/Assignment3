@@ -23,7 +23,7 @@ LoadandCite(Packages, file = 'References/RpackageCitations.bib')
 rm(Packages)
 
 # Downloading of data
-GermanElection <- read.csv(file = "data/GermanElections2013.csv", 
+Election <- read.csv(file = "data/GermanElections2013.csv", 
                            sep=";", 
                            na.strings = "-",
                            nrows = 535,
@@ -44,30 +44,30 @@ GermanElection <- read.csv(file = "data/GermanElections2013.csv",
 )
 
 # Removing observation for Germany as a whole
-GermanElection <- GermanElection[-1,]
+Election <- Election[-1,]
 
 # Removing some variables
-GermanElection <- GermanElection[,-c(1,3,6)]
+Election <- Election[,-c(1,3,6)]
 
 # Changing comma as seperator for values to points
-GermanElection$TurnoutPercentage <- gsub(",", ".", GermanElection$TurnoutPercentage)
+Election$TurnoutPercentage <- gsub(",", ".", Election$TurnoutPercentage)
 
 # Changing the class of variables
-GermanElection[,1] <- as.numeric(as.character(GermanElection[,1]))
-GermanElection[,2] <- as.numeric(as.character(GermanElection[,2]))
-GermanElection[,3] <- as.numeric(as.character(GermanElection[,3]))
-GermanElection[,4] <- as.numeric(as.character(GermanElection[,4]))
-GermanElection[,5] <- as.numeric(as.character(GermanElection[,5]))
-GermanElection[,6] <- as.numeric(as.character(GermanElection[,6]))
-GermanElection[,7] <- as.numeric(as.character(GermanElection[,7]))
-GermanElection[,8] <- as.numeric(as.character(GermanElection[,8]))
-GermanElection[,9] <- as.numeric(as.character(GermanElection[,9]))
+Election[,1] <- as.numeric(as.character(Election[,1]))
+Election[,2] <- as.numeric(as.character(Election[,2]))
+Election[,3] <- as.numeric(as.character(Election[,3]))
+Election[,4] <- as.numeric(as.character(Election[,4]))
+Election[,5] <- as.numeric(as.character(Election[,5]))
+Election[,6] <- as.numeric(as.character(Election[,6]))
+Election[,7] <- as.numeric(as.character(Election[,7]))
+Election[,8] <- as.numeric(as.character(Election[,8]))
+Election[,9] <- as.numeric(as.character(Election[,9]))
 
 # Removing higher political units (they are coded with numbers below 1000)
-GermanElectionHamburgBerlin <- GermanElection[c(17, 365),] 
-GermanElection <- GermanElection[GermanElection$district > 1000,]
-GermanElection <- rbind(GermanElection, GermanElectionHamburgBerlin)
-rm(GermanElectionHamburgBerlin)
+ElectionHamburgBerlin <- Election[c(17, 365),] 
+Election <- Election[Election$district > 1000,]
+Election <- rbind(Election, ElectionHamburgBerlin)
+rm(ElectionHamburgBerlin)
 
 # Saving the data 
-write.csv(GermanElection, file = "data/GermanElection.csv")
+write.csv(Election, file = "data/Election.csv")

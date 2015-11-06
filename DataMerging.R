@@ -31,7 +31,7 @@ source("Popdensity.R")
 source("PopAgeGroup.R")
 source("Migration.R")
 source("Religion.R")
-source("Elections.R")
+source("Election.R")
 
 # Merging the data frames by district
 # Districts that are not matched with a corresponding district are dropped
@@ -43,13 +43,16 @@ CrimesMarriagesGraduatesLaborPopdensity2013 <- merge(CrimesMarriagesGraduatesLab
 CrMaGrLaPoDPoA <- merge(CrimesMarriagesGraduatesLaborPopdensity2013, PopAgeGroup, by="district")
 CrMaGrLaPoDPoAMi <- merge(CrMaGrLaPoDPoA, Migration, by="district")
 CrMaGrLaPoDPoAMiRe <- merge(CrMaGrLaPoDPoAMi, Religion, by="district")
+CrMaGrLaPoDPoAMiReEl <- merge(CrMaGrLaPoDPoAMiRe, Election, by="district")
 
+#Removing generated new objects to avoid confusion 
 rm(CrimesMarriages2013)
 rm(CrimesMarriagesGraduates2013)
 rm(CrimesMarriagesGraduatesLabor2013)
 rm(CrimesMarriagesGraduatesLaborPopdensity2013)
 rm(CrMaGrLaPoDPoA)
 rm(CrMaGrLaPoDPoAMi)
+rm(CrMaGrLaPoDPoAMiRe)
 
 # Removing individual data frames
 rm(PKS_Kreise_13)
@@ -60,10 +63,12 @@ rm(Popdensity)
 rm(PopAgeGroup)
 rm(Migration)
 rm(Religion)
+rm(Election)
 
-#Renaming Data Frame
-DistrictData <- CrMaGrLaPoDPoAMiRe
-rm(CrMaGrLaPoDPoAMiRe)
+#Renaming Data Frame 
+# ++--->> Remember to change data frame whenever a new merged data frame is added to the list above 
+DistrictData <- CrMaGrLaPoDPoAMiReEl
+rm(CrMaGrLaPoDPoAMiReEl)
 
 # Generating Crime rate variable for robberies: 
 # #Crimes / Total Population * 100,000
@@ -76,7 +81,8 @@ DistrictData <- cbind(DistrictData, CrimeRate)
 DistrictData <- DistrictData[,-c(4,10,12,19)]
 
 # Rearranging variable order: bringin Year to the 2 position
-DistrictData <- DistrictData[,c(1,29,2:28,30:36)]
+# +++++++ ---->>>> Remember to add new columns dependening on the number of new variables added. 
+DistrictData <- DistrictData[,c(1,29,2:28,30:44)]
 
 # Saving the data
 write.csv(DistrictData, file = "data/DistrictData2013.csv")
