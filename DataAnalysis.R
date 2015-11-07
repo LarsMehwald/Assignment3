@@ -47,6 +47,11 @@ DistrictData$MalePopulationRel <- DistrictData$MalePopulation / DistrictData$Tot
 # Density per square km to 100 persons per square km
 DistrictData$DensityPerSQRTkm100 <- DistrictData$DensityPerSQRTkm / 100
 
+# Relative conservative vote
+DistrictData$VoteConservativesPercent <- DistrictData$VoteConservativesTotal * 100 / 
+  (DistrictData$TurnoutPercentage * DistrictData$EntitledVoteTotal / 100)
+# TurnoutPercentage is coded in % between 0 and 100
+
 ########################
 # Linear regression
 ########################
@@ -85,6 +90,17 @@ regrobbery4 <- lm(robbery ~
                   data=DistrictData)
 summary(regrobbery4)
 
+# Linear regression model 5
+regrobbery5 <- lm(robbery ~ 
+                    GraduatesWithHouthDegreeRel + 
+                    marriageRel +
+                    UnemployedPercentage +
+                    DensityPerSQRTkm100 +
+                    MalePopulationRel + 
+                    VoteConservativesPercent,
+                  data=DistrictData)
+summary(regrobbery4)
+
 # After running regression
 # regrobbery_hat <- fitted(regrobbery) #predicted values
 # as.data.frame(regrobbery_hat)
@@ -92,13 +108,13 @@ summary(regrobbery4)
 # as.data.frame(regrobbery_res)
 
 # Creating table output 
-stargazer(regrobbery1, regrobbery2, regrobbery3, regrobbery4,
+stargazer(regrobbery1, regrobbery2, regrobbery3, regrobbery4, regrobbery5, 
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding robbery",
           digits = 2,
 #          single.row = TRUE,
-          omit.stat = "f",
-          notes = "This regression output shows the results using 4 different specifications.")
+          omit.stat = c("f", "ser"),
+          notes = "This regression output shows the results using 5 different specifications.")
 
-rm(regrobbery1, regrobbery2, regrobbery3, regrobbery4)
+rm(regrobbery1, regrobbery2, regrobbery3, regrobbery4, regrobbery5)
