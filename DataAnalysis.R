@@ -44,19 +44,22 @@ DistrictData$marriageRel <- DistrictData$HusbandAndWifeTotal / DistrictData$Tota
 # Percentage of male population
 DistrictData$MalePopulationRel <- DistrictData$MalePopulation / DistrictData$TotalPopulation * 100
 
+# Density per square km to 100 persons per square km
+DistrictData$DensityPerSQRTkm100 <- DistrictData$DensityPerSQRTkm / 100
+
 ########################
 # Linear regression
 ########################
 
 # Linear regression model 1
-regrobbery1 <- lm(robberyRel ~ 
+regrobbery1 <- lm(robbery ~ 
                    GraduatesWithHouthDegreeRel + 
                    marriageRel,
                  data=DistrictData)
 summary(regrobbery1)
 
 # Linear regression model 2
-regrobbery2 <- lm(robberyRel ~ 
+regrobbery2 <- lm(robbery ~ 
                    GraduatesWithHouthDegreeRel + 
                    marriageRel +
                    UnemployedPercentage,
@@ -64,20 +67,20 @@ regrobbery2 <- lm(robberyRel ~
 summary(regrobbery2)
 
 # Linear regression model 3
-regrobbery3 <- lm(robberyRel ~ 
+regrobbery3 <- lm(robbery ~ 
                    GraduatesWithHouthDegreeRel + 
                    marriageRel +
                    UnemployedPercentage +
-                   DensityPerSQRTkm,
+                   DensityPerSQRTkm100,
                  data=DistrictData)
 summary(regrobbery3)
 
 # Linear regression model 4
-regrobbery4 <- lm(robberyRel ~ 
+regrobbery4 <- lm(robbery ~ 
                     GraduatesWithHouthDegreeRel + 
                     marriageRel +
                     UnemployedPercentage +
-                    DensityPerSQRTkm +
+                    DensityPerSQRTkm100 +
                     MalePopulationRel,
                   data=DistrictData)
 summary(regrobbery4)
@@ -93,6 +96,9 @@ stargazer(regrobbery1, regrobbery2, regrobbery3, regrobbery4,
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding robbery",
-          digits = 2)
+          digits = 2,
+#          single.row = TRUE,
+          omit.stat = "f",
+          notes = "This regression output shows the results using 4 different specifications.")
 
 rm(regrobbery1, regrobbery2, regrobbery3, regrobbery4)
