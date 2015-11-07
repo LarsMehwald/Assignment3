@@ -5,6 +5,9 @@
 # Graduates 
 ########################
 
+# Load required package
+library("repmis")
+
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
@@ -12,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 #Loading the data frame 
-Graduates <- read.csv(file = "data/192-71-4_GraduatesFromDifferentHighSchool.csv", 
+Graduates <- read.csv(file = "data/RawData/192-71-4_GraduatesFromDifferentHighSchool.csv", 
                sep=";", 
                na.strings=c("-", "."), 
                header = FALSE,
@@ -35,9 +38,6 @@ Graduates <- read.csv(file = "data/192-71-4_GraduatesFromDifferentHighSchool.csv
                              "GraduatesWithHochschulreifeDegreeFemale"
                              )
                )
-
-# Alternative: read data in as vector
-# df <- readLines("data/192-71-4_GraduatesFromDifferentHighSchool.csv") # Important: Capital Letter L 
 
 # Removing observation for Germany as a whole
 Graduates <- Graduates[-1,]
@@ -65,4 +65,4 @@ Graduates <- rbind(Graduates, GraduatesHamburgBerlin)
 rm(GraduatesHamburgBerlin)
 
 # Saving the data 
-write.csv(Graduates, file = "data/Graduates2013.csv")
+write.csv(Graduates, file = "data/Graduates.csv")

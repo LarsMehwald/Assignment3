@@ -5,6 +5,9 @@
 # PKS data: Kreise 2013 2014
 ########################
 
+# Loading required package
+library("repmis")
+
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
@@ -32,46 +35,30 @@ PKS_Kreise_13_14 <- PKS_Kreise_13_14[c(2,3,1,5,4)]
 
 # Splitting the data
 PKS_Kreise_13 <- PKS_Kreise_13_14[,-5]
-# PKS_Kreise_14 <- PKS_Kreise_13_14[,c(1,2,4)]
 rm(PKS_Kreise_13_14)
 
 # Spread data from wide to long format
-PKS_Kreise_13_spread <- spread(PKS_Kreise_13, "Straftat", "2013 - erfasste Faelle")
-# PKS_Kreise_14_spread <- spread(PKS_Kreise_14, "Straftat", "2014 - erfasste Faelle")
-rm(PKS_Kreise_13)
-# rm(PKS_Kreise_14)
+PKS_Kreise_13 <- spread(PKS_Kreise_13, "Straftat", "2013 - erfasste Faelle")
 
 # Removing variables (crimes) not relevant to analysis
-PKS_Kreise_13_spread <- PKS_Kreise_13_spread[,-c(4,5,6,7,12:19)]
-# PKS_Kreise_14_spread <- PKS_Kreise_14_spread[,-c(3,4,5,6,11:18)]
+PKS_Kreise_13 <- PKS_Kreise_13[,-c(4,5,6,7,12:19)]
 
 # Translation of variable names into English
 NameofVariables <- c("district", "districtName", "bodily harm", "dangerous bodily harm", "violent crime", "murder and manslaughter", "robbery")
-names(PKS_Kreise_13_spread) <- NameofVariables 
-# names(PKS_Kreise_14_spread) <- NameofVariables 
+names(PKS_Kreise_13) <- NameofVariables 
 rm(NameofVariables)
 
 # Adding a time variable: year
-PKS_Kreise_13_spread$year <- 2013
-# PKS_Kreise_14_spread$year <- 2014
+PKS_Kreise_13$year <- 2013
 
 # Correcting problem with Hamburg and Berlin. 
-PKS_Kreise_13_spread[,1] <- as.numeric(as.character(PKS_Kreise_13_spread[,1]))
-PKS_Kreise_13_spread[22,1]=11
-PKS_Kreise_13_spread[99,1]=2  
+PKS_Kreise_13[,1] <- as.numeric(as.character(PKS_Kreise_13[,1]))
+PKS_Kreise_13[22,1]=11
+PKS_Kreise_13[99,1]=2  
 
 # Combining district variable with year and rearranging
-PKS_Kreise_13_spread$district_year <- paste(PKS_Kreise_13_spread$district, "2013", sep = "y")
-PKS_Kreise_13 <- PKS_Kreise_13_spread[,c(9,1,2,8,3:7)]
-rm(PKS_Kreise_13_spread)
-# PKS_Kreise_14_spread$district_year <- paste(PKS_Kreise_14_spread$district, "2014", sep = "y")
-# PKS_Kreise_14 <- PKS_Kreise_14_spread[,c(8,1,2,3,4,5,6,7)]
-# rm(PKS_Kreise_14_spread)
-
-# Combining the data frames 
-# PKS_Kreise <- rbind(PKS_Kreise_13, PKS_Kreise_14)
-# rm(PKS_Kreise_13)
-# rm(PKS_Kreise_14)
+PKS_Kreise_13$district_year <- paste(PKS_Kreise_13$district, "2013", sep = "y")
+PKS_Kreise_13 <- PKS_Kreise_13[,c(9,1,2,8,3:7)]
 
 # Changing the class of variables
 PKS_Kreise_13[,2] <- as.numeric(as.character(PKS_Kreise_13[,2]))

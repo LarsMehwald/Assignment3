@@ -5,6 +5,9 @@
 # Loading Migration data
 ########################
 
+# Loading required packages
+library("repmis")
+
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
@@ -12,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Reading Migration 2013 csv file 
-Migration <- read.csv(file="data/182-20-4_MigrationStatistic_2013.csv", 
+Migration <- read.csv(file="data/RawData/182-20-4_MigrationStatistic_2013.csv", 
                            sep=";", 
                            na.strings = c("-","."),
                            nrows = 525,

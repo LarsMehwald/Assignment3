@@ -5,17 +5,18 @@
 # Loading Religion data
 ########################
 
+# Loading requires packages 
+library("tidyr")
+library("repmis")
+
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
 set_valid_wd(possible_dir)
 rm(possible_dir)
 
-# Loading requires packages 
-library("tidyr")
-
 # Reading Religion 2011 csv file 
-Religion <- read.csv(file="data/160-04-4_Religion_2011.csv", 
+Religion <- read.csv(file="data/RawData/160-04-4_Religion_2011.csv", 
                            sep=";", 
                            na.strings = c("-","."),
                            nrows = 2100,

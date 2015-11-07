@@ -23,23 +23,26 @@ LoadandCite(Packages, file = 'References/RpackageCitations.bib')
 rm(Packages)
 
 # Loading data set from csv file
-DATA <- read.csv(file="data/DistrictDataCrimeRate2013.csv")
+DistrictData <- read.csv(file="data/DistrictData2013.csv")
+
+# Sourcing the merging file
+# source("DataMerging.R")
 
 ########################
 # Creation of relative measurements
 ########################
 
 # Percentage of robbery (could be more than 100%)
-DATA$robberyRel <- DATA$robbery / DATA$TotalPopulation * 100
+DistrictData$robberyRel <- DistrictData$robbery / DistrictData$TotalPopulation * 100
 
 # Percentage of graduates without degree
-DATA$GraduatesWithHouthDegreeRel <- DATA$GraduatesWithHouthDegreeTotal / DATA$TotalPopulation * 100
+DistrictData$GraduatesWithHouthDegreeRel <- DistrictData$GraduatesWithHouthDegreeTotal / DistrictData$TotalPopulation * 100
 
 # Percentage of marraiged persons 
-DATA$marriageRel <- DATA$HusbandAndWifeTotal / DATA$TotalPopulation * 100
+DistrictData$marriageRel <- DistrictData$HusbandAndWifeTotal / DistrictData$TotalPopulation * 100
 
 # Percentage of male population
-DATA$MalePopulationRel <- DATA$MalePopulation / DATA$TotalPopulation * 100
+DistrictData$MalePopulationRel <- DistrictData$MalePopulation / DistrictData$TotalPopulation * 100
 
 ########################
 # Linear regression
@@ -49,7 +52,7 @@ DATA$MalePopulationRel <- DATA$MalePopulation / DATA$TotalPopulation * 100
 regrobbery1 <- lm(robberyRel ~ 
                    GraduatesWithHouthDegreeRel + 
                    marriageRel,
-                 data=DATA)
+                 data=DistrictData)
 summary(regrobbery1)
 
 # Linear regression model 2
@@ -57,7 +60,7 @@ regrobbery2 <- lm(robberyRel ~
                    GraduatesWithHouthDegreeRel + 
                    marriageRel +
                    UnemployedPercentage,
-                 data=DATA)
+                 data=DistrictData)
 summary(regrobbery2)
 
 # Linear regression model 3
@@ -66,7 +69,7 @@ regrobbery3 <- lm(robberyRel ~
                    marriageRel +
                    UnemployedPercentage +
                    DensityPerSQRTkm,
-                 data=DATA)
+                 data=DistrictData)
 summary(regrobbery3)
 
 # Linear regression model 4
@@ -76,7 +79,7 @@ regrobbery4 <- lm(robberyRel ~
                     UnemployedPercentage +
                     DensityPerSQRTkm +
                     MalePopulationRel,
-                  data=DATA)
+                  data=DistrictData)
 summary(regrobbery4)
 
 # After running regression

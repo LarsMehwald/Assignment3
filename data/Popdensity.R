@@ -6,10 +6,7 @@
 ########################
 
 # Loading required packages 
-Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
-              "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-              "ggmap", "rworldmap")
-lapply(Packages, require, character.only = TRUE)
+library("repmis")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -17,7 +14,8 @@ possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to
 set_valid_wd(possible_dir)
 rm(possible_dir)
 
-Popdensity <- read.csv(file = "data/Bevoelkerung.csv", 
+# Loading data
+Popdensity <- read.csv(file = "data/RawData/BevoelkerungRawData.csv", 
                         sep=",", 
                         na.strings=c("-", "."), 
                         header = FALSE,
@@ -30,9 +28,8 @@ Popdensity <- read.csv(file = "data/Bevoelkerung.csv",
                                       "TotalPopulation", 
                                       "MalePopulation", 
                                       "FemalePopulation", 
-                                      "DensityPerSQRTkm"
+                                      "DensityPerSQRTkm")
                         )
-)
 
 #Removing name variables
 Popdensity <- Popdensity[,-c(2:3)]

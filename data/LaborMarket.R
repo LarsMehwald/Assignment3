@@ -5,6 +5,9 @@
 # Labor market 
 ########################
 
+# Loading required package
+library("repmis")
+
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
@@ -12,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Loading the data frame 
-LaborMarket <- read.csv(file = "data/659-71-4_LaborMarketStatistic_2013_2014.csv", 
+LaborMarket <- read.csv(file = "data/RawData/659-71-4_LaborMarketStatistic_2013_2014.csv", 
                       sep=";", 
                       na.strings=c("-", "."), 
                       header = FALSE,
@@ -67,4 +70,4 @@ LaborMarket <- rbind(LaborMarket, LaborMarketHamburgBerlin)
 rm(LaborMarketHamburgBerlin)
 
 # Saving the data 
-write.csv(LaborMarket, file = "data/LaborMarket2013.csv")
+write.csv(LaborMarket, file = "data/LaborMarket.csv")

@@ -16,27 +16,26 @@ possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
 set_valid_wd(possible_dir)
 rm(possible_dir)
-# setwd("D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3")
 
 # Citing R packages 
 LoadandCite(Packages, file = 'References/RpackageCitations.bib')
 rm(Packages)
 
 # Sourcing the R files that load and prepare data
-source("PksKreise.R")
-source("Marriage.R")
-source("Graduates.R")
-source("LaborMarket.R")
-source("Popdensity.R")
-source("PopAgeGroup.R")
-source("Migration.R")
-source("Religion.R")
-source("Election.R")
+source("data/PksKreise.R")
+source("data/Marriage.R")
+source("data/Graduates.R")
+source("data/LaborMarket.R")
+source("data/Popdensity.R")
+source("data/PopAgeGroup.R")
+source("data/Migration.R")
+source("data/Religion.R")
+source("data/Election.R")
 
 # Merging the data frames by district
 # Districts that are not matched with a corresponding district are dropped
 # Only mathched observations are kept. 
-CrimesMarriages2013 <- merge(PKS_Kreise_13, Marriages_2013, by="district")
+CrimesMarriages2013 <- merge(PKS_Kreise_13, Marriages, by="district")
 CrimesMarriagesGraduates2013 <- merge(CrimesMarriages2013, Graduates, by="district")
 CrimesMarriagesGraduatesLabor2013 <- merge(CrimesMarriagesGraduates2013, LaborMarket, by="district")
 CrimesMarriagesGraduatesLaborPopdensity2013 <- merge(CrimesMarriagesGraduatesLabor2013, Popdensity, by="district")
@@ -45,7 +44,7 @@ CrMaGrLaPoDPoAMi <- merge(CrMaGrLaPoDPoA, Migration, by="district")
 CrMaGrLaPoDPoAMiRe <- merge(CrMaGrLaPoDPoAMi, Religion, by="district")
 CrMaGrLaPoDPoAMiReEl <- merge(CrMaGrLaPoDPoAMiRe, Election, by="district")
 
-#Removing generated new objects to avoid confusion 
+# Removing generated new objects to avoid confusion 
 rm(CrimesMarriages2013)
 rm(CrimesMarriagesGraduates2013)
 rm(CrimesMarriagesGraduatesLabor2013)
@@ -56,7 +55,7 @@ rm(CrMaGrLaPoDPoAMiRe)
 
 # Removing individual data frames
 rm(PKS_Kreise_13)
-rm(Marriages_2013)
+rm(Marriages)
 rm(Graduates)
 rm(LaborMarket)
 rm(Popdensity)
@@ -65,8 +64,8 @@ rm(Migration)
 rm(Religion)
 rm(Election)
 
-#Renaming Data Frame 
-# ++--->> Remember to change data frame whenever a new merged data frame is added to the list above 
+# Renaming data frame 
+# Remember to change data frame whenever a new merged data frame is added to the list above 
 DistrictData <- CrMaGrLaPoDPoAMiReEl
 rm(CrMaGrLaPoDPoAMiReEl)
 
@@ -76,12 +75,13 @@ CrimeRate <- DistrictData$robbery / DistrictData$TotalPopulation * 100000
 
 # Adding new variable Robbery Crime Rate to District Data Frame
 DistrictData <- cbind(DistrictData, CrimeRate)
+rm(CrimeRate)
 
 # Removing redundant variables (year variables)
 DistrictData <- DistrictData[,-c(4,10,12,19)]
 
 # Rearranging variable order: bringin Year to the 2 position
-# +++++++ ---->>>> Remember to add new columns dependening on the number of new variables added. 
+# Remember to add new columns dependening on the number of new variables added. 
 DistrictData <- DistrictData[,c(1,29,2:28,30:44)]
 
 # Saving the data

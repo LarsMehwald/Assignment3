@@ -6,10 +6,7 @@
 ########################
 
 # Loading required packages 
-Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
-              "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-              "ggmap", "rworldmap")
-lapply(Packages, require, character.only = TRUE)
+library("repmis")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -17,7 +14,8 @@ possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to
 set_valid_wd(possible_dir)
 rm(possible_dir)
 
-PopAgeGroup <- read.csv(file="data/PopAge.csv",
+# Loading the data
+PopAgeGroup <- read.csv(file="data/RawData/PopAgeRawData.csv",
                           sep=",", 
                           dec=",",
                           na.strings=c("."), 
@@ -31,8 +29,8 @@ PopAgeGroup <- read.csv(file="data/PopAge.csv",
                                         "Pop_18_24", 
                                         "Pop_25_44", 
                                         "Pop_45_64", 
-                                        "Pop_over_65"
-                          ))
+                                        "Pop_over_65")
+                          )
 
 # Removing not relevant rows
 PopAgeGroup <- PopAgeGroup[-c(524:530),]
