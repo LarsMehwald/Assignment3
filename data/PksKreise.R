@@ -41,10 +41,23 @@ rm(PKS_Kreise_13_14)
 PKS_Kreise_13 <- spread(PKS_Kreise_13, "Straftat", "2013 - erfasste Faelle")
 
 # Removing variables (crimes) not relevant to analysis
-PKS_Kreise_13 <- PKS_Kreise_13[,-c(4,5,6,7,12:19)]
+PKS_Kreise_13 <- PKS_Kreise_13[,-c(4:5,12,15,18)]
 
 # Translation of variable names into English
-NameofVariables <- c("district", "districtName", "bodily harm", "dangerous bodily harm", "violent crime", "murder and manslaughter", "robbery")
+NameofVariables <- c("district", 
+                     "districtName", 
+                     "bodilyHarm", 
+                     "robberyFromOrOutOfCars",
+                     "robberyOfCars",
+                     "dangerousBodilyHarm", 
+                     "violentCrime", 
+                     "murderAndManslaughter", 
+                     "robberyIncludingExtortionAndAttackOfCarDrivers",
+                     "vandalism",
+                     "vandalismGraffiti",
+                     "streetCrime",
+                     "burglaryDaylight",
+                     "burglary")
 names(PKS_Kreise_13) <- NameofVariables 
 rm(NameofVariables)
 
@@ -58,16 +71,23 @@ PKS_Kreise_13[99,1]=2
 
 # Combining district variable with year and rearranging
 PKS_Kreise_13$district_year <- paste(PKS_Kreise_13$district, "2013", sep = "y")
-PKS_Kreise_13 <- PKS_Kreise_13[,c(9,1,2,8,3:7)]
+PKS_Kreise_13 <- PKS_Kreise_13[,c(1,2,15,16,3:14)]
 
 # Changing the class of variables
-PKS_Kreise_13[,2] <- as.numeric(as.character(PKS_Kreise_13[,2]))
-PKS_Kreise_13[,4] <- as.numeric(as.character(PKS_Kreise_13[,4]))
+PKS_Kreise_13[,1] <- as.numeric(as.character(PKS_Kreise_13[,1]))
+PKS_Kreise_13[,3] <- as.numeric(as.character(PKS_Kreise_13[,3]))
 PKS_Kreise_13[,5] <- as.numeric(as.character(PKS_Kreise_13[,5]))
 PKS_Kreise_13[,6] <- as.numeric(as.character(PKS_Kreise_13[,6]))
 PKS_Kreise_13[,7] <- as.numeric(as.character(PKS_Kreise_13[,7]))
 PKS_Kreise_13[,8] <- as.numeric(as.character(PKS_Kreise_13[,8]))
 PKS_Kreise_13[,9] <- as.numeric(as.character(PKS_Kreise_13[,9]))
+PKS_Kreise_13[,10] <- as.numeric(as.character(PKS_Kreise_13[,10]))
+PKS_Kreise_13[,11] <- as.numeric(as.character(PKS_Kreise_13[,11]))
+PKS_Kreise_13[,12] <- as.numeric(as.character(PKS_Kreise_13[,12]))
+PKS_Kreise_13[,13] <- as.numeric(as.character(PKS_Kreise_13[,13]))
+PKS_Kreise_13[,14] <- as.numeric(as.character(PKS_Kreise_13[,14]))
+PKS_Kreise_13[,15] <- as.numeric(as.character(PKS_Kreise_13[,15]))
+PKS_Kreise_13[,16] <- as.numeric(as.character(PKS_Kreise_13[,16]))
 
 # Saving the data 
 write.csv(PKS_Kreise_13, file = "data/PKS_Kreise.csv")

@@ -70,7 +70,7 @@ DistrictData <- CrMaGrLaPoDPoAMiReEl
 rm(CrMaGrLaPoDPoAMiReEl)
 
 # Generating Crime rate variable for robberies: 
-# #Crimes / Total Population * 100,000
+# Crimes / Total Population * 100,000
 CrimeRate <- DistrictData$robbery / DistrictData$TotalPopulation * 100000
 
 # Adding new variable Robbery Crime Rate to District Data Frame
@@ -78,11 +78,10 @@ DistrictData <- cbind(DistrictData, CrimeRate)
 rm(CrimeRate)
 
 # Removing redundant variables (year variables)
-DistrictData <- DistrictData[,-c(4,10,12,19)]
+DistrictData <- DistrictData[,-c(17,19,26,40)]
 
-# Rearranging variable order: bringin Year to the 2 position
-# Remember to add new columns dependening on the number of new variables added. 
-DistrictData <- DistrictData[,c(1,29,2:28,30:44)]
+# Renaming year variable (from year.x)
+names(DistrictData)[3] <- "year"
 
 # Saving the data
 write.csv(DistrictData, file = "data/DistrictData2013.csv")

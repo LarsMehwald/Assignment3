@@ -25,11 +25,11 @@ PopAgeGroup <- read.csv(file="data/RawData/PopAgeRawData.csv",
                           col.names = c("year", 
                                         "district", 
                                         "DistrictName", 
-                                        "Pop_0_17", 
-                                        "Pop_18_24", 
-                                        "Pop_25_44", 
-                                        "Pop_45_64", 
-                                        "Pop_over_65")
+                                        "Pop0to17", 
+                                        "Pop18to24", 
+                                        "Pop25to44", 
+                                        "Pop45to64", 
+                                        "PopOver65")
                           )
 
 # Removing not relevant rows
