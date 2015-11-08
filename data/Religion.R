@@ -45,6 +45,15 @@ Religion[,3] <- as.numeric(as.character(Religion[,3]))
 # Spreading the data 
 Religion <- spread(Religion, "religion", "BelieversTotal")
 
+# Renaming the variables 
+NameOfVariables <- c("district", 
+                     "BelieversProtestant", 
+                     "BelieversTotal", 
+                     "BelieversRomanCatholic",
+                     "BelieversOthersNoNoResponse")
+names(Religion) <- NameOfVariables
+rm(NameOfVariables)
+
 # Problem with Hamburg and Berlin: recoding
 ReligionBerHam <- Religion[c(2, 11),]
 Religion <- Religion[Religion$district > 1000,]
