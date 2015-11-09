@@ -45,7 +45,7 @@ PKS_Kreise_13 <- PKS_Kreise_13[,-c(4:5,12,15,18)]
 
 # Translation of variable names into English
 NameofVariables <- c("district", 
-                     "districtName", 
+                     "DistrictName", 
                      "bodilyHarm", 
                      "robberyFromOrOutOfCars",
                      "robberyOfCars",
@@ -58,8 +58,13 @@ NameofVariables <- c("district",
                      "streetCrime",
                      "burglaryDaylight",
                      "burglary")
+# Adding Names of translated Variables 
 names(PKS_Kreise_13) <- NameofVariables 
 rm(NameofVariables)
+
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+PKS_Kreise_13$DistrictName <- iconv(PKS_Kreise_13$DistrictName, from ="latin1", to = "UTF-8")
 
 # Adding a time variable: year
 PKS_Kreise_13$year <- 2013

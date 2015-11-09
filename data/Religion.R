@@ -23,7 +23,7 @@ Religion <- read.csv(file="data/RawData/160-04-4_Religion_2011.csv",
                            skip = 9,
                            header=FALSE,
                            col.names=c("district",
-                                       "name", 
+                                       "DistrictName", 
                                        "religion",
                                        "BelieversTotal",
                                        "BelieversMale",
@@ -31,6 +31,11 @@ Religion <- read.csv(file="data/RawData/160-04-4_Religion_2011.csv",
                                        "BelieversGermans",
                                        "BelieversForeigners")
                      )
+
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+Religion$DistrictName <- iconv(Religion$DistrictName, from ="latin1", to = "UTF-8")
+Religion$religion <- iconv(Religion$religion, from ="latin1", to = "UTF-8")
 
 # Removing observation for Germany as a whole
 Religion <- Religion[-c(1:4),]

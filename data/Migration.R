@@ -23,7 +23,7 @@ Migration <- read.csv(file="data/RawData/182-20-4_MigrationStatistic_2013.csv",
                            header=FALSE,
                            col.names=c("year",
                                        "district",
-                                       "name", 
+                                       "DistrictName", 
                                        "InfluxTotal",
                                        "InfluxMale",
                                        "InfluxFemale",
@@ -31,6 +31,10 @@ Migration <- read.csv(file="data/RawData/182-20-4_MigrationStatistic_2013.csv",
                                        "OutflowMale",
                                        "OutflowFemale")
                            )
+
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+Migration$DistrictName <- iconv(Migration$DistrictName, from ="latin1", to = "UTF-8")
 
 # Removing observation for Germany as a whole
 Migration <- Migration[-1,]

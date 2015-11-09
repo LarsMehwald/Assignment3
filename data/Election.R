@@ -20,14 +20,15 @@ rm(possible_dir)
 
 # Downloading of data
 Election <- read.csv(file = "data/RawData/GermanElections2013.csv", 
-                           sep=";", 
+                           sep= ";",
+                           dec = ",",
                            na.strings = "-",
                            nrows = 535,
                            skip = 10,
                            header=FALSE,
                            col.names=c("year",
                                        "district",
-                                       "name", 
+                                       "DistrictName", 
                                        "EntitledVoteTotal",
                                        "TurnoutPercentage",
                                        "TurnoutSecondVoteTotal",
@@ -39,14 +40,15 @@ Election <- read.csv(file = "data/RawData/GermanElections2013.csv",
                                        "VoteOthersTotal")
 )
 
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+Election$DistrictName <- iconv(Election$DistrictName, from ="latin1", to = "UTF-8")
+
 # Removing observation for Germany as a whole
 Election <- Election[-1,]
 
 # Removing some variables
 Election <- Election[,-c(1,3,6)]
-
-# Changing comma as seperator for values to points
-Election$TurnoutPercentage <- gsub(",", ".", Election$TurnoutPercentage)
 
 # Changing the class of variables
 Election[,1] <- as.numeric(as.character(Election[,1]))

@@ -17,6 +17,7 @@ rm(possible_dir)
 # Loading the data frame 
 LaborMarket <- read.csv(file = "data/RawData/659-71-4_LaborMarketStatistic_2013_2014.csv", 
                       sep=";", 
+                      dec = ",",
                       na.strings=c("-", "."), 
                       header = FALSE,
                       skip = 8,
@@ -40,11 +41,12 @@ LaborMarket <- read.csv(file = "data/RawData/659-71-4_LaborMarketStatistic_2013_
                       )
 )
 
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+LaborMarket$DistrictName <- iconv(LaborMarket$DistrictName, from ="latin1", to = "UTF-8")
+
 # Removing some variables
 LaborMarket <- LaborMarket[,-c(3,5,6,7,9,10,12:16)]
-
-# Changing comma as seperator for values to points
-LaborMarket$UnemployedPercentage <- gsub(",", ".", LaborMarket$UnemployedPercentage)
 
 # Changing the class of some variables to numeric 
 LaborMarket[,1] <- as.numeric(as.character(LaborMarket[,1]))

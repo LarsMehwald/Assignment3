@@ -31,6 +31,10 @@ Popdensity <- read.csv(file = "data/RawData/BevoelkerungRawData.csv",
                                       "DensityPerSQRTkm")
                         )
 
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+Popdensity$DistrictName <- iconv(Popdensity$DistrictName, from ="latin1", to = "UTF-8")
+
 #Removing name variables
 Popdensity <- Popdensity[,-c(2:3)]
 

@@ -39,6 +39,10 @@ Graduates <- read.csv(file = "data/RawData/192-71-4_GraduatesFromDifferentHighSc
                              )
                )
 
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+Graduates$DistrictName <- iconv(Graduates$DistrictName, from ="latin1", to = "UTF-8")
+
 # Removing observation for Germany as a whole
 Graduates <- Graduates[-1,]
 

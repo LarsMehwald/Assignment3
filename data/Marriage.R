@@ -23,7 +23,7 @@ Marriages <- read.csv(file="data/RawData/177-31-4_Marriages_2013.csv",
                            header=FALSE,
                            col.names=c("year",
                                        "district",
-                                       "name", 
+                                       "DistrictName", 
                                        "HusbandAndWifeTotal",
                                        "EhemannesTotal/EhefrauDeutsche",
                                        "EhemannesTotal/EhefrauAuslaenderin",
@@ -34,6 +34,10 @@ Marriages <- read.csv(file="data/RawData/177-31-4_Marriages_2013.csv",
                                        "EhemannesAuslaender/EhefrauDeutsche",
                                        "EhemannesAuslaender/EhefrauAuslaender")
                            )
+
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+Marriages$DistrictName <- iconv(Marriages$DistrictName, from ="latin1", to = "UTF-8")
 
 # Removing observation for Germany as a whole
 Marriages <- Marriages[-1,]

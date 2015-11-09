@@ -21,7 +21,7 @@ PopAgeGroup <- read.csv(file="data/RawData/PopAgeRawData.csv",
                           na.strings=c("."), 
                           header = FALSE,
                           skip=7,
-                          nrows = 530, 
+                          nrows = 523, 
                           col.names = c("year", 
                                         "district", 
                                         "DistrictName", 
@@ -32,8 +32,9 @@ PopAgeGroup <- read.csv(file="data/RawData/PopAgeRawData.csv",
                                         "PopOver65")
                           )
 
-# Removing not relevant rows
-PopAgeGroup <- PopAgeGroup[-c(524:530),]
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+PopAgeGroup$DistrictName <- iconv(PopAgeGroup$DistrictName, from ="latin1", to = "UTF-8")
 
 # Saving Berlin and Hamburg and removing all regional observations
 #Berlin 364 and Hamburg 16
