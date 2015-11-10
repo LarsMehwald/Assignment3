@@ -23,8 +23,8 @@ Election <- read.csv(file = "data/RawData/GermanElections2013.csv",
                            sep= ";",
                            dec = ",",
                            na.strings = "-",
-                           nrows = 535,
-                           skip = 10,
+                           nrows = 522,
+                           skip = 12,
                            header=FALSE,
                            col.names=c("year",
                                        "district",
@@ -44,9 +44,6 @@ Election <- read.csv(file = "data/RawData/GermanElections2013.csv",
 # More compatibility with German characters
 Election$DistrictName <- iconv(Election$DistrictName, from ="latin1", to = "UTF-8")
 
-# Removing observation for Germany as a whole
-Election <- Election[-1,]
-
 # Removing some variables
 Election <- Election[,-c(1,3,6)]
 
@@ -62,10 +59,14 @@ Election[,8] <- as.numeric(as.character(Election[,8]))
 Election[,9] <- as.numeric(as.character(Election[,9]))
 
 # Removing higher political units (they are coded with numbers below 1000)
-ElectionHamburgBerlin <- Election[c(17, 365),] 
+# district$Berlin = 11; district$Hamburg = 2; 
+ElectionHamburgBerlin <- subset(Election, Election$district == 2 | Election$district ==11, 1:9)
 Election <- Election[Election$district > 1000,]
 Election <- rbind(Election, ElectionHamburgBerlin)
 rm(ElectionHamburgBerlin)
+
+#Removing redundant districts (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
+Election <- subset(Election, Election$district < 17000, 1:9)
 
 # Saving the data 
 write.csv(Election, file = "data/Election.csv")
