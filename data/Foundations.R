@@ -2,7 +2,7 @@
 # Lars Mehwald and Daniel Salgado Moreno
 # 13 November 2015
 # Assignment 3
-# Graduates Proportion of population with Hochschulreife and Hochschulabschluss
+# Total number of Fundations per District and it density = #Foundations/100,000inahbitants
 ########################
 
 # Loading required packages 
@@ -24,8 +24,8 @@ Foundations <- read.csv(file="data/RawData/Stiftungsdichte2013.csv",
                        dec=",",
                        na.strings=c("-", "."), 
                        header = FALSE,
-                       skip = 3,
-                       nrows = 402, 
+                       skip = 2,
+                       nrows = 403, 
                        col.names = c("Rank",
                                      "DistrictName",
                                      "State",
