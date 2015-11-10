@@ -32,6 +32,7 @@ source("data/PopAgeGroup.R")
 source("data/Migration.R")
 source("data/Religion.R")
 source("data/Election.R")
+source("data/Foundations.R")
 
 # Merging the data frames by district
 # Districts that are not matched with a corresponding district are dropped
@@ -85,6 +86,9 @@ DistrictData <- DistrictData[,-c(17,19,22,36)]
 
 # Renaming year variable (from year.x)
 names(DistrictData)[3] <- "year"
+
+# Merging the District Data with the Foundation Data
+
 
 # Saving the data
 write.csv(DistrictData, file = "data/DistrictData2013.csv")
