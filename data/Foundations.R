@@ -25,9 +25,8 @@ Foundations <- read.csv(file="data/RawData/Stiftungsdichte2013.csv",
                        col.names = c("Rank",
                                      "district",
                                      "State",
-                                     "Density100k",
+                                     "FoundationsDensity100k",
                                      "FoundationsTotal")
-#                       encoding = "UTF-8"
                        )
 
 # Converting Character Vectors between Encodings from latin1 to UTF-8

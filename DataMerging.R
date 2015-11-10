@@ -11,8 +11,6 @@ Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
           "ggmap", "rworldmap")
 lapply(Packages, require, character.only = TRUE)
 
-library("stringdist")
-
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
@@ -115,6 +113,39 @@ for(i in 1:nrow(dist.name))
                      adist=min.name[i]), 
           match.s1.s2)
 }
+
+rm("i", "min.name", "s1.i", "s2.i")
+
+# Creation of ranks within data frames: DistrictData = s1, Foundations = s2
+DistrictData$Rank <- 1:401
+DistrictData <- DistrictData[,c(47,1:46)]
+
+Foundations$Rank <- 1:402
+Foundations <- Foundations[,c(4,1:3)]
+
+# Merging the two data frames
+MergedWithFoundations <- 
+  merge(match.s1.s2, 
+        Foundations, 
+        by.x=c("s2.i"), 
+        by.y=c("Rank")
+        )
+
+MergedWithFoundationsAndDistrictData <- 
+  merge(MergedWithFoundations, 
+        DistrictData, 
+        by.x=c("s1.i"), 
+        by.y=c("Rank")
+  )
+
+# Updating the DistrictData frame
+DistrictData <- MergedWithFoundationsAndDistrictData
+DistrictData <- DistrictData[,-c(1:6)]
+
+# Removing redundant data frames
+rm(MergedWithFoundations, MergedWithFoundationsAndDistrictData)
+rm(Foundations)
+rm(dist.name, match.s1.s2)
 
 # Saving the data
 write.csv(DistrictData, file = "data/DistrictData2013.csv")
