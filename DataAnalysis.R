@@ -42,12 +42,6 @@ DistrictData <- DistrictData[,-1]
 # Creation of relative measurements
 ########################
 
-# Percentage of graduates without degree
-# Thats no good measure 
-DistrictData$GraduatesWithHouthDegreeRel <- 
-  DistrictData$GraduatesWithHouthDegreeTotal / 
-  DistrictData$TotalPopulation * 100
-
 # Percentage of marraiged persons 
 DistrictData$marriageRel <- 
   DistrictData$HusbandAndWifeTotal / 
@@ -127,6 +121,9 @@ DistrictData$CrimeTotalSum <-
 ########################
 # Linear regression
 ########################
+
+# Getting rid of Berlin and Hamburg (outliers?)
+# DistrictData <- DistrictData[-c(1,2),]
 
 # Linear regression model 1
 regression1 <- lm(CrimeViolentSum ~
@@ -250,7 +247,7 @@ summary(regression12)
 
 # Linear regression model 13
 regression13 <- lm(CrimeViolentSum ~ 
-                     marriageRel + 
+                     FoundationsTotal + 
                      TurnoutPercentage +
                      BelieversPercent +
                      FlowPercent + 
@@ -263,7 +260,7 @@ summary(regression13)
 
 # Linear regression model 14
 regression14 <- lm(CrimeNonViolentSum ~ 
-                     marriageRel + 
+                     FoundationsTotal + 
                      TurnoutPercentage +
                      BelieversPercent +
                      FlowPercent + 
@@ -276,7 +273,7 @@ summary(regression14)
 
 # Linear regression model 15
 regression15 <- lm(CrimeTotalSum ~ 
-                     marriageRel + 
+                     FoundationsTotal + 
                      TurnoutPercentage +
                      BelieversPercent +
                      FlowPercent + 
@@ -286,6 +283,48 @@ regression15 <- lm(CrimeTotalSum ~
                      UnemployedPercentage,
                    data=DistrictData)
 summary(regression15)
+
+# Linear regression model 16
+regression16 <- lm(CrimeViolentSum ~ 
+                     marriageRel + 
+                     TurnoutPercentage +
+                     BelieversPercent +
+                     FlowPercent +
+                     FoundationsTotal +
+                     DensityPerSQRTkm100 +
+                     PopulationYoung +
+                     MalePopulationRel +
+                     UnemployedPercentage,
+                   data=DistrictData)
+summary(regression16)
+
+# Linear regression model 17
+regression17 <- lm(CrimeNonViolentSum ~ 
+                     marriageRel + 
+                     TurnoutPercentage +
+                     BelieversPercent +
+                     FlowPercent + 
+                     FoundationsTotal + 
+                     DensityPerSQRTkm100 +
+                     PopulationYoung +
+                     MalePopulationRel +
+                     UnemployedPercentage,
+                   data=DistrictData)
+summary(regression17)
+
+# Linear regression model 18
+regression18 <- lm(CrimeTotalSum ~ 
+                     marriageRel + 
+                     TurnoutPercentage +
+                     BelieversPercent +
+                     FlowPercent + 
+                     FoundationsTotal + 
+                     DensityPerSQRTkm100 +
+                     PopulationYoung +
+                     MalePopulationRel +
+                     UnemployedPercentage,
+                   data=DistrictData)
+summary(regression18)
 
 # After running regression
 # regrobbery_hat <- fitted(regrobbery) #predicted values
@@ -338,6 +377,16 @@ stargazer(regression13, regression14, regression15,
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding (non-) violent and total crimes 
+          and independent variable foundation",
+          digits = 2,
+          omit.stat = c("f", "ser"),
+          notes = "This regression output shows the results using 3 different 
+          dependent variables")
+
+stargazer(regression16, regression17, regression18, 
+          type = "latex",
+          header = FALSE, # important not to have stargazer information in markdown file 
+          title = "Regression analysis regarding (non-) violent and total crimes 
           and all independent variables at the same time",
           digits = 2,
           omit.stat = c("f", "ser"),
@@ -347,4 +396,4 @@ stargazer(regression13, regression14, regression15,
 # Removing regression results 
 rm(regression1, regression2, regression3, regression4, regression5, regression6, 
    regression7, regression8, regression9, regression10, regression11, regression12,
-   regression13, regression14, regression15)
+   regression13, regression14, regression15, regression16, regression17, regression18)
