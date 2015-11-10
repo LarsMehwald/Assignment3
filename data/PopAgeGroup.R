@@ -36,12 +36,16 @@ PopAgeGroup <- read.csv(file="data/RawData/PopAgeRawData.csv",
 # More compatibility with German characters
 PopAgeGroup$DistrictName <- iconv(PopAgeGroup$DistrictName, from ="latin1", to = "UTF-8")
 
-# Saving Berlin and Hamburg and removing all regional observations
-#Berlin 364 and Hamburg 16
-PopAgeGroupBerHam <- PopAgeGroup[c(16,364),]
+# Removing higher political units (they are coded with numbers below 1000)
+# Keeping only district$Berlin = 11; district$Hamburg = 2; 
+PopAgeGroupBerHam <- subset(PopAgeGroup, PopAgeGroup$district == 2 | PopAgeGroup$district ==11, all(TRUE))
 PopAgeGroup <- PopAgeGroup[PopAgeGroup$district > 1000,]
 PopAgeGroup <- rbind(PopAgeGroup, PopAgeGroupBerHam)
 rm(PopAgeGroupBerHam)
+
+# Removing redundant districts
+# (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
+PopAgeGroup <- subset(PopAgeGroup, PopAgeGroup$district < 17000, all(TRUE))
 
 # Preparing for merging: deleting some columns 
 PopAgeGroup <- PopAgeGroup[,-c(1,3)]

@@ -51,10 +51,16 @@ Marriages[,2] <- as.numeric(as.character(Marriages[,2]))
 Marriages[,3] <- as.numeric(as.character(Marriages[,3]))
 
 # Problem with Hamburg and Berlin: recoding
-MarriageBerHam <- Marriages[c(17, 365),]
+# Removing higher political units (they are coded with numbers below 1000)
+# district$Berlin = 11; district$Hamburg = 2
+MarriageBerHam <- subset(Marriages, Marriages$district == 2 | Marriages$district ==11, all(TRUE))
 Marriages <- Marriages[Marriages$district > 1000,]
 Marriages <- rbind(Marriages, MarriageBerHam)
 rm(MarriageBerHam)
+
+# Removing redundant districts
+# (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
+Marriages <- subset(Marriages, Marriages$district < 17000, all(TRUE))
 
 # Saving the data
 write.csv(Marriages, file = "data/Marriages.csv")

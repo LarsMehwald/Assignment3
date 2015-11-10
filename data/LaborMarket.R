@@ -63,13 +63,16 @@ LaborMarket <- LaborMarket[-1,]
 
 # Removing higher political units (they are coded with numbers below 1000)
 # Hamburg and Berlin problematic: they have no further subunits 
-# Extract them first and then rbind them after all smaller units are removed 
-# 17 (02) is Hamburg; 365 is Berlin (11)
-# Attention: row numbers are not correctly counted as first row has been deleted 
-LaborMarketHamburgBerlin <- LaborMarket[c(17, 365),] 
+# Extract them first and then rbind them after all smaller units are removed
+# district$Berlin = 11; district$Hamburg = 2;
+LaborMarketHamburgBerlin <- subset(LaborMarket, LaborMarket$district == 2 | LaborMarket$district ==11, all(TRUE))
 LaborMarket <- LaborMarket[LaborMarket$district > 1000,]
 LaborMarket <- rbind(LaborMarket, LaborMarketHamburgBerlin)
 rm(LaborMarketHamburgBerlin)
+
+# Removing redundant districts
+# (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
+LaborMarket <- subset(LaborMarket, LaborMarket$district < 17000, all(TRUE))
 
 # Saving the data 
 write.csv(LaborMarket, file = "data/LaborMarket.csv")

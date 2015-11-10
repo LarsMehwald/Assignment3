@@ -59,11 +59,16 @@ NameOfVariables <- c("district",
 names(Religion) <- NameOfVariables
 rm(NameOfVariables)
 
-# Problem with Hamburg and Berlin: recoding
-ReligionBerHam <- Religion[c(2, 11),]
+# Removing higher political units (they are coded with numbers below 1000)
+# district$Berlin = 11; district$Hamburg = 2; 
+ReligionBerHam <- subset(Religion, Religion$district == 2 | Religion$district ==11, all(TRUE))
 Religion <- Religion[Religion$district > 1000,]
 Religion <- rbind(Religion, ReligionBerHam)
 rm(ReligionBerHam)
+
+# Removing redundant districts
+# (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
+Religion <- subset(Religion, Religion$district < 17000, all(TRUE))
 
 # Saving the data
 write.csv(Religion, file = "data/Religion.csv")

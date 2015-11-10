@@ -63,10 +63,14 @@ Graduates[,8] <- as.numeric(as.character(Graduates[,8]))
 # Extract them first and then rbind them after all smaller units are removed 
 # 17 (02) is Hamburg; 365 is Berlin (11)
 # Attention: row numbers are not correctly counted as first row has been deleted 
-GraduatesHamburgBerlin <- Graduates[c(17, 365),] 
+GraduatesHamburgBerlin <- subset(Graduates, Graduates$district == 2 | Graduates$district ==11, all(TRUE))
 Graduates <- Graduates[Graduates$district > 1000,]
 Graduates <- rbind(Graduates, GraduatesHamburgBerlin)
 rm(GraduatesHamburgBerlin)
+
+# Removing redundant districts
+# (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
+Graduates <- subset(Graduates, Graduates$district < 17000, all(TRUE))
 
 # Saving the data 
 write.csv(Graduates, file = "data/Graduates.csv")

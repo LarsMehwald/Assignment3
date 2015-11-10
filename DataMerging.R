@@ -58,7 +58,8 @@ rm(CrMaGrLaPoDPoAMiRe)
 # Removing individual data frames
 rm(PKS_Kreise_13)
 rm(Marriages)
-rm(Graduates)
+#rm(Graduates)
+rm(Graduates2)
 rm(LaborMarket)
 rm(Popdensity)
 rm(PopAgeGroup)
@@ -73,14 +74,14 @@ rm(CrMaGrLaPoDPoAMiReEl)
 
 # Generating Crime rate variable for robberies: 
 # Crimes / Total Population * 100,000
-CrimeRate <- DistrictData$robbery / DistrictData$TotalPopulation * 100000
+#CrimeRate <- DistrictData$robbery / DistrictData$TotalPopulation * 100000
 
 # Adding new variable Robbery Crime Rate to District Data Frame
-DistrictData <- cbind(DistrictData, CrimeRate)
-rm(CrimeRate)
+#DistrictData <- cbind(DistrictData, CrimeRate)
+#rm(CrimeRate)
 
 # Removing redundant variables (year variables)
-DistrictData <- DistrictData[,-c(17,19,26,40)]
+DistrictData <- DistrictData[,-c(17,19,22,36)]
 
 # Renaming year variable (from year.x)
 names(DistrictData)[3] <- "year"

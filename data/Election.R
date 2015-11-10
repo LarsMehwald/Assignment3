@@ -60,13 +60,14 @@ Election[,9] <- as.numeric(as.character(Election[,9]))
 
 # Removing higher political units (they are coded with numbers below 1000)
 # district$Berlin = 11; district$Hamburg = 2; 
-ElectionHamburgBerlin <- subset(Election, Election$district == 2 | Election$district ==11, 1:9)
+ElectionHamburgBerlin <- subset(Election, Election$district == 2 | Election$district ==11, all(TRUE))
 Election <- Election[Election$district > 1000,]
 Election <- rbind(Election, ElectionHamburgBerlin)
 rm(ElectionHamburgBerlin)
 
-#Removing redundant districts (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
-Election <- subset(Election, Election$district < 17000, 1:9)
+# Removing redundant districts
+# (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
+Election <- subset(Election, Election$district < 17000, all(TRUE))
 
 # Saving the data 
 write.csv(Election, file = "data/Election.csv")

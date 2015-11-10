@@ -48,11 +48,16 @@ Migration[,2] <- as.numeric(as.character(Migration[,2]))
 Migration[,3] <- as.numeric(as.character(Migration[,3]))
 Migration[,4] <- as.numeric(as.character(Migration[,4]))
 
-# Problem with Hamburg and Berlin: recoding
-MigrationBerHam <- Migration[c(17, 365),]
+# Removing higher political units (they are coded with numbers below 1000)
+# district$Berlin = 11; district$Hamburg = 2; 
+MigrationBerHam <- subset(Migration, Migration$district == 2 | Migration$district ==11, all(TRUE))
 Migration <- Migration[Migration$district > 1000,]
 Migration <- rbind(Migration, MigrationBerHam)
 rm(MigrationBerHam)
+
+# Removing redundant districts
+# (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
+Migration <- subset(Migration, Migration$district < 17000, all(TRUE))
 
 # Saving the data
 write.csv(Migration, file = "data/Migration.csv")
