@@ -11,6 +11,8 @@ Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
           "ggmap", "rworldmap")
 lapply(Packages, require, character.only = TRUE)
 
+library("stringdist")
+
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
@@ -88,7 +90,31 @@ DistrictData <- DistrictData[,-c(17,19,22,36)]
 names(DistrictData)[3] <- "year"
 
 # Merging the District Data with the Foundation Data
+# Both variables need to be character variables 
+dist.name <- 
+  adist(DistrictData$DistrictName, 
+        Foundations$district, 
+        partial = TRUE, 
+        ignore.case = TRUE)
 
+min.name <- 
+  apply(dist.name, 1, min)
+# apply(X, MARGIN, FUN, ...)
+# Margin = 1 in a data frame means that function is apllied over rows
+
+match.s1.s2 <- NULL  
+for(i in 1:nrow(dist.name))
+{
+  s2.i <- match(min.name[i],dist.name[i,])
+  s1.i <- i
+  match.s1.s2 <- 
+    rbind(data.frame(s2.i=s2.i, 
+                     s1.i=s1.i, 
+                     s2name=Foundations[s2.i,]$district, 
+                     s1name=DistrictData[s1.i,]$DistrictName, 
+                     adist=min.name[i]), 
+          match.s1.s2)
+}
 
 # Saving the data
 write.csv(DistrictData, file = "data/DistrictData2013.csv")
