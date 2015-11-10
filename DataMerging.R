@@ -89,6 +89,8 @@ names(DistrictData)[3] <- "year"
 
 # Merging the District Data with the Foundation Data
 # Both variables need to be character variables 
+# http://www.r-bloggers.com/fuzzy-string-matching-a-survival-skill-
+# to-tackle-unstructured-information/
 dist.name <- 
   adist(DistrictData$DistrictName, 
         Foundations$district, 
@@ -141,6 +143,8 @@ MergedWithFoundationsAndDistrictData <-
 # Updating the DistrictData frame
 DistrictData <- MergedWithFoundationsAndDistrictData
 DistrictData <- DistrictData[,-c(1:6)]
+DistrictData <- DistrictData[,c(3:48,1,2)]
+names(DistrictData)[1] <- "district"
 
 # Removing redundant data frames
 rm(MergedWithFoundations, MergedWithFoundationsAndDistrictData)
