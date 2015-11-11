@@ -1,6 +1,7 @@
 # Third Pair Assignment
 **Authors:** [Lars Mehwald](https://github.com/LarsMehwald) and [Daniel Salgado Moreno](https://github.com/dsalgadom)  
-**Seminar:** [MPP-E1180: Introduction to Collaborative Social Science Data Analysis](https://github.com/HertieDataScience/SyllabusAndLectures) 
+**Seminar:** [MPP-E1180: Introduction to Collaborative Social Science Data Analysis](https://github.com/HertieDataScience/SyllabusAndLectures)
+
 **Instructure:** [Christopher Gandrud](https://github.com/christophergandrud)
 **Task 3:** Data collection and statistical analyses   
 **IMPORTANT NOTE:** Work in Porgress. Please ask authors for permission before citing.
