@@ -22,6 +22,7 @@ Foundations <- read.csv(file="data/RawData/Stiftungsdichte2013.csv",
                        header = FALSE,
                        skip = 2,
                        nrows = 403, 
+                       encoding = "UTF-8",
                        col.names = c("Rank",
                                      "district",
                                      "State",
@@ -29,21 +30,14 @@ Foundations <- read.csv(file="data/RawData/Stiftungsdichte2013.csv",
                                      "FoundationsTotal")
                        )
 
-# Converting Character Vectors between Encodings from latin1 to UTF-8
-# More compatibility with German characters
-Foundations$district <- iconv(Foundations$district, from ="latin1", to = "UTF-8")
-
-Foundations$district <- gsub('\u009f', 'ü', Foundations$district)
-Foundations$district <- gsub(pattern = '\u008a', replacement = 'ä', x = Foundations$district)
-Foundations$district <- gsub(pattern = '\u009a', replacement = 'ö', x = Foundations$district)
-Foundations$district <- gsub(pattern = '§', replacement = 'ß', x = Foundations$district)
+Foundations$district <- gsub('\u009f', '?', Foundations$district)
+Foundations$district <- gsub(pattern = '\u008a', replacement = '?', x = Foundations$district)
+Foundations$district <- gsub(pattern = '\u009a', replacement = '?', x = Foundations$district)
+Foundations$district <- gsub(pattern = '?', replacement = '?', x = Foundations$district)
 
 # Changing the class of numbers
 Foundations[,4] <- as.numeric(as.character(Foundations[,4]))
 Foundations[,5] <- as.numeric(as.character(Foundations[,5]))
-
-# Resolving problem with Hamburg
-Foundations[7,5] = 1194
 
 # Getting rid of redundant variables
 Foundations <- Foundations[,-c(1,3)]

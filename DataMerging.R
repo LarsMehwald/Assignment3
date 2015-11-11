@@ -91,11 +91,10 @@ names(DistrictData)[3] <- "year"
 # Both variables need to be character variables 
 # http://www.r-bloggers.com/fuzzy-string-matching-a-survival-skill-
 # to-tackle-unstructured-information/
-dist.name <- 
-  adist(DistrictData$DistrictName, 
-        Foundations$district, 
-        partial = TRUE, 
-        ignore.case = TRUE)
+dist.name <- adist(DistrictData$DistrictName, 
+                       Foundations$district, 
+                       partial = TRUE, 
+                       ignore.case = TRUE)
 
 min.name <- 
   apply(dist.name, 1, min)
