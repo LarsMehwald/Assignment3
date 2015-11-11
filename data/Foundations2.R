@@ -30,13 +30,20 @@ Foundations <- read.csv(file="data/RawData/Stiftungsdichte2013.csv",
                                       "FoundationsTotal")
 )
 
-pattern <- c(", Stadt", ", Kreisfreie Stadt", ", Universitätsstadt", ", Landkreis", ", Hansestadt, Kreisfreie Stadt")
-Foundations$DistrictName <- gsub
+Foundations$DistrictName <- gsub(",","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub("Stadt","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub("Universitätsstadt","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub("Kreisfreie","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub("Hansestadt","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub("krsfr.","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub(" Kreis","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub("Regionalverband","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub("Städteregion","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub("^\\s+|\\s+$", "", Foundations$DistrictName) #Removes whitespaces before and after string
+Foundations$DistrictName <- gsub("(einschl. Aachen)", "", Foundations$DistrictName)
+Foundations$DistrictName <- gsub(" Landkreis","",Foundations$DistrictName)
+Foundations$DistrictName <- gsub("Soltau-Fallingbostel", "Landkreis HeideKreis", Foundations$DistrictName) #Change of name in 2011
 
-Foundations$DistrictName <- gsub('\u009f', '?', Foundations$DistrictName)
-Foundations$DistrictName <- gsub(pattern = '\u008a', replacement = '?', x = Foundations$DistrictName)
-Foundations$DistrictName <- gsub(pattern = '\u009a', replacement = '?', x = Foundations$DistrictName)
-Foundations$DistrictName <- gsub(pattern = '?', replacement = '?', x = Foundations$DistrictName)
 
 # Changing the class of numbers
 Foundations[,4] <- as.numeric(as.character(Foundations[,4]))
@@ -46,4 +53,4 @@ Foundations[,5] <- as.numeric(as.character(Foundations[,5]))
 Foundations <- Foundations[,-c(1,3)]
 
 # Saving the data 
-write.csv(Foundations, file = "data/Foundations.csv")
+write.csv(Foundations, file = "data/Foundations2.csv")

@@ -1,0 +1,403 @@
+"","DistrictName","FoundationsDensity100k"
+"220","Aachen (einschl.  Aachen)",15.9
+"221","Ahrweiler",15.9
+"347","Aichach-Friedberg",7.9
+"182","Alb-Donau-Kreis",18.2
+"342","Altenburger Land",8.3
+"307","Altenkirchen (Westerwald)",10.8
+"256","Altmarkkreis Salzwedel",13.7
+"247","Altötting",14.1
+"383","Alzey-Worms",5.6
+"39","Amberg",40.7
+"152","Amberg-Sulzbach",21.2
+"302","Ammerland",11
+"282","Anhalt-Bitterfeld",12.3
+"12","Ansbach",63.1
+"121","Ansbach",23.6
+"64","Aschaffenburg",34.1
+"314","Aschaffenburg",9.9
+"27","Augsburg",52.7
+"238","Augsburg",14.7
+"211","Aurich",16.6
+"86","Bad Dürkheim",28.3
+"129","Bad Kissingen",23.2
+"83","Bad Kreuznach",29
+"147","Bad Tölz-Wolfratshausen",21.7
+"29","Baden-Baden",49.6
+"14","Bamberg",62.2
+"351","Bamberg",7.7
+"332","Barnim",8.7
+"377","Bautzen",6.1
+"3","Bayreuth",80
+"145","Bayreuth",21.9
+"306","Berchtesgadener Land",10.9
+"206","Bergstraße",16.8
+"116","Berlin",24
+"296","Bernkastel-Wittlich",11.6
+"112","Biberach",24.5
+"44","Bielefeld",39.1
+"130","Birkenfeld",23.1
+"255","Böblingen",13.7
+"249","Bochum",14.1
+"67","Bodenseekreis",33.7
+"10","Bonn",64.4
+"358","Börde",7.4
+"219","Borken",15.9
+"369","Bottrop",6.8
+"277","Brandenburg an der Havel",12.6
+"32","Braunschweig",46.3
+"200","Breisgau-Hochschwarzwald",17
+"24","Bremen",54
+"160","Bremerhaven",20.3
+"337","Burgenlandkreis",8.5
+"263","Calw",13.2
+"85","Celle",28.4
+"312","Cham",10.4
+"363","Chemnitz",7.1
+"136","Cloppenburg",22.6
+"26","Coburg",53.7
+"300","Coburg",11.4
+"399","Cochem-Zell",3.1
+"94","Coesfeld",27
+"388","Cottbus",5
+"174","Cuxhaven",18.7
+"382","Dachau",5.7
+"366","Dahme-Spreewald",6.9
+"21","Darmstadt",55.5
+"275","Darmstadt-Dieburg",12.7
+"194","Deggendorf",17.4
+"257","Delmenhorst",13.6
+"230","Dessau-Roßlau",15.2
+"241","Diepholz",14.3
+"167","Dillingen a.d.Donau",19.3
+"350","Dingolfing-Landau",7.7
+"115","Dithmarschen",24
+"55","Donau-Ries",36.7
+"223","Donnersbergkreis",15.8
+"283","Dortmund",12.3
+"141","Dresden",22.2
+"292","Duisburg",11.9
+"273","Düren",12.8
+"41","Düsseldorf",40.5
+"175","Ebersberg",18.6
+"237","Eichsfeld",14.7
+"215","Eichstätt",16.1
+"161","Eifelkreis Bitburg-Prüm",19.8
+"47","Eisenach",38.4
+"359","Elbe-Elster",7.3
+"142","Emden",22.1
+"274","Emmendingen",12.8
+"201","Emsland",17
+"169","Ennepe-Ruhr-Kreis",19.1
+"341","Enzkreis",8.4
+"389","Erding",4.7
+"171","Erfurt",18.8
+"77","Erlangen",30.7
+"390","Erlangen-Höchstadt",4.6
+"346","Erzgebirgskreis",8.1
+"54","Essen",36.8
+"210","Esslingen",16.6
+"235","Euskirchen",14.9
+"37","Flensburg",41.1
+"218","Forchheim",15.9
+"119","Frankenthal (Pfalz)",23.6
+"339","Frankfurt (Oder)",8.5
+"5","Frankfurt am Main",76.7
+"49","Freiburg im Breisgau",37.3
+"199","Freising",17
+"266","Freudenstadt",13
+"297","Freyung-Grafenau",11.5
+"90","Friesland",27.6
+"104","Fulda",25.5
+"242","Fürstenfeldbruck",14.3
+"78","Fürth",30
+"298","Fürth",11.5
+"43","Garmisch-Partenkirchen",39.2
+"344","Gelsenkirchen",8.1
+"374","Gera",6.3
+"270","Germersheim",12.9
+"71","Gießen",32.1
+"325","Gifhorn",9.4
+"202","Göppingen",17
+"234","Görlitz",14.9
+"75","Goslar",30.8
+"371","Gotha",6.6
+"79","Göttingen",29.4
+"232","Grafschaft Bentheim",15
+"401","Greiz",2.9
+"309","Groß-Gerau",10.7
+"125","Günzburg",23.3
+"140","Gütersloh",22.2
+"260","Hagen",13.3
+"267","Halle (Saale)",13
+"7","Hamburg",69.5
+"87","Hameln-Pyrmont",28.1
+"370","Hamm",6.8
+"208","Harburg",16.7
+"261","Harz",13.3
+"343","Haßberge",8.3
+"398","Havelland",3.3
+"33","Heidelberg",45.8
+"248","Heidenheim",14.1
+"138","Heilbronn",22.3
+"239","Heilbronn",14.5
+"340","Heinsberg",8.5
+"288","Helmstedt",12.1
+"198","Herford",17.2
+"391","Herne",4.5
+"357","Hersfeld-Rotenburg",7.5
+"233","Herzogtum Lauenburg",14.9
+"328","Hildburghausen",9.1
+"151","Hildesheim",21.3
+"301","Hochsauerlandkreis",11.3
+"19","Hochtaunuskreis",59.5
+"16","Hof",60.7
+"126","Hof",23.3
+"88","Hohenlohekreis",28
+"51","Holzminden",36.9
+"222","Höxter",15.9
+"329","Ilm-Kreis",9.1
+"293","Ingolstadt",11.9
+"122","Jena",23.5
+"354","Jerichower Land",7.5
+"50","Kaiserslautern",37.1
+"381","Kaiserslautern",5.7
+"62","Karlsruhe",34.9
+"322","Karlsruhe",9.4
+"30","Kassel",49.5
+"336","Kassel",8.5
+"4","Kaufbeuren",77.2
+"166","Kelheim",19.4
+"17","Kempten (Allgäu)",60.7
+"56","Kiel Landeshauptstadt",36.6
+"76","Kitzingen",30.8
+"107","Kleve",25.2
+"73","Koblenz",31.5
+"59","Köln",35.9
+"181","Konstanz",18.3
+"91","Krefeld",27.5
+"102","Kronach",25.9
+"69","Kulmbach",32.6
+"281","Kusel",12.4
+"386","Kyffhäuserkreis",5
+"162","Lahn-Dill-Kreis",19.8
+"53","Landau in der Pfalz",36.8
+"118","Landsberg am Lech",23.8
+"124","Landshut",23.3
+"345","Landshut",8.1
+"228","Leer",15.2
+"254","Leipzig",13.7
+"373","Leipzig",6.5
+"278","Leverkusen",12.5
+"294","Lichtenfels",11.9
+"212","Limburg-Weilburg",16.4
+"38","Lindau (Bodensee)",40.8
+"134","Lippe",22.7
+"189","Lörrach",17.8
+"28","Lübeck",52.2
+"45","Lüchow-Dannenberg",38.7
+"243","Ludwigsburg",14.3
+"149","Ludwigshafen am Rhein",21.4
+"324","Ludwigslust-Parchim",9.4
+"57","Lüneburg",36.1
+"240","Magdeburg",14.4
+"231","Main-Kinzig-Kreis",15.2
+"197","Main-Spessart",17.3
+"204","Main-Tauber-Kreis",16.9
+"99","Main-Taunus-Kreis",26.2
+"11","Mainz",63.7
+"177","Mainz-Bingen",18.4
+"98","Mannheim",26.4
+"355","Mansfeld-Südharz",7.5
+"63","Marburg-Biedenkopf",34.8
+"393","Märkisch-Oderland",4.3
+"268","Märkischer",13
+"165","Mayen-Koblenz",19.5
+"348","Mecklenburgische Seenplatte",7.9
+"365","Meißen",6.9
+"9","Memmingen",65.5
+"310","Merzig-Wadern",10.6
+"193","Mettmann",17.6
+"65","Miesbach",34.1
+"110","Miltenberg",25
+"216","Minden-Lübbecke",16.1
+"356","Mittelsachsen",7.5
+"304","Mönchengladbach",11
+"264","Mühldorf a.Inn",13.1
+"196","Mülheim an der Ruhr",17.4
+"114","München",24
+"8","München Landeshauptstadt",65.6
+"18","Münster",59.6
+"290","Neckar-Odenwald-Kreis",11.9
+"229","Neu-Ulm",15.2
+"172","Neuburg-Schrobenhausen",18.7
+"170","Neumarkt i.d.OPf.",18.9
+"183","Neumünster",18.1
+"320","Neunkirchen",9.6
+"97","Neustadt a.d.Aisch-Bad Windsheim",26.7
+"299","Neustadt a.d.Waldnaab",11.4
+"31","Neustadt an der Weinstraße",47.8
+"103","Neuwied",25.5
+"139","Nienburg (Weser)",22.2
+"25","Nordfriesland",54
+"276","Nordhausen",12.7
+"384","Nordsachsen",5.5
+"285","Nordwestmecklenburg",12.2
+"113","Northeim",24.2
+"34","Nürnberg",44.5
+"180","Nürnberger Land",18.3
+"100","Oberallgäu",26.2
+"191","Oberbergischer",17.6
+"334","Oberhausen",8.6
+"400","Oberhavel",3
+"367","Oberspreewald-Lausitz",6.8
+"95","Odenwaldkreis",26.9
+"392","Oder-Spree",4.5
+"295","Offenbach",11.7
+"101","Offenbach am Main",26.1
+"156","Oldenburg",20.8
+"6","Oldenburg (Oldenburg)",71.7
+"279","Olpe",12.5
+"252","Ortenaukreis",13.9
+"150","Osnabröck",21.4
+"36","Osnabrück",44
+"214","Ostalbkreis",16.3
+"128","Ostallgäu",23.2
+"106","Osterholz",25.3
+"178","Osterode am Harz",18.4
+"164","Ostholstein",19.7
+"378","Ostprignitz-Ruppin",6
+"192","Paderborn",17.6
+"15","Passau",61.7
+"326","Passau",9.2
+"308","Peine",10.8
+"368","Pfaffenhofen a.d.Ilm",6.8
+"84","Pforzheim",28.6
+"253","Pinneberg",13.8
+"72","Pirmasens",32
+"81","Plön",29.1
+"68","Potsdam",33
+"396","Potsdam-Mittelmark",3.4
+"353","Prignitz",7.5
+"287","Rastatt",12.2
+"92","Ravensburg",27.4
+"272","Recklinghausen",12.8
+"225","Regen",15.7
+"22","Regensburg",55
+"362","Regensburg",7.1
+"61","Region Hannover",35
+"185","Rems-Murr-Kreis",17.9
+"227","Remscheid",15.4
+"131","Rendsburg-Eckernförde",23.1
+"135","Reutlingen",22.7
+"330","Rhein-Erft-Kreis",9.1
+"158","Rhein-Hunsrück-Kreis",20.7
+"217","Rhein-Kreis Neuss",16
+"226","Rhein-Lahn-Kreis",15.5
+"352","Rhein-Neckar-Kreis",7.6
+"258","Rhein-Pfalz-Kreis",13.6
+"195","Rhein-Sieg-Kreis",17.4
+"148","Rheingau-Taunus-Kreis",21.6
+"203","Rheinisch-Bergischer",16.9
+"111","Rhön-Grabfeld",24.9
+"46","Rosenheim",38.6
+"184","Rosenheim",17.9
+"313","Rostock",9.9
+"394","Rostock",4.2
+"93","Rotenburg (Wümme)",27.1
+"284","Roth",12.2
+"323","Rottal-Inn",9.4
+"251","Rottweil",14
+"321","Saale-Holzland-Kreis",9.4
+"379","Saale-Orla-Kreis",5.9
+"380","Saalekreis",5.8
+"317","Saalfeld-Rudolstadt",9.8
+"127","Saarbrücken",23.2
+"333","Saarlouis",8.6
+"143","Saarpfalz-Kreis",22.1
+"335","Sächsische Schweiz-Osterzgebirge",8.5
+"376","Salzgitter",6.1
+"209","Salzlandkreis",16.7
+"187","Schaumburg",17.8
+"213","Schleswig-Flensburg",16.3
+"349","Schmalkalden-Meiningen",7.9
+"157","Schwabach",20.7
+"269","Schwäbisch Hall",12.9
+"154","Schwalm-Eder-Kreis",21
+"291","Schwandorf",11.9
+"190","Schwarzwald-Baar-Kreis",17.6
+"1","Schweinfurt",103.6
+"245","Schweinfurt",14.2
+"144","Schwerin Landeshauptstadt",21.9
+"327","Segeberg",9.2
+"146","Siegen-Wittgenstein",21.7
+"96","Sigmaringen",26.7
+"236","Soest",14.8
+"109","Solingen",25.1
+"74","Soltau-Fallingbostel",30.9
+"316","Sömmerda",9.8
+"397","Sonneberg",3.4
+"23","Speyer",54.3
+"395","Spree-Neiße",4.1
+"186","St. Wendel",17.8
+"153","Stade",21
+"48","Starnberg",38.2
+"168","Steinburg",19.2
+"280","Steinfurt",12.4
+"303","Stendal",11
+"205","Stormarn",16.9
+"80","Straubing",29.1
+"360","Straubing-Bogen",7.3
+"13","Stuttgart Landeshauptstadt",62.6
+"224","Südliche Weinstraße",15.7
+"375","Südwestpfalz",6.1
+"402","Suhl",2.7
+"387","Teltow-Fläming",5
+"259","Tirschenreuth",13.4
+"179","Traunstein",18.4
+"35","Trier",44.2
+"311","Trier-Saarburg",10.5
+"60","Tübingen",35.2
+"315","Tuttlingen",9.8
+"319","Uckermark",9.7
+"89","Uelzen",27.9
+"20","Ulm",56.2
+"305","Unna",10.9
+"244","Unstrut-Hainich-Kreis",14.2
+"159","Unterallgäu",20.6
+"40","Vechta",40.7
+"163","Verden",19.7
+"286","Viersen",12.2
+"176","Vogelsbergkreis",18.5
+"361","Vogtlandkreis",7.1
+"289","Vorpommern-Greifswald",12
+"331","Vorpommern-Rügen",8.9
+"318","Vulkaneifel",9.8
+"262","Waldeck-Frankenberg",13.3
+"188","Waldshut",17.8
+"173","Warendorf",18.7
+"385","Wartburgkreis",5.5
+"58","Weiden i.d.OPf.",35.9
+"137","Weilheim-Schongau",22.5
+"42","Weimar",39.8
+"338","Weimarer Land",8.5
+"52","Weißenburg-Gunzenhausen",36.9
+"120","Werra-Meißner-Kreis",23.6
+"246","Wesel",14.1
+"123","Wesermarsch",23.5
+"265","Westerwaldkreis",13
+"133","Wetteraukreis",22.9
+"66","Wiesbaden Landeshauptstadt",34
+"155","Wilhelmshaven",20.8
+"271","Wittenberg",12.9
+"132","Wittmund",23
+"82","Wolfenbüttel",29.1
+"250","Wolfsburg",14.1
+"117","Worms",23.9
+"108","Wunsiedel i.Fichtelgebirge",25.2
+"105","Wuppertal",25.4
+"2","Würzburg",89.2
+"364","Würzburg",7
+"207","Zollernalbkreis",16.7
+"70","Zweibrücken",32.2
+"372","Zwickau",6.6

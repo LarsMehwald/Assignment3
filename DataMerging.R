@@ -8,7 +8,7 @@
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
           "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-          "ggmap", "rworldmap")
+          "ggmap", "rworldmap", "xlsx")
 lapply(Packages, require, character.only = TRUE)
 
 # Setting the commonly used working directory
@@ -32,7 +32,7 @@ source("data/PopAgeGroup.R")
 source("data/Migration.R")
 source("data/Religion.R")
 source("data/Election.R")
-source("data/Foundations.R")
+source("data/Foundations2.R")
 
 # Merging the data frames by district
 # Districts that are not matched with a corresponding district are dropped
@@ -92,7 +92,7 @@ names(DistrictData)[3] <- "year"
 # http://www.r-bloggers.com/fuzzy-string-matching-a-survival-skill-
 # to-tackle-unstructured-information/
 dist.name <- adist(DistrictData$DistrictName, 
-                       Foundations$district, 
+                       Foundations$DistrictName, 
                        partial = TRUE, 
                        ignore.case = TRUE)
 
@@ -109,7 +109,7 @@ for(i in 1:nrow(dist.name))
   match.s1.s2 <- 
     rbind(data.frame(s2.i=s2.i, 
                      s1.i=s1.i, 
-                     s2name=Foundations[s2.i,]$district, 
+                     s2name=Foundations[s2.i,]$DistrictName, 
                      s1name=DistrictData[s1.i,]$DistrictName, 
                      adist=min.name[i]), 
           match.s1.s2)
@@ -118,10 +118,10 @@ for(i in 1:nrow(dist.name))
 rm("i", "min.name", "s1.i", "s2.i")
 
 # Creation of ranks within data frames: DistrictData = s1, Foundations = s2
-DistrictData$Rank <- 1:401
+DistrictData$ID <- 1:401
 DistrictData <- DistrictData[,c(47,1:46)]
 
-Foundations$Rank <- 1:402
+Foundations$ID <- 1:402
 Foundations <- Foundations[,c(4,1:3)]
 
 # Merging the two data frames
@@ -129,14 +129,14 @@ MergedWithFoundations <-
   merge(match.s1.s2, 
         Foundations, 
         by.x=c("s2.i"), 
-        by.y=c("Rank")
+        by.y=c("ID")
         )
 
 MergedWithFoundationsAndDistrictData <- 
   merge(MergedWithFoundations, 
         DistrictData, 
         by.x=c("s1.i"), 
-        by.y=c("Rank")
+        by.y=c("ID")
   )
 
 # Updating the DistrictData frame
