@@ -15,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Reading Migration 2013 csv file 
-Migration <- read.csv(file="data/RawData/182-20-4_MigrationStatistic_2013.csv", 
+Migration <- read.csv(file="Analysis/data/RawData/182-20-4_MigrationStatistic_2013.csv", 
                            sep=";", 
                            na.strings = c("-","."),
                            nrows = 525,
@@ -60,4 +60,4 @@ rm(MigrationBerHam)
 Migration <- subset(Migration, Migration$district < 17000, all(TRUE))
 
 # Saving the data
-write.csv(Migration, file = "data/Migration.csv")
+write.csv(Migration, file = "Analysis/data/Migration.csv")

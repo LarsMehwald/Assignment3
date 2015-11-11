@@ -19,7 +19,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Downloading of data
-Election <- read.csv(file = "data/RawData/GermanElections2013.csv", 
+Election <- read.csv(file = "Analysis/data/RawData/GermanElections2013.csv", 
                            sep= ";",
                            dec = ",",
                            na.strings = "-",
@@ -70,4 +70,4 @@ rm(ElectionHamburgBerlin)
 Election <- subset(Election, Election$district < 17000, all(TRUE))
 
 # Saving the data 
-write.csv(Election, file = "data/Election.csv")
+write.csv(Election, file = "Analysis/data/Election.csv")

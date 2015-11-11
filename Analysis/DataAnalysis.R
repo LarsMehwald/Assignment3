@@ -30,7 +30,7 @@ LoadandCite(Packages, file = 'References/RpackageCitations.bib')
 rm(Packages)
 
 # Loading data set from csv file
-DistrictData <- read.csv(file="data/DistrictData2013.csv")
+DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
 
 # Removing ranking column (it was added in the saving process in DataMerging.R)
 DistrictData <- DistrictData[,-1]

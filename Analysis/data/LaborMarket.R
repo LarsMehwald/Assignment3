@@ -15,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Loading the data frame 
-LaborMarket <- read.csv(file = "data/RawData/659-71-4_LaborMarketStatistic_2013_2014.csv", 
+LaborMarket <- read.csv(file = "Analysis/data/RawData/659-71-4_LaborMarketStatistic_2013_2014.csv", 
                       sep=";", 
                       dec = ",",
                       na.strings=c("-", "."), 
@@ -75,4 +75,4 @@ rm(LaborMarketHamburgBerlin)
 LaborMarket <- subset(LaborMarket, LaborMarket$district < 17000, all(TRUE))
 
 # Saving the data 
-write.csv(LaborMarket, file = "data/LaborMarket.csv")
+write.csv(LaborMarket, file = "Analysis/data/LaborMarket.csv")

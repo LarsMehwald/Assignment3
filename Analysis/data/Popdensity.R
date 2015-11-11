@@ -15,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Loading data
-Popdensity <- read.csv(file = "data/RawData/BevoelkerungRawData.csv", 
+Popdensity <- read.csv(file = "Analysis/data/RawData/BevoelkerungRawData.csv", 
                         sep=",", 
                         na.strings=c("-", "."), 
                         header = FALSE,
@@ -53,6 +53,6 @@ Popdensity[326,1]=11
 Popdensity[16,1]=2
 
 #Saveing Population denisty data frame
-write.csv(Popdensity, file = "data/Popdensity.csv")
+write.csv(Popdensity, file = "Analysis/data/Popdensity.csv")
 
 

@@ -95,4 +95,4 @@ PKS_Kreise_13[,15] <- as.numeric(as.character(PKS_Kreise_13[,15]))
 PKS_Kreise_13[,16] <- as.numeric(as.character(PKS_Kreise_13[,16]))
 
 # Saving the data 
-write.csv(PKS_Kreise_13, file = "data/PKS_Kreise.csv")
+write.csv(PKS_Kreise_13, file = "Analysis/data/PKS_Kreise.csv")

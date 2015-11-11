@@ -15,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 #Loading the data frame 
-Graduates <- read.csv(file = "data/RawData/192-71-4_GraduatesFromDifferentHighSchool.csv", 
+Graduates <- read.csv(file = "Analysis/data/RawData/192-71-4_GraduatesFromDifferentHighSchool.csv", 
                sep=";", 
                na.strings=c("-", "."), 
                header = FALSE,
@@ -73,4 +73,4 @@ rm(GraduatesHamburgBerlin)
 Graduates <- subset(Graduates, Graduates$district < 17000, all(TRUE))
 
 # Saving the data 
-write.csv(Graduates, file = "data/Graduates.csv")
+write.csv(Graduates, file = "Analysis/data/Graduates.csv")

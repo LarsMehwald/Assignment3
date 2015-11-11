@@ -15,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Loading the data
-PopAgeGroup <- read.csv(file="data/RawData/PopAgeRawData.csv",
+PopAgeGroup <- read.csv(file="Analysis/data/RawData/PopAgeRawData.csv",
                           sep=",", 
                           dec=",",
                           na.strings=c("."), 
@@ -59,5 +59,5 @@ PopAgeGroup[,5] <- as.numeric(as.character(PopAgeGroup[,5]))
 PopAgeGroup[,6] <- as.numeric(as.character(PopAgeGroup[,6]))
 
 #saving population groups data frame 
-write.csv(PopAgeGroup, file = "data/PopAgeGroup.csv")
+write.csv(PopAgeGroup, file = "Analysis/data/PopAgeGroup.csv")
 

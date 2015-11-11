@@ -15,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Loading data set from csv file
-Foundations <- read.csv(file="data/RawData/Stiftungsdichte2013.csv",
+Foundations <- read.csv(file="Analysis/data/RawData/Stiftungsdichte2013.csv",
                         sep=";", 
                         dec=",",
                         na.strings=c("-", "."), 
@@ -52,4 +52,4 @@ Foundations[,5] <- as.numeric(as.character(Foundations[,5]))
 Foundations <- Foundations[,-c(2,3)]
 
 # Saving the data 
-write.csv(Foundations, file = "data/Foundations2.csv")
+write.csv(Foundations, file = "Analysis/data/Foundations2.csv")

@@ -15,7 +15,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Reading Marriages 2013 csv file 
-Marriages <- read.csv(file="data/RawData/177-31-4_Marriages_2013.csv", 
+Marriages <- read.csv(file="Analysis/data/RawData/177-31-4_Marriages_2013.csv", 
                            sep=";", 
                            na.strings = c("-","."),
                            nrows = 525,
@@ -63,4 +63,4 @@ rm(MarriageBerHam)
 Marriages <- subset(Marriages, Marriages$district < 17000, all(TRUE))
 
 # Saving the data
-write.csv(Marriages, file = "data/Marriages.csv")
+write.csv(Marriages, file = "Analysis/data/Marriages.csv")
