@@ -130,7 +130,7 @@ DistrictData$CrimeRate <-
 # Historgrams
 ################################
 DistrictData$CrimeRate <- as.numeric(as.character(DistrictData$CrimeRate))
-# Crime Rate count
+# Crime Rate hist
 histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
   geom_histogram(binwidth=500, colour="black", fill="white")
 
@@ -145,8 +145,43 @@ histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) +
 ##########
 # Correlation
 ######
+
+# Correlation Plot using "PerformanceAnalytics"
 datacor <- DistrictData[, c(19,22,40,47,49,50,51,52,53)]
-chartCor <- chart.Correlation(datacor, historgram=T)
+chart.Correlation(datacor, historgram=T)
+rm(datacor)
+
+#########
+# Negative Binomial Regression for Event Count Dependent Variables
+#########
+
+z.out <- zelig(ViolentCrimeRate ~ 
+                 FoundationsDensity100k + 
+                 NetFlowRate + 
+                 TurnoutPercentage + 
+                 PropwoHauptschulabschluss + 
+                 YouthRate +
+                 MaleRate + 
+                 UnemployedPercentage + 
+                 BelieversRate + 
+                 MarriageRate, 
+               model="negbinom",
+               DistrictData)
+
+x.out <- setx(z.out)
+s.out <- sim(z.out, x = x.out)
+plot(s.out)
+
+z.out <- zelig(ViolentCrimeRate ~ 
+                 FoundationsDensity100k, 
+               model="negbinom",
+               DistrictData, warnings())
+
+z.out <- zelig(ViolentCrimeRate ~ 
+                 UnemployedPercentage + 
+                 TurnoutPercentage, 
+               model="negbinom",
+               DistrictData)
 
 #Saving DistrictDataAdd
 write.csv(DistrictData, file = "Analysis/DistrictDataAdd.csv")
