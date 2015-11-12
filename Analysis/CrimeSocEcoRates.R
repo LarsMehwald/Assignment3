@@ -84,6 +84,12 @@ DistrictData$CrimeViolent <-
   DistrictData$murderAndManslaughter +
   DistrictData$robberyIncludingExtortionAndAttackOfCarDrivers
 
+#Violent crime rate
+# Non-violent crime rate
+DistrictData$ViolentCrimeRate <- 
+  (DistrictData$CrimeViolent / 
+     DistrictData$TotalPopulation) * 100000
+
 # non-violent crime 
 DistrictData$CrimeNonViolent <- 
   DistrictData$robberyFromOrOutOfCars + 
@@ -93,6 +99,11 @@ DistrictData$CrimeNonViolent <-
   DistrictData$streetCrime +
   DistrictData$burglaryDaylight +
   DistrictData$burglary
+
+# Non-violent crime rate
+DistrictData$NonViolentCrimeRate <- 
+  (DistrictData$CrimeNonViolent / 
+     DistrictData$TotalPopulation) * 100000
 
 # total crimes
 DistrictData$CrimeTotal <- 
@@ -108,3 +119,29 @@ DistrictData$CrimeTotal <-
   DistrictData$streetCrime +
   DistrictData$burglaryDaylight +
   DistrictData$burglary
+
+# Total crime rate
+DistrictData$CrimeRate <- 
+  (DistrictData$CrimeTotal / 
+     DistrictData$TotalPopulation) * 100000
+
+#################################
+# Historgrams
+################################
+DistrictData$CrimeRate <- as.numeric(as.character(DistrictData$CrimeRate))
+# Crime Rate count
+histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
+  geom_histogram(binwidth=500, colour="black", fill="white")
+
+# Violent Crime histogram
+histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
+  geom_histogram(binwidth=50, colour="black", fill="white")
+
+# Non-Violent Crime histogram
+histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
+  geom_histogram(binwidth=400, colour="black", fill="white")
+
+
+
+#Saving DistrictDataAdd
+write.csv(DistrictData, file = "Analysis/DistrictDataAdd.csv")
