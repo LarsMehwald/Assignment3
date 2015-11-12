@@ -8,7 +8,7 @@
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-              "ggmap", "rworldmap")
+              "ggmap", "rworldmap", "car", "PerformanceAnalytics")
 lapply(Packages, require, character.only = TRUE) 
 
 # Setting the commonly used working directory
@@ -66,10 +66,11 @@ DistrictData$BelieversRate <-
   DistrictData$TotalPopulation) * 100000
 
 # Net Mobility rate 
-DistrictData$FlowRate <- 
+DistrictData$NetFlowRate <- 
   ((DistrictData$InfluxTotal -
      DistrictData$OutflowTotal) /
   DistrictData$TotalPopulation) * 100000
+
 
 ########################
 # Create composite dependent variable:
@@ -141,7 +142,11 @@ histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) +
 histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
   geom_histogram(binwidth=400, colour="black", fill="white")
 
-
+##########
+# Correlation
+######
+datacor <- DistrictData[, c(19,22,40,47,49,50,51,52,53)]
+chartCor <- chart.Correlation(datacor, historgram=T)
 
 #Saving DistrictDataAdd
 write.csv(DistrictData, file = "Analysis/DistrictDataAdd.csv")
