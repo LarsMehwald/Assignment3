@@ -8,7 +8,7 @@
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-              "ggmap", "rworldmap", "car", "PerformanceAnalytics")
+              "ggmap", "rworldmap", "car", "PerformanceAnalytics", "MASS")
 lapply(Packages, require, character.only = TRUE) 
 
 # Setting the commonly used working directory
@@ -33,7 +33,7 @@ DistrictData <- DistrictData[,-1]
 ################################
 
 # Changing class of Crime Rate
-DistrictData$CrimeRate <- as.numeric(as.character(DistrictData$CrimeRate))
+DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
 
 # Crime Rate hist
 histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
@@ -61,41 +61,63 @@ rm(datacor)
 # Negative Binomial Regression for Event Count Dependent Variables
 #########
 
-z.out <- zelig(ViolentCrimeRate ~ 
-                 FoundationsDensity100K + 
-                 NetFlowRate + 
-                 TurnoutPercentage + 
-                 PropwoHauptschulabschluss + 
-                 YouthRate +
-                 MaleRate + 
-                 UnemployedPercentage + 
-                 MarriageRate, 
-               model="negbinom",
-               DistrictData, robust=T)
+#creating a subset for data analysis
+modelVCR <- DistrictData[c("district","ViolentCrimeRate","FoundationsDensity100K","NetFlowRate", 
+                           "TurnoutPercentage","PropwoHauptschulabschluss","YouthRate",
+                           "MaleRate","BeliversRate","UnemployedPercentage","MarriageRate")] 
+# Asigning variables to subset data frame
+
+# Declaring distric Id as factor variables
+DistrictData$district <- as.factor(DistrictData$district)
+DistrictData$ViolentCrimeRate <- as.integer(DistrictData$ViolentCrimeRate)
+DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
+DistrictData$NetFlowRate <- as.integer(DistrictData$NetFlowRate)
+DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
+DistrictData$PropwoHauptschulabschluss <- as.integer(DistrictData$PropwoHauptschulabschluss)
+DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
+DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
+DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
+DistrictData$BelieversRate <- as.integer(DistrictData$BelieversRate)
+DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
+
+#Removing District Name Year and district_year variables
+#DistrictData <- DistrictData[,-c(1,2,3,4)]
+DistrictData <- DistrictData[,c(1,55,47,53,40,19,51,50,22,52,49)]
+DistrictData <- DistrictData[,c(1,55,47)]
+
+z.out <- zelig(ViolentCrimeRate ~ FoundationsDensity100k + NetFlowRate + TurnoutPercentage + PropwoHauptschulabschluss + YouthRate + MaleRate + UnemployedPercentage + MarriageRate, model="negbinom", DistrictData)
+
+z.out <- zelig(ViolentCrimeRate ~ FoundationsDensity100k, model="negbinom", DistrictData)
 
 x.out <- setx(z.out)
 s.out <- sim(z.out, x = x.out)
 plot(s.out)
 
+z1 <- glm.nb(ViolentCrimeRate ~ FoundationsDensity100k + NetFlowRate + TurnoutPercentage + PropwoHauptschulabschluss + YouthRate + MaleRate + UnemployedPercentage + MarriageRate, DistrictData, warnings())
 
+z1 <- glm.nb(ViolentCrimeRate ~ FoundationsDensity100k , DistrictData, warnings())
 
-z.out <- zelig(ViolentCrimeRate ~ 
-                 FoundationsDensity100k +
-                 NetFlowRate +
-                 TurnoutPercentage +
-                 PropwoHauptschulabschluss +
-                 BelieversRate +
-                 MarriageRate +
-                 MaleRate +
-                 YouthRate +
-                 UnemployedPercentage, 
-               model="negbinom",
-               DistrictData, 
-               by = "district" )
+z1 <- glm.nb(ViolentCrimeRate ~., DistrictData)
+
+z.out <- zelig(ViolentCrimeRate ~., model="negbinom", DistrictData, cite=F)
 
 x.out <- setx(z.out)
 s.out <- sim(z.out, x = x.out)
 plot(s.out)
+
+# Linear regression model 1
+regression1 <- lm(ViolentCrimeRate ~ 
+                    FoundationsDensity100k +
+                    NetFlowRate +
+                    TurnoutPercentage +
+                    PropwoHauptschulabschluss +
+                    BelieversRate +
+                    MarriageRate +
+                    MaleRate +
+                    YouthRate +
+                    UnemployedPercentage,
+                  data=DistrictData)
+summary(regression1)
 
 #Saving DistrictDataAdd
 write.csv(DistrictData, file = "Analysis/DistrictDataAdd.csv")
