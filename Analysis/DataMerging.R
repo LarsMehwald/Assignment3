@@ -8,7 +8,7 @@
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
           "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-          "ggmap", "rworldmap")
+          "ggmap", "rworldmap", "car", "MASS", "PerformanceAnalytics")
 lapply(Packages, require, character.only = TRUE)
 
 # Setting the commonly used working directory
@@ -144,8 +144,7 @@ DistrictData$CrimeViolent <-
   DistrictData$bodilyHarm + 
   DistrictData$dangerousBodilyHarm +
   DistrictData$violentCrime +
-  DistrictData$murderAndManslaughter +
-  DistrictData$robberyIncludingExtortionAndAttackOfCarDrivers
+  DistrictData$murderAndManslaughter
 
 #Violent crime rate
 # violent crime rate
@@ -161,7 +160,8 @@ DistrictData$CrimeNonViolent <-
   DistrictData$vandalismGraffiti +
   DistrictData$streetCrime +
   DistrictData$burglaryDaylight +
-  DistrictData$burglary
+  DistrictData$burglary +
+  DistrictData$robberyIncludingExtortionAndAttackOfCarDrivers
 
 # Non-violent crime rate
 DistrictData$NonViolentCrimeRate <- 
