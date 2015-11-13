@@ -5,15 +5,12 @@
 # Data analysis
 ########################
 
-# Structure of this script
-# 
-
-# Voting data frame expands district number from 402 to 408
-
-# We need a better measure for (non) education: 
-# Graduates Without Degree has too little variation
-# Alternatively, use an aggregated measure for Proportion of graduates with 
-# Hochschulreife vs Proportion without Hauptschulabschluss 
+######### Structure of this script
+# Loading packages 
+# Loading Data frame
+# OLS models
+# negative binomial models
+# Tables generation with stargazer
 
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
