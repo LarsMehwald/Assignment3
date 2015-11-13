@@ -35,6 +35,7 @@ We want to measure different dimensions of our independent variable social capit
 Moreover we need district level data for other variables to control for local heterogeneity. This data is provided by the German statistical bureau. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. Second, the level of income: high income reduces the punishment felt by individuals for minor charges (monetary penalty), but has no predetermined impact on the impact of imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes), population size (i.e. more people, more expected crimes) and population density (as a proxy for urbanisation). As for now, we expect to obtain measures for some variables only for 2013. It needs to be determined, whether the fluctuation of the variable before 2013 allows to assume identical values for 2014.  
 On order to conduct the analysis, we need to merge the different datasets. We will use a combination of a unique identifier for the district ("Gemeindeschlüssel") and a year indicator (2013 or 2014). 
 
+### This histogram shows the frequency distribution of the independent variable crime rate (total number of crimes per 100,000 individuals) for all districts
 ```{r hist1, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 # Setting the working directory
 library("repmis")
@@ -55,6 +56,7 @@ histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) +
 plot(histCrimeRate)
 ```
 
+### This histogram shows the frequency distribution of the independent variable violent crime rate (total number of violent crimes per 100,000 individuals) for all districts
 ```{r hist2, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 # Setting the working directory
 library("repmis")
@@ -75,6 +77,7 @@ histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) +
 plot(histViolentCrimeRate)
 ```
 
+### This histogram shows the frequency distribution of the independent variable non-violent crime rate (total number of non-violent crimes per 100,000 individuals) for all districts
 ```{r hist3, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 # Setting the working directory
 library("repmis")
@@ -95,6 +98,7 @@ histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) +
 plot(histNonViolentCrimeRate)
 ```
 
+### This correlation matrix shows the correlation of the independent and control variables. The correlation coefficient and their significance are shown in the upper right corner. The bivariate scatter plots are shown in the lower left corner. The histogram for all independent variables are shown on the diagonal.
 ```{r correlation, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=6, fig.height=6}
 # Setting the working directory
 library("repmis")
