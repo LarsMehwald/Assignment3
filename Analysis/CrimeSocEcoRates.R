@@ -74,23 +74,24 @@ DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentag
 DistrictData$BelieversRate <- as.integer(DistrictData$BelieversRate)
 DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
 
-#creating a subset for data analysis
-modelVCR <- cbind(DistrictData$district,DistrictData$ViolentCrimeRate,DistrictData$FoundationsDensity100k,DistrictData$NetFlowRate, 
-                           DistrictData$TurnoutPercentage,DistrictData$PropwoHauptschulabschluss,DistrictData$YouthRate,
-                           DistrictData$MaleRate,DistrictData$BelieversRate,DistrictData$UnemployedPercentage,DistrictData$MarriageRate)
-# Asigning variables to subset data frame
-
 #Removing District Name Year and district_year variables
 DistrictData <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
 
 z1 <- glm.nb(CrimeRate ~., DistrictData)
-plot(z1)
+
 
 z.out <- zelig(CrimeRate ~., model="negbinom", DistrictData)
 
 x.out <- setx(z.out)
 s.out <- sim(z.out, x = x.out)
 plot(s.out)
+
+stargazer(z1,
+          type = "latex",
+          header = FALSE,
+          digits = 2,
+          omit.stat = c("f", "ser")
+          )
 
 # Linear regression model 1
 regression1 <- lm(ViolentCrimeRate ~ 

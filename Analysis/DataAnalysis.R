@@ -252,6 +252,58 @@ summary(regression18)
 # regrobbery_res <- residuals(regrobbery) #residuals 
 # as.data.frame(regrobbery_res)
 
+#########################################
+# Negative Binomial models
+########################################
+
+# Declaring distric Id as factor variables
+DistrictData$district <- as.factor(DistrictData$district)
+
+# Declaring all relevant variables for model integer
+DistrictData$CrimeRate <- as.integer(DistrictData$CrimeRate)
+DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
+DistrictData$FlowRate <- as.integer(DistrictData$FlowRate)
+DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
+DistrictData$PropwoHauptschulabschluss <- as.integer(DistrictData$PropwoHauptschulabschluss)
+DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
+DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
+DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
+DistrictData$BelieversRate <- as.integer(DistrictData$BelieversRate)
+DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
+
+# Creating a subset of variables from DistrictData data frame for analysis 
+subset1 <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
+
+# negative Binomial regression model 1
+z1 <- glm.nb(CrimeRate ~ 
+               FoundationsDensity100k +
+               BelieversRate +
+               MarriageRate +
+               MaleRate +
+               YouthRate +
+               UnemployedPercentage,
+             subset1)
+
+# negative Binomial regression model 2
+z2 <- glm.nb(CrimeRate ~ 
+               FlowRate +
+               BelieversRate +
+               MarriageRate +
+               MaleRate +
+               YouthRate +
+               UnemployedPercentage,
+             subset1)
+
+# negative Binomial regression model 3
+z3 <- glm.nb(CrimeRate ~ 
+               TurnoutPercentage +
+               BelieversRate +
+               MarriageRate +
+               MaleRate +
+               YouthRate +
+               UnemployedPercentage,
+             subset1)
+
 # Creating table output 
 stargazer(regression1, regression2, regression3, 
           type = "latex",
@@ -317,3 +369,4 @@ stargazer(regression16, regression17, regression18,
 rm(regression1, regression2, regression3, regression4, regression5, regression6, 
    regression7, regression8, regression9, regression10, regression11, regression12,
    regression13, regression14, regression15, regression16, regression17, regression18)
+

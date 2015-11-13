@@ -128,7 +128,7 @@ DistrictData$BelieversRate <-
      DistrictData$TotalPopulation) * 100000
 
 # Total Mobility rate 
-DistrictData$NetFlowRate <- 
+DistrictData$FlowRate <- 
   ((DistrictData$InfluxTotal +
       DistrictData$OutflowTotal) /
      DistrictData$TotalPopulation) * 100000
