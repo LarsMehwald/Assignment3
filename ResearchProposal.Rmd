@@ -33,4 +33,12 @@ On order to conduct the analysis, we need to merge the different datasets. We wi
 We expect to confirm our hypothesis: Districts with higher social capital will experience lower levels of crime, whereas districts with lower levels of social capital will experience (ceteris paribus) higher levels of crime.  
 Performing various statistical analyses and obtaining all relevant control variables, we expect high internal validity of the results. Nevertheless the external validity of the results might prove low: Neither can we determine whether these results hold for other time periods in Germany, nor can we extrapolate these results to other regions. However external validity can be argued for, if these results prove to be in line with research that has been conducted in other regions and other time periods.
 
+## Regression analysis 
+
+```{r plot, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+source("Analysis/DataAnalysis.R")
+
+```
+
 # References

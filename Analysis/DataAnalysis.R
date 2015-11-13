@@ -260,41 +260,53 @@ stargazer(regression1, regression2, regression3, z1,
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding (non-) violent 
-          and total crimes and independent variable marriage",
+          and total crimes and independent variable FoundationsDensity100k
+          with OLS regressions and negative binominal regression",
           digits = 2,
           omit.stat = c("f", "ser"),
           notes = "This regression output shows the results using 3 different 
-          dependent variables")
+          dependent variables and two models")
+
+print("\newpage", quote = FALSE)
 
 stargazer(regression4, regression5, regression6, z2,
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding (non-) violent and total crimes 
-          and independent variable religion",
+          and independent variable FlowRate
+          with OLS regressions and negative binominal regression",
           digits = 2,
           omit.stat = c("f", "ser"),
           notes = "This regression output shows the results using 3 different 
-          dependent variables")
+          dependent variables and two models")
+
+print("\newpage", quote = FALSE)
 
 stargazer(regression7, regression8, regression9, z3,
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding (non-) violent and total crimes 
-          and independent variable in- and outflow",
+          and independent variable TurnoutPercentage
+          with OLS regressions and negative binominal regression",
           digits = 2,
           omit.stat = c("f", "ser"),
           notes = "This regression output shows the results using 3 different 
-          dependent variables")
+          dependent variables and two models")
+
+print("\newpage", quote = FALSE)
 
 stargazer(regression10, regression11, regression12, z4,
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding (non-) violent and total crimes 
-          and independent variable voter turnout",
+          and all independent variables
+          with OLS regressions and negative binominal regression",
           digits = 2,
           omit.stat = c("f", "ser"),
           notes = "This regression output shows the results using 3 different 
-          dependent variables")
+          dependent variables and two models")
+
+print("\newpage", quote = FALSE)
 
 # Removing regression results 
 rm(regression1, regression2, regression3, regression4, regression5, regression6, 
