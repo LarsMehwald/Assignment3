@@ -156,32 +156,37 @@ rm(datacor)
 #########
 
 z.out <- zelig(ViolentCrimeRate ~ 
-                 FoundationsDensity100k + 
+                 FoundationsDensity100K + 
                  NetFlowRate + 
                  TurnoutPercentage + 
                  PropwoHauptschulabschluss + 
                  YouthRate +
                  MaleRate + 
                  UnemployedPercentage + 
-                 BelieversRate + 
                  MarriageRate, 
                model="negbinom",
-               DistrictData)
+               DistrictData, robust=T)
 
 x.out <- setx(z.out)
 s.out <- sim(z.out, x = x.out)
 plot(s.out)
 
 z.out <- zelig(ViolentCrimeRate ~ 
-                 FoundationsDensity100k, 
-               model="negbinom",
-               DistrictData, warnings())
-
-z.out <- zelig(ViolentCrimeRate ~ 
-                 UnemployedPercentage + 
-                 TurnoutPercentage, 
+                 FoundationsDensity100k +
+                 NetFlowRate +
+                 TurnoutPercentage +
+                 PropwoHauptschulabschluss +
+                 BelieversRate +
+                 MarriageRate +
+                 MaleRate +
+                 YouthRate +
+                 UnemployedPercentage, 
                model="negbinom",
                DistrictData)
+
+x.out <- setx(z.out)
+s.out <- sim(z.out, x = x.out)
+plot(s.out)
 
 #Saving DistrictDataAdd
 write.csv(DistrictData, file = "Analysis/DistrictDataAdd.csv")
