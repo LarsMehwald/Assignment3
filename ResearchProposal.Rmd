@@ -42,11 +42,18 @@ Crime statistics were obtained from the German Federal Police's crime statistic 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Furthermore, given the limitations of our data we have to assume that this cross-sectional data for district crime are a simple count of indepedent events. This is relevant to remeber for the estimation process. 
 
 ### Independent Variables
-We want to measure different dimensions of our independent variable social capital. We begin with a measurement for the networks and links dimension. This dimension highlights the importance of social bonds and meeting points in a community. We attempt to operationalise this dimension with indicators of marriages and migration. The indicator married couples as a percentage of the population captures the notion that enhanced social ties increase the social capital of a community. Nevertheless this measure might be unreliable, since other forms of cohabitation (that are not measured by official statistics) can generate enhanced social links. In addition we might capture a different underlying concept (e.g. the role of tradition in a region) that is correlated with our dependent variable through a different causal mechanism. The other indicator, migration, aims at capturing the fluctuation of a region with other regions in Germany or with other nations. Since social capital requires time to build up, we expect higher crime rates in areas with high fluctuations.  
-Moreover we need district level data for other variables to control for local heterogeneity. This data is provided by the German statistical bureau. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. Second, the level of income: high income reduces the punishment felt by individuals for minor charges (monetary penalty), but has no predetermined impact on the impact of imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes), population size (i.e. more people, more expected crimes) and population density (as a proxy for urbanisation). As for now, we expect to obtain measures for some variables only for 2013. It needs to be determined, whether the fluctuation of the variable before 2013 allows to assume identical values for 2014.  
-On order to conduct the analysis, we need to merge the different datasets. We will use a combination of a unique identifier for the district ("Gemeindeschlüssel") and a year indicator (2013 or 2014). 
+All data is provided by the German statistical bureau.
+We want to measure different dimensions of our independent variable social capital. First, we used the data on foundations density in every district as an indicator of community engagement. Foundation density is an indicator of the total number of foundaitons in each German district per 100 tousend inhabitants. 
 
-```{r SummaryStatistics, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A second indicator for social capital we used was the total flow of migrants coming in and out of each district. This indicator served as an aproximation to the concept of community membership. The assumption behind this indicator is that the more people moving in and out of a district, the less a person leaving in that district feels part of the community, which is might be also true for people moving. Since social capital requires time to build up, we expect higher crime rates in areas with high fluctuations.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The third dimension of social capital we tried to measure was the civil action within a community. We then loked at the voting turnout during the federal elections of 2013 in Germany to estimate the effect of social capital on crime through the participation of community memebrs in policy decisions while deciding on the next government.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity.  We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).
+
+
+### This histogram shows the frequency distribution of the independent variable crime rate (total number of crimes per 100,000 individuals) for all districts
+```{r SummaryStatistics, include=FALSE}
 # Setting the working directory
 library("repmis")
 library("stargazer")
@@ -61,9 +68,7 @@ DistrictData <- DistrictData[,-1]
 # Removing some variables
 DistrictDataReduced <- DistrictData[,c(22,40,47,49,50,51,52,53,55,57,59)]
 # Creation of summary statistics
-stargazer(DistrictDataReduced,
-          header = FALSE,
-          title = "This table contains the summary statistics for all variables used in this analysis")
+stargazer(DistrictDataReduced)
 ```
 
 ## Methodology and analysis 
@@ -162,7 +167,7 @@ Performing various statistical analyses and obtaining all relevant control varia
 
 ```{r plot, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
-# source("Analysis/DataAnalysis.R")
+source("Analysis/DataAnalysis.R")
 
 ```
 
