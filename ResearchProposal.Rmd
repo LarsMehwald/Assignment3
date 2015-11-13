@@ -74,7 +74,9 @@ stargazer(DistrictDataReduced,
 
 ## Methodology and analysis 
 For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagement in the community, political participation and community stability-- and the incidence of violent and non-violent crime. 
-In order to answer the research question, we will apply a linear regression model in R Studio [@CiteR]. So far we have used R packages by the following authors: @R-dplyr, @R-ggplot2, @R-repmis, @R-rio and @R-tidyr. A binomial or multinomial regression model does not qualify, since we have a continuous, interval level dependent variable. Since our data only covers two time periods (t=2) we intend to use pooled OLS regressions. We thereby might run the risk to violate OLS assumptions when the values for a district from one time period are correlated with the observation for this district at the other time period - assuming that the environment remains rather constant and districts with higher crime rates will also experience higher crime rates in the next period. Therefore we need to check statistically, whether our measured estimators are unbiased and efficient (e.g. comparing the results to a panel regression model, dummy for time period, heteroskedasticity). 
+
+Since crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.
+
 
 ### This histogram shows the frequency distribution of the independent variable crime rate (total number of crimes per 100,000 individuals) for all districts
 ```{r hist1, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
@@ -160,9 +162,6 @@ datacor <- DistrictData[, c(22,40,47,49,50,51,52,53)]
 chart.Correlation(datacor, historgram=T)
 ```
 
-
-## Model specifications
-Because crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.
 
 ## Optimal data set 
 Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. On optimal data set would contain the following. It would contain time series data for every unit of observation. This would enable us to use a fixed effects model (since we already have cross-sectional data) and thereby controlling for unobserved heterogeneity between the observations. This data would also enable us to address the most severe challenge to this analysis: reverse causality. People are deemed to respond to a criminal environment and it is likely that this response is correlated with our independent variables (i.e. people with higher social capital tend to move out of areas with high crime rates). On optimal dataset would also contain more detailed data. This would allow more elaborate controls and better measurement of social capital. In addition individual level data would improve the analysis by allowing for a multi level analysis controlling for individuals characteristics. This could also address the main challenge of reversed causality since migration could be explicitly modelled.
