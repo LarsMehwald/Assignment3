@@ -33,7 +33,7 @@ We have data from three main sources:
 3. German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")
 
 ### Dependent Variable
-Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing 
+Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing time series for district level crime for more years than 2013 and 2014. However, we were not able to use the most recent data for the year 2014, because socio economic data at the district level in the Regional Database Germany 
 
 This data is also disaggregated regarding the type of crime. One limitation to this statistics, however, is that they are missing the dark figure of crime --the unreported number of crime in this area. Different methods exist to assess the dark figure of crime, but it is difficult to assess their reliability. Hence, depending on the type of crime, the reported numbers might contain a structural bias, i.e. some types of crime are reported at a different rate than others (e.g. when insurance companies require individual reporting). Since we focus on crimes that disrupt the social community, we expect a high level of reporting and this reporting to be consistently high across different types of disruptive crimes. It is possible to focus on one type of crime for our dependent variable, but also to construct a dependent variable summarising different types of crime. The latter approach might prove utile, since this provides greater variance in the dependent variable.   
 
@@ -53,7 +53,6 @@ For this research, we have conducted a cross-district study to estimate the rela
 In order to answer the research question, we will apply a linear regression model in R Studio [@CiteR]. So far we have used R packages by the following authors: @R-dplyr, @R-ggplot2, @R-repmis, @R-rio and @R-tidyr. A binominal or multinomial regression model does not qualify, since we have a continuous, interval level dependent variable. Since our data only covers two time periods (t=2) we intend to use pooled OLS regressions. We thereby might run the risk to violate OLS assumptions when the values for a district from one time period are correlated with the observation for this district at the other time period - assuming that the environment remains rather constant and districts with higher crime rates will also experience higher crime rates in the next period. Therefore we need to check statistically, whether our measured estimators are unbiased and efficient (e.g. comparing the results to a panel regression model, dummy for time period, heteroskedasticity). 
 
 
->>>>>>> origin/master
 ```{r hist1, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 # Setting the working directory
 library("repmis")
