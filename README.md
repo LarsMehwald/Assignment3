@@ -28,8 +28,8 @@ Students are encouraged to access data and perform statistical analyses with an 
     |  ├──Refereences.bib                # File containing all literatur references
     |  ├──RpackageCitations.bib          # File with all used packages for analysis
     |  ├──RpackageCitationsGeoMap.bib    # bib file containing used packages for Geo Referencing
+    ├──ResearchProposal.pdf              # Pdf file containing final output for Research Proposal
     ├──ResearchProposal.Rmd              # Markdown file for Research proposal output: pdf_document
-    ├──Regression_plot_cache             #
     ├──Supplementary                     # Folder containing pdf files with additional literature for R coding and Quantitative Criminology. 
 
 ## Data used 
