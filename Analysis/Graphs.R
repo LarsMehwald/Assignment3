@@ -38,14 +38,17 @@ DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
 # Crime Rate hist
 histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
   geom_histogram(binwidth=500, colour="black", fill="white") 
+plot(histCrimeRate)
 
 # Violent Crime histogram
 histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
   geom_histogram(binwidth=50, colour="black", fill="white")
+plot(histViolentCrimeRate)
 
 # Non-Violent Crime histogram
 histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
   geom_histogram(binwidth=400, colour="black", fill="white")
+plot(histNonViolentCrimeRate)
 
 #################################
 # Correlation Matrix

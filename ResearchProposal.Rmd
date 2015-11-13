@@ -45,9 +45,91 @@ We want to measure different dimensions of our independent variable social capit
 Moreover we need district level data for other variables to control for local heterogeneity. This data is provided by the German statistical bureau. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. Second, the level of income: high income reduces the punishment felt by individuals for minor charges (monetary penalty), but has no predetermined impact on the impact of imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes), population size (i.e. more people, more expected crimes) and population density (as a proxy for urbanisation). As for now, we expect to obtain measures for some variables only for 2013. It needs to be determined, whether the fluctuation of the variable before 2013 allows to assume identical values for 2014.  
 On order to conduct the analysis, we need to merge the different datasets. We will use a combination of a unique identifier for the district ("Gemeindeschlüssel") and a year indicator (2013 or 2014). 
 
+<<<<<<< HEAD
 ## Methodology and analysis 
 For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagment in the community, political participation and community stability-- and the incidence of violent and non-violent crime. 
 In order to answer the research question, we will apply a linear regression model in R Studio [@CiteR]. So far we have used R packages by the following authors: @R-dplyr, @R-ggplot2, @R-repmis, @R-rio and @R-tidyr. A binominal or multinomial regression model does not qualify, since we have a continuous, interval level dependent variable. Since our data only covers two time periods (t=2) we intend to use pooled OLS regressions. We thereby might run the risk to violate OLS assumptions when the values for a district from one time period are correlated with the observation for this district at the other time period - assuming that the environment remains rather constant and districts with higher crime rates will also experience higher crime rates in the next period. Therefore we need to check statistically, whether our measured estimators are unbiased and efficient (e.g. comparing the results to a panel regression model, dummy for time period, heteroskedasticity). 
+
+
+```{r hist1, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
+# Setting the working directory
+library("repmis")
+library("ggplot2")
+possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
+                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
+set_valid_wd(possible_dir)
+rm(possible_dir)
+# Loading data set from csv file
+DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
+# Removing ranking column (it was added in the saving process in DataMerging.R)
+DistrictData <- DistrictData[,-1]
+# Changing class of Crime Rate
+DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
+# Crime Rate hist
+histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
+  geom_histogram(binwidth=500, colour="black", fill="white") 
+plot(histCrimeRate)
+```
+
+```{r hist2, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
+# Setting the working directory
+library("repmis")
+library("ggplot2")
+possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
+                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
+set_valid_wd(possible_dir)
+rm(possible_dir)
+# Loading data set from csv file
+DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
+# Removing ranking column (it was added in the saving process in DataMerging.R)
+DistrictData <- DistrictData[,-1]
+# Changing class of Crime Rate
+DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
+# Violent crime Rate hist
+histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
+  geom_histogram(binwidth=50, colour="black", fill="white")
+plot(histViolentCrimeRate)
+```
+
+```{r hist3, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
+# Setting the working directory
+library("repmis")
+library("ggplot2")
+possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
+                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
+set_valid_wd(possible_dir)
+rm(possible_dir)
+# Loading data set from csv file
+DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
+# Removing ranking column (it was added in the saving process in DataMerging.R)
+DistrictData <- DistrictData[,-1]
+# Changing class of Crime Rate
+DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
+# Crime Rate hist
+histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
+  geom_histogram(binwidth=400, colour="black", fill="white")
+plot(histNonViolentCrimeRate)
+```
+
+```{r correlation, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=6, fig.height=6}
+# Setting the working directory
+library("repmis")
+library("ggplot2")
+library("PerformanceAnalytics")
+possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
+                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
+set_valid_wd(possible_dir)
+rm(possible_dir)
+# Loading data set from csv file
+DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
+# Removing ranking column (it was added in the saving process in DataMerging.R)
+DistrictData <- DistrictData[,-1]
+# Changing class of Crime Rate
+DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
+# Correlation matrix 
+datacor <- DistrictData[, c(22,40,47,49,50,51,52,53)]
+chart.Correlation(datacor, historgram=T)
+```
 
 ## Conclusion 
 We expect to confirm our hypothesis: Districts with higher social capital will experience lower levels of crime, whereas districts with lower levels of social capital will experience (ceteris paribus) higher levels of crime.  
@@ -57,7 +139,7 @@ Performing various statistical analyses and obtaining all relevant control varia
 
 ```{r plot, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
-source("Analysis/DataAnalysis.R")
+# source("Analysis/DataAnalysis.R")
 
 ```
 
