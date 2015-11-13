@@ -54,4 +54,3 @@ histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) +
 # Correlation Plot using R package: "PerformanceAnalytics"
 datacor <- DistrictData[, c(22,40,47,49,50,51,52,53)]
 chart.Correlation(datacor, historgram=T)
-rm(datacor)
