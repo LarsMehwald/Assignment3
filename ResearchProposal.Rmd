@@ -6,7 +6,6 @@ output: pdf_document
 bibliography:
 - References/RpackageCitations.bib
 - References/References.bib
-- References/RpackageCitationsGeoMap.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -146,7 +145,7 @@ Performing various statistical analyses and obtaining all relevant control varia
 
 ```{r plot, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
-# source("Analysis/DataAnalysis.R")
+source("Analysis/DataAnalysis.R")
 
 ```
 
