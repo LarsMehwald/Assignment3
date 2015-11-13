@@ -38,7 +38,7 @@ DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
 # Crime Rate hist
 histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
   geom_histogram(binwidth=500, colour="black", fill="white") 
-ggsave()
+#ggsave()
 
 # Violent Crime histogram
 histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
@@ -61,15 +61,9 @@ rm(datacor)
 # Negative Binomial Regression for Event Count Dependent Variables
 #########
 
-#creating a subset for data analysis
-modelVCR <- DistrictData[c("district","ViolentCrimeRate","FoundationsDensity100K","NetFlowRate", 
-                           "TurnoutPercentage","PropwoHauptschulabschluss","YouthRate",
-                           "MaleRate","BeliversRate","UnemployedPercentage","MarriageRate")] 
-# Asigning variables to subset data frame
-
 # Declaring distric Id as factor variables
 DistrictData$district <- as.factor(DistrictData$district)
-DistrictData$ViolentCrimeRate <- as.integer(DistrictData$ViolentCrimeRate)
+DistrictData$CrimeRate <- as.integer(DistrictData$CrimeRate)
 DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
 DistrictData$NetFlowRate <- as.integer(DistrictData$NetFlowRate)
 DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
@@ -80,26 +74,19 @@ DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentag
 DistrictData$BelieversRate <- as.integer(DistrictData$BelieversRate)
 DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
 
+#creating a subset for data analysis
+modelVCR <- cbind(DistrictData$district,DistrictData$ViolentCrimeRate,DistrictData$FoundationsDensity100k,DistrictData$NetFlowRate, 
+                           DistrictData$TurnoutPercentage,DistrictData$PropwoHauptschulabschluss,DistrictData$YouthRate,
+                           DistrictData$MaleRate,DistrictData$BelieversRate,DistrictData$UnemployedPercentage,DistrictData$MarriageRate)
+# Asigning variables to subset data frame
+
 #Removing District Name Year and district_year variables
-#DistrictData <- DistrictData[,-c(1,2,3,4)]
-DistrictData <- DistrictData[,c(1,55,47,53,40,19,51,50,22,52,49)]
-DistrictData <- DistrictData[,c(1,55,47)]
+DistrictData <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
 
-z.out <- zelig(ViolentCrimeRate ~ FoundationsDensity100k + NetFlowRate + TurnoutPercentage + PropwoHauptschulabschluss + YouthRate + MaleRate + UnemployedPercentage + MarriageRate, model="negbinom", DistrictData)
+z1 <- glm.nb(CrimeRate ~., DistrictData)
+plot(z1)
 
-z.out <- zelig(ViolentCrimeRate ~ FoundationsDensity100k, model="negbinom", DistrictData)
-
-x.out <- setx(z.out)
-s.out <- sim(z.out, x = x.out)
-plot(s.out)
-
-z1 <- glm.nb(ViolentCrimeRate ~ FoundationsDensity100k + NetFlowRate + TurnoutPercentage + PropwoHauptschulabschluss + YouthRate + MaleRate + UnemployedPercentage + MarriageRate, DistrictData, warnings())
-
-z1 <- glm.nb(ViolentCrimeRate ~ FoundationsDensity100k , DistrictData, warnings())
-
-z1 <- glm.nb(ViolentCrimeRate ~., DistrictData)
-
-z.out <- zelig(ViolentCrimeRate ~., model="negbinom", DistrictData, cite=F)
+z.out <- zelig(CrimeRate ~., model="negbinom", DistrictData)
 
 x.out <- setx(z.out)
 s.out <- sim(z.out, x = x.out)

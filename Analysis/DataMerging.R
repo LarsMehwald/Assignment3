@@ -148,7 +148,7 @@ DistrictData$CrimeViolent <-
   DistrictData$robberyIncludingExtortionAndAttackOfCarDrivers
 
 #Violent crime rate
-# Non-violent crime rate
+# violent crime rate
 DistrictData$ViolentCrimeRate <- 
   (DistrictData$CrimeViolent / 
      DistrictData$TotalPopulation) * 100000
