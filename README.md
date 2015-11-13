@@ -14,10 +14,11 @@ In the third pair assignment you will *gather web based data* from at least two 
 Students are encouraged to access data and perform statistical analyses with an eye to *answering questions relevant for their Collaborative Research Project*. Deadline 13 November, the write up should be 1,500 words maximum and use literate programming, 10% of final grade.
 
 ## Describing the repository - File Structure
-.
-├──README.md                         # Readme File
-├──
-├──Analysis                          # Folder containing all analysis files
+File Name | File description
+----------------------------
+README.md | Readme File
+|
+Analysis | Folder containing all analysis files
 |  ├──DataAnalysis.R                 # Diferent Analysis performed in R File
 |  ├──DataMerging.R                  # Merging secuence necessary for DistrictData.csv construction in R file format
 |  ├──GeoCodesMaps.R                 # Construction of Maps based on Geo coding in R file format
