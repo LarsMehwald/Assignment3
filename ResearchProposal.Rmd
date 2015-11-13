@@ -163,6 +163,9 @@ chart.Correlation(datacor, historgram=T)
 We expect to confirm our hypothesis: Districts with higher social capital will experience lower levels of crime, whereas districts with lower levels of social capital will experience (ceteris paribus) higher levels of crime.  
 Performing various statistical analyses and obtaining all relevant control variables, we expect high internal validity of the results. Nevertheless the external validity of the results might prove low: Neither can we determine whether these results hold for other time periods in Germany, nor can we extrapolate these results to other regions. However external validity can be argued for, if these results prove to be in line with research that has been conducted in other regions and other time periods.
 
+## Optimal data set 
+Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. On optimal data set would contain the following. It would contains time series data for every unit of observation. This would enable us to use a fixed effects model (since we already have cross-sectional data) and thereby controlling for unobserved heterogeneity between the observations. This data would also enable us to address the most severe challenge to this analysis: reverse causality. People are deemed to respond to a criminal environment and it is likely that this response is correlated with our independent variables (i.e. people with higher social capital tend to move out of areas with high crime rates). On optimal dataset would also contain more detailed data. This would allow more elaborate controls and better measurement of social capital. In addition it would improve  , individual level data for multi level analysis
+
 ## Regression analysis 
 
 ```{r plot, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
