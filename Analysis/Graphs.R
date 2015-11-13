@@ -30,7 +30,7 @@ DistrictData <- DistrictData[,-1]
 
 #################################
 # Historgrams
-################################
+#################################
 
 # Changing class of Crime Rate
 DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
@@ -38,7 +38,6 @@ DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
 # Crime Rate hist
 histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
   geom_histogram(binwidth=500, colour="black", fill="white") 
-#ggsave()
 
 # Violent Crime histogram
 histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
@@ -48,9 +47,9 @@ histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) +
 histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
   geom_histogram(binwidth=400, colour="black", fill="white")
 
-##########
-# Correlation
-######
+#################################
+# Correlation Matrix
+#################################
 
 # Correlation Plot using R package: "PerformanceAnalytics"
 datacor <- DistrictData[, c(19,22,40,47,49,50,51,52,53)]
