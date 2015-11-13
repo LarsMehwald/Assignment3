@@ -34,7 +34,7 @@ We have data from three main sources:
 3. German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")
 
 ### Dependent Variable
-Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was to 
+Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing 
 
 This data is also disaggregated regarding the type of crime. One limitation to this statistics, however, is that they are missing the dark figure of crime --the unreported number of crime in this area. Different methods exist to assess the dark figure of crime, but it is difficult to assess their reliability. Hence, depending on the type of crime, the reported numbers might contain a structural bias, i.e. some types of crime are reported at a different rate than others (e.g. when insurance companies require individual reporting). Since we focus on crimes that disrupt the social community, we expect a high level of reporting and this reporting to be consistently high across different types of disruptive crimes. It is possible to focus on one type of crime for our dependent variable, but also to construct a dependent variable summarising different types of crime. The latter approach might prove utile, since this provides greater variance in the dependent variable.   
 
