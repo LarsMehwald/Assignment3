@@ -5,6 +5,9 @@
 # Data analysis
 ########################
 
+# Structure of this script
+# 
+
 # Voting data frame expands district number from 402 to 408
 
 # We need a better measure for (non) education: 
@@ -15,7 +18,7 @@
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-              "ggmap", "rworldmap")
+              "ggmap", "rworldmap","car", "MASS")
 lapply(Packages, require, character.only = TRUE) 
 
 # Setting the commonly used working directory
