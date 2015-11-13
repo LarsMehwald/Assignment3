@@ -28,111 +28,17 @@ DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
 # Removing ranking column (it was added in the saving process in DataMerging.R)
 DistrictData <- DistrictData[,-1]
 
-########################
-# Creation of relative measurements
-########################
-
-# Marraig rate: Number of marriages per 100,000 inhabitants 
-DistrictData$MarriageRate <- 
-  (DistrictData$HusbandAndWifeTotal / 
-  DistrictData$TotalPopulation) * 100000
-
-# Proportion of male population
-DistrictData$MaleRate <- 
-  (DistrictData$MalePopulation / 
-  DistrictData$TotalPopulation) * 100
-
-# Density per square km to 100 persons per square km ## Not necesassry 
-# DistrictData$DensityPerSQRTkm100 <- 
-  # DistrictData$DensityPerSQRTkm / 100
-
-# Relative conservative vote  
-### Not required, we can use TurnoutPercentage as a very solid measure of political participation
-#DistrictData$VoteConservativesPercent <- 
- # DistrictData$VoteConservativesTotal * 100 / 
-  # (DistrictData$TurnoutPercentage * DistrictData$EntitledVoteTotal / 100)
-# TurnoutPercentage is coded in % between 0 and 100
-
-# Share of young individuals # I don't think we should include 0-17. Very low probability of child comiting crimes. 
-# Youth Rate is a better control variable
-DistrictData$YouthRate <- 
-  (DistrictData$Pop18to24 / 
-  DistrictData$TotalPopulation) * 100000
-
-# Share of Believers
-# Problematic: rates are significant lower in former East Germany 
-DistrictData$BelieversRate <- 
-  (DistrictData$BelieversTotal / 
-  DistrictData$TotalPopulation) * 100000
-
-# Net Mobility rate 
-DistrictData$NetFlowRate <- 
-  ((DistrictData$InfluxTotal -
-     DistrictData$OutflowTotal) /
-  DistrictData$TotalPopulation) * 100000
-
-
-########################
-# Create composite dependent variable:
-# (non-) violent and total crime 
-########################
-
-# violent crime
-DistrictData$CrimeViolent <- 
-  DistrictData$bodilyHarm + 
-  DistrictData$dangerousBodilyHarm +
-  DistrictData$violentCrime +
-  DistrictData$murderAndManslaughter +
-  DistrictData$robberyIncludingExtortionAndAttackOfCarDrivers
-
-#Violent crime rate
-# Non-violent crime rate
-DistrictData$ViolentCrimeRate <- 
-  (DistrictData$CrimeViolent / 
-     DistrictData$TotalPopulation) * 100000
-
-# non-violent crime 
-DistrictData$CrimeNonViolent <- 
-  DistrictData$robberyFromOrOutOfCars + 
-  DistrictData$robberyOfCars +
-  DistrictData$vandalism +
-  DistrictData$vandalismGraffiti +
-  DistrictData$streetCrime +
-  DistrictData$burglaryDaylight +
-  DistrictData$burglary
-
-# Non-violent crime rate
-DistrictData$NonViolentCrimeRate <- 
-  (DistrictData$CrimeNonViolent / 
-     DistrictData$TotalPopulation) * 100000
-
-# total crimes
-DistrictData$CrimeTotal <- 
-  DistrictData$bodilyHarm + 
-  DistrictData$dangerousBodilyHarm +
-  DistrictData$violentCrime +
-  DistrictData$murderAndManslaughter +
-  DistrictData$robberyIncludingExtortionAndAttackOfCarDrivers +
-  DistrictData$robberyFromOrOutOfCars + 
-  DistrictData$robberyOfCars +
-  DistrictData$vandalism +
-  DistrictData$vandalismGraffiti +
-  DistrictData$streetCrime +
-  DistrictData$burglaryDaylight +
-  DistrictData$burglary
-
-# Total crime rate
-DistrictData$CrimeRate <- 
-  (DistrictData$CrimeTotal / 
-     DistrictData$TotalPopulation) * 100000
-
 #################################
 # Historgrams
 ################################
+
+# Changing class of Crime Rate
 DistrictData$CrimeRate <- as.numeric(as.character(DistrictData$CrimeRate))
+
 # Crime Rate hist
 histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
-  geom_histogram(binwidth=500, colour="black", fill="white")
+  geom_histogram(binwidth=500, colour="black", fill="white") 
+ggsave()
 
 # Violent Crime histogram
 histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
@@ -146,7 +52,7 @@ histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) +
 # Correlation
 ######
 
-# Correlation Plot using "PerformanceAnalytics"
+# Correlation Plot using R package: "PerformanceAnalytics"
 datacor <- DistrictData[, c(19,22,40,47,49,50,51,52,53)]
 chart.Correlation(datacor, historgram=T)
 rm(datacor)
@@ -171,6 +77,8 @@ x.out <- setx(z.out)
 s.out <- sim(z.out, x = x.out)
 plot(s.out)
 
+
+
 z.out <- zelig(ViolentCrimeRate ~ 
                  FoundationsDensity100k +
                  NetFlowRate +
@@ -182,7 +90,8 @@ z.out <- zelig(ViolentCrimeRate ~
                  YouthRate +
                  UnemployedPercentage, 
                model="negbinom",
-               DistrictData)
+               DistrictData, 
+               by = "district" )
 
 x.out <- setx(z.out)
 s.out <- sim(z.out, x = x.out)
