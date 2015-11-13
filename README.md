@@ -21,7 +21,7 @@ Students are encouraged to access data and perform statistical analyses with an 
     |  ├──DataMerging.R                  # Merging secuence necessary for DistrictData.csv construction in R file format
     |  ├──GeoCodesMaps.R                 # Construction of Maps based on Geo coding in R file format
     |  ├──data                           # Folder containing all .csv files saved after data cleaning in corresponding R files
-    | | ├──RawData                       # Folder containing raw data files in .csv format before cleaning 
+    |  | ├──RawData                       # Folder containing raw data files in .csv format before cleaning 
     ├──Literature                        # Folder contaiing pdf files with all the literature used for this paper
     ├──README.md                         # Readme File
     ├──References                        # Folder containing all bib files
@@ -53,6 +53,8 @@ The legally defined functions of official statistics in the Federal Republic of 
 
 In order to even better meet the interests and information needs of the customers and users of statistical data, this common statistics portal has been implemented in addition. Its purpose is to provide central access to basic statistical information and to facilitate comparison between such information across Länder.
 
+#### [Bundesverband Deutscher Stiftungen](http://www.stiftungen.org/uploads/tx_leonhardtdyncontent/downloads/BvDS_Stiftungsdichte_in_den_Landkreisen_2013_11.pdf)
+Information on the total count of Foundations in the year 2013 was published by the BDS, prior to the fundations day "Tag der Stiftungen". We used the table published in this report. 
 
 ## Using 
 R Core Team. 2015. [R: A Language and Environment for Statistical Computing](https://www.R-project.org/). Vienna, Austria: R Foundation for Statistical Computing . 
