@@ -210,7 +210,18 @@ DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
 # Creating a subset of variables from DistrictData data frame for analysis 
 subset1 <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
 
-# negative Binomial regression model 1
+# negative Binomial regression model 0 Zelig
+z.out <- zelig(CrimeRate ~ 
+                 FoundationsDensity100k +
+                 BelieversRate +
+                 MarriageRate +
+                 MaleRate +
+                 YouthRate +
+                 UnemployedPercentage, DistrictData, model="negbinom")
+x.out <- setx(z.out)
+s.out <- sim(z.out, x=x.out)
+plot(s.out)
+
 z1 <- glm.nb(CrimeRate ~ 
                FoundationsDensity100k +
                BelieversRate +
