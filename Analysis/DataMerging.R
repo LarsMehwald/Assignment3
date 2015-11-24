@@ -139,14 +139,20 @@ DistrictData$FlowRate <-
 # (non-) violent and total crime 
 ########################
 
+# rate of murder and manslaughter 
+DistrictData$MurderRate <- 
+  (DistrictData$murderAndManslaughter / 
+     DistrictData$TotalPopulation) * 100000
+# Showing the districts with a rate higher than 10
+# DistrictData[DistrictData$MurderRate > 10,c(2,55)]
+
 # violent crime
 DistrictData$CrimeViolent <- 
-  DistrictData$bodilyHarm + 
+# DistrictData$bodilyHarm + 
   DistrictData$dangerousBodilyHarm +
-  DistrictData$violentCrime +
+# DistrictData$violentCrime +
   DistrictData$murderAndManslaughter
 
-#Violent crime rate
 # violent crime rate
 DistrictData$ViolentCrimeRate <- 
   (DistrictData$CrimeViolent / 
