@@ -133,7 +133,6 @@ DistrictData$FlowRate <-
       DistrictData$OutflowTotal) /
      DistrictData$TotalPopulation) * 100000
 
-
 ########################
 # Create composite dependent variable:
 # (non-) violent and total crime 
@@ -194,9 +193,31 @@ DistrictData$CrimeRate <-
   (DistrictData$CrimeTotal / 
      DistrictData$TotalPopulation) * 100000
 
+########################
+# log variables for IV
+########################
+
+# Foundations
+DistrictData$FoundationsDensity100kLog <- 
+  log(DistrictData$FoundationsDensity100k)
+
+# Flow
+DistrictData$FlowRateLog <- 
+  log(DistrictData$FlowRate)
+
+# Voter turnout
+DistrictData$TurnoutPercentageLog <- 
+  log(DistrictData$TurnoutPercentage)
+
+########################
 # Omiting Observations with missing values
+########################
+
 DistrictData <- na.omit(DistrictData)
 
+########################
 # Saving the data
+########################
+
 write.csv(DistrictData, file = "Analysis/data/DistrictData2013.csv")
 
