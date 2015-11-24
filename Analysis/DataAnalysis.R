@@ -41,146 +41,55 @@ DistrictData <- DistrictData[,-1]
 # Linear regression
 ########################
 
+# 1st table: OLS
+# 3 IV, 1 DV = 3 
+# 2nd table: 
+# 3 IV, 1 DV, 3 model
+
 # Getting rid of Berlin and Hamburg (outliers?)
 # DistrictData <- DistrictData[-c(1,2),]
 
 # Linear regression model 1
-regression1 <- lm(ViolentCrimeRate ~
+OLSViolentFoundations <- lm(ViolentCrimeRate ~
                     FoundationsDensity100k +
-                    BelieversRate +
-                    MarriageRate +
-                    MaleRate +
-                    YouthRate +
-                    UnemployedPercentage,
+                    BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
                   data=DistrictData)
-summary(regression1)
+summary(OLSViolentFoundations)
 
 # Linear regression model 2
-regression2 <- lm(NonViolentCrimeRate ~ 
-                    FoundationsDensity100k + 
-                    BelieversRate +
-                    MarriageRate +
-                    MaleRate +
-                    YouthRate +
-                    UnemployedPercentage,
-                  data=DistrictData)
-summary(regression2)
+OLSViolentFlow <- lm(ViolentCrimeRate ~
+                              FlowRate +
+                              BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                            data=DistrictData)
+summary(OLSViolentFlow)
 
 # Linear regression model 3
-regression3 <- lm(CrimeRate ~ 
-                    FoundationsDensity100k + 
-                    BelieversRate +
-                    MarriageRate +
-                    MaleRate +
-                    YouthRate +
-                    UnemployedPercentage,
-                  data=DistrictData)
-summary(regression3)
+OLSViolentTurnout <- lm(ViolentCrimeRate ~
+                       TurnoutPercentage +
+                       BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                     data=DistrictData)
+summary(OLSViolentFlow)
 
 # Linear regression model 4
-regression4 <- lm(ViolentCrimeRate ~ 
-                    FlowRate + 
-                    BelieversRate +
-                    MarriageRate +
-                    MaleRate +
-                    YouthRate +
-                    UnemployedPercentage,
-                  data=DistrictData)
-summary(regression4)
+OLSMurderFoundations <- lm(MurderRate ~ 
+                      FoundationsDensity100k + 
+                      BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                    data=DistrictData)
+summary(OLSMurderFoundations)
 
 # Linear regression model 5
-regression5 <- lm(NonViolentCrimeRate ~ 
-                    FlowRate +
-                    BelieversRate +
-                    MarriageRate +
-                    MaleRate +
-                    YouthRate +
-                    UnemployedPercentage,
-                  data=DistrictData)
-summary(regression5)
+OLSMurderFlow <- lm(MurderRate ~ 
+                      FlowRate +
+                      BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                    data=DistrictData)
+summary(OLSMurderFlow)
 
 # Linear regression model 6
-regression6 <- lm(CrimeRate ~ 
-                    FlowRate + 
-                    BelieversRate +
-                    MarriageRate +
-                    MaleRate +
-                    YouthRate +
-                    UnemployedPercentage,
-                  data=DistrictData)
-summary(regression6)
-
-# Linear regression model 7
-regression7 <- lm(ViolentCrimeRate ~ 
-                    TurnoutPercentage + 
-                    BelieversRate +
-                    MarriageRate +
-                    MaleRate +
-                    YouthRate +
-                    UnemployedPercentage,
-                  data=DistrictData)
-summary(regression7)
-
-# Linear regression model 8
-regression8 <- lm(NonViolentCrimeRate ~ 
-                    TurnoutPercentage +
-                    BelieversRate +
-                    MarriageRate +
-                    MaleRate +
-                    YouthRate +
-                    UnemployedPercentage,
-                  data=DistrictData)
-summary(regression8)
-
-# Linear regression model 9
-regression9 <- lm(CrimeRate ~ 
-                    TurnoutPercentage + 
-                    BelieversRate +
-                    MarriageRate +
-                    MaleRate +
-                    YouthRate +
-                    UnemployedPercentage,
-                  data=DistrictData)
-summary(regression9)
-
-# Linear regression model 10
-regression10 <- lm(ViolentCrimeRate ~
-                     FoundationsDensity100k +
-                     FlowRate +
-                     TurnoutPercentage +
-                     BelieversRate +
-                     MarriageRate +
-                     MaleRate +
-                     YouthRate +
-                     UnemployedPercentage,
-                   data=DistrictData)
-summary(regression10)
-
-# Linear regression model 11
-regression11 <- lm(NonViolentCrimeRate ~ 
-                     FoundationsDensity100k +
-                     FlowRate +
-                     TurnoutPercentage +
-                     BelieversRate +
-                     MarriageRate +
-                     MaleRate +
-                     YouthRate +
-                     UnemployedPercentage,
-                   data=DistrictData)
-summary(regression11)
-
-# Linear regression model 12
-regression12 <- lm(CrimeRate ~ 
-                     FoundationsDensity100k +
-                     FlowRate +
-                     TurnoutPercentage +
-                     BelieversRate +
-                     MarriageRate +
-                     MaleRate +
-                     YouthRate +
-                     UnemployedPercentage,
-                   data=DistrictData)
-summary(regression12)
+OLSMurderTurnout <- lm(MurderRate ~ 
+                      TurnoutPercentage + 
+                      BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                    data=DistrictData)
+summary(OLSMurderTurnout)
 
 # After running regression
 # regrobbery_hat <- fitted(regrobbery) #predicted values
@@ -267,52 +176,28 @@ z4 <- glm.nb(CrimeRate ~
 # Creating table output
 ########################
  
-stargazer(regression1, regression2, regression3, z1,
+stargazer(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout,
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding (non-) violent 
           and total crimes and independent variable FoundationsDensity100k
           with OLS regressions and negative binominal regression",
           digits = 2,
+          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"),
           notes = "This regression output shows the results using 3 different 
           dependent variables and two models")
 
 print("\newpage", quote = FALSE)
 
-stargazer(regression4, regression5, regression6, z2,
+stargazer(OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout, 
           type = "latex",
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding (non-) violent and total crimes 
           and independent variable FlowRate
           with OLS regressions and negative binominal regression",
           digits = 2,
-          omit.stat = c("f", "ser"),
-          notes = "This regression output shows the results using 3 different 
-          dependent variables and two models")
-
-print("\newpage", quote = FALSE)
-
-stargazer(regression7, regression8, regression9, z3,
-          type = "latex",
-          header = FALSE, # important not to have stargazer information in markdown file 
-          title = "Regression analysis regarding (non-) violent and total crimes 
-          and independent variable TurnoutPercentage
-          with OLS regressions and negative binominal regression",
-          digits = 2,
-          omit.stat = c("f", "ser"),
-          notes = "This regression output shows the results using 3 different 
-          dependent variables and two models")
-
-print("\newpage", quote = FALSE)
-
-stargazer(regression10, regression11, regression12, z4,
-          type = "latex",
-          header = FALSE, # important not to have stargazer information in markdown file 
-          title = "Regression analysis regarding (non-) violent and total crimes 
-          and all independent variables
-          with OLS regressions and negative binominal regression",
-          digits = 2,
+          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"),
           notes = "This regression output shows the results using 3 different 
           dependent variables and two models")
@@ -320,6 +205,6 @@ stargazer(regression10, regression11, regression12, z4,
 print("\newpage", quote = FALSE)
 
 # Removing regression results 
-rm(regression1, regression2, regression3, regression4, regression5, regression6, 
-   regression7, regression8, regression9, regression10, regression11, regression12)
+rm(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout, 
+   OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout)
 rm(z1, z2, z3, z4)
