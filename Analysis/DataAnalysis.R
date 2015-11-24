@@ -183,7 +183,7 @@ stargazer(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout,
           and total crimes and independent variable FoundationsDensity100k
           with OLS regressions and negative binominal regression",
           digits = 2,
-          no.space = TRUE, # single.row = TRUE
+#          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"),
           notes = "This regression output shows the results using 3 different 
           dependent variables and two models")
@@ -197,7 +197,7 @@ stargazer(OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout,
           and independent variable FlowRate
           with OLS regressions and negative binominal regression",
           digits = 2,
-          no.space = TRUE, # single.row = TRUE
+#          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"),
           notes = "This regression output shows the results using 3 different 
           dependent variables and two models")
