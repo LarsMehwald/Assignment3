@@ -210,6 +210,12 @@ DistrictData$TurnoutPercentageLog <-
   log(DistrictData$TurnoutPercentage)
 
 ########################
+# Categorical variables for IV
+########################
+
+
+
+########################
 # Omiting Observations with missing values
 ########################
 

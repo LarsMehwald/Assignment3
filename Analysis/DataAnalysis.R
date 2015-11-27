@@ -15,7 +15,7 @@
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-              "ggmap", "rworldmap","car", "MASS", "PerformanceAnalytics")
+              "ggmap", "rworldmap","car", "MASS", "PerformanceAnalytics", "pscl", "AER")
 lapply(Packages, require, character.only = TRUE) 
 
 # Setting the commonly used working directory
@@ -117,9 +117,25 @@ DistrictData$BelieversRate <- as.integer(DistrictData$BelieversRate)
 DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
 
 # Creating a subset of variables from DistrictData data frame for analysis 
-subset1 <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
+#subset1 <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
 
-# negative Binomial regression model 0 Zelig
+# Poisson model with Zelig (MC simulation)
+zp.out <- zelig(CrimeRate ~ 
+                 FoundationsDensity100k +
+                 BelieversRate +
+                 MarriageRate +
+                 MaleRate +
+                 YouthRate +
+                 UnemployedPercentage, DistrictData, model="poisson")
+# MC Simulation
+xp.out <- setx(zp.out)
+xp.low <- setx(zp.out, "DistrictData$FoundationsDensity100k" = 11)
+xp.high <- setx(zp.out, "DistrictData$FoundationsDensity100k" = 25)
+sp.out <- sim(zp.out, x=xp.low, x1=xp.high)
+sp.out <- sim(zp.out, x=xp.out)
+plot(sp.out)
+
+# negative Binomial regression model 0 with Zelig (MC simulation)
 z.out <- zelig(CrimeRate ~ 
                  FoundationsDensity100k +
                  BelieversRate +
@@ -127,18 +143,59 @@ z.out <- zelig(CrimeRate ~
                  MaleRate +
                  YouthRate +
                  UnemployedPercentage, DistrictData, model="negbinom")
+# MC Simulation
 x.out <- setx(z.out)
 s.out <- sim(z.out, x=x.out)
 plot(s.out)
 
+#Poission model 1
+poisson <- glm(CrimeRate ~ 
+                 FoundationsDensity100kLog +
+                 BelieversRate +
+                 MarriageRate +
+                 MaleRate +
+                 YouthRate +
+                 UnemployedPercentage, 
+               DistrictData, 
+               family = poisson())
+
+#Dispersion Test
+dispersiontest(poisson)
+# p-values too small: therefore nb needed!
+#mean=var: condition for Poisson model
+#if mean < var: overdispersion
+#use mle: correcting s.e. 
+
+#Quasi Poission model 1
+quasipoisson <- glm(CrimeRate ~ 
+                 FoundationsDensity100kLog +
+                 BelieversRate +
+                 MarriageRate +
+                 MaleRate +
+                 YouthRate +
+                 UnemployedPercentage, 
+               DistrictData, 
+               family = quasipoisson())
+
+#zero inflated !!! Doesn't Work due to: invalid dependent variable, minimum count is not zero 
+zi1 <- zeroinfl(CrimeRate ~ 
+             FoundationsDensity100kLog +
+             BelieversRate +
+             MarriageRate +
+             MaleRate +
+             YouthRate +
+             UnemployedPercentage | 1, 
+           DistrictData)
+
+# negative Binomial regression model 1
 z1 <- glm.nb(CrimeRate ~ 
-               FoundationsDensity100k +
+               FoundationsDensity100kLog +
                BelieversRate +
                MarriageRate +
                MaleRate +
                YouthRate +
                UnemployedPercentage,
-             subset1)
+             DistrictData)
 
 # negative Binomial regression model 2
 z2 <- glm.nb(CrimeRate ~ 
@@ -148,7 +205,7 @@ z2 <- glm.nb(CrimeRate ~
                MaleRate +
                YouthRate +
                UnemployedPercentage,
-             subset1)
+             DistrictData)
 
 # negative Binomial regression model 3
 z3 <- glm.nb(CrimeRate ~ 
@@ -158,7 +215,7 @@ z3 <- glm.nb(CrimeRate ~
                MaleRate +
                YouthRate +
                UnemployedPercentage,
-             subset1)
+             DistrictData)
 
 # negative Binomial regression model 4
 z4 <- glm.nb(CrimeRate ~ 
@@ -170,7 +227,7 @@ z4 <- glm.nb(CrimeRate ~
                MaleRate +
                YouthRate +
                UnemployedPercentage,
-             subset1)
+             DistrictData)
 
 ########################
 # Creating table output
