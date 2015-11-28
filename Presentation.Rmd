@@ -130,12 +130,6 @@ stargazer(poisson.glm1, poisson.glm2, poisson.glm3,
 ```
 
 ## <!-- last slide-->
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br><br>
 <center><b>Thank you for your attention!<br>
 Any questions?</b></center>
-
