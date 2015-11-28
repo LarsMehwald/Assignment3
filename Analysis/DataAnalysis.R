@@ -188,6 +188,10 @@ poisson.glm4 <- glm(MurderRate ~
 #Dispersion Test
 dispersiontest(poisson.glm4)
 
+############################################
+# Correcting s.e. with QuasiPoisson
+###########################################
+
 #Quasi Poission model 1
 quasipoisson.glm1 <- glm(MurderRate ~ 
                       FoundationsDensity100kLog +
@@ -234,7 +238,11 @@ quasipoisson.glm4 <- glm(MurderRate ~
                         DistrictData, 
                         family = quasipoisson())
 
-# negative Binomial regression model 1
+##############################################
+# Negative Binomial Models
+##############################################
+
+# negative Binomial model 1
 nb.glm1 <- glm.nb(MurderRate ~ 
                FoundationsDensity100kLog +
                ForeignerRate +
@@ -244,7 +252,7 @@ nb.glm1 <- glm.nb(MurderRate ~
                UnemployedPercentage,
              DistrictData)
 
-# negative Binomial regression model 2
+# negative Binomial model 2
 nb.glm2 <- glm.nb(MurderRate ~ 
                FlowRateLog +
                ForeignerRate +
@@ -254,7 +262,7 @@ nb.glm2 <- glm.nb(MurderRate ~
                UnemployedPercentage,
              DistrictData)
 
-# negative Binomial regression model 3
+# negative Binomial model 3
 ng.glm3 <- glm.nb(MurderRate ~ 
                TurnoutPercentageLog +
                ForeignerRate +
@@ -264,7 +272,7 @@ ng.glm3 <- glm.nb(MurderRate ~
                UnemployedPercentage,
              DistrictData)
 
-# negative Binomial regression model 4
+# negative Binomial model 4
 nb.glm4 <- glm.nb(MurderRate ~ 
                FoundationsDensity100kLog +
                FlowRateLog +
@@ -276,35 +284,9 @@ nb.glm4 <- glm.nb(MurderRate ~
                UnemployedPercentage,
              DistrictData)
 
-# Zero Inflated Model 1
-zi1 <- zeroinfl(MurderRate ~ 
-                  FoundationsDensity100kLog +
-                  ForeignerRate +
-                  MarriageRate +
-                  MaleRate +
-                  YouthRate +
-                  UnemployedPercentage | 1, 
-                DistrictData)
-
-# Zero Inflated Model 2
-zi2 <- zeroinfl(MurderRate ~ 
-                  FlowRateLog +
-                  ForeignerRate +
-                  MarriageRate +
-                  MaleRate +
-                  YouthRate +
-                  UnemployedPercentage | 1, 
-                DistrictData)
-
-# Zero Inflated Model 3
-zi3 <- zeroinfl(MurderRate ~ 
-                  TurnoutPercentageLog +
-                  ForeignerRate +
-                  MarriageRate +
-                  MaleRate +
-                  YouthRate +
-                  UnemployedPercentage | 1, 
-                DistrictData)
+####################################################
+# MC simulations
+####################################################
 
 # Poisson model with Zelig (MC simulation)
 poisson <- zelig(MurderRate ~ 
