@@ -176,7 +176,7 @@ quasipoisson.glm <- glm(CrimeRate ~
                     family = quasipoisson())
 
 # negative Binomial regression model 1
-nb..glm1 <- glm.nb(MurderRate ~ 
+nb.glm1 <- glm.nb(MurderRate ~ 
                FoundationsDensity100kLog +
                BelieversRate +
                MarriageRate +
