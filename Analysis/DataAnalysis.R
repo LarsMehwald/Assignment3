@@ -128,7 +128,7 @@ DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
 ########################################
 
 #Poission model 1
-poisson.glm <- glm(MurderRate ~ 
+poisson.glm1 <- glm(MurderRate ~ 
                  FoundationsDensity100kLog +
                  BelieversRate +
                  MarriageRate +
@@ -139,15 +139,56 @@ poisson.glm <- glm(MurderRate ~
                family = poisson())
 
 #Dispersion Test
-dispersiontest(poisson.glm)
+dispersiontest(poisson.glm1)
 # p-values too small: therefore nb needed!
 #mean=var: condition for Poisson model
 #if mean < var: overdispersion
 #use mle: correcting s.e.
 #summary(poisson.glm): Residual deviance>degrees of freedom : if so = overdispersion
 
+#Poission model 2
+poisson.glm2 <- glm(MurderRate ~ 
+                     FlowRateLog +
+                     BelieversRate +
+                     MarriageRate +
+                     MaleRate +
+                     YouthRate +
+                     UnemployedPercentage, 
+                   DistrictData, 
+                   family = poisson())
+#Dispersion Test
+dispersiontest(poisson.glm2)
+
+#Poission model 3
+poisson.glm3 <- glm(MurderRate ~ 
+                     TurnoutPercentageLog +
+                     BelieversRate +
+                     MarriageRate +
+                     MaleRate +
+                     YouthRate +
+                     UnemployedPercentage, 
+                   DistrictData, 
+                   family = poisson())
+#Dispersion Test
+dispersiontest(poisson.glm3)
+
+#Poission model 4
+poisson.glm4 <- glm(MurderRate ~ 
+                     FoundationsDensity100kLog +
+                     FlowRateLog +
+                     TurnoutPercentageLog +
+                     BelieversRate +
+                     MarriageRate +
+                     MaleRate +
+                     YouthRate +
+                     UnemployedPercentage, 
+                   DistrictData, 
+                   family = poisson())
+#Dispersion Test
+dispersiontest(poisson.glm4)
+
 #Quasi Poission model 1
-quasipoisson.glm <- glm(CrimeRate ~ 
+quasipoisson.glm1 <- glm(MurderRate ~ 
                       FoundationsDensity100kLog +
                       BelieversRate +
                       MarriageRate +
@@ -156,6 +197,41 @@ quasipoisson.glm <- glm(CrimeRate ~
                       UnemployedPercentage, 
                     DistrictData, 
                     family = quasipoisson())
+
+#Quasi Poission model 2
+quasipoisson.glm2 <- glm(MurderRate ~ 
+                          FlowRateLog +
+                          BelieversRate +
+                          MarriageRate +
+                          MaleRate +
+                          YouthRate +
+                          UnemployedPercentage, 
+                        DistrictData, 
+                        family = quasipoisson())
+
+#Quasi Poission model 3
+quasipoisson.glm3 <- glm(MurderRate ~ 
+                          TurnoutPercentageLog +
+                          BelieversRate +
+                          MarriageRate +
+                          MaleRate +
+                          YouthRate +
+                          UnemployedPercentage, 
+                        DistrictData, 
+                        family = quasipoisson())
+
+#Quasi Poission model 4
+quasipoisson.glm4 <- glm(MurderRate ~ 
+                          FoundationsDensity100kLog +
+                          FlowRateLog +
+                          TurnoutPercentageLog +
+                          BelieversRate +
+                          MarriageRate +
+                          MaleRate +
+                          YouthRate +
+                          UnemployedPercentage, 
+                        DistrictData, 
+                        family = quasipoisson())
 
 # negative Binomial regression model 1
 nb.glm1 <- glm.nb(MurderRate ~ 
