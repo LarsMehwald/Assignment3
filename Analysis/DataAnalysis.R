@@ -115,6 +115,7 @@ DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
 DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
 DistrictData$BelieversRate <- as.integer(DistrictData$BelieversRate)
 DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
+DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
 
 # Creating a subset of variables from DistrictData data frame for analysis 
 #subset1 <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
@@ -128,11 +129,11 @@ zp.out <- zelig(CrimeRate ~
                  YouthRate +
                  UnemployedPercentage, DistrictData, model="poisson")
 # MC Simulation # DOES NOT WORK YET!
-xp.out <- setx(zp.out)
-#xp.low <- setx(zp.out, "DistrictData$FoundationsDensity100k" = 11)
-#xp.high <- setx(zp.out, "DistrictData$FoundationsDensity100k" = 25)
-#sp.out <- sim(zp.out, x=xp.low, x1=xp.high)
-sp.out <- sim(zp.out, x=xp.out)
+#xp.out <- setx(zp.out)
+xp.low <- setx(zp.out, "FoundationsDensity100k" = 11)
+xp.high <- setx(zp.out, "FoundationsDensity100k" = 25)
+sp.out <- sim(zp.out, x=xp.low, x1=xp.high)
+#sp.out <- sim(zp.out, x=xp.out)
 plot(sp.out)
 
 # negative Binomial regression model 0 with Zelig (MC simulation)
