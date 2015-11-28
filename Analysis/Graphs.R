@@ -33,27 +33,32 @@ DistrictData <- DistrictData[,-1]
 #################################
 
 # Changing class of Crime Rate
-DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
+#DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
 
 # Crime Rate hist
-histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
-  geom_histogram(binwidth=500, colour="black", fill="white") 
-plot(histCrimeRate)
+#histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
+#  geom_histogram(binwidth=500, colour="black", fill="white") 
+#plot(histCrimeRate)
+
+# Non-Violent Crime histogram
+#histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
+ # geom_histogram(binwidth=400, colour="black", fill="white")
+#plot(histNonViolentCrimeRate)
 
 # Violent Crime histogram
 histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
-  geom_histogram(binwidth=50, colour="black", fill="white")
+  geom_histogram(binwidth=10, colour="black", fill="white")
 plot(histViolentCrimeRate)
 
-# Non-Violent Crime histogram
-histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
-  geom_histogram(binwidth=400, colour="black", fill="white")
-plot(histNonViolentCrimeRate)
+# Murder Rate Histogram
+histMurderRate <- ggplot(DistrictData, aes(MurderRate)) + 
+  geom_histogram(binwidth=1, colour="black", fill="white")
+plot(histMurderRate)
 
 #################################
 # Correlation Matrix
 #################################
 
 # Correlation Plot using R package: "PerformanceAnalytics"
-datacor <- DistrictData[, c(22,40,47,49,50,51,52,53)]
+datacor <- DistrictData[, c(47,54,53,40,22,50,51,52)]
 chart.Correlation(datacor, historgram=T)
