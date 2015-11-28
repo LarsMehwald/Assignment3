@@ -15,7 +15,7 @@
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-              "ggmap", "rworldmap","car", "MASS", "PerformanceAnalytics", "pscl", "AER")
+              "car", "MASS", "PerformanceAnalytics", "pscl", "AER")
 lapply(Packages, require, character.only = TRUE) 
 
 # Setting the commonly used working directory
