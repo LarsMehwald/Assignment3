@@ -27,7 +27,7 @@ H3: *The higher the voter turnout is in a district, the lower the murder rate.*
 
 ## Data
 
-We have data from three main sources:  
+We gathered data from three main sources:  
 1) German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" [PKS])  
 2) The Regional Database Germany published by the Federal Statistical Office and the statistical Offices of the Lander   
 3) German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")  
