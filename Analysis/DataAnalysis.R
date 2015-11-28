@@ -101,7 +101,7 @@ summary(OLSMurderTurnout)
 # Declareing integre data for analysis
 ####################################
 
-# Declaring distric Id as factor variables
+# Declaring distric Id as factor variablespo
 DistrictData$district <- as.factor(DistrictData$district)
 
 # Declaring all relevant variables for model integer
@@ -274,6 +274,36 @@ nb.glm4 <- glm.nb(MurderRate ~
                YouthRate +
                UnemployedPercentage,
              DistrictData)
+
+# Zero Inflated Model 1
+zi1 <- zeroinfl(MurderRate ~ 
+                  FoundationsDensity100kLog +
+                  BelieversRate +
+                  MarriageRate +
+                  MaleRate +
+                  YouthRate +
+                  UnemployedPercentage | 1, 
+                DistrictData)
+
+# Zero Inflated Model 2
+zi2 <- zeroinfl(MurderRate ~ 
+                  FlowRateLog +
+                  BelieversRate +
+                  MarriageRate +
+                  MaleRate +
+                  YouthRate +
+                  UnemployedPercentage | 1, 
+                DistrictData)
+
+# Zero Inflated Model 3
+zi3 <- zeroinfl(MurderRate ~ 
+                  TurnoutPercentageLog +
+                  BelieversRate +
+                  MarriageRate +
+                  MaleRate +
+                  YouthRate +
+                  UnemployedPercentage | 1, 
+                DistrictData)
 
 # Poisson model with Zelig (MC simulation)
 poisson <- zelig(MurderRate ~ 
