@@ -129,9 +129,9 @@ zp.out <- zelig(CrimeRate ~
                  UnemployedPercentage, DistrictData, model="poisson")
 # MC Simulation # DOES NOT WORK YET!
 xp.out <- setx(zp.out)
-xp.low <- setx(zp.out, "DistrictData$FoundationsDensity100k" = 11)
-xp.high <- setx(zp.out, "DistrictData$FoundationsDensity100k" = 25)
-sp.out <- sim(zp.out, x=xp.low, x1=xp.high)
+#xp.low <- setx(zp.out, "DistrictData$FoundationsDensity100k" = 11)
+#xp.high <- setx(zp.out, "DistrictData$FoundationsDensity100k" = 25)
+#sp.out <- sim(zp.out, x=xp.low, x1=xp.high)
 sp.out <- sim(zp.out, x=xp.out)
 plot(sp.out)
 
