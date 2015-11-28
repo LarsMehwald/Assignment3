@@ -9,7 +9,7 @@
 # Loading packages 
 # Loading Data frame
 # OLS models
-# negative binomial models
+# Poisson models
 # Tables generation with stargazer
 
 # Loading required packages 
@@ -107,11 +107,11 @@ DistrictData$district <- as.factor(DistrictData$district)
 # Declaring all relevant variables for model integer
 DistrictData$CrimeRate <- as.integer(DistrictData$CrimeRate)
 DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
-DistrictData$FoundationsDensity100kLog <- as.integer(DistrictData$FoundationsDensity100kLog)
+#DistrictData$FoundationsDensity100kLog <- as.integer(DistrictData$FoundationsDensity100kLog)
 DistrictData$FlowRate <- as.integer(DistrictData$FlowRate)
-DistrictData$FlowRateLog <- as.integer(DistrictData$FlowRateLog)
+#DistrictData$FlowRateLog <- as.integer(DistrictData$FlowRateLog)
 DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
-DistrictData$TurnoutPercentageLog <- as.integer(DistrictData$TurnoutPercentageLog)
+#DistrictData$TurnoutPercentageLog <- as.integer(DistrictData$TurnoutPercentageLog)
 #DistrictData$PropwoHauptschulabschluss <- as.integer(DistrictData$PropwoHauptschulabschluss)
 DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
 DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
@@ -130,6 +130,8 @@ DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
 # Poisson model with Zelig (MC simulation)
 poisson <- zelig(MurderRate ~ 
                   FoundationsDensity100kLog +
+                  FlowRateLog +
+                  TurnoutPercentageLog +
                   BelieversRate +
                   MarriageRate +
                   MaleRate +
@@ -138,8 +140,8 @@ poisson <- zelig(MurderRate ~
                  DistrictData, 
                  model="poisson")
 # MC Simulation using 1st and 3rd Qu. 
-xp.low <- setx(poisson, "FoundationsDensity100kLog" = 2.4340)
-xp.high <- setx(poisson, "FoundationsDensity100kLog" = 3.2540)
+xp.low <- setx(poisson, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
+xp.high <- setx(poisson, "FoundationsDensity100kLog" = 3.2540, "FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
 s.poisson <- sim(poisson, x=xp.low, x1=xp.high)
 plot(s.poisson)
 
@@ -195,7 +197,7 @@ nb.glm2 <- glm.nb(MurderRate ~
 
 # negative Binomial regression model 3
 ng.glm3 <- glm.nb(MurderRate ~ 
-               TurnoutPercentage +
+               TurnoutPercentageLog +
                BelieversRate +
                MarriageRate +
                MaleRate +
@@ -217,17 +219,17 @@ nb.glm4 <- glm.nb(MurderRate ~
 
 # negative Binomial regression model with Zelig (MC simulation)
 nb.out <- zelig(MurderRate ~ 
-                 FoundationsDensity100k +
-                 FlowRate +
-                 TurnoutPercentage +
+                 FoundationsDensity100kLog +
+                 FlowRateLog +
+                 TurnoutPercentageLog +
                  BelieversRate +
                  MarriageRate +
                  MaleRate +
                  YouthRate +
                  UnemployedPercentage, DistrictData, model="negbinom")
 # MC Simulation
-xnb.low <- setx(nb.out, "FoundationsDensity100kLog" = 11, "FlowRate" = 9980, "TurnoutPercentage" = 68)
-xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 25,"FlowRate" = 13800, "TurnoutPercentage" = 73)
+xnb.low <- setx(nb.out, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
+xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 3.2540,"FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
 snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
 plot(snb.out)
 
