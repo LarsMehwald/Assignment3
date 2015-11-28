@@ -97,9 +97,9 @@ summary(OLSMurderTurnout)
 # regrobbery_res <- residuals(regrobbery) #residuals 
 # as.data.frame(regrobbery_res)
 
-#########################################
-# Negative Binomial models
-########################################
+####################################
+# Declareing integre data for analysis
+####################################
 
 # Declaring distric Id as factor variables
 DistrictData$district <- as.factor(DistrictData$district)
@@ -107,9 +107,12 @@ DistrictData$district <- as.factor(DistrictData$district)
 # Declaring all relevant variables for model integer
 DistrictData$CrimeRate <- as.integer(DistrictData$CrimeRate)
 DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
+DistrictData$FoundationsDensity100kLog <- as.integer(DistrictData$FoundationsDensity100kLog)
 DistrictData$FlowRate <- as.integer(DistrictData$FlowRate)
+DistrictData$FlowRateLog <- as.integer(DistrictData$FlowRateLog)
 DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
-DistrictData$PropwoHauptschulabschluss <- as.integer(DistrictData$PropwoHauptschulabschluss)
+DistrictData$TurnoutPercentageLog <- as.integer(DistrictData$TurnoutPercentageLog)
+#DistrictData$PropwoHauptschulabschluss <- as.integer(DistrictData$PropwoHauptschulabschluss)
 DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
 DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
 DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
@@ -120,37 +123,28 @@ DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
 # Creating a subset of variables from DistrictData data frame for analysis 
 #subset1 <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
 
-# Poisson model with Zelig (MC simulation)
-zp.out <- zelig(CrimeRate ~ 
-                 FoundationsDensity100k +
-                 BelieversRate +
-                 MarriageRate +
-                 MaleRate +
-                 YouthRate +
-                 UnemployedPercentage, DistrictData, model="poisson")
-# MC Simulation # DOES NOT WORK YET!
-#xp.out <- setx(zp.out)
-xp.low <- setx(zp.out, "FoundationsDensity100k" = 11)
-xp.high <- setx(zp.out, "FoundationsDensity100k" = 25)
-sp.out <- sim(zp.out, x=xp.low, x1=xp.high)
-#sp.out <- sim(zp.out, x=xp.out)
-plot(sp.out)
+#########################################
+# Poisson models
+########################################
 
-# negative Binomial regression model 0 with Zelig (MC simulation)
-z.out <- zelig(CrimeRate ~ 
-                 FoundationsDensity100k +
-                 BelieversRate +
-                 MarriageRate +
-                 MaleRate +
-                 YouthRate +
-                 UnemployedPercentage, DistrictData, model="negbinom")
-# MC Simulation
-x.out <- setx(z.out)
-s.out <- sim(z.out, x=x.out)
-plot(s.out)
+# Poisson model with Zelig (MC simulation)
+poisson <- zelig(MurderRate ~ 
+                  FoundationsDensity100kLog +
+                  BelieversRate +
+                  MarriageRate +
+                  MaleRate +
+                  YouthRate +
+                  UnemployedPercentage, 
+                 DistrictData, 
+                 model="poisson")
+# MC Simulation using 1st and 3rd Qu. 
+xp.low <- setx(poisson, "FoundationsDensity100kLog" = 2.4340)
+xp.high <- setx(poisson, "FoundationsDensity100kLog" = 3.2540)
+s.poisson <- sim(poisson, x=xp.low, x1=xp.high)
+plot(s.poisson)
 
 #Poission model 1
-poisson <- glm(CrimeRate ~ 
+poisson.glm <- glm(MurderRate ~ 
                  FoundationsDensity100kLog +
                  BelieversRate +
                  MarriageRate +
@@ -161,35 +155,26 @@ poisson <- glm(CrimeRate ~
                family = poisson())
 
 #Dispersion Test
-dispersiontest(poisson)
+dispersiontest(poisson.glm)
 # p-values too small: therefore nb needed!
 #mean=var: condition for Poisson model
 #if mean < var: overdispersion
-#use mle: correcting s.e. 
+#use mle: correcting s.e.
+#summary(poisson.glm): Residual deviance>degrees of freedom : if so = overdispersion
 
 #Quasi Poission model 1
-quasipoisson <- glm(CrimeRate ~ 
-                 FoundationsDensity100kLog +
-                 BelieversRate +
-                 MarriageRate +
-                 MaleRate +
-                 YouthRate +
-                 UnemployedPercentage, 
-               DistrictData, 
-               family = quasipoisson())
-
-#zero inflated !!! Doesn't Work due to: invalid dependent variable, minimum count is not zero 
-zi1 <- zeroinfl(CrimeRate ~ 
-             FoundationsDensity100kLog +
-             BelieversRate +
-             MarriageRate +
-             MaleRate +
-             YouthRate +
-             UnemployedPercentage | 1, 
-           DistrictData)
+quasipoisson.glm <- glm(CrimeRate ~ 
+                      FoundationsDensity100kLog +
+                      BelieversRate +
+                      MarriageRate +
+                      MaleRate +
+                      YouthRate +
+                      UnemployedPercentage, 
+                    DistrictData, 
+                    family = quasipoisson())
 
 # negative Binomial regression model 1
-z1 <- glm.nb(CrimeRate ~ 
+nb..glm1 <- glm.nb(MurderRate ~ 
                FoundationsDensity100kLog +
                BelieversRate +
                MarriageRate +
@@ -199,8 +184,8 @@ z1 <- glm.nb(CrimeRate ~
              DistrictData)
 
 # negative Binomial regression model 2
-z2 <- glm.nb(CrimeRate ~ 
-               FlowRate +
+nb.glm2 <- glm.nb(MurderRate ~ 
+               FlowRateLog +
                BelieversRate +
                MarriageRate +
                MaleRate +
@@ -209,7 +194,7 @@ z2 <- glm.nb(CrimeRate ~
              DistrictData)
 
 # negative Binomial regression model 3
-z3 <- glm.nb(CrimeRate ~ 
+ng.glm3 <- glm.nb(MurderRate ~ 
                TurnoutPercentage +
                BelieversRate +
                MarriageRate +
@@ -219,16 +204,32 @@ z3 <- glm.nb(CrimeRate ~
              DistrictData)
 
 # negative Binomial regression model 4
-z4 <- glm.nb(CrimeRate ~ 
-               FoundationsDensity100k +
-               FlowRate +
-               TurnoutPercentage +
+nb.glm4 <- glm.nb(MurderRate ~ 
+               FoundationsDensity100kLog +
+               FlowRateLog +
+               TurnoutPercentageLog +
                BelieversRate +
                MarriageRate +
                MaleRate +
                YouthRate +
                UnemployedPercentage,
              DistrictData)
+
+# negative Binomial regression model with Zelig (MC simulation)
+nb.out <- zelig(MurderRate ~ 
+                 FoundationsDensity100k +
+                 FlowRate +
+                 TurnoutPercentage +
+                 BelieversRate +
+                 MarriageRate +
+                 MaleRate +
+                 YouthRate +
+                 UnemployedPercentage, DistrictData, model="negbinom")
+# MC Simulation
+xnb.low <- setx(nb.out, "FoundationsDensity100kLog" = 11, "FlowRate" = 9980, "TurnoutPercentage" = 68)
+xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 25,"FlowRate" = 13800, "TurnoutPercentage" = 73)
+snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
+plot(snb.out)
 
 ########################
 # Creating table output
