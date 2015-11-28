@@ -38,6 +38,8 @@ DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
 DistrictData <- DistrictData[,-1]
 # Removing some variables
 DistrictDataReduced <- DistrictData[,c(22,40,47,49,50,51,52,53,54,56)]
+# Rounding
+
 # Renaming variables
 names(DistrictDataReduced)[names(DistrictDataReduced) == 'UnemployedPercentage'] <- 'UnemployedPerc'
 names(DistrictDataReduced)[names(DistrictDataReduced) == 'FoundationsDensity100k'] <- 'FoundationsDens'
@@ -46,6 +48,7 @@ names(DistrictDataReduced)[names(DistrictDataReduced) == 'TurnoutPercentage'] <-
 stargazer(DistrictDataReduced,
           nobs = FALSE,
           header = FALSE,
+          digits=1,
           type = "html")
 ```
 
