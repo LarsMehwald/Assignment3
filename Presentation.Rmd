@@ -66,6 +66,45 @@ stargazer(DistrictDataReduced,
 ## Models
 
 ## Results
+```{r plotOLSViolent, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+
+stargazer(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout,
+          type = "html",
+          keep = c("FoundationsDensity100kLog", "FlowRateLog", "TurnoutPercentageLog"),
+          header = FALSE, # important not to have stargazer information in markdown file 
+          title = "Regression analysis regarding (non-) violent 
+          and total crimes and independent variable FoundationsDensity100k
+          with OLS regressions and negative binominal regression",
+          digits = 2,
+#          no.space = TRUE, # single.row = TRUE
+          omit.stat = c("f", "ser"),
+          notes = "This regression output shows the results using 3 different 
+          dependent variables and two models")
+```
+
+Control variables suppressed. 
+
+## Results
+```{r plotOLSMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+
+stargazer(OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout, 
+          type = "html",
+          keep = c("FoundationsDensity100kLog", "FlowRateLog", "TurnoutPercentageLog"),
+          header = FALSE, # important not to have stargazer information in markdown file 
+          title = "Regression analysis regarding (non-) violent and total crimes 
+          and independent variable FlowRate
+          with OLS regressions and negative binominal regression",
+          digits = 2,
+#          no.space = TRUE, # single.row = TRUE
+          omit.stat = c("f", "ser"),
+          notes = "This regression output shows the results using 3 different 
+          dependent variables and two models")
+```
+
+Control variables suppressed. 
+
 
 ## <!-- last slide-->
 <br>

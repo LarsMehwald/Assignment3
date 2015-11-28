@@ -306,61 +306,34 @@ poisson <- zelig(MurderRate ~
 xp.low <- setx(poisson, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
 xp.high <- setx(poisson, "FoundationsDensity100kLog" = 3.2540, "FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
 s.poisson <- sim(poisson, x=xp.low, x1=xp.high)
-plot(s.poisson)
+# plot(s.poisson)
 
 # negative Binomial regression model with Zelig (MC simulation)
-nb.out <- zelig(MurderRate ~ 
-                 FoundationsDensity100kLog +
-                 FlowRateLog +
-                 TurnoutPercentageLog +
-                 ForeignerRate +
-                 MarriageRate +
-                 MaleRate +
-                 YouthRate +
-                 UnemployedPercentage, 
-                DistrictData, 
-                model="negbinom",
-                cite=FALSE)
+# nb.out <- zelig(MurderRate ~ 
+#                  FoundationsDensity100kLog +
+#                  FlowRateLog +
+#                  TurnoutPercentageLog +
+#                  ForeignerRate +
+#                  MarriageRate +
+#                  MaleRate +
+#                  YouthRate +
+#                  UnemployedPercentage, 
+#                 DistrictData, 
+#                 model="negbinom",
+#                 cite=FALSE)
 
 # MC Simulation
-xnb.low <- setx(nb.out, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
-xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 3.2540,"FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
-snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
-plot(snb.out)
+# xnb.low <- setx(nb.out, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
+# xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 3.2540,"FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
+# snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
+# plot(snb.out)
 
 ########################
 # Creating table output
 ########################
  
-stargazer(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout,
-          type = "latex",
-          header = FALSE, # important not to have stargazer information in markdown file 
-          title = "Regression analysis regarding (non-) violent 
-          and total crimes and independent variable FoundationsDensity100k
-          with OLS regressions and negative binominal regression",
-          digits = 2,
-#          no.space = TRUE, # single.row = TRUE
-          omit.stat = c("f", "ser"),
-          notes = "This regression output shows the results using 3 different 
-          dependent variables and two models")
-
-print("\newpage", quote = FALSE)
-
-stargazer(OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout, 
-          type = "latex",
-          header = FALSE, # important not to have stargazer information in markdown file 
-          title = "Regression analysis regarding (non-) violent and total crimes 
-          and independent variable FlowRate
-          with OLS regressions and negative binominal regression",
-          digits = 2,
-#          no.space = TRUE, # single.row = TRUE
-          omit.stat = c("f", "ser"),
-          notes = "This regression output shows the results using 3 different 
-          dependent variables and two models")
-
-print("\newpage", quote = FALSE)
+# transferred to presentation 
 
 # Removing regression results 
-rm(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout, 
-   OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout)
-rm(z1, z2, z3, z4)
+# rm(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout, OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout)
+# rm(z1, z2, z3, z4)
