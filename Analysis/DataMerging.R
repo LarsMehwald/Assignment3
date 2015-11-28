@@ -127,18 +127,19 @@ DistrictData$YouthRate <-
 
 # Share of Believers
 # Problematic: rates are significant lower in former East Germany 
-DistrictData$BelieversRate <- 
-  (DistrictData$BelieversTotal / 
+#DistrictData$BelieversRate <- 
+ # (DistrictData$BelieversTotal / 
+  #   DistrictData$TotalPopulation) * 100000
+
+# Share of Foreigners per District
+DistrictData$ForeignerRate <-
+  (DistrictData$ForeignersTotal /
      DistrictData$TotalPopulation) * 100000
 
 # Total Mobility rate 
 DistrictData$FlowRate <- 
   ((DistrictData$InfluxTotal +
       DistrictData$OutflowTotal) /
-     DistrictData$TotalPopulation) * 100000
-
-DistrictData$ForeignerRate <-
-  (DistrictData$ForeignersTotal /
      DistrictData$TotalPopulation) * 100000
 
 ########################
