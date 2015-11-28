@@ -33,6 +33,7 @@ source("Analysis/data/Migration.R")
 source("Analysis/data/Religion.R")
 source("Analysis/data/Election.R")
 source("Analysis/data/Foundations2.R")
+source("Analysis/data/Foreinergs.R")
 
 # Merging the data frames by district
 # Districts that are not matched with a corresponding district are dropped
@@ -47,6 +48,7 @@ CrMaGrLaPoDPoAMi <- merge(CrMaGrLaPoDPoA, Migration, by="district")
 CrMaGrLaPoDPoAMiRe <- merge(CrMaGrLaPoDPoAMi, Religion, by="district")
 CrMaGrLaPoDPoAMiReEl <- merge(CrMaGrLaPoDPoAMiRe, Election, by="district")
 CrMaGrLaPoDPoAMiReElFo <- merge(CrMaGrLaPoDPoAMiReEl, Foundations, by="district")
+CrMaGrLaPoDPoAMiReElFoFrg <- merge(CrMaGrLaPoDPoAMiReElFo, Foreigners, by="district")
 
 # Removing generated new objects to avoid confusion 
 rm(CrimesMarriages2013)
@@ -57,6 +59,7 @@ rm(CrMaGrLaPoDPoA)
 rm(CrMaGrLaPoDPoAMi)
 rm(CrMaGrLaPoDPoAMiRe)
 rm(CrMaGrLaPoDPoAMiReEl)
+rm(CrMaGrLaPoDPoAMiReElFo)
 
 # Removing individual data frames
 rm(PKS_Kreise_13)
@@ -70,11 +73,12 @@ rm(Migration)
 rm(Religion)
 rm(Election)
 rm(Foundations)
+rm(Foreigners)
 
 # Renaming data frame 
 # Remember to change data frame whenever a new merged data frame is added to the list above 
-DistrictData <- CrMaGrLaPoDPoAMiReElFo
-rm(CrMaGrLaPoDPoAMiReElFo)
+DistrictData <- CrMaGrLaPoDPoAMiReElFoFrg
+rm(CrMaGrLaPoDPoAMiReElFoFrg)
 
 # Generating Crime rate variable for robberies: 
 # Crimes / Total Population * 100,000
@@ -85,7 +89,7 @@ rm(CrMaGrLaPoDPoAMiReElFo)
 #rm(CrimeRate)
 
 # Removing redundant variables (year variables)
-DistrictData <- DistrictData[,-c(17,19,22,36)]
+DistrictData <- DistrictData[,-c(17,19,22,36,53)]
 
 # Renaming year variable (from year.x)
 names(DistrictData)[3] <- "year"
