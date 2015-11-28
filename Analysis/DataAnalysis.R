@@ -263,7 +263,7 @@ nb.glm2 <- glm.nb(MurderRate ~
              DistrictData)
 
 # negative Binomial model 3
-ng.glm3 <- glm.nb(MurderRate ~ 
+nb.glm3 <- glm.nb(MurderRate ~ 
                TurnoutPercentageLog +
                ForeignerRate +
                MarriageRate +

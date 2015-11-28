@@ -78,9 +78,7 @@ stargazer(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout,
           title = "Regression analysis regarding violent crimes and three independent variable with OLS regression",
           digits = 2,
 #          no.space = TRUE, # single.row = TRUE
-          omit.stat = c("f", "ser"),
-          notes = "This regression output shows the results using 3 different 
-          dependent variables and two models")
+          omit.stat = c("f", "ser"))
 ```
 
 Control variables suppressed. 
@@ -98,13 +96,26 @@ stargazer(OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout,
           title = "Regression analysis regarding murder and three independent variable with OLS regression",
           digits = 2,
 #          no.space = TRUE, # single.row = TRUE
-          omit.stat = c("f", "ser"),
-          notes = "This regression output shows the results using 3 different 
-          dependent variables and two models")
+          omit.stat = c("f", "ser"))
 ```
 
 Control variables suppressed. 
 
+## Results
+
+```{r plotNegbinMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+source("Analysis/DataAnalysis.R")
+
+stargazer(nb.glm1, nb.glm2, nb.glm3, 
+          type = "html",
+          keep = c("FoundationsDensity100kLog", "FlowRateLog", "TurnoutPercentageLog"),
+          header = FALSE, # important not to have stargazer information in markdown file 
+          title = "Regression analysis regarding murder and three independent variable with negative binominal regression",
+          digits = 2,
+#          no.space = TRUE, # single.row = TRUE
+          omit.stat = c("f", "ser"))
+```
 
 ## <!-- last slide-->
 <br>
