@@ -127,24 +127,6 @@ DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
 # Poisson models
 ########################################
 
-# Poisson model with Zelig (MC simulation)
-poisson <- zelig(MurderRate ~ 
-                  FoundationsDensity100kLog +
-                  FlowRateLog +
-                  TurnoutPercentageLog +
-                  BelieversRate +
-                  MarriageRate +
-                  MaleRate +
-                  YouthRate +
-                  UnemployedPercentage, 
-                 DistrictData, 
-                 model="poisson")
-# MC Simulation using 1st and 3rd Qu. 
-xp.low <- setx(poisson, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
-xp.high <- setx(poisson, "FoundationsDensity100kLog" = 3.2540, "FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
-s.poisson <- sim(poisson, x=xp.low, x1=xp.high)
-plot(s.poisson)
-
 #Poission model 1
 poisson.glm <- glm(MurderRate ~ 
                  FoundationsDensity100kLog +
@@ -216,6 +198,24 @@ nb.glm4 <- glm.nb(MurderRate ~
                YouthRate +
                UnemployedPercentage,
              DistrictData)
+
+# Poisson model with Zelig (MC simulation)
+poisson <- zelig(MurderRate ~ 
+                   FoundationsDensity100kLog +
+                   FlowRateLog +
+                   TurnoutPercentageLog +
+                   BelieversRate +
+                   MarriageRate +
+                   MaleRate +
+                   YouthRate +
+                   UnemployedPercentage, 
+                 DistrictData, 
+                 model="poisson")
+# MC Simulation using 1st and 3rd Qu. 
+xp.low <- setx(poisson, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
+xp.high <- setx(poisson, "FoundationsDensity100kLog" = 3.2540, "FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
+s.poisson <- sim(poisson, x=xp.low, x1=xp.high)
+plot(s.poisson)
 
 # negative Binomial regression model with Zelig (MC simulation)
 nb.out <- zelig(MurderRate ~ 
