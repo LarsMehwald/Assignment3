@@ -298,8 +298,10 @@ poisson <- zelig(MurderRate ~
                    MaleRate +
                    YouthRate +
                    UnemployedPercentage, 
-                 DistrictData, 
-                 model="poisson")
+                 DistrictData,
+                 model="poisson",
+                 cite=FALSE)
+
 # MC Simulation using 1st and 3rd Qu. 
 xp.low <- setx(poisson, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
 xp.high <- setx(poisson, "FoundationsDensity100kLog" = 3.2540, "FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
@@ -315,7 +317,11 @@ nb.out <- zelig(MurderRate ~
                  MarriageRate +
                  MaleRate +
                  YouthRate +
-                 UnemployedPercentage, DistrictData, model="negbinom")
+                 UnemployedPercentage, 
+                DistrictData, 
+                model="negbinom",
+                cite=FALSE)
+
 # MC Simulation
 xnb.low <- setx(nb.out, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
 xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 3.2540,"FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
