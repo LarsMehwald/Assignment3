@@ -15,6 +15,15 @@ output:
 - Results
 
 ## Research Question
+How do social networks and bonds in a given community determine the level of violent crime?
+
+H0: *The more social capital in anygiven community, the less violent crime there would be observed.* 
+
+H1: *The higher the foundations density is in a district, the lower the murder rate.* 
+
+H2: *The lower the migration flow is in a district, the lower the murder rate.*  
+
+H3: *The higher the voter turnout is in a district, the lower the murder rate.*
 
 ## Data
 
