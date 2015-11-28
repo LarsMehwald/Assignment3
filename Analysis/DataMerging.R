@@ -33,7 +33,7 @@ source("Analysis/data/Migration.R")
 source("Analysis/data/Religion.R")
 source("Analysis/data/Election.R")
 source("Analysis/data/Foundations2.R")
-source("Analysis/data/Foreinergs.R")
+source("Analysis/data/Foreigners.R")
 
 # Merging the data frames by district
 # Districts that are not matched with a corresponding district are dropped
@@ -135,6 +135,10 @@ DistrictData$BelieversRate <-
 DistrictData$FlowRate <- 
   ((DistrictData$InfluxTotal +
       DistrictData$OutflowTotal) /
+     DistrictData$TotalPopulation) * 100000
+
+DistrictData$ForeignerRate <-
+  (DistrictData$ForeignersTotal /
      DistrictData$TotalPopulation) * 100000
 
 ########################

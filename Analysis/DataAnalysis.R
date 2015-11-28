@@ -52,42 +52,42 @@ DistrictData <- DistrictData[,-1]
 # Linear regression model 1
 OLSViolentFoundations <- lm(ViolentCrimeRate ~
                     FoundationsDensity100k +
-                    BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                    ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
                   data=DistrictData)
 summary(OLSViolentFoundations)
 
 # Linear regression model 2
 OLSViolentFlow <- lm(ViolentCrimeRate ~
                               FlowRate +
-                              BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                              ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
                             data=DistrictData)
 summary(OLSViolentFlow)
 
 # Linear regression model 3
 OLSViolentTurnout <- lm(ViolentCrimeRate ~
                        TurnoutPercentage +
-                       BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                       ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
                      data=DistrictData)
 summary(OLSViolentFlow)
 
 # Linear regression model 4
 OLSMurderFoundations <- lm(MurderRate ~ 
                       FoundationsDensity100k + 
-                      BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
                     data=DistrictData)
 summary(OLSMurderFoundations)
 
 # Linear regression model 5
 OLSMurderFlow <- lm(MurderRate ~ 
                       FlowRate +
-                      BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
                     data=DistrictData)
 summary(OLSMurderFlow)
 
 # Linear regression model 6
 OLSMurderTurnout <- lm(MurderRate ~ 
                       TurnoutPercentage + 
-                      BelieversRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
                     data=DistrictData)
 summary(OLSMurderTurnout)
 
@@ -116,9 +116,10 @@ DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
 DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
 DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
 DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
-DistrictData$BelieversRate <- as.integer(DistrictData$BelieversRate)
+#DistrictData$BelieversRate <- as.integer(DistrictData$BelieversRate)
 DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
 DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
+DistrictData$ForeignerRate <- as.integer(DistrictData$ForeignerRate)
 
 # Creating a subset of variables from DistrictData data frame for analysis 
 #subset1 <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
@@ -130,7 +131,7 @@ DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
 #Poission model 1
 poisson.glm1 <- glm(MurderRate ~ 
                  FoundationsDensity100kLog +
-                 BelieversRate +
+                 ForeignerRate +
                  MarriageRate +
                  MaleRate +
                  YouthRate +
@@ -149,7 +150,7 @@ dispersiontest(poisson.glm1)
 #Poission model 2
 poisson.glm2 <- glm(MurderRate ~ 
                      FlowRateLog +
-                     BelieversRate +
+                     ForeignerRate +
                      MarriageRate +
                      MaleRate +
                      YouthRate +
@@ -162,7 +163,7 @@ dispersiontest(poisson.glm2)
 #Poission model 3
 poisson.glm3 <- glm(MurderRate ~ 
                      TurnoutPercentageLog +
-                     BelieversRate +
+                     ForeignerRate +
                      MarriageRate +
                      MaleRate +
                      YouthRate +
@@ -177,7 +178,7 @@ poisson.glm4 <- glm(MurderRate ~
                      FoundationsDensity100kLog +
                      FlowRateLog +
                      TurnoutPercentageLog +
-                     BelieversRate +
+                     ForeignerRate +
                      MarriageRate +
                      MaleRate +
                      YouthRate +
@@ -190,7 +191,7 @@ dispersiontest(poisson.glm4)
 #Quasi Poission model 1
 quasipoisson.glm1 <- glm(MurderRate ~ 
                       FoundationsDensity100kLog +
-                      BelieversRate +
+                      ForeignerRate +
                       MarriageRate +
                       MaleRate +
                       YouthRate +
@@ -201,7 +202,7 @@ quasipoisson.glm1 <- glm(MurderRate ~
 #Quasi Poission model 2
 quasipoisson.glm2 <- glm(MurderRate ~ 
                           FlowRateLog +
-                          BelieversRate +
+                          ForeignerRate +
                           MarriageRate +
                           MaleRate +
                           YouthRate +
@@ -212,7 +213,7 @@ quasipoisson.glm2 <- glm(MurderRate ~
 #Quasi Poission model 3
 quasipoisson.glm3 <- glm(MurderRate ~ 
                           TurnoutPercentageLog +
-                          BelieversRate +
+                          ForeignerRate +
                           MarriageRate +
                           MaleRate +
                           YouthRate +
@@ -225,7 +226,7 @@ quasipoisson.glm4 <- glm(MurderRate ~
                           FoundationsDensity100kLog +
                           FlowRateLog +
                           TurnoutPercentageLog +
-                          BelieversRate +
+                          ForeignerRate +
                           MarriageRate +
                           MaleRate +
                           YouthRate +
@@ -236,7 +237,7 @@ quasipoisson.glm4 <- glm(MurderRate ~
 # negative Binomial regression model 1
 nb.glm1 <- glm.nb(MurderRate ~ 
                FoundationsDensity100kLog +
-               BelieversRate +
+               ForeignerRate +
                MarriageRate +
                MaleRate +
                YouthRate +
@@ -246,7 +247,7 @@ nb.glm1 <- glm.nb(MurderRate ~
 # negative Binomial regression model 2
 nb.glm2 <- glm.nb(MurderRate ~ 
                FlowRateLog +
-               BelieversRate +
+               ForeignerRate +
                MarriageRate +
                MaleRate +
                YouthRate +
@@ -256,7 +257,7 @@ nb.glm2 <- glm.nb(MurderRate ~
 # negative Binomial regression model 3
 ng.glm3 <- glm.nb(MurderRate ~ 
                TurnoutPercentageLog +
-               BelieversRate +
+               ForeignerRate +
                MarriageRate +
                MaleRate +
                YouthRate +
@@ -268,7 +269,7 @@ nb.glm4 <- glm.nb(MurderRate ~
                FoundationsDensity100kLog +
                FlowRateLog +
                TurnoutPercentageLog +
-               BelieversRate +
+               ForeignerRate +
                MarriageRate +
                MaleRate +
                YouthRate +
@@ -278,7 +279,7 @@ nb.glm4 <- glm.nb(MurderRate ~
 # Zero Inflated Model 1
 zi1 <- zeroinfl(MurderRate ~ 
                   FoundationsDensity100kLog +
-                  BelieversRate +
+                  ForeignerRate +
                   MarriageRate +
                   MaleRate +
                   YouthRate +
@@ -288,7 +289,7 @@ zi1 <- zeroinfl(MurderRate ~
 # Zero Inflated Model 2
 zi2 <- zeroinfl(MurderRate ~ 
                   FlowRateLog +
-                  BelieversRate +
+                  ForeignerRate +
                   MarriageRate +
                   MaleRate +
                   YouthRate +
@@ -298,7 +299,7 @@ zi2 <- zeroinfl(MurderRate ~
 # Zero Inflated Model 3
 zi3 <- zeroinfl(MurderRate ~ 
                   TurnoutPercentageLog +
-                  BelieversRate +
+                  ForeignerRate +
                   MarriageRate +
                   MaleRate +
                   YouthRate +
@@ -310,7 +311,7 @@ poisson <- zelig(MurderRate ~
                    FoundationsDensity100kLog +
                    FlowRateLog +
                    TurnoutPercentageLog +
-                   BelieversRate +
+                   ForeignerRate +
                    MarriageRate +
                    MaleRate +
                    YouthRate +
@@ -328,7 +329,7 @@ nb.out <- zelig(MurderRate ~
                  FoundationsDensity100kLog +
                  FlowRateLog +
                  TurnoutPercentageLog +
-                 BelieversRate +
+                 ForeignerRate +
                  MarriageRate +
                  MaleRate +
                  YouthRate +
