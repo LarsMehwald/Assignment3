@@ -574,5 +574,13 @@ rm(ForeignersBerHam)
 # (We keep for district$Aachen=5334, district$Hannover=3241, district$Saarbrücken=10041)
 Foreigners <- subset(Foreigners, Foreigners$district < 17000, all(TRUE))
 
+#Removing some variables 
+Foreigners <- Foreigners[,-c(3,5,6)]
+
+# Changing the class of some variables to numeric 
+Foreigners[,1] <- as.numeric(as.character(Foreigners[,1]))
+Foreigners[,2] <- as.numeric(as.character(Foreigners[,2]))
+Foreigners[,3] <- as.numeric(as.character(Foreigners[,3]))
+
 # Saving the data 
 write.csv(Foreigners, file = "Analysis/data/Foreigners.csv")
