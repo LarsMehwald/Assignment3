@@ -195,57 +195,24 @@ nb.glm1 <- glm.nb(Murder ~
 # When compareing Poisson vs NegBinomial: compare full and basline models
 # Compare models with and without explainatory variables
 
+#negative Binomial regression model with Zelig (MC simulation)
+nb.out <- zelig(MurderRate ~ 
+                  FoundationsDensity100k +
+                  FlowRate +
+                  TurnoutPercentage +
+                  ForeignerRate +
+                  MarriageRate +
+                  MaleRate +
+                  YouthRate +
+                  UnemployedPercentage, 
+                DistrictData, 
+                model="negbinom",
+                cite=FALSE)
 
-##############################################
-#### We don't have underdispersion
-# Zero Inflated Poisson models due to underdispersion (districts with 0 Murders)
-##############################################
-
-# Zero Inflated Model 1 Not necessary if running Zi2
-# zi1 <- zeroinfl(Murder ~ 
-  #                FoundationsTotal +
-   #               OutflowTotal +
-    #              TurnoutPercentage +
-     #             ForeignersTotal +
-      #            MalePopulation +
-       #           Pop0to17 + 
-        #          Pop18to24 +
-         #         Pop25to44 +
-          #        Pop45to64 + 
-           #       PopOver65 +
-            #      offset(log(TotalPopulation)) 
-             #   | 1, 
-              #  DistrictData, dist = "negbin")
-#est4 <- cbind(Estimate = coef(zi1), confint(zi1))
-#incidentrate4 <- exp(est4)
-
-# Zero Inflated Model 2
-#zi2 <- zeroinfl(Murder ~ 
- #                 FoundationsTotal +
-  #                OutflowTotal +
-   #               TurnoutPercentage +
-    #              ForeignersTotal +
-     #             MalePopulation +
-      #            Pop0to17 + 
-       #           Pop18to24 +
-        #          Pop25to44 +
-         #         Pop45to64 + 
-          #        PopOver65 +
-           #       offset(log(TotalPopulation)) 
-            #    | 
-             #     FoundationsTotal +
-              #    OutflowTotal +
-               #   TurnoutPercentage +
-                #  ForeignersTotal +
-                 # MalePopulation +
-                #  Pop0to17 + 
-#                  Pop18to24 +
- #                 Pop25to44 +
-  #                Pop45to64 + 
-   #               PopOver65 +
-    #              offset(log(TotalPopulation)), 
-     #           DistrictData, dist = "negbin")
-
-#est5 <- cbind(Estimate = coef(zi2), confint(zi2))
-#incidentrate5 <- exp(est5)
-
+#MC Simulation
+xnb.low <- setx(nb.out, seq(from = min(DistrictData$FoundationsDensity100kLog), to = max(DistrictData$FoundationsDensity100kLog)), 
+                seq(from = min(DistrictData$FlowRateLog), to = max(DistrictData$FlowRateLog)), 
+                seq(from = min(DistrictData$TurnoutPercentageLog), to = max(DistrictData$TurnoutPercentageLog)))
+xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 3.2540,"FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
+snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
+#plot(snb.out)
