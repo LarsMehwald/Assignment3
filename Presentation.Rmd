@@ -68,21 +68,14 @@ stargazer(DistrictDataReduced,
 ## Data
 ```{r CorrChart, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
 source("Analysis/Graphs.R")
-chart.Correlation(datacor, historgram=T)
-```
-
-## Data
-```{r Histogram Violent Crime, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
-source("Analysis/Graphs.R")
-plot(histViolentCrimeRate)
+chart.Correlation(correlation.matrix, historgram=T)
 ```
 
 ## Data
 ```{r Histogram Murder, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
 source("Analysis/Graphs.R")
-stargazer(correlation.matrix, type="html")
+plot(histMurder) 
 ```
-
 ## Models
 
 ## Results

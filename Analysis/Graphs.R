@@ -55,10 +55,18 @@ histMurderRate <- ggplot(DistrictData, aes(MurderRate)) +
   geom_histogram(binwidth=1, colour="black", fill="white")
 #plot(histMurderRate)
 
+# Murder Rate Histogram
+histMurder <- ggplot(DistrictData, aes(murderAndManslaughter)) + 
+  geom_histogram(binwidth=1, colour="black", fill="white")
+#plot(histMurder) 
+# We can observe that the Homicide count is right skewed
+# OLS regression models are inappropiate when small number of events
+# Poisson models offer a good alternative
+
 #################################
 # Correlation Matrix
 #################################
 
 # Correlation Plot using R package: "PerformanceAnalytics"
 correlation.matrix <- DistrictData[, c(47,54,53,40,22,50,51,52)]
-#chart.Correlation(datacor, historgram=T)
+#chart.Correlation(correlation.matrix, historgram=T)
