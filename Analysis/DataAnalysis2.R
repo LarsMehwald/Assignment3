@@ -141,7 +141,7 @@ print(incidentrate3)
 # Zero Inflated Poisson models due to underdispersion (districts with 0 Murders)
 ##############################################
 
-# Zero Inflated Model 1
+# Zero Inflated Model 1 Not necessary if running Zi2
 zi1 <- zeroinfl(Murder ~ 
                   FoundationsTotal +
                   OutflowTotal +
@@ -189,7 +189,3 @@ zi2 <- zeroinfl(Murder ~
 est5 <- cbind(Estimate = coef(zi2), confint(zi2))
 incidentrate5 <- exp(est5)
 
-incidentrates <- cbind(incidentrate1,incidentrate2,incidentrate3)
-print(incidentrates)
-
-xtable(poisson2)
