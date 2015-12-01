@@ -48,17 +48,17 @@ DistrictData <- DistrictData[,-1]
 # Violent Crime histogram
 histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
   geom_histogram(binwidth=10, colour="black", fill="white")
-plot(histViolentCrimeRate)
+#plot(histViolentCrimeRate)
 
 # Murder Rate Histogram
 histMurderRate <- ggplot(DistrictData, aes(MurderRate)) + 
   geom_histogram(binwidth=1, colour="black", fill="white")
-plot(histMurderRate)
+#plot(histMurderRate)
 
 #################################
 # Correlation Matrix
 #################################
 
 # Correlation Plot using R package: "PerformanceAnalytics"
-datacor <- DistrictData[, c(47,54,53,40,22,50,51,52)]
-chart.Correlation(datacor, historgram=T)
+correlation.matrix <- DistrictData[, c(47,54,53,40,22,50,51,52)]
+#chart.Correlation(datacor, historgram=T)

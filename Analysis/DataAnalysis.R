@@ -1,7 +1,7 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# 13 November 2015
-# Assignment 3
+# December 2015
+# Final Project
 # Data analysis
 ########################
 
@@ -103,7 +103,6 @@ summary(OLSMurderTurnout)
 
 # Declaring distric Id as factor variablespo
 DistrictData$district <- as.factor(DistrictData$district)
-
 # Declaring all relevant variables for model integer
 DistrictData$CrimeRate <- as.integer(DistrictData$CrimeRate)
 DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
@@ -120,6 +119,17 @@ DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentag
 DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
 DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
 DistrictData$ForeignerRate <- as.integer(DistrictData$ForeignerRate)
+DistrictData$TotalPopulation <- as.integer(DistrictData$TotalPopulation)
+DistrictData$murderAndManslaughter <- as.integer(DistrictData$murderAndManslaughter)
+DistrictData$FoundationsTotal <- as.integer(DistrictData$FoundationsTotal)
+DistrictData$OutflowTotal <- as.integer(DistrictData$OutflowTotal)
+DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
+DistrictData$ForeignersTotal <- as.integer(DistrictData$ForeignersTotal)
+DistrictData$MalePopulation <- as.integer(DistrictData$MalePopulation)
+DistrictData$Pop0to17 <- as.integer(DistrictData$Pop0to17)
+DistrictData$Pop18to24 <- as.integer(DistrictData$Pop18to24)
+DistrictData$Pop25to44 <- as.integer(DistrictData$Pop25to44)
+DistrictData$PopOver65 <- as.integer(DistrictData$PopOver65)
 
 # Creating a subset of variables from DistrictData data frame for analysis 
 #subset1 <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
@@ -266,7 +276,6 @@ nb.glm2 <- glm.nb(MurderRate ~
 nb.glm3 <- glm.nb(MurderRate ~ 
                TurnoutPercentageLog +
                ForeignerRate +
-               MarriageRate +
                MaleRate +
                YouthRate +
                UnemployedPercentage,
@@ -283,6 +292,40 @@ nb.glm4 <- glm.nb(MurderRate ~
                YouthRate +
                UnemployedPercentage,
              DistrictData)
+
+# negative Binomial model 5
+nb.glm5 <- glm.nb(MurderRate ~ 
+                    TurnoutPercentageLog +
+                    ForeignerRate,
+                  DistrictData)
+# negative Binomial model 6
+nb.glm6 <- glm.nb(MurderRate ~ 
+                    TurnoutPercentageLog +
+                    ForeignerRate +
+                    MaleRate,
+                  DistrictData)
+# negative Binomial model 7
+nb.glm7 <- glm.nb(MurderRate ~ 
+                    TurnoutPercentageLog +
+                    ForeignerRate +
+                    MaleRate +
+                    YouthRate,
+                  DistrictData)
+
+# negative Binomial model 8
+nb.glm8 <- glm.nb(murderAndManslaughter ~ 
+                    FoundationsTotal +
+                    OutflowTotal +
+                    TurnoutPercentage +
+                    ForeignersTotal +
+                    MalePopulation +
+                    Pop0to17 + 
+                    Pop18to24 +
+                    Pop25to44 +
+                    Pop45to64 + 
+                    PopOver65 +
+                 offset(log(TotalPopulation)),
+                  DistrictData)
 
 ####################################################
 # MC simulations
@@ -306,27 +349,27 @@ poisson <- zelig(MurderRate ~
 xp.low <- setx(poisson, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
 xp.high <- setx(poisson, "FoundationsDensity100kLog" = 3.2540, "FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
 s.poisson <- sim(poisson, x=xp.low, x1=xp.high)
-# plot(s.poisson)
+#plot(s.poisson)
 
-# negative Binomial regression model with Zelig (MC simulation)
-# nb.out <- zelig(MurderRate ~ 
-#                  FoundationsDensity100kLog +
-#                  FlowRateLog +
-#                  TurnoutPercentageLog +
-#                  ForeignerRate +
-#                  MarriageRate +
-#                  MaleRate +
-#                  YouthRate +
-#                  UnemployedPercentage, 
-#                 DistrictData, 
-#                 model="negbinom",
-#                 cite=FALSE)
+#negative Binomial regression model with Zelig (MC simulation)
+nb.out <- zelig(MurderRate ~ 
+                  FoundationsDensity100kLog +
+                  FlowRateLog +
+                  TurnoutPercentageLog +
+                  ForeignerRate +
+                  MarriageRate +
+                  MaleRate +
+                  YouthRate +
+                  UnemployedPercentage, 
+                 DistrictData, 
+                 model="negbinom",
+                 cite=FALSE)
 
-# MC Simulation
-# xnb.low <- setx(nb.out, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
-# xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 3.2540,"FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
-# snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
-# plot(snb.out)
+ #MC Simulation
+ xnb.low <- setx(nb.out, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
+ xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 3.2540,"FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
+ snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
+ #plot(snb.out)
 
 ########################
 # Creating table output

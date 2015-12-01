@@ -27,9 +27,12 @@ H3: *The higher the voter turnout is in a district, the lower the murder rate.*
 
 ## Data
 
-We gathered data from three main sources:  
+We gathered data from three main sources: 
+
 1) German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" [PKS])  
-2) The Regional Database Germany published by the Federal Statistical Office and the statistical Offices of the Lander   
+
+2) The Regional Database Germany published by the Federal Statistical Office and the statistical Offices of the Lander  
+
 3) German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")  
 
 ## Data 
@@ -62,6 +65,23 @@ stargazer(DistrictDataReduced,
           type = "html")
 ```
 
+## Data
+```{r CorrChart, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
+source("Analysis/Graphs.R")
+chart.Correlation(datacor, historgram=T)
+```
+
+## Data
+```{r Histogram Violent Crime, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
+source("Analysis/Graphs.R")
+plot(histViolentCrimeRate)
+```
+
+## Data
+```{r Histogram Murder, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
+source("Analysis/Graphs.R")
+stargazer(correlation.matrix, type="html")
+```
 
 ## Models
 
@@ -75,7 +95,9 @@ stargazer(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout,
           type = "html",
           keep = c("FoundationsDensity100k", "FlowRate", "TurnoutPercentage"),
           header = FALSE, # important not to have stargazer information in markdown file 
-          title = "Regression analysis regarding violent crimes and three independent variable with OLS regression (controls suppressed)",
+          title = "OLS regression analysis (controls suppressed)",
+          dep.var.labels = "Violent crime",
+          covariate.labels = "Foundations Density", "Flow Rate", "Election turnout",
           digits = 2,
 #          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"))
@@ -115,6 +137,21 @@ stargazer(nb.glm1, nb.glm2, nb.glm3,
 
 ## Results
 
+```{r TabMurderRateNegB, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+source("Analysis/DataAnalysis.R")
+
+stargazer(nb.glm5, nb.glm6, nb.glm7, nb.glm3,
+          type = "html",
+          header = FALSE, # important not to have stargazer information in markdown file 
+          title = "Negative binominal regression model (controls suppressed)",
+          dep.var.labels = "Violent crime",
+          digits = 2,
+#          no.space = TRUE, # single.row = TRUE
+          omit.stat = c("f", "ser"))
+```
+
+## Results
 ```{r plotPoissonMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 source("Analysis/DataAnalysis.R")
@@ -127,6 +164,11 @@ stargazer(poisson.glm1, poisson.glm2, poisson.glm3,
           digits = 2,
 #          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"))
+```
+
+## MC Simulation
+```{r MC Sim NB, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+plot(snb.out)
 ```
 
 ## <!-- last slide-->
