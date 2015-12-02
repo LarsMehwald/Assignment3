@@ -81,24 +81,6 @@ plot(histMurder)
 
 ## Results
 
-```{r plotOLSViolent, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
-
-source("Analysis/DataAnalysis.R")
-
-stargazer(OLSViolentFoundations, OLSViolentFlow, OLSViolentTurnout,
-          type = "html",
-          keep = c("FoundationsDensity100k", "FlowRate", "TurnoutPercentage"),
-          header = FALSE, # important not to have stargazer information in markdown file 
-          title = "OLS regression analysis (controls suppressed)",
-          dep.var.labels = "Violent crime",
-          covariate.labels = "Foundations Density", "Flow Rate", "Election turnout",
-          digits = 2,
-#          no.space = TRUE, # single.row = TRUE
-          omit.stat = c("f", "ser"))
-```
-
-## Results
-
 ```{r plotOLSMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 source("Analysis/DataAnalysis.R")

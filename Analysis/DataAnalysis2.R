@@ -75,11 +75,11 @@ DistrictData$Couples <- DistrictData$HusbandAndWifeTotal
 # FlowTotal
 DistrictData$FlowTotal <- (DistrictData$OutflowTotal + DistrictData$InfluxTotal)
 
-# Creating categorical variables from contoinous independent variables
+# Creating categorical variables from contoinous independent variables 
+# Selection of cathegories based on quantiles
 DistrictData$Foundations_cat <- cut(DistrictData$FoundationsTotal,
-                                    breaks= c(0,15,26,44,1194),
+                                    breaks= c(0,15,26,44,1194), 
                                     labels= c('1stQu', '2ndQu', '3rdQu', '4thQu'))
-
 
 #########################################
 # Discriptive statistics
@@ -108,11 +108,9 @@ poisson1 <- glm(Murder ~
                   TurnoutPercentage +
                   ForeignersTotal +
                   MalePopulation +
-                  Pop0to17 + 
+                  Couples +
                   Pop18to24 +
-                  Pop25to44 +
-                  Pop45to64 + 
-                  PopOver65,
+                  UnemployedPercentage,
                 DistrictData, family = poisson())
 
 #est1 <- cbind(Estimate = coef(poisson1), confint(poisson1))
@@ -128,11 +126,9 @@ poisson2 <- glm(Murder ~
                     TurnoutPercentage +
                     ForeignersTotal +
                     MalePopulation +
-                    Pop0to17 + 
+                    Couples +
                     Pop18to24 +
-                    Pop25to44 +
-                    Pop45to64 + 
-                    PopOver65,
+                    UnemployedPercentage,
                   DistrictData, offset=log(DistrictData$TotalPopulation), family = poisson())
 
 # est2 <- cbind(Estimate = coef(poisson2), confint(poisson2))
@@ -161,11 +157,8 @@ quasipoisson1 <- glm(Murder ~
                        TurnoutPercentage +
                        ForeignersTotal +
                        MalePopulation +
-                       Pop0to17 + 
-                       Pop18to24 +
-                       Pop25to44 +
-                       Pop45to64 + 
-                       PopOver65, 
+                       Pop18to24 + 
+                       UnemployedPercentage, 
                       DistrictData, 
                       family = quasipoisson())
 
@@ -176,11 +169,8 @@ quasipoisson2 <- glm(Murder ~
                        TurnoutPercentage +
                        ForeignersTotal +
                        MalePopulation +
-                       Pop0to17 + 
-                       Pop18to24 +
-                       Pop25to44 +
-                       Pop45to64 + 
-                       PopOver65, 
+                       Pop18to24 + 
+                       UnemployedPercentage, 
                      DistrictData,
                      offset=log(DistrictData$TotalPopulation),
                      family = quasipoisson())
@@ -191,7 +181,7 @@ quasipoisson2 <- glm(Murder ~
 
 # negative Binomial model 1: a better alternative to correct for overdispersion
 nb.glm1 <- glm.nb(Murder ~ 
-                    Foundations_cat +
+                    FoundationsTotal +
                     FlowTotal +
                     TurnoutPercentage +
                     ForeignersTotal +
@@ -199,17 +189,17 @@ nb.glm1 <- glm.nb(Murder ~
                     MalePopulation +
                     Pop18to24 +
                     UnemployedPercentage +
-                    offset(log(TotalPopulation)),
+                    offset(log(TotalPopulation)), # Offset tunrs counts into per capita rates
                   DistrictData)
 
-est3 <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
-incidentrate3 <- exp(est3)
-print(incidentrate3)
+#est3 <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
+#incidentrate3 <- exp(est3)
+#print(incidentrate3)
 
 # When compareing Poisson vs NegBinomial: compare full and basline models
 # Compare models with and without explainatory variables
 
-newdata <- data.frame(Foundaitons_cat=factor(1:4, levels = 1:4, labels = levels(DistrictData$Foundations_cat)), 
+newdata <- data.frame(FoundationsTotal=mean(DistrictData$FoundationsTotal), 
                        FlowTotal=mean(DistrictData$FlowTotal),
                        TurnoutPercentage=mean(DistrictData$FlowTotal),
                        ForeignersTotal=mean(DistrictData$ForeignersTotal),
@@ -219,8 +209,31 @@ newdata <- data.frame(Foundaitons_cat=factor(1:4, levels = 1:4, labels = levels(
                        UnemployedPercentage=mean(DistrictData$UnemployedPercentage),
                        TotalPopulation=1) #TotalPopulation has to be equal 1 due to its offset characteristic, accounting for population
 
-newdata <- cbind(newdata, predict(nb.glm1, predicted, type="response", se.fit = TRUE))
-newdata
+# Using following algorithm: http://statistics.ats.ucla.edu/stat/r/dae/nbreg.htm
+# This doesn't work for us, since we don't have any cathegorical variables to compare
+newdata$phat <- predict(nb.glm1, newdata, type = "response")
+newdata <- cbind(newdata, predict(nb.glm1, newdata, type="response", se.fit = TRUE))
+newdata <- within(newdata, {
+  Homicides <- exp(fit)
+  LL <- exp(fit - 1.96 * se.fit)
+  UL <- exp(fit + 1.96 * se.fit)
+})
+#### Not working
+plot1 <- ggplot(newdata, aes(TurnoutPercentage, Homicides)) + 
+  geom_ribbon(aes(ymin=LL, ymax=UL), fill="blue", alpha=0.25) +
+  geom_line(aes(colour="blue", size=)) +
+  labs(x="Turnout", y="Predicted Homicides")
+plot1
+
+newdata <- data.frame(seq(from=min(DistrictData$FoundationsTotal), to = max(DistrictData$FoundationsTotal), length.out = 1000),
+                      FlowTotal=mean(DistrictData$FlowTotal),
+                      TurnoutPercentage=mean(DistrictData$FlowTotal),
+                      ForeignersTotal=mean(DistrictData$ForeignersTotal),
+                      Couples=mean(DistrictData$Couples),
+                      MalePopulation=mean(DistrictData$MalePopulation),
+                      Pop18to24=mean(DistrictData$Pop18to24),
+                      UnemployedPercentage=mean(DistrictData$UnemployedPercentage),
+                      TotalPopulation=1) #TotalPopulation has to be equal 1 due to its offset characteristic, accounting for population
 
 ###############################################################
 # Zelig
