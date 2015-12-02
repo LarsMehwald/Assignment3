@@ -69,9 +69,25 @@ DistrictData$PopOver65 <- as.integer(DistrictData$PopOver65)
 # New name to Murder
 DistrictData$Murder <- DistrictData$murderAndManslaughter
 
+# New name to Couples: 
+DistrictData$Couples <- DistrictData$HusbandAndWifeTotal
+
+# FlowTotal
+DistrictData$FlowTotal <- (DistrictData$OutflowTotal + DistrictData$InfluxTotal)
+
+# Creating categorical variables from contoinous independent variables
+DistrictData$Foundations_cat <- cut(DistrictData$FoundationsTotal,
+                                    breaks= c(0,15,26,44,1194),
+                                    labels= c('1stQu', '2ndQu', '3rdQu', '4thQu'))
+
+
 #########################################
 # Discriptive statistics
 ########################################
+
+summary(DistrictData$FoundationsTotal)
+summary(DistrictData$FlowTotal)
+summary(DistrictData$TurnoutPercentage)
 
 # Murder Rate Histogram
 histMurder <- ggplot(DistrictData, aes(Murder)) + 
@@ -175,28 +191,42 @@ quasipoisson2 <- glm(Murder ~
 
 # negative Binomial model 1: a better alternative to correct for overdispersion
 nb.glm1 <- glm.nb(Murder ~ 
-                    FoundationsTotal +
-                    OutflowTotal +
+                    Foundations_cat +
+                    FlowTotal +
                     TurnoutPercentage +
                     ForeignersTotal +
+                    Couples +
                     MalePopulation +
-                    Pop0to17 + 
                     Pop18to24 +
-                    Pop25to44 +
-                    Pop45to64 + 
-                    PopOver65 +
+                    UnemployedPercentage +
                     offset(log(TotalPopulation)),
                   DistrictData)
 
-#est3 <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
-#incidentrate3 <- exp(est3)
-#print(incidentrate3)
+est3 <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
+incidentrate3 <- exp(est3)
+print(incidentrate3)
 
 # When compareing Poisson vs NegBinomial: compare full and basline models
 # Compare models with and without explainatory variables
 
+newdata <- data.frame(Foundaitons_cat=factor(1:4, levels = 1:4, labels = levels(DistrictData$Foundations_cat)), 
+                       FlowTotal=mean(DistrictData$FlowTotal),
+                       TurnoutPercentage=mean(DistrictData$FlowTotal),
+                       ForeignersTotal=mean(DistrictData$ForeignersTotal),
+                       Couples=mean(DistrictData$Couples),
+                       MalePopulation=mean(DistrictData$MalePopulation),
+                       Pop18to24=mean(DistrictData$Pop18to24),
+                       UnemployedPercentage=mean(DistrictData$UnemployedPercentage),
+                       TotalPopulation=1) #TotalPopulation has to be equal 1 due to its offset characteristic, accounting for population
+
+newdata <- cbind(newdata, predict(nb.glm1, predicted, type="response", se.fit = TRUE))
+newdata
+
+###############################################################
+# Zelig
+
 #negative Binomial regression model with Zelig (MC simulation)
-nb.out <- zelig(MurderRate ~ 
+nb.out1 <- zelig(MurderRate ~ 
                   FoundationsDensity100k +
                   FlowRate +
                   TurnoutPercentage +
@@ -209,10 +239,39 @@ nb.out <- zelig(MurderRate ~
                 model="negbinom",
                 cite=FALSE)
 
-#MC Simulation
-xnb.low <- setx(nb.out, seq(from = min(DistrictData$FoundationsDensity100kLog), to = max(DistrictData$FoundationsDensity100kLog)), 
-                seq(from = min(DistrictData$FlowRateLog), to = max(DistrictData$FlowRateLog)), 
-                seq(from = min(DistrictData$TurnoutPercentageLog), to = max(DistrictData$TurnoutPercentageLog)))
-xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 3.2540,"FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
-snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
-#plot(snb.out)
+x.out <- setx(nb.out1)
+s.out <- sim(nb.out1, x=x.out)
+summary(s.out)
+plot(s.out)
+
+#MC Simulation with min and max values for IV
+xnb.low1 <- setx(nb.out1, "FoundationsDensity100k" = 2,"FlowRate" = 3171, "TurnoutPercentage" = 57 )
+xnb.high1 <- setx(nb.out1, "FoundationsDensity100k" = 89,"FlowRate" = 12850, "TurnoutPercentage" = 79)
+snb.out1 <- sim(nb.out1, x=xnb.low1, x1=xnb.high1)
+plot(snb.out1)
+
+est <- cbind(Estimate = coef(nb.out1), confint(nb.out1))
+incidet <- exp(est)
+print(incidet)
+
+#MC Simulation with min and max values for IV with 1st and 3rd Qu.
+xnb.low2 <- setx(nb.out1, "FoundationsDensity100k" = 11)
+xnb.high2 <- setx(nb.out1, "FoundationsDensity100k" = 25)
+snb.out2 <- sim(nb.out1, x=xnb.low2, x1=xnb.high2)
+plot(snb.out2)
+
+#MC Simulation with min and max values for IV with 1st and 3rd Qu.
+xnb.low3 <- setx(nb.out1, "FlowRate" = 9980)
+xnb.high3 <- setx(nb.out1, "FlowRate" = 13800)
+snb.out3 <- sim(nb.out1, x=xnb.low1, x1=xnb.high1)
+plot(snb.out3)
+
+#MC Simulation with min and max values for IV with 1st and 3rd Qu.
+xnb.low4 <- setx(nb.out1, "TurnoutPercentage" = 57)
+xnb.high4 <- setx(nb.out1, "TurnoutPercentage" = 79)
+snb.out4 <- sim(nb.out1, x=xnb.low1, x1=xnb.high1)
+plot(snb.out4)
+
+plot.ci(snb.out1, qi="pv") #not working ??? -> http://rstudio-pubs-static.s3.amazonaws.com/11500_029de8d38b2c48fc9f0ae9313771a5fa.html
+
+

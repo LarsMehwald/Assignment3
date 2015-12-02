@@ -138,7 +138,8 @@ DistrictData$ForeignerRate <-
 
 # Total Mobility rate 
 DistrictData$FlowRate <- 
-  (DistrictData$OutflowTotal /
+  ((DistrictData$OutflowTotal +
+     DistrictData$InfluxTotal) /
      DistrictData$TotalPopulation) * 100000
 
 ########################

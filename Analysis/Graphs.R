@@ -57,7 +57,10 @@ histMurderRate <- ggplot(DistrictData, aes(MurderRate)) +
 
 # Murder Rate Histogram
 histMurder <- ggplot(DistrictData, aes(murderAndManslaughter)) + 
-  geom_histogram(binwidth=1, colour="black", fill="white")
+  geom_histogram(binwidth=1, colour="black", fill="white") + 
+  xlab("Homicides") +
+  ylab("Counts per district") +
+  ggtitle("Homicide count per district: right skewed")
 #plot(histMurder) 
 # We can observe that the Homicide count is right skewed
 # OLS regression models are inappropiate when small number of events
