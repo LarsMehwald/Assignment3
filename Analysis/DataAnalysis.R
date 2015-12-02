@@ -136,7 +136,7 @@ DistrictData$PopOver65 <- as.integer(DistrictData$PopOver65)
 
 #Poission model 1
 poisson.glm1 <- glm(MurderRate ~ 
-                 FoundationsDensity100kLog +
+                 FoundationsDensity100k +
                  ForeignerRate +
                  MarriageRate +
                  MaleRate +
@@ -155,7 +155,7 @@ dispersiontest(poisson.glm1)
 
 #Poission model 2
 poisson.glm2 <- glm(MurderRate ~ 
-                     FlowRateLog +
+                     FlowRate +
                      ForeignerRate +
                      MarriageRate +
                      MaleRate +
@@ -168,7 +168,7 @@ dispersiontest(poisson.glm2)
 
 #Poission model 3
 poisson.glm3 <- glm(MurderRate ~ 
-                     TurnoutPercentageLog +
+                     TurnoutPercentage +
                      ForeignerRate +
                      MarriageRate +
                      MaleRate +
@@ -181,9 +181,9 @@ dispersiontest(poisson.glm3)
 
 #Poission model 4
 poisson.glm4 <- glm(MurderRate ~ 
-                     FoundationsDensity100kLog +
-                     FlowRateLog +
-                     TurnoutPercentageLog +
+                     FoundationsDensity100k +
+                     FlowRate +
+                     TurnoutPercentage +
                      ForeignerRate +
                      MarriageRate +
                      MaleRate +
@@ -192,7 +192,19 @@ poisson.glm4 <- glm(MurderRate ~
                    DistrictData, 
                    family = poisson())
 #Dispersion Test
+#The overdispersion test assess the "goodness of fit" for the poisson model
+# p-values too small: therefore nominal binominal model needed!
+# Basic Poisson model assumption: mean=var
+# if mean < var: overdispersion
+# use mle: correcting s.e.
+# Visual assesment: summary(poisson1) if Residual deviance>degrees of freedom : if so = overdispersion
 dispersiontest(poisson.glm4)
+# This test confirms overdispersion
+# In consecuence, it is better to use a Negative Binominal Model
+
+# Extracting the estimated coefficents and confident intervals, then creating their exponential object
+est1 <- cbind(Estimate = coef(poisson.glm4), confint(poisson.glm4))
+incidentrate1 <- exp(est1)
 
 ############################################
 # Correcting s.e. with QuasiPoisson
@@ -200,7 +212,7 @@ dispersiontest(poisson.glm4)
 
 #Quasi Poission model 1
 quasipoisson.glm1 <- glm(MurderRate ~ 
-                      FoundationsDensity100kLog +
+                      FoundationsDensity100k +
                       ForeignerRate +
                       MarriageRate +
                       MaleRate +
@@ -211,7 +223,7 @@ quasipoisson.glm1 <- glm(MurderRate ~
 
 #Quasi Poission model 2
 quasipoisson.glm2 <- glm(MurderRate ~ 
-                          FlowRateLog +
+                          FlowRate +
                           ForeignerRate +
                           MarriageRate +
                           MaleRate +
@@ -222,7 +234,7 @@ quasipoisson.glm2 <- glm(MurderRate ~
 
 #Quasi Poission model 3
 quasipoisson.glm3 <- glm(MurderRate ~ 
-                          TurnoutPercentageLog +
+                          TurnoutPercentage +
                           ForeignerRate +
                           MarriageRate +
                           MaleRate +
@@ -233,9 +245,9 @@ quasipoisson.glm3 <- glm(MurderRate ~
 
 #Quasi Poission model 4
 quasipoisson.glm4 <- glm(MurderRate ~ 
-                          FoundationsDensity100kLog +
-                          FlowRateLog +
-                          TurnoutPercentageLog +
+                          FoundationsDensity100k +
+                          FlowRate +
+                          TurnoutPercentage +
                           ForeignerRate +
                           MarriageRate +
                           MaleRate +
@@ -244,13 +256,17 @@ quasipoisson.glm4 <- glm(MurderRate ~
                         DistrictData, 
                         family = quasipoisson())
 
+# Extracting the estimated coefficents and confident intervals, then creating their exponential object
+est.qpoisson <- cbind(Estimate = coef(quasipoisson.glm4), confint(quasipoisson.glm4))
+incidentrate.qpoisson <- exp(est.qpoisson)
+
 ##############################################
 # Negative Binomial Models
 ##############################################
 
 # negative Binomial model 1
 nb.glm1 <- glm.nb(MurderRate ~ 
-               FoundationsDensity100kLog +
+               FoundationsDensity100k +
                ForeignerRate +
                MarriageRate +
                MaleRate +
@@ -260,7 +276,7 @@ nb.glm1 <- glm.nb(MurderRate ~
 
 # negative Binomial model 2
 nb.glm2 <- glm.nb(MurderRate ~ 
-               FlowRateLog +
+               FlowRate +
                ForeignerRate +
                MarriageRate +
                MaleRate +
@@ -270,7 +286,7 @@ nb.glm2 <- glm.nb(MurderRate ~
 
 # negative Binomial model 3
 nb.glm3 <- glm.nb(MurderRate ~ 
-               TurnoutPercentageLog +
+               TurnoutPercentage +
                ForeignerRate +
                MaleRate +
                YouthRate +
@@ -279,9 +295,9 @@ nb.glm3 <- glm.nb(MurderRate ~
 
 # negative Binomial model 4
 nb.glm4 <- glm.nb(MurderRate ~ 
-               FoundationsDensity100kLog +
-               FlowRateLog +
-               TurnoutPercentageLog +
+               FoundationsDensity100k +
+               FlowRate +
+               TurnoutPercentage +
                ForeignerRate +
                MarriageRate +
                MaleRate +
@@ -289,39 +305,10 @@ nb.glm4 <- glm.nb(MurderRate ~
                UnemployedPercentage,
              DistrictData)
 
-# negative Binomial model 5
-nb.glm5 <- glm.nb(MurderRate ~ 
-                    TurnoutPercentageLog +
-                    ForeignerRate,
-                  DistrictData)
-# negative Binomial model 6
-nb.glm6 <- glm.nb(MurderRate ~ 
-                    TurnoutPercentageLog +
-                    ForeignerRate +
-                    MaleRate,
-                  DistrictData)
-# negative Binomial model 7
-nb.glm7 <- glm.nb(MurderRate ~ 
-                    TurnoutPercentageLog +
-                    ForeignerRate +
-                    MaleRate +
-                    YouthRate,
-                  DistrictData)
+# Extracting the estimated coefficents and confident intervals, then creating their exponential object
+est.nb <- cbind(Estimate = coef(nb.glm4), confint(nb.glm4))
+incidentrate.nb <- exp(nb.glm4)
 
-# negative Binomial model 8
-nb.glm8 <- glm.nb(murderAndManslaughter ~ 
-                    FoundationsTotal +
-                    OutflowTotal +
-                    TurnoutPercentage +
-                    ForeignersTotal +
-                    MalePopulation +
-                    Pop0to17 + 
-                    Pop18to24 +
-                    Pop25to44 +
-                    Pop45to64 + 
-                    PopOver65 +
-                 offset(log(TotalPopulation)),
-                  DistrictData)
 
 ####################################################
 # MC simulations
@@ -329,9 +316,9 @@ nb.glm8 <- glm.nb(murderAndManslaughter ~
 
 # Poisson model with Zelig (MC simulation)
 poisson <- zelig(MurderRate ~ 
-                   FoundationsDensity100kLog +
-                   FlowRateLog +
-                   TurnoutPercentageLog +
+                   FoundationsDensity100k +
+                   FlowRate +
+                   TurnoutPercentage +
                    ForeignerRate +
                    MarriageRate +
                    MaleRate +
@@ -342,16 +329,16 @@ poisson <- zelig(MurderRate ~
                  cite=FALSE)
 
 # MC Simulation using 1st and 3rd Qu. 
-xp.low <- setx(poisson, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
-xp.high <- setx(poisson, "FoundationsDensity100kLog" = 3.2540, "FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
+xp.low <- setx(poisson, "FoundationsDensity100k" = 2.4340, "FlowRate" = 9.532, "TurnoutPercentage" = 4.224)
+xp.high <- setx(poisson, "FoundationsDensity100k" = 3.2540, "FlowRate" = 9.208, "TurnoutPercentage" = 4.303)
 s.poisson <- sim(poisson, x=xp.low, x1=xp.high)
 #plot(s.poisson)
 
 #negative Binomial regression model with Zelig (MC simulation)
 nb.out <- zelig(MurderRate ~ 
-                  FoundationsDensity100kLog +
-                  FlowRateLog +
-                  TurnoutPercentageLog +
+                  FoundationsDensity100k +
+                  FlowRate +
+                  TurnoutPercentage +
                   ForeignerRate +
                   MarriageRate +
                   MaleRate +
@@ -361,9 +348,9 @@ nb.out <- zelig(MurderRate ~
                  model="negbinom",
                  cite=FALSE)
 
- #MC Simulation
- xnb.low <- setx(nb.out, "FoundationsDensity100kLog" = 2.4340, "FlowRateLog" = 9.532, "TurnoutPercentageLog" = 4.224)
- xnb.high <- setx(nb.out, "FoundationsDensity100kLog" = 3.2540,"FlowRateLog" = 9.208, "TurnoutPercentageLog" = 4.303)
+ #MC Simulation using 1st and 3rd Qu.  
+ xnb.low <- setx(nb.out, "FoundationsDensity100k" = 2.4340, "FlowRate" = 9.532, "TurnoutPercentage" = 4.224)
+ xnb.high <- setx(nb.out, "FoundationsDensity100k" = 3.2540,"FlowRate" = 9.208, "TurnoutPercentage" = 4.303)
  snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
  #plot(snb.out)
 

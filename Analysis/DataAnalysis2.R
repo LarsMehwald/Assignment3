@@ -192,9 +192,29 @@ nb.glm1 <- glm.nb(Murder ~
                     offset(log(TotalPopulation)), # Offset tunrs counts into per capita rates
                   DistrictData)
 
-#est3 <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
-#incidentrate3 <- exp(est3)
-#print(incidentrate3)
+est3 <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
+incidentrate3 <- exp(est3)
+print(incidentrate3)
+
+
+# negative Binomial model 5
+nb.glm5 <- glm.nb(MurderRate ~ 
+                    TurnoutPercentage +
+                    ForeignerRate,
+                  DistrictData)
+# negative Binomial model 6
+nb.glm6 <- glm.nb(MurderRate ~ 
+                    TurnoutPercentage +
+                    ForeignerRate +
+                    MaleRate,
+                  DistrictData)
+# negative Binomial model 7
+nb.glm7 <- glm.nb(MurderRate ~ 
+                    TurnoutPercentage +
+                    ForeignerRate +
+                    MaleRate +
+                    YouthRate,
+                  DistrictData)
 
 # When compareing Poisson vs NegBinomial: compare full and basline models
 # Compare models with and without explainatory variables
@@ -218,6 +238,7 @@ newdata <- within(newdata, {
   LL <- exp(fit - 1.96 * se.fit)
   UL <- exp(fit + 1.96 * se.fit)
 })
+
 #### Not working
 plot1 <- ggplot(newdata, aes(TurnoutPercentage, Homicides)) + 
   geom_ribbon(aes(ymin=LL, ymax=UL), fill="blue", alpha=0.25) +
