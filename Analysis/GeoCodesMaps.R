@@ -8,7 +8,8 @@
 # Loading required packages 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
           "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-          "ggmap", "rworldmap", "sp", "RColorBrewer", "car", "MASS", "PerformanceAnalytics", "pscl", "AER")
+          "ggmap", "rworldmap", "sp", "RColorBrewer", "car", "MASS", 
+          "maps", "mapproj", "PerformanceAnalytics", "pscl", "AER")
 lapply(Packages, require, character.only = TRUE)
 
 # Setting the commonly used working directory
@@ -34,6 +35,7 @@ DistrictData <- DistrictData[,-1]
 #DEU_adm3 <- readRDS("DEU_adm3.rds")
 #DEU_adm2 <- readRDS("DEU_adm2.rds")
 
+
 #Extracting object for district names
 DistrictName <- DistrictData$DistrictName
 DistrictName <- as.character(DistrictName)
@@ -44,11 +46,16 @@ DistrictData$DistrictName <- as.character(DistrictData$DistrictName)
 DistrictName <- iconv(DistrictName, from ="latin1", to = "UTF-8")
 
 # Creating a geo code for every district (using ggmap)
-districtLonLat <- geocode(DistrictName, source="google", messaging=FALSE) # takes a lot of time!
-districtLonLat <- cbind(DistrictData$district, districtLonLat$lon, districtLonLat$lat)
-write.csv(districtLonLat, file = "data/districtLonLat2.csv")
-districtLonLat <- read.csv("data/districtLonLat2.csv")
-rm(DistrictNames)
+districtLonLat <- geocode(DistrictName, source="google", messaging=TRUE) # takes a lot of time!
+#districtLonLat <- data.frame(cbind(DistrictName, districtLonLat))
+
+# Subset for MurderRate + LonLat + DistrictName + district
+Murder <- DistrictData[,c(1:2,55,10,40,47,54,50,51,53,22)] #object with relevant variables
+Murder <- Murder[,c(1:3)] #keep MurderRate
+Murder <- data.frame(cbind(Murder, districtLonLat)) #binding lon lat + MurderRate and creating data.frame
+
+write.csv(Murder, file = "Analysis/data/subsetMurder.csv")
+Murder <- read.csv("Analysis/data/subsetMurder.csv")
 
 
 # Checking whether Lon Lat has reasonable values
