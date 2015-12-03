@@ -84,7 +84,7 @@ chart.Correlation(correlation.matrix, historgram=T)
 ## Murder Rate distribution
 ```{r Histogram Murder, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
 source("Analysis/Graphs.R")
-plot(histMurder) 
+plot(histMurderRate) 
 ```
 
 ## OLS models

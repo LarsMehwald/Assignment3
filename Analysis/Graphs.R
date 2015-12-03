@@ -52,17 +52,20 @@ histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) +
 
 # Murder Rate Histogram
 histMurderRate <- ggplot(DistrictData, aes(MurderRate)) + 
-  geom_histogram(binwidth=1, colour="black", fill="white")
+  geom_histogram(binwidth=1, colour="black", fill="red") +
+  xlab("Murder Rate per district") +
+  ylab("District count") +
+  ggtitle("Murder Rate per district: right skewed")
 #plot(histMurderRate)
 
 # Murder Rate Histogram
 histMurder <- ggplot(DistrictData, aes(murderAndManslaughter)) + 
-  geom_histogram(binwidth=1, colour="black", fill="white") + 
-  xlab("Homicides") +
+  geom_histogram(binwidth=1, colour="black", fill="red") + 
+  xlab("Murders") +
   ylab("Counts per district") +
-  ggtitle("Homicide count per district: right skewed")
+  ggtitle("Murders count per district: right skewed")
 #plot(histMurder) 
-# We can observe that the Homicide count is right skewed
+# We can observe that the Murders count is right skewed
 # OLS regression models are inappropiate when small number of events
 # Poisson models offer a good alternative
 
@@ -89,7 +92,7 @@ top10Murder <- top10Murder[,c(1:4)]
 
 top10Murder <- top10Murder[1:10,c(1:4)]
 
-names(top10Murder)[names(top10Murder) == 'murderAndManslaughter'] <- 'Homicides in 2013'
+names(top10Murder)[names(top10Murder) == 'murderAndManslaughter'] <- 'Murders in 2013'
 names(top10Murder)[names(top10Murder) == 'district'] <- 'District ID'
 names(top10Murder)[names(top10Murder) == 'DistrictName'] <- 'District Name'
 names(top10Murder)[names(top10Murder) == 'MurderRate'] <- 'Murder Rate'
