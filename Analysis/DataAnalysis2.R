@@ -18,6 +18,7 @@ Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
               "car", "MASS", "PerformanceAnalytics", "pscl", "AER")
 lapply(Packages, require, character.only = TRUE) 
+require("boot")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -205,6 +206,14 @@ est3 <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
 incidentrate3 <- exp(est3)
 print(incidentrate3)
 
+# Computating the cross-validation for this model
+# It is the sum of the squared differenced between model predictions
+# for different subsets of the data.
+# This is a reasonable approach, since we are interested in how good/stable is 
+# the model inferring from specific data to generalizable data 
+CVglm <- cv.glm(data=DistrictData, glmfit=nb.glm1, K=4)
+CVglm <- c(CVglm$delta)
+summary(CVglm)
 
 # negative Binomial model 5
 nb.glm5 <- glm.nb(MurderRate ~ 
