@@ -192,6 +192,15 @@ nb.glm1 <- glm.nb(Murder ~
                     offset(log(TotalPopulation)), # Offset tunrs counts into per capita rates
                   DistrictData)
 
+# Manipulating the regression object directly 
+nb.glm1$coefficients[2] <- exp(nb.glm1$coefficients[2])
+summary(nb.glm1)
+
+# Manipulating the summary object
+something <- summary(nb.glm1)
+stargazer(something)
+
+# Adding coefficients and confident intervals into new data frame 
 est3 <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
 incidentrate3 <- exp(est3)
 print(incidentrate3)
