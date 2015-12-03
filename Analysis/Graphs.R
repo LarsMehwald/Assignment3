@@ -73,3 +73,19 @@ histMurder <- ggplot(DistrictData, aes(murderAndManslaughter)) +
 # Correlation Plot using R package: "PerformanceAnalytics"
 correlation.matrix <- DistrictData[, c(47,54,53,40,22,50,51,52)]
 #chart.Correlation(correlation.matrix, historgram=T)
+
+#################################
+# Top 10 tables
+#################################
+
+DistrictData$MurderRate <- as.numeric(DistrictData$MurderRate)
+top10Murder <- arrange(DistrictData, desc(MurderRate))
+
+head(top10Murder)[1:10,1:64]
+
+top10Murder <- top10Murder[,c(1:2,55,40,47,54,50,51,53,22)]
+
+top10Murder <- top10Murder[,c(1:3)]
+
+top10Murder <- top10Murder[1:10,c(1:3)]
+

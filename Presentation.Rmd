@@ -66,6 +66,14 @@ stargazer(DistrictDataReduced,
 ```
 
 ## Data
+```{r Top10Murder, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
+source("Analysis/Graphs.R")
+top10MurderTab <- xtable(top10Murder, align = c("c","c","c","c"))
+print(top10MurderTab,type="html")
+#stargazer(top10Murder, header = FALSE, type="html")
+```
+
+## Data
 ```{r CorrChart, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
 source("Analysis/Graphs.R")
 chart.Correlation(correlation.matrix, historgram=T)
@@ -80,9 +88,7 @@ plot(histMurder)
 ## Models
 
 ## Results
-
 ```{r plotOLSMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
-
 source("Analysis/DataAnalysis.R")
 
 stargazer(OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout, 
@@ -101,27 +107,11 @@ stargazer(OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout,
 
 source("Analysis/DataAnalysis.R")
 
-stargazer(nb.glm1, nb.glm2, nb.glm3, 
+stargazer(nb.glm4, 
           type = "html",
-          keep = c("FoundationsDensity100kLog", "FlowRateLog", "TurnoutPercentageLog"),
+          keep = c("FoundationsDensity100k", "FlowRate", "TurnoutPercentage"),
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding murder and three independent variable with negative binominal regression (controls suppressed)",
-          digits = 2,
-#          no.space = TRUE, # single.row = TRUE
-          omit.stat = c("f", "ser"))
-```
-
-## Results
-
-```{r TabMurderRateNegB, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
-
-source("Analysis/DataAnalysis.R")
-
-stargazer(nb.glm5, nb.glm6, nb.glm7, nb.glm3,
-          type = "html",
-          header = FALSE, # important not to have stargazer information in markdown file 
-          title = "Negative binominal regression model (controls suppressed)",
-          dep.var.labels = "Violent crime",
           digits = 2,
 #          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"))
@@ -132,9 +122,9 @@ stargazer(nb.glm5, nb.glm6, nb.glm7, nb.glm3,
 
 source("Analysis/DataAnalysis.R")
 
-stargazer(poisson.glm1, poisson.glm2, poisson.glm3, 
+stargazer(poisson.glm4,
           type = "html",
-          keep = c("FoundationsDensity100kLog", "FlowRateLog", "TurnoutPercentageLog"),
+          keep = c("FoundationsDensity100k", "FlowRate", "TurnoutPercentage"),
           header = FALSE, # important not to have stargazer information in markdown file 
           title = "Regression analysis regarding murder and three independent variable with Poisson regression (controls suppressed)",
           digits = 2,
@@ -144,6 +134,7 @@ stargazer(poisson.glm1, poisson.glm2, poisson.glm3,
 
 ## MC Simulation
 ```{r MC Sim NB, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+source("Analysis/DataAnalysis.R")
 plot(snb.out)
 ```
 
