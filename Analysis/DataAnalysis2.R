@@ -18,7 +18,6 @@ Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
               "car", "MASS", "PerformanceAnalytics", "pscl", "AER")
 lapply(Packages, require, character.only = TRUE) 
-require("boot")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -193,23 +192,30 @@ nb.glm1 <- glm.nb(Murder ~
                     offset(log(TotalPopulation)), # Offset tunrs counts into per capita rates
                   DistrictData)
 
-# Manipulating the regression object directly 
-nb.glm1$coefficients[2] <- exp(nb.glm1$coefficients[2])
-summary(nb.glm1)
-
-# Manipulating the summary object
-something <- summary(nb.glm1)
-stargazer(something)
-
 # Adding coefficients and confident intervals into new data frame 
-est3 <- cbind(Estimate = coef(nb.glm1), 
+est1 <- cbind(Estimate = coef(nb.glm1), 
               confint(nb.glm1, level=0.90),
               confint(nb.glm1, level=0.95),
               confint(nb.glm1, level=0.99))
-est3 <- cbind(est3, )
-est3 <- round(est3, 4)
-incidentrate3 <- exp(est3)
-print(incidentrate3)
+est1 <- data.frame(est1)
+est1 <- cbind(est1, 
+              ifelse(sign(est1[2]) == sign(est1[3]), 1, 0),
+              ifelse(sign(est1[4]) == sign(est1[5]), 1, 0),
+              ifelse(sign(est1[6]) == sign(est1[7]), 1, 0))
+est1 <- round(est1, 4)
+est1 <- cbind(est1, 
+              ifelse(est1[10] == 1, 3, 
+              ifelse(est1[9] == 1, 2,
+              ifelse(est1[8] == 1, 1, 0))))
+est1 <- est1[,-c(2:10)]
+est1 <- cbind(exp(est1[1]), est1[2])
+names(est1) <- c("Coefficient", "NumberStars")
+est1 <- round(est1, 4)
+est1$NumberStars <- as.factor(est1$NumberStars)
+est1$Stars <- ifelse(est1$NumberStars == 3, "***", 
+                            ifelse(est1$NumberStars == 2, "**",
+                                   ifelse(est1$NumberStars == 1, "*", "")))
+est1 <- est1[c(1,3)]
 
 # Computating the cross-validation for this model
 # It is the sum of the squared differenced between model predictions

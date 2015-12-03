@@ -1,0 +1,110 @@
+---
+title: "Untitled"
+author: "Daniel Salgado Moreno and Lars Mehwald"
+date: "December 3, 2015"
+output: html_document
+---
+
+## Negative Binomial Significance
+```{r NegbinSignificance, error=FALSE, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+library("repmis")
+library("MASS")
+library("stargazer")
+
+# Setting the commonly used working directory
+possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
+                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
+set_valid_wd(possible_dir)
+rm(possible_dir)
+
+# Loading data set from csv file
+DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
+
+# Removing ranking column (it was added in the saving process in DataMerging.R)
+DistrictData <- DistrictData[,-1]
+
+####################################
+# Data setup
+# Declareing integre data for analysis
+####################################
+
+# Declaring distric Id as factor variablespo
+DistrictData$district <- as.factor(DistrictData$district)
+# Declaring all relevant variables for model integer
+DistrictData$CrimeRate <- as.integer(DistrictData$CrimeRate)
+DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
+DistrictData$FlowRate <- as.integer(DistrictData$FlowRate)
+DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
+DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
+DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
+DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
+DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
+DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
+DistrictData$ForeignerRate <- as.integer(DistrictData$ForeignerRate)
+
+DistrictData$TotalPopulation <- as.integer(DistrictData$TotalPopulation)
+DistrictData$murderAndManslaughter <- as.integer(DistrictData$murderAndManslaughter)
+DistrictData$FoundationsTotal <- as.integer(DistrictData$FoundationsTotal)
+DistrictData$OutflowTotal <- as.integer(DistrictData$OutflowTotal)
+DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
+DistrictData$ForeignersTotal <- as.integer(DistrictData$ForeignersTotal)
+DistrictData$MalePopulation <- as.integer(DistrictData$MalePopulation)
+DistrictData$Pop0to17 <- as.integer(DistrictData$Pop0to17)
+DistrictData$Pop18to24 <- as.integer(DistrictData$Pop18to24)
+DistrictData$Pop25to44 <- as.integer(DistrictData$Pop25to44)
+DistrictData$PopOver65 <- as.integer(DistrictData$PopOver65)
+
+# New name to Murder
+DistrictData$Murder <- DistrictData$murderAndManslaughter
+
+# New name to Couples: 
+DistrictData$Couples <- DistrictData$HusbandAndWifeTotal
+
+# FlowTotal
+DistrictData$FlowTotal <- (DistrictData$OutflowTotal + DistrictData$InfluxTotal)
+
+# Creating categorical variables from contoinous independent variables 
+# Selection of cathegories based on quantiles
+DistrictData$Foundations_cat <- cut(DistrictData$FoundationsTotal,
+                                    breaks= c(0,15,26,44,1194), 
+                                    labels= c('1stQu', '2ndQu', '3rdQu', '4thQu'))
+
+nb.glm1 <- glm.nb(Murder ~ 
+                    FoundationsTotal +
+                    FlowTotal +
+                    TurnoutPercentage +
+                    ForeignersTotal +
+                    Couples +
+                    MalePopulation +
+                    Pop18to24 +
+                    UnemployedPercentage +
+                    offset(log(TotalPopulation)), # Offset tunrs counts into per capita rates
+                  DistrictData)
+
+# Adding coefficients and confident intervals into new data frame 
+est1 <- cbind(Estimate = coef(nb.glm1), 
+              confint(nb.glm1, level=0.90),
+              confint(nb.glm1, level=0.95),
+              confint(nb.glm1, level=0.99))
+est1 <- data.frame(est1)
+est1 <- cbind(est1, 
+              ifelse(sign(est1[2]) == sign(est1[3]), 1, 0),
+              ifelse(sign(est1[4]) == sign(est1[5]), 1, 0),
+              ifelse(sign(est1[6]) == sign(est1[7]), 1, 0))
+est1 <- round(est1, 4)
+est1 <- cbind(est1, 
+              ifelse(est1[10] == 1, 3, 
+              ifelse(est1[9] == 1, 2,
+              ifelse(est1[8] == 1, 1, 0))))
+est1 <- est1[,-c(2:10)]
+est1 <- cbind(exp(est1[1]), est1[2])
+names(est1) <- c("Coefficient", "NumberStars")
+est1 <- round(est1, 4)
+est1$NumberStars <- as.factor(est1$NumberStars)
+est1$Stars <- ifelse(est1$NumberStars == 3, "+++", # &#9733; is HTML star
+                            ifelse(est1$NumberStars == 2, "++",
+                                   ifelse(est1$NumberStars == 1, "+", "")))
+est1 <- est1[c(1,3)]
+names(est1) <- c("IncidentRate", "_")
+stargazer(est1, header = FALSE, summary= FALSE, type="html", digits = 4)
+```
