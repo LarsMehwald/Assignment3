@@ -202,7 +202,12 @@ something <- summary(nb.glm1)
 stargazer(something)
 
 # Adding coefficients and confident intervals into new data frame 
-est3 <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
+est3 <- cbind(Estimate = coef(nb.glm1), 
+              confint(nb.glm1, level=0.90),
+              confint(nb.glm1, level=0.95),
+              confint(nb.glm1, level=0.99))
+est3 <- cbind(est3, )
+est3 <- round(est3, 4)
 incidentrate3 <- exp(est3)
 print(incidentrate3)
 
@@ -211,9 +216,10 @@ print(incidentrate3)
 # for different subsets of the data.
 # This is a reasonable approach, since we are interested in how good/stable is 
 # the model inferring from specific data to generalizable data 
-CVglm <- cv.glm(data=DistrictData, glmfit=nb.glm1, K=4)
-CVglm <- c(CVglm$delta)
-summary(CVglm)
+CVglm <- cv.glm(data=DistrictData, glmfit=nb.glm1, K=4) # was suggested as a good value 
+CVglm <- c(CVglm$delta) # the first value is no corrected for larger data 
+# other ideas for goodness of fit
+# http://www.biomedcentral.com/content/supplementary/1748-5908-6-55-s2.pdf
 
 # negative Binomial model 5
 nb.glm5 <- glm.nb(MurderRate ~ 
