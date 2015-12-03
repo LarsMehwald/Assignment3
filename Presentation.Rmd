@@ -68,9 +68,10 @@ stargazer(DistrictDataReduced,
 ## Data
 ```{r Top10Murder, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
 source("Analysis/Graphs.R")
-top10MurderTab <- xtable(top10Murder, align = c("c","c","c","c"))
-print(top10MurderTab,type="html")
-#stargazer(top10Murder, header = FALSE, type="html")
+#top10MurderTab <- xtable(top10Murder, align = c("c","c","c","c"))
+#print(top10MurderTab,type="html")
+top10MurderMatrix <- as.matrix(top10Murder)
+stargazer(top10MurderMatrix, header = FALSE, type="html", digits = 2)
 ```
 
 ## Data

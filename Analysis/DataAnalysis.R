@@ -329,8 +329,8 @@ poisson <- zelig(MurderRate ~
                  cite=FALSE)
 
 # MC Simulation using 1st and 3rd Qu. 
-xp.low <- setx(poisson, "FoundationsDensity100k" = 2.4340, "FlowRate" = 9.532, "TurnoutPercentage" = 4.224)
-xp.high <- setx(poisson, "FoundationsDensity100k" = 3.2540, "FlowRate" = 9.208, "TurnoutPercentage" = 4.303)
+xp.low <- setx(poisson, "FoundationsDensity100k" = 11, "FlowRate" = 9980, "TurnoutPercentage" = 68)
+xp.high <- setx(poisson,  "FoundationsDensity100k" = 25,"FlowRate" = 13800, "TurnoutPercentage" = 73)
 s.poisson <- sim(poisson, x=xp.low, x1=xp.high)
 #plot(s.poisson)
 
@@ -352,8 +352,8 @@ nb.out <- zelig(MurderRate ~
  xnb.low <- setx(nb.out, "FoundationsDensity100k" = 11, "FlowRate" = 9980, "TurnoutPercentage" = 68)
  xnb.high <- setx(nb.out, "FoundationsDensity100k" = 25,"FlowRate" = 13800, "TurnoutPercentage" = 73)
  snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
- plot(snb.out)
- summary(DistrictData$TurnoutPercentage)
+ #plot(snb.out)
+
 
 ########################
 # Creating table output
