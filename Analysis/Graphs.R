@@ -89,4 +89,7 @@ top10Murder <- top10Murder[,c(1:4)]
 
 top10Murder <- top10Murder[1:10,c(1:4)]
 
-names(top10Murder)[names(top10Murder) == 'murderAndManslaughter'] <- 'Homicedes in 2013'
+names(top10Murder)[names(top10Murder) == 'murderAndManslaughter'] <- 'Homicides in 2013'
+names(top10Murder)[names(top10Murder) == 'district'] <- 'District ID'
+names(top10Murder)[names(top10Murder) == 'DistrictName'] <- 'District Name'
+names(top10Murder)[names(top10Murder) == 'MurderRate'] <- 'Murder Rate'
