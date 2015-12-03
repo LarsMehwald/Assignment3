@@ -83,9 +83,10 @@ top10Murder <- arrange(DistrictData, desc(MurderRate))
 
 head(top10Murder)[1:10,1:64]
 
-top10Murder <- top10Murder[,c(1:2,55,40,47,54,50,51,53,22)]
+top10Murder <- top10Murder[,c(1:2,55,10,40,47,54,50,51,53,22)]
 
-top10Murder <- top10Murder[,c(1:3)]
+top10Murder <- top10Murder[,c(1:4)]
 
-top10Murder <- top10Murder[1:10,c(1:3)]
+top10Murder <- top10Murder[1:10,c(1:4)]
 
+names(top10Murder)[names(top10Murder) == 'murderAndManslaughter'] <- 'Homicedes in 2013'

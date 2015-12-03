@@ -35,8 +35,7 @@ We gathered data from three main sources:
 
 3) German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")  
 
-## Data 
-
+## Summary Statistics
 ```{r SummaryStatistics, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 # Setting the working directory
 library("repmis")
@@ -65,30 +64,30 @@ stargazer(DistrictDataReduced,
           type = "html")
 ```
 
-## Data
+## Highest Murder Rates in Germany Districts
 ```{r Top10Murder, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
 source("Analysis/Graphs.R")
+
 #top10MurderTab <- xtable(top10Murder, align = c("c","c","c","c"))
 #print(top10MurderTab,type="html")
+
 top10MurderMatrix <- as.matrix(top10Murder)
 stargazer(top10MurderMatrix, header = FALSE, type="html", digits = 2)
 ```
 
-## Data
+## Correlation Matrix
 ```{r CorrChart, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
 source("Analysis/Graphs.R")
 chart.Correlation(correlation.matrix, historgram=T)
 ```
 
-## Data
+## Murder Rate distribution
 ```{r Histogram Murder, echo=FALSE, results='asis',warning=FALSE, message=FALSE}
 source("Analysis/Graphs.R")
 plot(histMurder) 
 ```
 
-## Models
-
-## Results
+## OLS models
 ```{r plotOLSMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 source("Analysis/DataAnalysis.R")
 
@@ -96,29 +95,13 @@ stargazer(OLSMurderFoundations, OLSMurderFlow, OLSMurderTurnout,
           type = "html",
           keep = c("FoundationsDensity100k", "FlowRate", "TurnoutPercentage"),
           header = FALSE, # important not to have stargazer information in markdown file 
-          title = "Regression analysis regarding murder and three independent variable with OLS regression (controls suppressed)",
+          title = "OLS regression models compared (controls suppressed)",
           digits = 2,
 #          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"))
 ```
 
-## Results
-
-```{r plotNegbinMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
-
-source("Analysis/DataAnalysis.R")
-
-stargazer(nb.glm4, 
-          type = "html",
-          keep = c("FoundationsDensity100k", "FlowRate", "TurnoutPercentage"),
-          header = FALSE, # important not to have stargazer information in markdown file 
-          title = "Regression analysis regarding murder and three independent variable with negative binominal regression (controls suppressed)",
-          digits = 2,
-#          no.space = TRUE, # single.row = TRUE
-          omit.stat = c("f", "ser"))
-```
-
-## Results
+## Poisson-based regression model
 ```{r plotPoissonMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 source("Analysis/DataAnalysis.R")
@@ -127,7 +110,22 @@ stargazer(poisson.glm4,
           type = "html",
           keep = c("FoundationsDensity100k", "FlowRate", "TurnoutPercentage"),
           header = FALSE, # important not to have stargazer information in markdown file 
-          title = "Regression analysis regarding murder and three independent variable with Poisson regression (controls suppressed)",
+          title = "Poisson-based regression model (controls suppressed)",
+          digits = 2,
+#          no.space = TRUE, # single.row = TRUE
+          omit.stat = c("f", "ser"))
+```
+
+## Negative Binomial
+```{r plotNegbinMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+source("Analysis/DataAnalysis.R")
+
+stargazer(nb.glm4, 
+          type = "html",
+          keep = c("FoundationsDensity100k", "FlowRate", "TurnoutPercentage"),
+          header = FALSE, # important not to have stargazer information in markdown file 
+          title = "Negative binominal regression model (controls suppressed)",
           digits = 2,
 #          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"))

@@ -31,8 +31,8 @@ DistrictData <- DistrictData[,-1]
 # Geo codes and maps 
 ########################
 
-DEU_adm3 <- readRDS("DEU_adm3.rds")
-DEU_adm2 <- readRDS("DEU_adm2.rds")
+#DEU_adm3 <- readRDS("DEU_adm3.rds")
+#DEU_adm2 <- readRDS("DEU_adm2.rds")
 
 #Extracting object for district names
 DistrictName <- DistrictData$DistrictName
