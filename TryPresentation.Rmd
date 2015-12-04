@@ -69,17 +69,16 @@ DistrictData$Foundations_cat <- cut(DistrictData$FoundationsTotal,
                                     breaks= c(0,15,26,44,1194), 
                                     labels= c('1stQu', '2ndQu', '3rdQu', '4thQu'))
 
-nb.glm1 <- glm.nb(Murder ~ 
-                    FoundationsTotal +
-                    FlowTotal +
-                    TurnoutPercentage +
-                    ForeignersTotal +
-                    Couples +
-                    MalePopulation +
-                    Pop18to24 +
-                    UnemployedPercentage +
-                    offset(log(TotalPopulation)), # Offset tunrs counts into per capita rates
-                  DistrictData)
+nb.glm1 <- glm.nb(MurderRate ~ 
+               FoundationsDensity100k +
+               FlowRate +
+               TurnoutPercentage +
+               ForeignerRate +
+               MarriageRate +
+               MaleRate +
+               YouthRate +
+               UnemployedPercentage,
+             DistrictData)
 
 # Adding coefficients and confident intervals into new data frame 
 est1 <- cbind(Estimate = coef(nb.glm1), 
