@@ -42,7 +42,9 @@ shapefile <- readShapeSpatial('Analysis/data/DEU_adm_shp/DEU_adm2.shp',proj4stri
 
 # Converting to data frame for use with ggplot2/ggmap and plot
 data <- fortify(shapefile) # Not sure how it works
-data
+
+MurderRates <- DistrictData[,c(1:2,55,10,40,47,54,50,51,53,22)]
+MurderRates <- MurderRates[,c(1:3)]
 
 #Not WOrking on OS El Capitan
 # Downloading Geocoordinates for German districs from:

@@ -237,6 +237,16 @@ names(est1) <- c("IncidentRate", "_")
 stargazer(est1, header = FALSE, summary= FALSE, type="html", digits = 4)
 ```
 
+## Conclusion
+- Voter turnout is best predictor  
+- Research problems persist: operationalisation, aggregation level, reverse causality, no panel data
+- Research on crime is difficult, especially in Germany 
+
+## Discussion
+- Better measurements for social capital?  
+- Aggregation on discrict level (~400) reasonable?  
+- Remedies for reverse causality?  
+
 ## <!-- last slide-->
 <br><br><br><br><br><br>
 <center><b>Thank you for your attention!<br>
