@@ -3,9 +3,9 @@ title: "Social Capital and Crime <br>in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "4 December 2015"
 output:
-  slidy_presentation: default
   ioslides_presentation:
-    logo: Supplementary/LogoHertie.png
+    logo: HLogo.png
+  slidy_presentation: default
 ---
 
 ## Outline
@@ -256,6 +256,6 @@ Any questions?</b></center>
 ### MC Simulations using 1st and 3rd Qu. as lower and upper bounds 
 ```{r MC Sim NB, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 source("Analysis/DataAnalysis.R")
-plot(snb.out)
+#plot(snb.out)
 ```
 
