@@ -9,7 +9,8 @@
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
           "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
           "ggmap", "rworldmap", "sp", "RColorBrewer", "car", "MASS", 
-          "maps", "mapproj", "PerformanceAnalytics", "pscl", "AER", "rgdal")
+          "maps", "mapproj", "PerformanceAnalytics", "pscl", "AER", "rgdal", 
+          "maptools", "gpclib")
 lapply(Packages, require, character.only = TRUE)
 
 # Setting the commonly used working directory
@@ -32,15 +33,24 @@ DistrictData <- DistrictData[,-1]
 # Geo codes and maps 
 ########################
 
-#DEU_adm3 <- readRDS("DEU_adm3.rds")
-#DEU_adm2 <- readRDS("DEU_adm2.rds")
+#DEU_adm3 <- readRDS("DEU_adm3.rds") #Gemeinde
+#DEU_adm2 <- readRDS("DEU_adm2.rds") #Kreise
 
+# Reading shape file date into R:
+shapefile <- readShapeSpatial('Analysis/data/DEU_adm_shp/DEU_adm2.shp',proj4string = CRS("+proj=lonlat+datum=WGS84"))
+# shapefiles@data$CCA_2 contains district ID
+
+# Converting to data frame for use with ggplot2/ggmap and plot
+data <- fortify(shapefile) # Not sure how it works
+data
+
+#Not WOrking on OS El Capitan
 # Downloading Geocoordinates for German districs from:
 # http://www.geodatenzentrum.de/geodaten/gdz_rahmen.gdz_div?gdz_spr=deu&gdz_akt_zeile=5&gdz_anz_zeile=1&gdz_unt_zeile=19&gdz_user_id=0
 # First step is to import the contained map and to load districts shapefile:
-shape_district <- readOGR(dsn = "Analysis/data/vg2500.utm32s.shape/vg2500", layer = "vg2500_krs") 
+#shape_district <- readOGR(dsn = "Analysis/data/vg2500.utm32s.shape/vg2500", layer = "vg2500_krs") 
 # Sp transformation to different format (WGS84)
-shape_district <- spTransform(shape_district, CRS("+init=epsg:4326"))
+#shape_district <- spTransform(shape_district, CRS("+init=epsg:4326"))
 
 
 #Extracting object for district names
