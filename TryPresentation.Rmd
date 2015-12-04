@@ -5,6 +5,16 @@ date: "December 3, 2015"
 output: html_document
 ---
 
+## Conclusion
+- Voter turnout is best predictor  
+- Research problems persist: operationalisation, aggregation level, reverse causality, no panel data
+- Research on crime is difficult, especially in Germany 
+
+## Discussion
+- Better measurements for social capital?  
+- Aggregation on discrict level (~400) reasonable?  
+- Remedies for reverse causality?  
+
 ## Negative Binomial Significance
 ```{r NegbinSignificance, error=FALSE, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 library("repmis")
