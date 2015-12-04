@@ -256,6 +256,6 @@ Any questions?</b></center>
 ### MC Simulations using 1st and 3rd Qu. as lower and upper bounds 
 ```{r MC Sim NB, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 source("Analysis/DataAnalysis.R")
-#plot(snb.out)
+#plot(snb.out)  
 ```
 
