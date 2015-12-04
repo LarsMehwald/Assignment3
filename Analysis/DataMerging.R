@@ -233,11 +233,11 @@ DistrictData <- na.omit(DistrictData)
 # State variables
 ########################
 
-State_num <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
-State_names <- c('Schleswig-Holstein', 'Hamburg', 'Niedersachsen', 'Bremen', 'Nordrhein-Westfalen', 'Hessen', 'Rheinland-Pfalz', 
+#State_num <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
+#State_names <- c('Schleswig-Holstein', 'Hamburg', 'Niedersachsen', 'Bremen', 'Nordrhein-Westfalen', 'Hessen', 'Rheinland-Pfalz', 
                   'Baden-Württemberg', 'Bayern', 'Saarland', 'Berlin', 'Brandenburg', 'Mecklenburg-Vorpommern', 'Sachsen', 
                   'Sachsen-Anhalt', 'Thüringen')
-State_combined <- cbind(State_num, State_names)
+#State_combined <- cbind(State_num, State_names)
 
 #subsetDistrictData <- DistrictData[,c(1,2)]
 

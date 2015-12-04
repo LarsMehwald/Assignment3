@@ -9,7 +9,7 @@
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
           "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
           "ggmap", "rworldmap", "sp", "RColorBrewer", "car", "MASS", 
-          "maps", "mapproj", "PerformanceAnalytics", "pscl", "AER")
+          "maps", "mapproj", "PerformanceAnalytics", "pscl", "AER", "rgdal")
 lapply(Packages, require, character.only = TRUE)
 
 # Setting the commonly used working directory
@@ -35,6 +35,13 @@ DistrictData <- DistrictData[,-1]
 #DEU_adm3 <- readRDS("DEU_adm3.rds")
 #DEU_adm2 <- readRDS("DEU_adm2.rds")
 
+# Downloading Geocoordinates for German districs from:
+# http://www.geodatenzentrum.de/geodaten/gdz_rahmen.gdz_div?gdz_spr=deu&gdz_akt_zeile=5&gdz_anz_zeile=1&gdz_unt_zeile=19&gdz_user_id=0
+# First step is to import the contained map and to load districts shapefile:
+shape_district <- readOGR(dsn = "Analysis/data/vg2500.utm32s.shape/vg2500", layer = "vg2500_krs") 
+# Sp transformation to different format (WGS84)
+shape_district <- spTransform(shape_district, CRS("+init=epsg:4326"))
+
 
 #Extracting object for district names
 DistrictName <- DistrictData$DistrictName
@@ -48,6 +55,8 @@ DistrictName <- iconv(DistrictName, from ="latin1", to = "UTF-8")
 # Creating a geo code for every district (using ggmap)
 districtLonLat <- geocode(DistrictName, source="google", messaging=TRUE) # takes a lot of time!
 #districtLonLat <- data.frame(cbind(DistrictName, districtLonLat))
+
+districtLonLat2 <- geocode(DistrictName, source="dsk", messaging=TRUE) # takes a lot of time!
 
 # Subset for MurderRate + LonLat + DistrictName + district
 Murder <- DistrictData[,c(1:2,55,10,40,47,54,50,51,53,22)] #object with relevant variables
