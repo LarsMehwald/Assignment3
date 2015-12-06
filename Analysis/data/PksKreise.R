@@ -7,6 +7,7 @@
 
 # Loading required package
 library("repmis")
+library("tidyr")
 
 # Setting the commonly used working directory
 possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
@@ -58,7 +59,6 @@ NameofVariables <- c("district",
                      "streetCrime",
                      "burglaryDaylight",
                      "burglary")
-# Adding Names of translated Variables 
 names(PKS_Kreise_13) <- NameofVariables 
 rm(NameofVariables)
 
@@ -71,8 +71,8 @@ PKS_Kreise_13$year <- 2013
 
 # Correcting problem with Hamburg and Berlin. 
 PKS_Kreise_13[,1] <- as.numeric(as.character(PKS_Kreise_13[,1]))
-PKS_Kreise_13[22,1]=11
-PKS_Kreise_13[99,1]=2  
+PKS_Kreise_13[22,1]=11 # Berlin
+PKS_Kreise_13[99,1]=2 # Hamburg 
 
 # Combining district variable with year and rearranging
 PKS_Kreise_13$district_year <- paste(PKS_Kreise_13$district, "2013", sep = "y")
@@ -93,6 +93,25 @@ PKS_Kreise_13[,13] <- as.numeric(as.character(PKS_Kreise_13[,13]))
 PKS_Kreise_13[,14] <- as.numeric(as.character(PKS_Kreise_13[,14]))
 PKS_Kreise_13[,15] <- as.numeric(as.character(PKS_Kreise_13[,15]))
 PKS_Kreise_13[,16] <- as.numeric(as.character(PKS_Kreise_13[,16]))
+
+# Creating East/West dummy, where East=1 and Berlin coded as 1 (with reference to the Berlin Frage)
+PKS_Kreise_13$EastWest <- ifelse(PKS_Kreise_13$district >= 8111 & PKS_Kreise_13$district <= 8437, 0, # Baden-Württemberg
+                                 ifelse(PKS_Kreise_13$district >= 9161 & PKS_Kreise_13$district <= 9780, 0, # Bayern
+                                   ifelse(PKS_Kreise_13$district == 11, 1, # Berlin
+                                     ifelse(PKS_Kreise_13$district >= 12051 & PKS_Kreise_13$district <= 12073, 1, # Brandenburg
+                                       ifelse(PKS_Kreise_13$district == 4011 | PKS_Kreise_13$district == 4012, 0, # Bremen
+                                         ifelse(PKS_Kreise_13$district == 2, 0, # Hamburg
+                                           ifelse(PKS_Kreise_13$district >= 6411 & PKS_Kreise_13$district <= 6636, 0, # Hessen
+                                             ifelse(PKS_Kreise_13$district >= 13003 & PKS_Kreise_13$district <= 13076, 1, # Mecklenburg-Vorpommern
+                                               ifelse(PKS_Kreise_13$district >= 3101 & PKS_Kreise_13$district <= 3462, 0, # Niedersachen
+                                                 ifelse(PKS_Kreise_13$district >= 5111 & PKS_Kreise_13$district <= 5978, 0, # Nordrhein-Westfalen
+                                                   ifelse(PKS_Kreise_13$district >= 7111 & PKS_Kreise_13$district <= 7340, 0, # Rheinland-Pfalz
+                                                     ifelse(PKS_Kreise_13$district >= 10041 & PKS_Kreise_13$district <= 10046, 0, # Saarland
+                                                       ifelse(PKS_Kreise_13$district >= 14511 & PKS_Kreise_13$district <= 14730, 1, # Sachsen
+                                                         ifelse(PKS_Kreise_13$district >= 15001 & PKS_Kreise_13$district <= 15091, 1, # Sachsen-Anhalt
+                                                           ifelse(PKS_Kreise_13$district >= 1001 & PKS_Kreise_13$district <= 1062, 0, 1 # Schleswig-Holtstein und Türingen (16051 - 16077)
+                                                           )))))))))))))))
+PKS_Kreise_13[,17] <- as.numeric(as.character(PKS_Kreise_13[,17]))
 
 # Saving the data 
 write.csv(PKS_Kreise_13, file = "Analysis/data/PKS_Kreise.csv")

@@ -230,7 +230,7 @@ est1$Stars <- ifelse(est1$NumberStars == 3, "***",
                                    ifelse(est1$NumberStars == 1, "*", "")))
 est1 <- est1[c(1,3)]
 
-# Computating the cross-validation for this model
+# Goodness of fit: Computating the cross-validation for this model
 # It is the sum of the squared differenced between model predictions
 # for different subsets of the data.
 # This is a reasonable approach, since we are interested in how good/stable is 
