@@ -6,9 +6,7 @@
 ########################
 
 # Loading required packages 
-Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
-              "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-              "ggmap", "rworldmap","car", "MASS", "PerformanceAnalytics", "pscl", "AER")
+Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr")
 lapply(Packages, require, character.only = TRUE)
 
 # Setting the commonly used working directory
@@ -82,14 +80,14 @@ rm(CrMaGrLaPoDPoAMiReElFoFrg)
 
 # Generating Crime rate variable for robberies: 
 # Crimes / Total Population * 100,000
-#CrimeRate <- DistrictData$robbery / DistrictData$TotalPopulation * 100000
+# CrimeRate <- DistrictData$robbery / DistrictData$TotalPopulation * 100000
 
 # Adding new variable Robbery Crime Rate to District Data Frame
-#DistrictData <- cbind(DistrictData, CrimeRate)
-#rm(CrimeRate)
+# DistrictData <- cbind(DistrictData, CrimeRate)
+# rm(CrimeRate)
 
 # Removing redundant variables (year variables)
-DistrictData <- DistrictData[,-c(17,19,22,36,53)]
+DistrictData <- DistrictData[,-c(18,20,23,37,54)]
 
 # Renaming year variable (from year.x)
 names(DistrictData)[3] <- "year"
@@ -127,7 +125,7 @@ DistrictData$YouthRate <-
 
 # Share of Believers
 # Problematic: rates are significant lower in former East Germany 
-#DistrictData$BelieversRate <- 
+# DistrictData$BelieversRate <- 
  # (DistrictData$BelieversTotal / 
   #   DistrictData$TotalPopulation) * 100000
 
