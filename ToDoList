@@ -1,5 +1,7 @@
 To Do List until Friday, 11 December 2015:
 
+Current word count: ~ 2000 (7/12/2015, 4pm)
+
 Data and model:
 - Categorical data: do we need/want to include a variable that is categorical (e.g. East/West) for conditional predicted probabilities? A useful alternative to the code used so far in our data files is: classes <- cut(varName, c(intervals), right = FALSE)
 - Operationalisation of IV: is there a better way to operationalise social capital? Number of refugee initiatives (problem: large amount of 0)? 

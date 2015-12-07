@@ -12,8 +12,11 @@ bibliography:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction and theory 
-Most of crime studies are based on the rational choice assumptions of legal and criminal returns and the importance of deterrence to reduce criminal behaviours [@becker1968]. However, less has been written about the relevance of social interactions explaining criminal behaviours. Some literature, though, has focused on the relationship between violent crimes and social capital. Lederman [@Ledermanetal2002] identified that the prevalence of trust on community members has an effect on violent crimes and that the social cohesion through participation and membership in community organisations only impact violent crime levels depending on the type of religious and social organisation engaged. Additionally, Hanslaimer [@hanslmaier2015mehr] showed that altruism has a general negative effect on violent crimes, but other indicators of social capital only proved to be related to other types of high impact crime and not to violent crime. Hence, we are interested in responding to the question: How do social networks and bonds in a given community determine the level of violent crime? 
+## Introduction 
+Most of crime studies are based on the rational choice assumptions of legal and criminal returns and the importance of deterrence to reduce criminal behaviours [@becker1968]. However, less has been written about the relevance of social interactions explaining criminal behaviours. This work draws on new data in Germany and investigates this relationship with different measurements for social capital and various statistical analyses. Though several methodological problems persist throughout the research, a preliminary conclusion can be drawn: higher voter turnout in federal elections is highly correlated with lower murder rates. Further research needs to assess the causal relationship between these two variables.  
+
+## Theory
+Some literature, though, has focused on the relationship between violent crimes and social capital. Lederman [@Ledermanetal2002] identified that the prevalence of trust on community members has an effect on violent crimes and that the social cohesion through participation and membership in community organisations only impact violent crime levels depending on the type of religious and social organisation engaged. Additionally, Hanslaimer [@hanslmaier2015mehr] showed that altruism has a general negative effect on violent crimes, but other indicators of social capital only proved to be related to other types of high impact crime and not to violent crime. Hence, we are interested in responding to the question: How do social networks and bonds in a given community determine the level of violent crime? 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Social capital can be summerised as the links, shared values, and understandings in society that enable individuals and groups to trust each other and so work as a group [@OECD]. The concept of social capital gained importance after Robert Putnam used it to describe the anomic state of the American society at the beginning of the 21st century [@putnam2001bowling]. He argued that a decrease in community linkages that once held societies together, translates in a loss of social capital [@putnam2001bowling].  
 
@@ -29,7 +32,7 @@ Most of crime studies are based on the rational choice assumptions of legal and 
 ### Data sources:
 We have data from three main sources: 
 1. German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" [PKS])
-2. The Regional Database Germany published by the Federal Statistical Office and the statistical Offices of the Länder. 
+2. The Regional Database Germany published by the Federal Statistical Office and the statistical Offices of the Laender. 
 3. German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")
 
 ### Dependent Variable
@@ -50,7 +53,6 @@ We want to measure different dimensions of our independent variable social capit
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The third dimension of social capital we tried to measure was the civil action within a community. We then looked at the voting turnout during the federal elections of 2013 in Germany to estimate the effect of social capital on crime through the participation of community members in policy decisions while deciding on the next government.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity.  We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).
-
 
 ### Summary statistics for all variables
 ```{r SummaryStatistics, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
@@ -76,7 +78,6 @@ stargazer(DistrictDataReduced,
 For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagement in the community, political participation and community stability-- and the incidence of violent and non-violent crime. 
 
 Since crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.
-
 
 ### This histogram shows the frequency distribution of the independent variable crime rate (total number of crimes per 100,000 individuals) for all districts
 ```{r hist1, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
@@ -162,13 +163,11 @@ datacor <- DistrictData[, c(22,40,47,49,50,51,52,53)]
 chart.Correlation(datacor, historgram=T)
 ```
 
-
 ## Optimal data set 
 Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. On optimal data set would contain the following. It would contain time series data for every unit of observation. This would enable us to use a fixed effects model (since we already have cross-sectional data) and thereby controlling for unobserved heterogeneity between the observations. This data would also enable us to address the most severe challenge to this analysis: reverse causality. People are deemed to respond to a criminal environment and it is likely that this response is correlated with our independent variables (i.e. people with higher social capital tend to move out of areas with high crime rates). On optimal dataset would also contain more detailed data. This would allow more elaborate controls and better measurement of social capital. In addition individual level data would improve the analysis by allowing for a multi level analysis controlling for individuals characteristics. This could also address the main challenge of reversed causality since migration could be explicitly modelled.
 
 ## Conclusion 
 A preliminary analysis of the model specification shows that the negative binomial model does not change the statistical significance of the main explainatory variables. Moreover, only some independent variables attain statistical significance for violent crimes. Further model specifications are require in order to improve the reliability of these findings. However, further estimations are needed to improve the interpretations of the coeficients, since the estimated coefficents are log likelihoods.
-
 
 ## Regression analysis 
 
