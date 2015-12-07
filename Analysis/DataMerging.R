@@ -1,28 +1,14 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# 13 November 2015
-# Assignment 3
-# Merging all data frames, creating new analysis variables.
+# 11 December 2015
+# Merging all data frames and
+# creating new analysis variables
 ########################
-
-# Loading required packages 
-Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr")
-lapply(Packages, require, character.only = TRUE)
-
-# Setting the commonly used working directory
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
-
-# Citing R packages 
-LoadandCite(Packages, file = 'References/RpackageCitations.bib')
-rm(Packages)
 
 # Sourcing the R files that load and prepare data
 source("Analysis/data/PksKreise.R")
 source("Analysis/data/Marriage.R")
-#source("Analysis/data/Graduates.R")
+# source("Analysis/data/Graduates.R")
 source("Analysis/data/Graduates2.R")
 source("Analysis/data/LaborMarket.R")
 source("Analysis/data/Popdensity.R")
@@ -37,7 +23,7 @@ source("Analysis/data/Foreigners.R")
 # Districts that are not matched with a corresponding district are dropped
 # Only mathched observations are kept. 
 CrimesMarriages2013 <- merge(PKS_Kreise_13, Marriages, by="district")
-#CrimesMarriagesGraduates2013 <- merge(CrimesMarriages2013, Graduates, by="district")
+# CrimesMarriagesGraduates2013 <- merge(CrimesMarriages2013, Graduates, by="district")
 CrimesMarriagesGraduates2013 <- merge(CrimesMarriages2013, Graduates2, by="district")
 CrimesMarriagesGraduatesLabor2013 <- merge(CrimesMarriagesGraduates2013, LaborMarket, by="district")
 CrimesMarriagesGraduatesLaborPopdensity2013 <- merge(CrimesMarriagesGraduatesLabor2013, Popdensity, by="district")
@@ -62,7 +48,7 @@ rm(CrMaGrLaPoDPoAMiReElFo)
 # Removing individual data frames
 rm(PKS_Kreise_13)
 rm(Marriages)
-#rm(Graduates)
+# rm(Graduates)
 rm(Graduates2)
 rm(LaborMarket)
 rm(Popdensity)
@@ -111,8 +97,8 @@ DistrictData$MaleRate <-
 # DistrictData$DensityPerSQRTkm / 100
 
 # Relative conservative vote  
-### Not required, we can use TurnoutPercentage as a very solid measure of political participation
-#DistrictData$VoteConservativesPercent <- 
+# Not required, we can use TurnoutPercentage as a very solid measure of political participation
+# DistrictData$VoteConservativesPercent <- 
 # DistrictData$VoteConservativesTotal * 100 / 
 # (DistrictData$TurnoutPercentage * DistrictData$EntitledVoteTotal / 100)
 # TurnoutPercentage is coded in % between 0 and 100
@@ -126,8 +112,8 @@ DistrictData$YouthRate <-
 # Share of Believers
 # Problematic: rates are significant lower in former East Germany 
 # DistrictData$BelieversRate <- 
- # (DistrictData$BelieversTotal / 
-  #   DistrictData$TotalPopulation) * 100000
+# (DistrictData$BelieversTotal / 
+#   DistrictData$TotalPopulation) * 100000
 
 # Share of Foreigners per District
 DistrictData$ForeignerRate <-
@@ -180,7 +166,7 @@ DistrictData$NonViolentCrimeRate <-
   (DistrictData$CrimeNonViolent / 
      DistrictData$TotalPopulation) * 100000
 
-# total crimes
+# Total crimes
 DistrictData$CrimeTotal <- 
   DistrictData$bodilyHarm + 
   DistrictData$dangerousBodilyHarm +
@@ -201,44 +187,10 @@ DistrictData$CrimeRate <-
      DistrictData$TotalPopulation) * 100000
 
 ########################
-# log variables for IV
-########################
-
-# Foundations
-DistrictData$FoundationsDensity100kLog <- 
-  log(DistrictData$FoundationsDensity100k)
-
-# Flow
-DistrictData$FlowRateLog <- 
-  log(DistrictData$FlowRate)
-
-# Voter turnout
-DistrictData$TurnoutPercentageLog <- 
-  log(DistrictData$TurnoutPercentage)
-
-########################
-# Categorical variables for IV
-########################
-
-
-########################
 # Omiting Observations with missing values
 ########################
 
 DistrictData <- na.omit(DistrictData)
-
-########################
-# State variables
-########################
-
-#State_num <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
-#State_names <- c('Schleswig-Holstein', 'Hamburg', 'Niedersachsen', 'Bremen', 'Nordrhein-Westfalen', 'Hessen', 'Rheinland-Pfalz', 
-#                  'Baden-Württemberg', 'Bayern', 'Saarland', 'Berlin', 'Brandenburg', 'Mecklenburg-Vorpommern', 'Sachsen', 
-#                  'Sachsen-Anhalt', 'Thüringen')
-#State_combined <- cbind(State_num, State_names)
-
-#subsetDistrictData <- DistrictData[,c(1,2)]
-
 
 ########################
 # Saving the data

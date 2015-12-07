@@ -7,5 +7,5 @@
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
               "car", "MASS", "PerformanceAnalytics", "pscl", "AER", "ggmap",
-              "rworldmap")
+              "rworldmap", "boot")
 lapply(Packages, require, character.only = TRUE)
