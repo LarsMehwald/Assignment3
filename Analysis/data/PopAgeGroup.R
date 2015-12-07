@@ -1,18 +1,8 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# 13 November 2015
-# Assignment 3
+# 11 December 2015
 # Population Age as percentage of total population
 ########################
-
-# Loading required packages 
-library("repmis")
-
-# Setting the commonly used working directory
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
 
 # Loading the data
 PopAgeGroup <- read.csv(file="Analysis/data/RawData/PopAgeRawData.csv",
@@ -29,8 +19,7 @@ PopAgeGroup <- read.csv(file="Analysis/data/RawData/PopAgeRawData.csv",
                                         "Pop18to24", 
                                         "Pop25to44", 
                                         "Pop45to64", 
-                                        "PopOver65")
-                          )
+                                        "PopOver65"))
 
 # Converting Character Vectors between Encodings from latin1 to UTF-8
 # More compatibility with German characters
@@ -60,4 +49,3 @@ PopAgeGroup[,6] <- as.numeric(as.character(PopAgeGroup[,6]))
 
 #saving population groups data frame 
 write.csv(PopAgeGroup, file = "Analysis/data/PopAgeGroup.csv")
-

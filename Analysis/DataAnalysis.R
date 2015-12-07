@@ -1,7 +1,6 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
 # 11 December 2015
-# Final Project
 # Data analysis
 ########################
 

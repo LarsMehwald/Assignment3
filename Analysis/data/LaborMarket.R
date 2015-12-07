@@ -1,18 +1,8 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# 13 November 2015
-# Assignment 3
+# 11 December 2015
 # Labor market 
 ########################
-
-# Loading required package
-library("repmis")
-
-# Setting the commonly used working directory
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
 
 # Loading the data frame 
 LaborMarket <- read.csv(file = "Analysis/data/RawData/659-71-4_LaborMarketStatistic_2013_2014.csv", 
@@ -37,9 +27,7 @@ LaborMarket <- read.csv(file = "Analysis/data/RawData/659-71-4_LaborMarketStatis
                                     "UnemployedPercentageMen",
                                     "UnemployedPercentageWomen",
                                     "UnemployedPercentageForeigner",
-                                    "UnemployedPercentageForeigner15to25"
-                      )
-)
+                                    "UnemployedPercentageForeigner15to25"))
 
 # Converting Character Vectors between Encodings from latin1 to UTF-8
 # More compatibility with German characters

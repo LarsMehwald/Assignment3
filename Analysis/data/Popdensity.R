@@ -1,18 +1,8 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# 13 November 2015
-# Assignment 3
+# 11 December 2015
 # Population Density and District Area
 ########################
-
-# Loading required packages 
-library("repmis")
-
-# Setting the commonly used working directory
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
 
 # Loading data
 Popdensity <- read.csv(file = "Analysis/data/RawData/BevoelkerungRawData.csv", 
@@ -28,8 +18,7 @@ Popdensity <- read.csv(file = "Analysis/data/RawData/BevoelkerungRawData.csv",
                                       "TotalPopulation", 
                                       "MalePopulation", 
                                       "FemalePopulation", 
-                                      "DensityPerSQRTkm")
-                        )
+                                      "DensityPerSQRTkm"))
 
 # Converting Character Vectors between Encodings from latin1 to UTF-8
 # More compatibility with German characters
@@ -54,5 +43,3 @@ Popdensity[16,1]=2
 
 #Saveing Population denisty data frame
 write.csv(Popdensity, file = "Analysis/data/Popdensity.csv")
-
-

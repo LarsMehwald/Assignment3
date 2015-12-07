@@ -1,18 +1,8 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# 13 November 2015
-# Assignment 3
+# 11 December 2015
 # Loading Migration data
 ########################
-
-# Loading required packages
-library("repmis")
-
-# Setting the commonly used working directory
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
 
 # Reading Migration 2013 csv file 
 Migration <- read.csv(file="Analysis/data/RawData/182-20-4_MigrationStatistic_2013.csv", 
@@ -29,8 +19,7 @@ Migration <- read.csv(file="Analysis/data/RawData/182-20-4_MigrationStatistic_20
                                        "InfluxFemale",
                                        "OutflowTotal",
                                        "OutflowMale",
-                                       "OutflowFemale")
-                           )
+                                       "OutflowFemale"))
 
 # Converting Character Vectors between Encodings from latin1 to UTF-8
 # More compatibility with German characters
