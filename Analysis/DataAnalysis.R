@@ -36,68 +36,27 @@ DistrictData <- DistrictData[,-1]
 # Linear regression
 ########################
 
-# 1st table: OLS
-# 3 IV, 1 DV = 3 
-# 2nd table: 
-# 3 IV, 1 DV, 3 model
-
-# Getting rid of Berlin and Hamburg (outliers?)
-# DistrictData <- DistrictData[-c(1,2),]
-
 # Linear regression model 1
-OLSViolentFoundations <- lm(ViolentCrimeRate ~
-                    FoundationsDensity100k +
-                    ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
+OLSViolent <- lm(ViolentCrimeRate ~
+                    FoundationsDensity100k + FlowRate + TurnoutPercentage + 
+                    ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
                   data=DistrictData)
 summary(OLSViolentFoundations)
 
 # Linear regression model 2
-OLSViolentFlow <- lm(ViolentCrimeRate ~
-                              FlowRate +
-                              ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
-                            data=DistrictData)
-summary(OLSViolentFlow)
+OLSMurder <- lm(MurderRate ~
+                  FoundationsDensity100k + FlowRate + TurnoutPercentage + 
+                  ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                data=DistrictData)
+summary(OLSMurder)
 
-# Linear regression model 3
-OLSViolentTurnout <- lm(ViolentCrimeRate ~
-                       TurnoutPercentage +
-                       ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
-                     data=DistrictData)
-summary(OLSViolentFlow)
-
-# Linear regression model 4
-OLSMurderFoundations <- lm(MurderRate ~ 
-                      FoundationsDensity100k + 
-                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
-                    data=DistrictData)
-summary(OLSMurderFoundations)
-
-# Linear regression model 5
-OLSMurderFlow <- lm(MurderRate ~ 
-                      FlowRate +
-                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
-                    data=DistrictData)
-summary(OLSMurderFlow)
-
-# Linear regression model 6
-OLSMurderTurnout <- lm(MurderRate ~ 
-                      TurnoutPercentage + 
-                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage,
-                    data=DistrictData)
-summary(OLSMurderTurnout)
-
-# After running regression
-# regrobbery_hat <- fitted(regrobbery) #predicted values
-# as.data.frame(regrobbery_hat)
-# regrobbery_res <- residuals(regrobbery) #residuals 
-# as.data.frame(regrobbery_res)
-
-####################################
-# Declareing integre data for analysis
-####################################
+########################
+# Declareing integer data for analysis
+########################
 
 # Declaring distric Id as factor variablespo
 DistrictData$district <- as.factor(DistrictData$district)
+
 # Declaring all relevant variables for model integer
 DistrictData$CrimeRate <- as.integer(DistrictData$CrimeRate)
 DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
@@ -122,88 +81,43 @@ DistrictData$Pop18to24 <- as.integer(DistrictData$Pop18to24)
 DistrictData$Pop25to44 <- as.integer(DistrictData$Pop25to44)
 DistrictData$PopOver65 <- as.integer(DistrictData$PopOver65)
 
-# Creating a subset of variables from DistrictData data frame for analysis 
-#subset1 <- DistrictData[,c(59,47,53,40,19,51,50,22,52,49)]
-
-#########################################
+########################
 # Poisson models
-########################################
+########################
 
 #Poission model 1
 poisson.glm1 <- glm(MurderRate ~ 
-                 FoundationsDensity100k +
-                 ForeignerRate +
-                 MarriageRate +
-                 MaleRate +
-                 YouthRate +
-                 UnemployedPercentage, 
-               DistrictData, 
+                      FoundationsDensity100k + FlowRate + TurnoutPercentage + 
+                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                    data=DistrictData, 
                family = poisson())
 
-#Dispersion Test
+# Dispersion Test
 dispersiontest(poisson.glm1)
 # p-values too small: therefore nb needed!
-#mean=var: condition for Poisson model
-#if mean < var: overdispersion
-#use mle: correcting s.e.
-#summary(poisson.glm): Residual deviance>degrees of freedom : if so = overdispersion
+# mean=var: condition for Poisson model
+# if mean < var: overdispersion
+# use mle: correcting s.e.
+# summary(poisson.glm): Residual deviance>degrees of freedom : if so = overdispersion
 
-#Poission model 2
-poisson.glm2 <- glm(MurderRate ~ 
-                     FlowRate +
-                     ForeignerRate +
-                     MarriageRate +
-                     MaleRate +
-                     YouthRate +
-                     UnemployedPercentage, 
-                   DistrictData, 
-                   family = poisson())
-#Dispersion Test
-dispersiontest(poisson.glm2)
-
-#Poission model 3
-poisson.glm3 <- glm(MurderRate ~ 
-                     TurnoutPercentage +
-                     ForeignerRate +
-                     MarriageRate +
-                     MaleRate +
-                     YouthRate +
-                     UnemployedPercentage, 
-                   DistrictData, 
-                   family = poisson())
-#Dispersion Test
-dispersiontest(poisson.glm3)
-
-#Poission model 4
-poisson.glm4 <- glm(MurderRate ~ 
-                     FoundationsDensity100k +
-                     FlowRate +
-                     TurnoutPercentage +
-                     ForeignerRate +
-                     MarriageRate +
-                     MaleRate +
-                     YouthRate +
-                     UnemployedPercentage, 
-                   DistrictData, 
-                   family = poisson())
-#Dispersion Test
-#The overdispersion test assess the "goodness of fit" for the poisson model
+# Dispersion Test
+# The overdispersion test assess the "goodness of fit" for the poisson model
 # p-values too small: therefore nominal binominal model needed!
 # Basic Poisson model assumption: mean=var
 # if mean < var: overdispersion
 # use mle: correcting s.e.
 # Visual assesment: summary(poisson1) if Residual deviance>degrees of freedom : if so = overdispersion
-dispersiontest(poisson.glm4)
+dispersiontest(poisson.glm1)
 # This test confirms overdispersion
 # In consecuence, it is better to use a Negative Binominal Model
 
 # Extracting the estimated coefficents and confident intervals, then creating their exponential object
-est1 <- cbind(Estimate = coef(poisson.glm4), confint(poisson.glm4))
+est1 <- cbind(Estimate = coef(poisson.glm1), confint(poisson.glm1))
 incidentrate1 <- exp(est1)
 
-############################################
+########################
 # Correcting s.e. with QuasiPoisson
-###########################################
+########################
 
 #Quasi Poission model 1
 quasipoisson.glm1 <- glm(MurderRate ~ 
@@ -255,9 +169,9 @@ quasipoisson.glm4 <- glm(MurderRate ~
 est.qpoisson <- cbind(Estimate = coef(quasipoisson.glm4), confint(quasipoisson.glm4))
 incidentrate.qpoisson <- exp(est.qpoisson)
 
-##############################################
+########################
 # Negative Binomial Models
-##############################################
+########################
 
 # negative Binomial model 1
 nb.glm1 <- glm.nb(MurderRate ~ 
@@ -305,9 +219,9 @@ nb.glm4 <- glm.nb(MurderRate ~
 #incidentrate.nb <- exp(nb.glm4)
 
 
-####################################################
+########################
 # MC simulations
-####################################################
+########################
 
 # Poisson model with Zelig (MC simulation)
 poisson <- zelig(MurderRate ~ 
@@ -348,7 +262,6 @@ nb.out <- zelig(MurderRate ~
  xnb.high <- setx(nb.out, "FoundationsDensity100k" = 25,"FlowRate" = 13800, "TurnoutPercentage" = 73)
  snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
  #plot(snb.out)
-
 
 ########################
 # Creating table output
