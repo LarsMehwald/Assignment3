@@ -1,22 +1,8 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# 13 November 2015
-# Assignment 3
+# 11 December 2015
 # German Elections 2013
 ########################
-
-# Loading required packages 
-Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
-            "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-            "ggmap", "rworldmap")
-lapply(Packages, require, character.only = TRUE)
-rm(Packages)
-
-# Setting the commonly used working directory
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
 
 # Downloading of data
 Election <- read.csv(file = "Analysis/data/RawData/GermanElections2013.csv", 

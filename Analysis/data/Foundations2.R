@@ -1,18 +1,9 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# 13 November 2015
-# Assignment 3
-# Total number of Fundations per DistrictName and it density = #Foundations/100,000inahbitants
+# 13 December 2015
+# Total number of Fundations per DistrictName 
+# and it density = #Foundations/100,000inahbitants
 ########################
-
-# Loading required packages 
-library("repmis")
-
-# Setting the commonly used working directory
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
 
 # Loading data set from csv file
 Foundations <- read.csv(file="Analysis/data/RawData/Stiftungsdichte2013.csv",

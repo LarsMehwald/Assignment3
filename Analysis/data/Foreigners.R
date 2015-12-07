@@ -1,18 +1,8 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# 28 November 2015
-# Final Paper
+# 11 December 2015
 # Population by Nationality, Gender and Age
 ########################
-
-# Loading required packages 
-library("repmis")
-
-# Setting the commonly used working directory
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
 
 # Loading the data
 Foreigners <- read.csv(file="Analysis/data/RawData/173-41-4_Auslaender_by_age_and_gender_3.csv",

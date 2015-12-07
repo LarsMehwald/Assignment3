@@ -1,6 +1,6 @@
 ########################
 # Lars Mehwald and Daniel Salgado Moreno
-# December 2015
+# 11 December 2015
 # Final Project
 # Data analysis
 ########################
@@ -23,10 +23,6 @@ possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to
                   '~/HSoG/DataAnalysis/GitHub/Assignment3')
 set_valid_wd(possible_dir)
 rm(possible_dir)
-
-# Citing R packages 
-LoadandCite(Packages, file = 'References/RpackageCitations.bib')
-rm(Packages)
 
 # Loading data set from csv file
 DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
