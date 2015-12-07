@@ -58,34 +58,24 @@ summary(OLSMurder)
 DistrictData$district <- as.factor(DistrictData$district)
 
 # Declaring all relevant variables for model integer
-DistrictData$CrimeRate <- as.integer(DistrictData$CrimeRate)
+DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
+
 DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
 DistrictData$FlowRate <- as.integer(DistrictData$FlowRate)
 DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
-DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
-DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
-DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
-DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
-DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
-DistrictData$ForeignerRate <- as.integer(DistrictData$ForeignerRate)
 
-DistrictData$TotalPopulation <- as.integer(DistrictData$TotalPopulation)
-DistrictData$murderAndManslaughter <- as.integer(DistrictData$murderAndManslaughter)
-DistrictData$FoundationsTotal <- as.integer(DistrictData$FoundationsTotal)
-DistrictData$OutflowTotal <- as.integer(DistrictData$OutflowTotal)
-DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
-DistrictData$ForeignersTotal <- as.integer(DistrictData$ForeignersTotal)
-DistrictData$MalePopulation <- as.integer(DistrictData$MalePopulation)
-DistrictData$Pop0to17 <- as.integer(DistrictData$Pop0to17)
-DistrictData$Pop18to24 <- as.integer(DistrictData$Pop18to24)
-DistrictData$Pop25to44 <- as.integer(DistrictData$Pop25to44)
-DistrictData$PopOver65 <- as.integer(DistrictData$PopOver65)
+DistrictData$ForeignerRate <- as.integer(DistrictData$ForeignerRate)
+DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
+DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
+DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
+DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
+DistrictData$EastWest <- as.integer(DistrictData$EastWest)
 
 ########################
 # Poisson models
 ########################
 
-#Poission model 1
+# Poission model 1
 poisson.glm1 <- glm(MurderRate ~ 
                       FoundationsDensity100k + FlowRate + TurnoutPercentage + 
                       ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
@@ -119,51 +109,12 @@ incidentrate1 <- exp(est1)
 # Correcting s.e. with QuasiPoisson
 ########################
 
-#Quasi Poission model 1
+# Quasi Poission model 1
 quasipoisson.glm1 <- glm(MurderRate ~ 
-                      FoundationsDensity100k +
-                      ForeignerRate +
-                      MarriageRate +
-                      MaleRate +
-                      YouthRate +
-                      UnemployedPercentage, 
-                    DistrictData, 
+                           FoundationsDensity100k + FlowRate + TurnoutPercentage + 
+                           ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                         data=DistrictData, 
                     family = quasipoisson())
-
-#Quasi Poission model 2
-quasipoisson.glm2 <- glm(MurderRate ~ 
-                          FlowRate +
-                          ForeignerRate +
-                          MarriageRate +
-                          MaleRate +
-                          YouthRate +
-                          UnemployedPercentage, 
-                        DistrictData, 
-                        family = quasipoisson())
-
-#Quasi Poission model 3
-quasipoisson.glm3 <- glm(MurderRate ~ 
-                          TurnoutPercentage +
-                          ForeignerRate +
-                          MarriageRate +
-                          MaleRate +
-                          YouthRate +
-                          UnemployedPercentage, 
-                        DistrictData, 
-                        family = quasipoisson())
-
-#Quasi Poission model 4
-quasipoisson.glm4 <- glm(MurderRate ~ 
-                          FoundationsDensity100k +
-                          FlowRate +
-                          TurnoutPercentage +
-                          ForeignerRate +
-                          MarriageRate +
-                          MaleRate +
-                          YouthRate +
-                          UnemployedPercentage, 
-                        DistrictData, 
-                        family = quasipoisson())
 
 # Extracting the estimated coefficents and confident intervals, then creating their exponential object
 est.qpoisson <- cbind(Estimate = coef(quasipoisson.glm4), confint(quasipoisson.glm4))
@@ -175,49 +126,13 @@ incidentrate.qpoisson <- exp(est.qpoisson)
 
 # negative Binomial model 1
 nb.glm1 <- glm.nb(MurderRate ~ 
-               FoundationsDensity100k +
-               ForeignerRate +
-               MarriageRate +
-               MaleRate +
-               YouthRate +
-               UnemployedPercentage,
-             DistrictData)
-
-# negative Binomial model 2
-nb.glm2 <- glm.nb(MurderRate ~ 
-               FlowRate +
-               ForeignerRate +
-               MarriageRate +
-               MaleRate +
-               YouthRate +
-               UnemployedPercentage,
-             DistrictData)
-
-# negative Binomial model 3
-nb.glm3 <- glm.nb(MurderRate ~ 
-               TurnoutPercentage +
-               ForeignerRate +
-               MaleRate +
-               YouthRate +
-               UnemployedPercentage,
-             DistrictData)
-
-# negative Binomial model 4
-nb.glm4 <- glm.nb(MurderRate ~ 
-               FoundationsDensity100k +
-               FlowRate +
-               TurnoutPercentage +
-               ForeignerRate +
-               MarriageRate +
-               MaleRate +
-               YouthRate +
-               UnemployedPercentage,
-             DistrictData)
+                    FoundationsDensity100k + FlowRate + TurnoutPercentage + 
+                    ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                  data=DistrictData)
 
 # Extracting the estimated coefficents and confident intervals, then creating their exponential object
-#est.nb <- cbind(Estimate = coef(nb.glm4), confint(nb.glm4))
-#incidentrate.nb <- exp(nb.glm4)
-
+# est.nb <- cbind(Estimate = coef(nb.glm4), confint(nb.glm4))
+# incidentrate.nb <- exp(nb.glm4)
 
 ########################
 # MC simulations
@@ -225,15 +140,9 @@ nb.glm4 <- glm.nb(MurderRate ~
 
 # Poisson model with Zelig (MC simulation)
 poisson <- zelig(MurderRate ~ 
-                   FoundationsDensity100k +
-                   FlowRate +
-                   TurnoutPercentage +
-                   ForeignerRate +
-                   MarriageRate +
-                   MaleRate +
-                   YouthRate +
-                   UnemployedPercentage, 
-                 DistrictData,
+                   FoundationsDensity100k + FlowRate + TurnoutPercentage + 
+                   ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                 data=DistrictData,
                  model="poisson",
                  cite=FALSE)
 
@@ -241,27 +150,21 @@ poisson <- zelig(MurderRate ~
 xp.low <- setx(poisson, "FoundationsDensity100k" = 11, "FlowRate" = 9980, "TurnoutPercentage" = 68)
 xp.high <- setx(poisson,  "FoundationsDensity100k" = 25,"FlowRate" = 13800, "TurnoutPercentage" = 73)
 s.poisson <- sim(poisson, x=xp.low, x1=xp.high)
-#plot(s.poisson)
+# plot(s.poisson)
 
-#negative Binomial regression model with Zelig (MC simulation)
+# negative Binomial regression model with Zelig (MC simulation)
 nb.out <- zelig(MurderRate ~ 
-                  FoundationsDensity100k +
-                  FlowRate +
-                  TurnoutPercentage +
-                  ForeignerRate +
-                  MarriageRate +
-                  MaleRate +
-                  YouthRate +
-                  UnemployedPercentage, 
-                 DistrictData, 
+                  FoundationsDensity100k + FlowRate + TurnoutPercentage + 
+                  ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                 data=DistrictData, 
                  model="negbinom",
                  cite=FALSE)
 
- #MC Simulation using 1st and 3rd Qu.  
- xnb.low <- setx(nb.out, "FoundationsDensity100k" = 11, "FlowRate" = 9980, "TurnoutPercentage" = 68)
- xnb.high <- setx(nb.out, "FoundationsDensity100k" = 25,"FlowRate" = 13800, "TurnoutPercentage" = 73)
- snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
- #plot(snb.out)
+# MC Simulation using 1st and 3rd Qu.  
+xnb.low <- setx(nb.out, "FoundationsDensity100k" = 11, "FlowRate" = 9980, "TurnoutPercentage" = 68)
+xnb.high <- setx(nb.out, "FoundationsDensity100k" = 25,"FlowRate" = 13800, "TurnoutPercentage" = 73)
+snb.out <- sim(nb.out, x=xnb.low, x1=xnb.high)
+# plot(snb.out)
 
 ########################
 # Creating table output
