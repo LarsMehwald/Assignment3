@@ -34,11 +34,42 @@ DistrictData <- DistrictData[,-1]
 ########################
 
 #DEU_adm3 <- readRDS("DEU_adm3.rds") #Gemeinde
-#DEU_adm2 <- readRDS("DEU_adm2.rds") #Kreise
+#DEU_adm2 <- readRDS("DEU_adm2.rds") #Kreise 
 
-# Reading shape file date into R:
+shapes_district <- readOGR(dsn="Analysis/data/DEU_adm_shp", layer= "DEU_adm2") # loading layer for districts
+shapes_district <- spTransform(shapes_district, CRS("+init=epsg:4326")) # transforming layers in the map 
+# following: https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf
+
+plot(shapes_district)
+shapes_district$CCA_2
+shapes_district$NAME_1
+
+DistrictData$district <- shapes_district$CCA_2
+DistrictData$district <- shapes_district$NAME_2
+proj4string(DistrictData) <- proj4string(shapes_district)
+over(DistrictData,shapes_district)$CCA_2
+DistrictData$district <- as.numeric(DistrictData$district)
+shapes_district$CCA_2 <- as.numeric(shapes_district$CCA_2)
+df <- cbind.data.frame(DistrictData, CCA_2=over(DistrictData, shapes_district)$CCA_2)
+
+shapes_district_df <- data.frame(shapes_district@data)
+DistrictData <- rename(DistrictData, CCA_2=district)
+
+shapes_district@data = data.frame(shapes_district@data, DistrictData[match(shapes_district@data$CCA_2, DistrictData$CCA_2),])
+
+#Chris version
+Shapes_krs <- readOGR(dsn = "Analysis/data/vg2500.utm32s.shape/vg2500", layer = "vg2500_krs") # Load Kreise shapefile
+Shapes_krs<-spTransform(Shapes_krs, CRS("+init=epsg:4326")) # Transform to different coordinates format (to WGS84)
+Shapes_krs$GEN
+
+DistrictData$DistrictName <- Shapes_krs$GEN
+
+
+
+
+# Reading shape file date into R: 
 shapefile <- readShapeSpatial('Analysis/data/DEU_adm_shp/DEU_adm2.shp',proj4string = CRS("+proj=lonlat+datum=WGS84"))
-# shapefiles@data$CCA_2 contains district ID
+# shapefiles@data$CCA_2 contains district ID 
 
 # Converting to data frame for use with ggplot2/ggmap and plot
 data <- fortify(shapefile) # Not sure how it works
