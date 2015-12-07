@@ -5,6 +5,20 @@
 ########################
 
 #################################
+# Descriptive statistics 
+#################################
+
+# Removing some variables
+DistrictDataReduced <- DistrictData[,c(56,58,48,55,54,41,23,51,52,53)]
+
+# Renaming variables
+names(DistrictDataReduced)[names(DistrictDataReduced) == 'UnemployedPercentage'] <- 'UnemployedPerc'
+names(DistrictDataReduced)[names(DistrictDataReduced) == 'FoundationsDensity100k'] <- 'FoundationsDens'
+names(DistrictDataReduced)[names(DistrictDataReduced) == 'TurnoutPercentage'] <- 'TurnoutPerc'
+# Creation of summary statistics
+# stargazer(DistrictDataReduced, nobs = FALSE, header = FALSE, digits=1, type = "html")
+
+#################################
 # Historgrams
 #################################
 
@@ -52,7 +66,8 @@ plot(histMurder)
 #################################
 
 # Correlation Plot using R package: "PerformanceAnalytics"
-correlation.matrix <- DistrictData[, c(47,54,53,40,22,50,51,52)]
+# Needs to 
+correlation.matrix <- DistrictData[, c(48,55,41,54,23,51,52,53,17)]
 chart.Correlation(correlation.matrix, historgram=T)
 
 #################################
@@ -69,3 +84,7 @@ names(top10Murder)[names(top10Murder) == 'murderAndManslaughter'] <- 'Murders in
 names(top10Murder)[names(top10Murder) == 'district'] <- 'District ID'
 names(top10Murder)[names(top10Murder) == 'DistrictName'] <- 'District Name'
 names(top10Murder)[names(top10Murder) == 'MurderRate'] <- 'Murder Rate'
+
+# Creating table output 
+top10MurderMatrix <- as.matrix(top10Murder)
+# stargazer(top10MurderMatrix, header = FALSE, type="html", digits = 2)
