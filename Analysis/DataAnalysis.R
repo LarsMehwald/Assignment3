@@ -170,10 +170,12 @@ est1 <- cbind(exp(est1[1]), est1[2])
 names(est1) <- c("Coefficient", "NumberStars")
 est1 <- round(est1, 4)
 est1$NumberStars <- as.factor(est1$NumberStars)
-est1$Stars <- ifelse(est1$NumberStars == 3, "***", 
+est1$Stars <- ifelse(est1$NumberStars == 3, "***", # &#9733; is HTML star, but didnt work, + works 
                      ifelse(est1$NumberStars == 2, "**",
                             ifelse(est1$NumberStars == 1, "*", "")))
 est1 <- est1[c(1,3)]
+names(est1) <- c("IncidentRate", "_")
+# stargazer(est1, header = FALSE, summary= FALSE, type="html", digits = 4)
 
 # Goodness of fit: Computating the cross-validation for this model
 # It is the sum of the squared differenced between model predictions

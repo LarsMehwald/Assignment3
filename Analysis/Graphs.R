@@ -8,23 +8,24 @@
 # Historgrams
 #################################
 
+# Crime Rate histogram 
 # Changing class of Crime Rate
-#DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
+DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
 
 # Crime Rate hist
-#histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
-#  geom_histogram(binwidth=500, colour="black", fill="white") 
-#plot(histCrimeRate)
+histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
+ geom_histogram(binwidth=500, colour="black", fill="white") 
+plot(histCrimeRate)
 
 # Non-Violent Crime histogram
-#histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
- # geom_histogram(binwidth=400, colour="black", fill="white")
-#plot(histNonViolentCrimeRate)
+histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
+ geom_histogram(binwidth=400, colour="black", fill="white")
+plot(histNonViolentCrimeRate)
 
 # Violent Crime histogram
 histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
   geom_histogram(binwidth=10, colour="black", fill="white")
-#plot(histViolentCrimeRate)
+# plot(histViolentCrimeRate)
 
 # Murder Rate Histogram
 histMurderRate <- ggplot(DistrictData, aes(MurderRate)) + 
@@ -32,15 +33,16 @@ histMurderRate <- ggplot(DistrictData, aes(MurderRate)) +
   xlab("Murder Rate per district") +
   ylab("District count") +
   ggtitle("District count for Murder Rates: right skewed")
-#plot(histMurderRate)
+plot(histMurderRate)
 
-# Murder Rate Histogram
+# Murder Histogram
 histMurder <- ggplot(DistrictData, aes(murderAndManslaughter)) + 
   geom_histogram(binwidth=1, colour="black", fill="red") + 
   xlab("Murders") +
   ylab("Counts per district") +
   ggtitle("District count for Murder count: right skewed")
-#plot(histMurder) 
+plot(histMurder) 
+
 # We can observe that the Murders count is right skewed
 # OLS regression models are inappropiate when small number of events
 # Poisson models offer a good alternative
@@ -51,23 +53,18 @@ histMurder <- ggplot(DistrictData, aes(murderAndManslaughter)) +
 
 # Correlation Plot using R package: "PerformanceAnalytics"
 correlation.matrix <- DistrictData[, c(47,54,53,40,22,50,51,52)]
-#chart.Correlation(correlation.matrix, historgram=T)
+chart.Correlation(correlation.matrix, historgram=T)
 
 #################################
 # Top 10 tables
 #################################
 
+# Extracting the districts with the highest murder rates 
 DistrictData$MurderRate <- as.numeric(DistrictData$MurderRate)
 top10Murder <- arrange(DistrictData, desc(MurderRate))
+top10Murder <- top10Murder[1:10,c(1:2,56,10)]
 
-head(top10Murder)[1:10,1:64]
-
-top10Murder <- top10Murder[,c(1:2,55,10,40,47,54,50,51,53,22)]
-
-top10Murder <- top10Murder[,c(1:4)]
-
-top10Murder <- top10Murder[1:10,c(1:4)]
-
+# Renaming the variable names 
 names(top10Murder)[names(top10Murder) == 'murderAndManslaughter'] <- 'Murders in 2013'
 names(top10Murder)[names(top10Murder) == 'district'] <- 'District ID'
 names(top10Murder)[names(top10Murder) == 'DistrictName'] <- 'District Name'

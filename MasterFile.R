@@ -24,5 +24,7 @@ source("Analysis/DataMerging.R")
 source("Analysis/DataAnalysis.R")
 
 # Creating a map 
+# source("Analysis/GeoCodesMaps.R")
 
 # creating graphs 
+source("Analysis/Graphs.R")
