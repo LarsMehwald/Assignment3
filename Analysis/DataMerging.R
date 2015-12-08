@@ -186,11 +186,6 @@ DistrictData$CrimeRate <-
   (DistrictData$CrimeTotal / 
      DistrictData$TotalPopulation) * 100000
 
-########################
-# Omiting Observations with missing values
-########################
-
-DistrictData <- na.omit(DistrictData)
 
 ########################
 # Encoding DistrictName to UTF-8

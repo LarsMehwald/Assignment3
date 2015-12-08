@@ -19,6 +19,9 @@ names(DistrictData)[names(DistrictData) == 'murderAndManslaughter'] <- 'Murder'
 # Changing total population into a measure for 100,000
 DistrictData$TotalPopulation <- DistrictData$TotalPopulation / 100000
 
+# Omiting Observations with missing values
+DistrictData <- na.omit(DistrictData)
+
 ########################
 # Discriptive statistics
 ########################

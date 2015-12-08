@@ -104,8 +104,7 @@ DistrictData_subset$district <- as.integer(DistrictData_subset$district)
 GermanData <- left_join(GermanDistricts@data, DistrictData_subset, by="district", warnings())
 ## NOTE: Most of not matched NA's cases are in Mecklenburg-Vorpommern. Thus this state is underrepresented in dataframe
 
-GermanData <- na.omit(GermanData)
-
+#GermanData <- na.omit(GermanData)
 
 ### Plotting Number of Initiatives per District
 
