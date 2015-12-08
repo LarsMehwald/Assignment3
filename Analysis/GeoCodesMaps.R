@@ -20,7 +20,7 @@ set_valid_wd(possible_dir)
 rm(possible_dir)
 
 # Citing R packages 
-LoadandCite(Packages, file = 'References/RpackageCitations.bib')
+#LoadandCite(Packages, file = 'References/RpackageCitations.bib')
 rm(Packages)
 
 # Loading data set from csv file
@@ -29,33 +29,123 @@ DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
 # Removing ranking column (it was added in the saving process in DataMerging.R)
 DistrictData <- DistrictData[,-1]
 
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+DistrictData$DistrictName <- iconv(DistrictData$DistrictName, from ="latin1", to = "UTF-8")
+
 ########################
 # Geo codes and maps 
 ########################
 
-#DEU_adm3 <- readRDS("DEU_adm3.rds") #Gemeinde
-#DEU_adm2 <- readRDS("DEU_adm2.rds") #Kreise 
+# Loading Shape files downloaded from GADM database (www.gadm.org): by country: Germany (shapefile)
+spdf <- readOGR(dsn="Analysis/data/DEU_adm_shp", layer= "DEU_adm2") # loading layer for districts
+# following guidlines in: https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf
+spdf <- spTransform(spdf, CRS("+init=epsg:4326")) # transforming layers in the map 
 
-shapes_district <- readOGR(dsn="Analysis/data/DEU_adm_shp", layer= "DEU_adm2") # loading layer for districts
-shapes_district <- spTransform(shapes_district, CRS("+init=epsg:4326")) # transforming layers in the map 
-# following: https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf
+# NOTE: The following algorithm was taken from http://mazamascience.com/WorkingWithData/?p=1277
+# Identifying the attributes in spdf to keep and associate new names with them 
+names(spdf)
+attributes <- c("ID_1", "NAME_1", "NAME_2", "CCA_2")
 
-plot(shapes_district)
-shapes_district$CCA_2
-shapes_district$NAME_1
+# User friendly names
+newNames <- c("StateId", "StateName", "DistrictName", "district")
 
-DistrictData$district <- shapes_district$CCA_2
-DistrictData$district <- shapes_district$NAME_2
-proj4string(DistrictData) <- proj4string(shapes_district)
-over(DistrictData,shapes_district)$CCA_2
-DistrictData$district <- as.numeric(DistrictData$district)
-shapes_district$CCA_2 <- as.numeric(shapes_district$CCA_2)
-df <- cbind.data.frame(DistrictData, CCA_2=over(DistrictData, shapes_district)$CCA_2)
+# Subset the full dataset extracting only the desired attributes
+spdf_subset <- spdf[,attributes]
 
-shapes_district_df <- data.frame(shapes_district@data)
+# Assign the new attribute names
+names(spdf_subset) <- newNames
+
+# Create a dataframe name (potentially different from shapefile Name)
+data_name <- "GermanDistricts"
+
+# Reproject the data onto a "longlat" projection and assign it to the new name
+assign(data_name,spTransform(spdf_subset, CRS("+proj=longlat")))
+
+# The GermanDistricts dataset is now projected in latitude longitude coordinates as a // 
+# SpatialPolygonsDataFrame. We save the converted data as .RData for faster loading in the future.
+save(list=c(data_name),file=paste("Analysis/data/GermanDistricts.RData",sep="/"))
+rm(data_name, attributes, newNames)
+
+# Load again GermanDistricts # Not necessary for now
+#file <- paste("Analysis/data/GermanDistricts.RData",sep="/")
+#load(file) 
+
+# Inspecting the object class for district within GermanDistricts for merging purposes
+class(GermanDistricts$district) # =factor
+
+# Transformation of class needed for district ID in SpatialPolygonsDataFrame
+GermanDistricts@data$district <- as.integer(as.character(GermanDistricts@data$district))
+
+###########################
+# Preparing data for merge
+###########################
+# user friendly name for main variable of interest
+names(DistrictData)[names(DistrictData) == 'murderAndManslaughter'] <- 'Murder'
+
+# List of relevant variables for analysis
+columns <- c(1,2,10,17,23,25,48,51,52,53,54,55,56,58,60,62)
+
+# Subset the DistrictData full data frame to extract only desire variables: 
+DistrictData_subset <- subset(DistrictData, select=columns)
+
+# Changing district ID for Berlin and Hamburg. 
+DistrictData_subset[2,1]=11000
+DistrictData_subset[1,1]=02000
+
+# Order both dataframes by district ID 
+DistrictData_subset <- DistrictData_subset[order(DistrictData_subset$district),]
+GermanDistricts@data <- GermanDistricts@data[order(GermanDistricts$district),]
+
+# Transformation of class needed for district ID in SpatialPolygonsDataFrame
+DistrictData_subset$district <- as.integer(DistrictData_subset$district)
+
+# Merge DistrictData and GermanDistricts by "district"
+GermanData <- merge(GermanDistricts@data, DistrictData_subset, by="district")
+## NOTE: Most of not matched NA's cases are in Mecklenburg-Vorpommern. Thus this state is underrepresented in dataframe
+
+# Reproject the data onto a "longlat" projection #NOt WORKINg
+GermanData <- spTransform(GermanData, CRS("+proj=longlat"))
+
+
+
+
+#### STARTING here CODE is not cleaned and working
+
+
+
+
+# Extracting data frame from SpatialPolygonsDataFrame
+#spdf2 <- data.frame(spdf@data)
+spdf3 <- data.frame(GermanDistricts@data)
+# Renaming district ID in SpatialPolygonsDataFrame 
+spdf <- rename(spdf, district=CCA_2)
+
+# Chaning district ID for Berlin and Hamburg. 
+spdf@data[141,10]=11000
+spdf@data[162,10]=02000
+
+# Transformation of class need for district ID needed in SpatialPolygonsDataFrame
+spdf@data$district <- as.character(as.integer(spdf@data$district))
+
+# Merging DataDistrict and SpatialPolygonsDataFrame
+df <- merge(DistrictData, spdf@data, by="district")
+
 DistrictData <- rename(DistrictData, CCA_2=district)
 
-shapes_district@data = data.frame(shapes_district@data, DistrictData[match(shapes_district@data$CCA_2, DistrictData$CCA_2),])
+a <- merge(DistrictData, shapes_district_df, by="CCA_2") #Merging only 76 districts. 
+
+# Chaning district ID for Berlin and Hamburg. 
+spdf@data[2,1]=11000
+spdf@data[1,1]=02000
+
+shapes_district_df$CCA_2 <- as.character(shapes_district_df$CCA_2)
+shapes_district_df$CCA_2 <- as.integer(shapes_district_df$CCA_2)
+
+b <- merge(DistrictData, shapes_district_df, by="CCA_2")
+
+#Alternative to merging. Not working
+spdf@data = data.frame(spdf@data, DistrictData[match(shapes_district@data$CCA_2, DistrictData$CCA_2),])
 
 #Chris version
 Shapes_krs <- readOGR(dsn = "Analysis/data/vg2500.utm32s.shape/vg2500", layer = "vg2500_krs") # Load Kreise shapefile
