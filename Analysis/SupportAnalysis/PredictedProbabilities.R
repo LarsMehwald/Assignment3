@@ -46,3 +46,31 @@ ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "Voter Turnout", y = "Predicted Number of Murders")
+
+# Predicted probabilities: East West, with independent variable flow varying
+# it is not significant as we would like it to be, but reverse causality
+nb.df3 <- data.frame(
+  FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
+  TurnoutPercentage = mean(DistrictData$TurnoutPercentage),
+  ForeignerRate = mean(DistrictData$ForeignerRate),
+  MarriageRate = mean(DistrictData$MarriageRate),
+  MaleRate = mean(DistrictData$MaleRate),
+  YouthRate = mean(DistrictData$YouthRate),
+  UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
+  TotalPopulation = mean(DistrictData$TotalPopulation),
+  FlowRate = rep(seq(from = min(DistrictData$FlowRate), to = max(DistrictData$FlowRate), length.out = 100), 2),
+  EastWest = factor(rep(1:2, each = 100), levels = 1:2))
+
+class(nb.df3$EastWest) <- "integer"
+nb.df3 <- cbind(nb.df3, predict(nb.glm1, nb.df3, type = "link", se.fit=TRUE))
+nb.df3 <- within(nb.df3, {
+  Murder <- exp(fit)
+  LL <- exp(fit - 1.96 * se.fit)
+  UL <- exp(fit + 1.96 * se.fit)})
+
+class(nb.df3$EastWest) <- "factor"
+
+ggplot(nb.df3, aes(FlowRate, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "In and Outflow", y = "Predicted Number of Murders")
