@@ -72,19 +72,19 @@ rm(data_name, attributes, newNames)
 #load(file) 
 
 # Inspecting the object class for district within GermanDistricts for merging purposes
-class(GermanDistricts$district) # =factor
+class(GermanDistricts$district) #=factor
 
 # Transformation of class needed for district ID in SpatialPolygonsDataFrame
 GermanDistricts@data$district <- as.integer(as.character(GermanDistricts@data$district))
 
 ###########################
-# Preparing data for merge
+# Preparing data for matching 
 ###########################
 # user friendly name for main variable of interest
 names(DistrictData)[names(DistrictData) == 'murderAndManslaughter'] <- 'Murder'
 
 # List of relevant variables for analysis
-columns <- c(1,2,10,17,23,25,48,51,52,53,54,55,56,58,60,62)
+columns <- c(1,10,17,23,25,48,51,52,53,54,55,56,58,60,62)
 
 # Subset the DistrictData full data frame to extract only desire variables: 
 DistrictData_subset <- subset(DistrictData, select=columns)
@@ -92,6 +92,9 @@ DistrictData_subset <- subset(DistrictData, select=columns)
 # Changing district ID for Berlin and Hamburg. 
 DistrictData_subset[2,1]=11000
 DistrictData_subset[1,1]=02000
+
+# Delete Bodensee observation in SPDF
+GermanDistricts@data <- GermanDistricts@data[-6,]
 
 # Order both dataframes by district ID 
 DistrictData_subset <- DistrictData_subset[order(DistrictData_subset$district),]
@@ -101,27 +104,50 @@ GermanDistricts@data <- GermanDistricts@data[order(GermanDistricts$district),]
 DistrictData_subset$district <- as.integer(DistrictData_subset$district)
 
 # Merge DistrictData and GermanDistricts by "district"
-GermanData <- left_join(GermanDistricts@data, DistrictData_subset, by="district", warnings())
-## NOTE: Most of not matched NA's cases are in Mecklenburg-Vorpommern. Thus this state is underrepresented in dataframe
+GermanDistricts@data <- left_join(GermanDistricts@data, DistrictData_subset, by="district")
 
-#GermanData <- na.omit(GermanData)
+ggplot(GermanDistricts, aes(long, lat, group = group)) +
+  geom_polygon(aes(fill = GermanDistricts@data$MurderRate), colour = alpha("white", 1/2), size = 0.2) + 
+  geom_polygon(data = state_df, colour = "white", fill = NA) +
+  scale_fill_brewer(palette = "PuRd")
 
-### Plotting Number of Initiatives per District
+
+ggplot(GermanDistricts) + geom_polygon(aes(long, lat, group = group, fill = GermanDistricts@data$MurderRate))+
+  scale_fill_brewer(palette = "Reds")
+
+
+
+#########################
+#Plotting Murder Rate per district
+#########################
 
 # Cut data into classes
-classes <- cut(DistrictData_subset$Murder, c(0,1,2,3,4,5,10,15,29.27), right = FALSE)
+classes <- cut(DistrictData_subset$MurderRate, c(0,1,2,3,4,5,10,15,29.270), right = FALSE)
 levels(classes) <- c("0", "1", "2", "3","4", "5", "10", "15 or higher")
 
 # Assign colors
-colours <- brewer.pal(8,"RdPu") # Pick color palette
+colours <- brewer.pal(8,"Reds") # Pick color palette
 
 # Plot the shapefiles colored
 plot(GermanDistricts,border = "darkgrey", col = colours[classes])
 
-
 #### STARTING here CODE is not cleaned and working
 
 
+
+
+
+gpclibPermit() # required for fortify method
+# rownames
+GermanDistricts@data[["district"]] <- rownames(GermanDistricts@data)
+row.names(GermanDistricts@data) <- 1:nrow(GermanDistricts@data)
+GD <- fortify(GermanDistricts, region= "district")
+
+
+
+# Merge DistrictData and GermanDistricts by "district"
+#GermanData <- left_join(GermanDistricts@data, DistrictData_subset, by="district", warnings())
+## NOTE: Most of not matched NA's cases are in Mecklenburg-Vorpommern. Thus this state is underrepresented in dataframe
 
 
 # Extracting data frame from SpatialPolygonsDataFrame
