@@ -84,7 +84,7 @@ PKS_Kreise_13[,15] <- as.numeric(as.character(PKS_Kreise_13[,15]))
 PKS_Kreise_13[,16] <- as.numeric(as.character(PKS_Kreise_13[,16]))
 
 # Creating East/West dummy, where West=1 and East=2 and Berlin coded as 2 (with reference to the Berlin Frage)
-PKS_Kreise_13$EastWest <- ifelse(PKS_Kreise_13$district >= 8111 & PKS_Kreise_13$district <= 8437, 1, # Baden-Württemberg
+PKS_Kreise_13$EastWest <- ifelse(PKS_Kreise_13$district >= 8111 & PKS_Kreise_13$district <= 8437, 1, # Baden-W?rttemberg
                                  ifelse(PKS_Kreise_13$district >= 9161 & PKS_Kreise_13$district <= 9780, 1, # Bayern
                                    ifelse(PKS_Kreise_13$district == 11, 2, # Berlin
                                      ifelse(PKS_Kreise_13$district >= 12051 & PKS_Kreise_13$district <= 12073, 2, # Brandenburg
@@ -98,7 +98,7 @@ PKS_Kreise_13$EastWest <- ifelse(PKS_Kreise_13$district >= 8111 & PKS_Kreise_13$
                                                      ifelse(PKS_Kreise_13$district >= 10041 & PKS_Kreise_13$district <= 10046, 1, # Saarland
                                                        ifelse(PKS_Kreise_13$district >= 14511 & PKS_Kreise_13$district <= 14730, 2, # Sachsen
                                                          ifelse(PKS_Kreise_13$district >= 15001 & PKS_Kreise_13$district <= 15091, 2, # Sachsen-Anhalt
-                                                           ifelse(PKS_Kreise_13$district >= 1001 & PKS_Kreise_13$district <= 1062, 1, 2 # Schleswig-Holtstein und Türingen (16051 - 16077)
+                                                           ifelse(PKS_Kreise_13$district >= 1001 & PKS_Kreise_13$district <= 1062, 1, 2 # Schleswig-Holtstein und T?ringen (16051 - 16077)
                                                            )))))))))))))))
 PKS_Kreise_13[,17] <- as.numeric(as.character(PKS_Kreise_13[,17]))
 

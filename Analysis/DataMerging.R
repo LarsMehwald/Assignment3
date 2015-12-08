@@ -195,6 +195,9 @@ DistrictData$CrimeRate <-
 # More compatibility with German characters
 DistrictData$DistrictName <- iconv(DistrictData$DistrictName, from ="latin1", to = "UTF-8")
 
+# Omiting Observations with missing values
+#DistrictData <- na.omit(DistrictData)
+
 ########################
 # Saving the data
 ########################
