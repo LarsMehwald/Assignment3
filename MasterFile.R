@@ -28,3 +28,6 @@ source("Analysis/DataAnalysis.R")
 
 # creating graphs 
 source("Analysis/Graphs.R")
+
+# Remove everything
+# rm(list=ls())

@@ -16,6 +16,9 @@ DistrictData$Foundations_cat <- cut(DistrictData$FoundationsTotal,
 
 names(DistrictData)[names(DistrictData) == 'murderAndManslaughter'] <- 'Murder'
 
+# Changing total population into a measure for 100,000
+DistrictData$TotalPopulation <- DistrictData$TotalPopulation / 100000
+
 ########################
 # Discriptive statistics
 ########################
@@ -66,19 +69,7 @@ summary(OLSMurderRate)
 DistrictData$district <- as.factor(DistrictData$district)
 
 # Declaring all relevant variables for model integer
-# DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
 DistrictData$Murder <- as.integer(DistrictData$Murder)
-
-# DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
-# DistrictData$FlowRate <- as.integer(DistrictData$FlowRate)
-# DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
-
-# DistrictData$ForeignerRate <- as.integer(DistrictData$ForeignerRate)
-# DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
-# DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
-# DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
-# DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
-# DistrictData$TotalPopulation <- as.integer(DistrictData$TotalPopulation)
 DistrictData$EastWest <- as.integer(DistrictData$EastWest)
 
 ########################
@@ -137,91 +128,11 @@ nb.glm1 <- glm.nb(Murder ~
                   data=DistrictData)
 summary(nb.glm1)
 
-# Extracting the estimated coefficents and confident intervals, then creating their exponential object
-est.nb <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
-incidentrate.nb <- exp(est.nb)
+# Incident rates
+source("Analysis/SupportAnalysis/IncidentRates.R")
 
-# Incident rates and statistical significance
-# Adding coefficients and confident intervals into new data frame 
-
-# Extract coefficients and create confidence intervals for three levels of significance
-est1 <- cbind(Estimate = coef(nb.glm1), 
-              confint(nb.glm1, level=0.90),
-              confint(nb.glm1, level=0.95),
-              confint(nb.glm1, level=0.99))
-est1 <- data.frame(est1)
-
-# Adding three variables (1=TRUE) describing whether coefficient is significant at 
-# a given level of statistical significance 
-est1 <- cbind(est1, 
-              ifelse(sign(est1[2]) == sign(est1[3]), 1, 0),
-              ifelse(sign(est1[4]) == sign(est1[5]), 1, 0),
-              ifelse(sign(est1[6]) == sign(est1[7]), 1, 0))
-est1 <- round(est1, 4)
-
-# Creating a new variable that indicates the level of statistical significance
-# 0=not significant, 1=at 90%level, 2=at 95% level, 3=at 99%level
-est1 <- cbind(est1, 
-              ifelse(est1[10] == 1, 3, 
-                     ifelse(est1[9] == 1, 2,
-                            ifelse(est1[8] == 1, 1, 0))))
-est1 <- est1[,-c(2:10)]
-
-# Creating incident rates by exponentiating the coefficients
-est1 <- cbind(exp(est1[1]), est1[2])
-
-# Creating new variable with stars * 
-names(est1) <- c("Coefficient", "NumberStars")
-est1 <- round(est1, 4)
-est1$NumberStars <- as.factor(est1$NumberStars)
-est1$Stars <- ifelse(est1$NumberStars == 3, "***", # &#9733; is HTML star, but didnt work, + works 
-                     ifelse(est1$NumberStars == 2, "**",
-                            ifelse(est1$NumberStars == 1, "*", "")))
-est1 <- est1[c(1,3)]
-names(est1) <- c("IncidentRate", "_")
-# stargazer(est1, header = FALSE, summary= FALSE, type="html", digits = 4)
-
-# Predicted probabilities: East West, all else set to the mean
-nb.df1 <- data.frame(FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
-                    FlowRate = mean(DistrictData$FlowRate),
-                    TurnoutPercentage = mean(DistrictData$TurnoutPercentage),
-                    ForeignerRate = mean(DistrictData$ForeignerRate),
-                    MarriageRate = mean(DistrictData$MarriageRate),
-                    MaleRate = mean(DistrictData$MaleRate),
-                    YouthRate = mean(DistrictData$YouthRate),
-                    UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
-                    TotalPopulation = mean(DistrictData$TotalPopulation),
-                       EastWest = factor(1:2, levels = 1:2))
-class(nb.df1$EastWest) <- "integer"
-nb.df1$Murder <- predict(nb.glm1, nb.df1, type = "response")
-nb.df1
-
-# Predicted probabilities: East West, with independent variable turnout varying 
-nb.df2 <- data.frame(
-  FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
-  FlowRate = mean(DistrictData$FlowRate),
-  ForeignerRate = mean(DistrictData$ForeignerRate),
-  MarriageRate = mean(DistrictData$MarriageRate),
-  MaleRate = mean(DistrictData$MaleRate),
-  YouthRate = mean(DistrictData$YouthRate),
-  UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
-  TotalPopulation = mean(DistrictData$TotalPopulation),
-  TurnoutPercentage = rep(seq(from = min(DistrictData$TurnoutPercentage), to = max(DistrictData$TurnoutPercentage), length.out = 100), 2),
-  EastWest = factor(rep(1:2, each = 100), levels = 1:2))
-
-class(nb.df2$EastWest) <- "integer"
-nb.df2 <- cbind(nb.df2, predict(nb.glm1, nb.df2, type = "link", se.fit=TRUE))
-nb.df2 <- within(nb.df2, {
-  Murder <- exp(fit)
-  LL <- exp(fit - 1.96 * se.fit)
-  UL <- exp(fit + 1.96 * se.fit)})
-
-class(nb.df2$EastWest) <- "factor"
-
-ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
-  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
-  geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Voter Turnout", y = "Predicted Number of Murders")
+# Predicted probabilities
+source("Analysis/SupportAnalysis/PredictedProbabilities.R")
 
 # Goodness of fit
 # Computating the cross-validation for this model
@@ -238,4 +149,4 @@ CV.glm <- c(CV.glm$delta) # the first value is no corrected for larger data
 # Further code 
 ########################
 
-# source("Analysis/DataAnalysisBackupZelig.R")
+# source("Analysis/SupportAnalysis/DataAnalysisBackupZelig.R")
