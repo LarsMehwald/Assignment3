@@ -20,11 +20,11 @@ source("References/CiteRPackages.R")
 # Loading the data set
 source("Analysis/DataMerging.R")
 
-# Performing the analyses
-source("Analysis/DataAnalysis.R")
-
 # Creating a map 
 # source("Analysis/GeoCodesMaps.R")
+
+# Performing the analyses
+source("Analysis/DataAnalysis.R")
 
 # creating graphs 
 source("Analysis/Graphs.R")

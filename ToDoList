@@ -3,7 +3,7 @@ To Do List until Friday, 11 December 2015:
 Current word count: ~ 2000 (7/12/2015, 4pm)
 
 Data and model:
-- Categorical data: do we want to use predicted probabilities for conditional probabilities  (e.g. for East/West)?
+- Categorical data?
 - Operationalisation of IV: is there a better way to operationalise social capital? Number of refugee initiatives (problem: large amount of 0)? 
 - Incident rates: better interpret our regression outputs, e.g. with incident rates (what is the substantial meaning of a regression result?). 
 - Map: we should include the map created by Daniel.
