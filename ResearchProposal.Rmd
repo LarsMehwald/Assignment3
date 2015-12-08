@@ -1,7 +1,7 @@
 ---
-title: 'Research Proposal: Social Capital and Crime in Germany'
+title: "Research Proposal: Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
-date: "13 November 2015"
+date: "11 December 2015"
 output: pdf_document
 bibliography:
 - References/RpackageCitations.bib
@@ -10,6 +10,10 @@ bibliography:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r LoadingRfiles, include=FALSE, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+# source("MasterFile.R")
 ```
 
 ## Introduction 
@@ -52,7 +56,7 @@ We want to measure different dimensions of our independent variable social capit
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The third dimension of social capital we tried to measure was the civil action within a community. We then looked at the voting turnout during the federal elections of 2013 in Germany to estimate the effect of social capital on crime through the participation of community members in policy decisions while deciding on the next government.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity.  We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).
 
 ### Summary statistics for all variables
 ```{r SummaryStatistics, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
@@ -177,10 +181,5 @@ However, further estimations are needed to improve the interpretations of the co
 
 ## Regression analysis 
 
-```{r plot, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
-
-source("Analysis/DataAnalysis.R")
-
-```
 
 # References
