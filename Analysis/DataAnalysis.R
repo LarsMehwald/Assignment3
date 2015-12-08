@@ -129,7 +129,7 @@ nb.glm1 <- glm.nb(Murder ~
 summary(nb.glm1)
 
 # Incident rates
-source("Analysis/SupportAnalysis/IncidentRates.R")
+# source("Analysis/SupportAnalysis/IncidentRates.R")
 
 # Predicted probabilities
 source("Analysis/SupportAnalysis/PredictedProbabilities.R")
