@@ -131,6 +131,8 @@ colours <- brewer.pal(8,"Reds") # Pick color palette
 # Plot the shapefiles colored
 plot(GermanDistricts,border = "darkgrey", col = colours[classes])
 
+########################## Problem: rows have to match one to one for this to work. not sure they are matching
+
 #### STARTING here CODE is not cleaned and working
 
 
