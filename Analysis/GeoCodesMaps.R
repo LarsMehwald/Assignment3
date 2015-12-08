@@ -101,13 +101,23 @@ GermanDistricts@data <- GermanDistricts@data[order(GermanDistricts$district),]
 DistrictData_subset$district <- as.integer(DistrictData_subset$district)
 
 # Merge DistrictData and GermanDistricts by "district"
-GermanData <- merge(GermanDistricts@data, DistrictData_subset, by="district")
+GermanData <- left_join(GermanDistricts@data, DistrictData_subset, by="district", warnings())
 ## NOTE: Most of not matched NA's cases are in Mecklenburg-Vorpommern. Thus this state is underrepresented in dataframe
 
-# Reproject the data onto a "longlat" projection #NOt WORKINg
-GermanData <- spTransform(GermanData, CRS("+proj=longlat"))
+GermanData <- na.omit(GermanData)
 
 
+### Plotting Number of Initiatives per District
+
+# Cut data into classes
+classes <- cut(DistrictData_subset$Murder, c(0,1,2,3,4,5,10,15,29.27), right = FALSE)
+levels(classes) <- c("0", "1", "2", "3","4", "5", "10", "15 or higher")
+
+# Assign colors
+colours <- brewer.pal(8,"RdPu") # Pick color palette
+
+# Plot the shapefiles colored
+plot(GermanDistricts,border = "darkgrey", col = colours[classes])
 
 
 #### STARTING here CODE is not cleaned and working
