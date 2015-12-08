@@ -193,6 +193,14 @@ DistrictData$CrimeRate <-
 DistrictData <- na.omit(DistrictData)
 
 ########################
+# Encoding DistrictName to UTF-8
+########################
+
+# Converting Character Vectors between Encodings from latin1 to UTF-8
+# More compatibility with German characters
+DistrictData$DistrictName <- iconv(DistrictData$DistrictName, from ="latin1", to = "UTF-8")
+
+########################
 # Saving the data
 ########################
 

@@ -29,12 +29,12 @@ DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
 # Crime Rate hist
 histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
  geom_histogram(binwidth=500, colour="black", fill="white") 
-plot(histCrimeRate)
+#plot(histCrimeRate)
 
 # Non-Violent Crime histogram
 histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
  geom_histogram(binwidth=400, colour="black", fill="white")
-plot(histNonViolentCrimeRate)
+#plot(histNonViolentCrimeRate)
 
 # Violent Crime histogram
 histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
