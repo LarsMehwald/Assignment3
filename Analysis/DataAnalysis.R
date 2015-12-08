@@ -4,14 +4,6 @@
 # Data analysis
 ########################
 
-# Loading data set from csv file
-# DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
-# Removing ranking column (it was added in the saving process in DataMerging.R)
-# DistrictData <- DistrictData[,-1]
-
-# Sourcing the merging file
-# source("DataMerging.R")
-
 ########################
 # Manipulating data
 ########################
@@ -21,6 +13,8 @@
 DistrictData$Foundations_cat <- cut(DistrictData$FoundationsTotal,
                                     breaks= c(0,15,26,44,1194), 
                                     labels= c('1stQu', '2ndQu', '3rdQu', '4thQu'))
+
+names(DistrictData)[names(DistrictData) == 'murderAndManslaughter'] <- 'Murder'
 
 ########################
 # Discriptive statistics
@@ -51,11 +45,18 @@ OLSViolent <- lm(ViolentCrimeRate ~
 summary(OLSViolent)
 
 # Linear regression model 2
-OLSMurder <- lm(MurderRate ~
+OLSMurderRate <- lm(MurderRate ~
                   FoundationsDensity100k + FlowRate + TurnoutPercentage + 
                   ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
                 data=DistrictData)
-summary(OLSMurder)
+summary(OLSMurderRate)
+
+# Linear regression model 3
+OLSMurderRate <- lm(Murder ~
+                      FoundationsDensity100k + FlowRate + TurnoutPercentage + 
+                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + TotalPopulation + EastWest,
+                    data=DistrictData)
+summary(OLSMurderRate)
 
 ########################
 # Declaring integer data for analysis
@@ -65,17 +66,19 @@ summary(OLSMurder)
 DistrictData$district <- as.factor(DistrictData$district)
 
 # Declaring all relevant variables for model integer
-DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
+# DistrictData$MurderRate <- as.integer(DistrictData$MurderRate)
+DistrictData$Murder <- as.integer(DistrictData$Murder)
 
-DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
-DistrictData$FlowRate <- as.integer(DistrictData$FlowRate)
-DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
+# DistrictData$FoundationsDensity100k <- as.integer(DistrictData$FoundationsDensity100k)
+# DistrictData$FlowRate <- as.integer(DistrictData$FlowRate)
+# DistrictData$TurnoutPercentage <- as.integer(DistrictData$TurnoutPercentage)
 
-DistrictData$ForeignerRate <- as.integer(DistrictData$ForeignerRate)
-DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
-DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
-DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
-DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
+# DistrictData$ForeignerRate <- as.integer(DistrictData$ForeignerRate)
+# DistrictData$MarriageRate <- as.integer(DistrictData$MarriageRate)
+# DistrictData$MaleRate <- as.integer(DistrictData$MaleRate)
+# DistrictData$YouthRate <- as.integer(DistrictData$YouthRate)
+# DistrictData$UnemployedPercentage <- as.integer(DistrictData$UnemployedPercentage)
+# DistrictData$TotalPopulation <- as.integer(DistrictData$TotalPopulation)
 DistrictData$EastWest <- as.integer(DistrictData$EastWest)
 
 ########################
@@ -83,9 +86,9 @@ DistrictData$EastWest <- as.integer(DistrictData$EastWest)
 ########################
 
 # Poission model 1
-poisson.glm1 <- glm(MurderRate ~ 
+poisson.glm1 <- glm(Murder ~ 
                       FoundationsDensity100k + FlowRate + TurnoutPercentage + 
-                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + TotalPopulation + EastWest,
                     data=DistrictData, 
                family = poisson())
 
@@ -113,9 +116,9 @@ incidentrate1 <- exp(poisson.est1)
 ########################
 
 # Quasi Poission model 1
-quasipoisson.glm1 <- glm(MurderRate ~ 
+quasipoisson.glm1 <- glm(Murder ~ 
                            FoundationsDensity100k + FlowRate + TurnoutPercentage + 
-                           ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                           ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + TotalPopulation + EastWest,
                          data=DistrictData, 
                     family = quasipoisson())
 
@@ -128,10 +131,11 @@ incidentrate.qpoisson <- exp(est.qpoisson)
 ########################
 
 # negative Binomial model 1
-nb.glm1 <- glm.nb(MurderRate ~ 
+nb.glm1 <- glm.nb(Murder ~ 
                     FoundationsDensity100k + FlowRate + TurnoutPercentage + 
-                    ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                    ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + TotalPopulation + EastWest,
                   data=DistrictData)
+summary(nb.glm1)
 
 # Extracting the estimated coefficents and confident intervals, then creating their exponential object
 est.nb <- cbind(Estimate = coef(nb.glm1), confint(nb.glm1))
@@ -163,7 +167,7 @@ est1 <- cbind(est1,
                             ifelse(est1[8] == 1, 1, 0))))
 est1 <- est1[,-c(2:10)]
 
-# Creating indicrnt rates by exponentiating the coefficients
+# Creating incident rates by exponentiating the coefficients
 est1 <- cbind(exp(est1[1]), est1[2])
 
 # Creating new variable with stars * 
@@ -177,7 +181,50 @@ est1 <- est1[c(1,3)]
 names(est1) <- c("IncidentRate", "_")
 # stargazer(est1, header = FALSE, summary= FALSE, type="html", digits = 4)
 
-# Goodness of fit: Computating the cross-validation for this model
+# Predicted probabilities: East West, all else set to the mean
+nb.df1 <- data.frame(FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
+                    FlowRate = mean(DistrictData$FlowRate),
+                    TurnoutPercentage = mean(DistrictData$TurnoutPercentage),
+                    ForeignerRate = mean(DistrictData$ForeignerRate),
+                    MarriageRate = mean(DistrictData$MarriageRate),
+                    MaleRate = mean(DistrictData$MaleRate),
+                    YouthRate = mean(DistrictData$YouthRate),
+                    UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
+                    TotalPopulation = mean(DistrictData$TotalPopulation),
+                       EastWest = factor(1:2, levels = 1:2))
+class(nb.df1$EastWest) <- "integer"
+nb.df1$Murder <- predict(nb.glm1, nb.df1, type = "response")
+nb.df1
+
+# Predicted probabilities: East West, with independent variable turnout varying 
+nb.df2 <- data.frame(
+  FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
+  FlowRate = mean(DistrictData$FlowRate),
+  ForeignerRate = mean(DistrictData$ForeignerRate),
+  MarriageRate = mean(DistrictData$MarriageRate),
+  MaleRate = mean(DistrictData$MaleRate),
+  YouthRate = mean(DistrictData$YouthRate),
+  UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
+  TotalPopulation = mean(DistrictData$TotalPopulation),
+  TurnoutPercentage = rep(seq(from = min(DistrictData$TurnoutPercentage), to = max(DistrictData$TurnoutPercentage), length.out = 100), 2),
+  EastWest = factor(rep(1:2, each = 100), levels = 1:2))
+
+class(nb.df2$EastWest) <- "integer"
+nb.df2 <- cbind(nb.df2, predict(nb.glm1, nb.df2, type = "link", se.fit=TRUE))
+nb.df2 <- within(nb.df2, {
+  Murder <- exp(fit)
+  LL <- exp(fit - 1.96 * se.fit)
+  UL <- exp(fit + 1.96 * se.fit)})
+
+class(nb.df2$EastWest) <- "factor"
+
+ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Voter Turnout", y = "Predicted Number of Murders")
+
+# Goodness of fit
+# Computating the cross-validation for this model
 # It is the sum of the squared differenced between model predictions
 # for different subsets of the data.
 # This is a reasonable approach, since we are interested in how good/stable is 
