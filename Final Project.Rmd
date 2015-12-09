@@ -1,5 +1,5 @@
 ---
-title: "Research Proposal: Social Capital and Crime in Germany"
+title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
 output: pdf_document
@@ -7,6 +7,7 @@ bibliography:
 - References/RpackageCitations.bib
 - References/References.bib
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -58,114 +59,11 @@ We want to measure different dimensions of our independent variable social capit
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).
 
-### Summary statistics for all variables
-```{r SummaryStatistics, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
-# Setting the working directory
-library("repmis")
-library("stargazer")
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
-# Loading data set from csv file
-DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
-# Removing ranking column (it was added in the saving process in DataMerging.R)
-DistrictData <- DistrictData[,-1]
-# Removing some variables
-DistrictDataReduced <- DistrictData[,c(22,40,47,49,50,51,52,53,54,56)]
-# Creation of summary statistics
-stargazer(DistrictDataReduced,
-          header = FALSE)
-```
 
 ## Methodology and analysis 
 For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagement in the community, political participation and community stability-- and the incidence of violent and non-violent crime. 
 
 Since crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.
-
-### This histogram shows the frequency distribution of the independent variable crime rate (total number of crimes per 100,000 individuals) for all districts
-```{r hist1, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
-# Setting the working directory
-library("repmis")
-library("ggplot2")
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
-# Loading data set from csv file
-DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
-# Removing ranking column (it was added in the saving process in DataMerging.R)
-DistrictData <- DistrictData[,-1]
-# Changing class of Crime Rate
-DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
-# Crime Rate hist
-histCrimeRate <- ggplot(DistrictData, aes(CrimeRate)) + 
-  geom_histogram(binwidth=500, colour="black", fill="white") 
-plot(histCrimeRate)
-```
-
-### This histogram shows the frequency distribution of the independent variable violent crime rate (total number of violent crimes per 100,000 individuals) for all districts
-```{r hist2, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
-# Setting the working directory
-library("repmis")
-library("ggplot2")
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
-# Loading data set from csv file
-DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
-# Removing ranking column (it was added in the saving process in DataMerging.R)
-DistrictData <- DistrictData[,-1]
-# Changing class of Crime Rate
-DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
-# Violent crime Rate hist
-histViolentCrimeRate <- ggplot(DistrictData, aes(ViolentCrimeRate)) + 
-  geom_histogram(binwidth=50, colour="black", fill="white")
-plot(histViolentCrimeRate)
-```
-
-### This histogram shows the frequency distribution of the independent variable non-violent crime rate (total number of non-violent crimes per 100,000 individuals) for all districts
-```{r hist3, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
-# Setting the working directory
-library("repmis")
-library("ggplot2")
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
-# Loading data set from csv file
-DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
-# Removing ranking column (it was added in the saving process in DataMerging.R)
-DistrictData <- DistrictData[,-1]
-# Changing class of Crime Rate
-DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
-# Crime Rate hist
-histNonViolentCrimeRate <- ggplot(DistrictData, aes(NonViolentCrimeRate)) + 
-  geom_histogram(binwidth=400, colour="black", fill="white")
-plot(histNonViolentCrimeRate)
-```
-
-### This correlation matrix shows the correlation of the independent and control variables. The correlation coefficient and their significance are shown in the upper right corner. The bivariate scatter plots are shown in the lower left corner. The histogram for all independent variables are shown on the diagonal.
-```{r correlation, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=6, fig.height=6}
-# Setting the working directory
-library("repmis")
-library("ggplot2")
-library("PerformanceAnalytics")
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
-# Loading data set from csv file
-DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
-# Removing ranking column (it was added in the saving process in DataMerging.R)
-DistrictData <- DistrictData[,-1]
-# Changing class of Crime Rate
-DistrictData$CrimeRate <- as.integer(as.character(DistrictData$CrimeRate))
-# Correlation matrix 
-datacor <- DistrictData[, c(22,40,47,49,50,51,52,53)]
-chart.Correlation(datacor, historgram=T)
-```
 
 ## Optimal data set 
 Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. An optimal data set, however, would have the following characteristics.  
