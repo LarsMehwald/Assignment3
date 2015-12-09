@@ -1,5 +1,5 @@
 ---
-title: "Research Proposal: Social Capital and Crime in Germany"
+title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
 output: pdf_document
