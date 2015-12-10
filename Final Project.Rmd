@@ -8,7 +8,6 @@ bibliography:
 - References/References.bib
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -28,7 +27,6 @@ Social capital can be summerised as the links, shared values, and understandings
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ever since Robert Putnam coined the term social capital in the late ninties, a vast literature has focused on the relationship between violent crimes and social capital. Lederman [@Ledermanetal2002] identified that the prevalence of trust on community members has an effect on violent crimes and that the social cohesion through participation and membership in community organisations only impact violent crime levels depending on the type of religious and social organisation engaged. Additionally, Hanslaimer [@hanslmaier2015mehr] showed that altruism has a general negative effect on violent crimes, but other indicators of social capital only proved to be related to other types of high impact crime and not to violent crime. 
 
 Hence, we are interested in responding to the question: how do social networks and bonds in a given community determine the level of violent crime? 
-
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Additionally, we expect to observe that in societies with anomic and disorganization symptoms there are lower levels of social capital. Within these societies, groups and member interactions find themselves in a disruptive phase, damaging social bonds, norms, values, understandings and commitment. Environments where people lack a strong moral order lead to individual members to behave more egoistically therefore diminishing social capital. Disintegration of members of the community weakens social cohesion and promotes individualism that end in 'Machiavellian' competition, fostering feelings of status insecurity. Moreover, certain social milieus tend to be more vulnerable and respond therefore with violence. In addition, social capital provides means for informal punishment within a given community. Therefore more social capital leads to more abiding to social norms. In contrast communities that lack of social capital can merely punish norm diverging behaviour informally to a lesser extent and therefore are expected to have a higher crime rate.   
 
@@ -63,7 +61,6 @@ We want to measure different dimensions of our independent variable social capit
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The third dimension of social capital we tried to measure was the civil action within a community. We then looked at the voting turnout during the federal elections of 2013 in Germany to estimate the effect of social capital on crime through the participation of community members in policy decisions while deciding on the next government.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).
-
 
 ## Methodology and analysis 
 For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagement in the community, political participation and community stability-- and the incidence of violent and non-violent crime. 
