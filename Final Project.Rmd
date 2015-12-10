@@ -12,7 +12,10 @@ bibliography:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r LoadingRfiles, echo=FALSE, warning=FALSE, message=FALSE}
+```{r LoadingRfiles, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+
+# Cache = TRUE
+# So in case something is changed upstram, this needs to be removed!
 
 source("MasterFile.R")
 ```
@@ -80,14 +83,17 @@ In addition individual level data would improve the analysis by allowing for a m
 ### OLS regression analysis
 ```{r plotOLS, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
+source("Analysis/RPackages.R")
 stargazer(OLSViolent, OLSMurderRate, OLSMurder,
           type = "latex",
-          header = FALSE, # important not to have stargazer information in markdown file 
+          header = FALSE, 
           title = "OLS regression models for the dependent variables violent crime, murder rate and total number of murders",
           digits = 2,
 #          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"))
 ```
+
+Here should be some interpretation of the regression results `r round(coef(OLSViolent)[2], digits=2)`. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. 
 
 ### Poisson, quasi-poisson and negative binomial regression analysis
 ```{r plotPoissonNegativeBinomial, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
@@ -99,7 +105,11 @@ stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
           digits = 2,
 #          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"))
+
+# in case we dont want to have the tables centered: http://stackoverflow.com/questions/33543159/how-to-align-stargazer-table-to-the-left-when-type-latex
 ```
+
+Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. 
 
 ## Conclusion 
 A preliminary analysis of the model specification shows that the negative binomial model does not change the statistical significance of the main explainatory variables.  

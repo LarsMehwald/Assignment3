@@ -2,7 +2,11 @@ To Do List until Friday, 11 December 2015:
 
 Current word count: ~ 2400 (10/12/2015, 2pm)
 
-Important note: When knit a new pdf file, make sure you have closed the latest pdf version of the document, otherwise it is going to crash. 
+Important notes: 
+- When knit a new pdf file, make sure you have closed the latest pdf version of the document, otherwise it is going to crash (if it is viewed with another program than the standard one).
+- Always include a line break in the beginning of a code chunk.
+- I cached the Master Code chunk. Hence if there are any changes in the data or in the analysis, hence this (cache option) needs to be removed to change the output. 
+- I have taken out some packages, because it just takes too long. 
 
 Data and model:
 - Categorical data: Do we want another categorical variable (other than EastWest) to do conditional predicted probabilities?
