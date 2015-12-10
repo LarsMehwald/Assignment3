@@ -50,5 +50,8 @@ Marriages <- Marriages[Marriages$district > 1000,]
 Marriages <- rbind(Marriages, MarriageBerHam)
 rm(MarriageBerHam)
 
+# Renaming marriage variable
+names(Marriages)[names(Marriages) == "verheiratet / eingetragene Lebenspartnerschaft"] <- "marriageTotal"
+
 # Saving the data
 write.csv(Marriages, file = "Analysis/data/Marriages2.csv")

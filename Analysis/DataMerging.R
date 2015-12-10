@@ -7,7 +7,8 @@
 
 # Sourcing the R files that load and prepare data
 source("Analysis/data/PksKreise.R")
-source("Analysis/data/Marriage.R")
+# source("Analysis/data/Marriage.R")
+source("Analysis/data/Marriage2.R")
 # source("Analysis/data/Graduates.R")
 source("Analysis/data/Graduates2.R")
 source("Analysis/data/LaborMarket.R")
@@ -73,7 +74,7 @@ rm(CrMaGrLaPoDPoAMiReElFoFrg)
 # rm(CrimeRate)
 
 # Removing redundant variables (year variables)
-DistrictData <- DistrictData[,-c(18,20,23,37,54)]
+DistrictData <- DistrictData[,-c(19,22,36,53)]
 
 # Renaming year variable (from year.x)
 names(DistrictData)[3] <- "year"
@@ -84,7 +85,7 @@ names(DistrictData)[3] <- "year"
 
 # Marraig rate: Number of new marriages in percent 
 DistrictData$MarriagePercentage <- 
-  (DistrictData$HusbandAndWifeTotal / 
+  (DistrictData$marriageTotal / 
      DistrictData$TotalPopulation) * 100
 
 # Proportion of male population
