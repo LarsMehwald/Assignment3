@@ -106,11 +106,9 @@ stargazer(OLSViolent, OLSMurderRate, OLSMurder,
           header = FALSE, 
           title = "OLS regression models for the dependent variables violent crime, murder rate and total number of murders",
           digits = 2,
-#          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"))
 ```
 
-Here should be some interpretation of the regression results . Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. 
 
 ### Poisson, quasi-poisson and negative binomial regression analysis
 ```{r plotGLM, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
@@ -120,37 +118,51 @@ stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
           header = FALSE, 
           title = "Poisson, quasi-poisson and negative binomial regression models",
           digits = 2,
-#          no.space = TRUE, # single.row = TRUE
           omit.stat = c("f", "ser"))
 
 # in case we dont want to have the tables centered: http://stackoverflow.com/questions/33543159/how-to-align-stargazer-table-to-the-left-when-type-latex
 ```
 
-Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. 
 
 ## Predicted probabilities
 
-```{r PredictedProbabilities, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+```{r PredProbTurnout, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "Voter Turnout", y = "Predicted Number of Murders")
 
+```
+
+```{r PredProbFlow, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
 ggplot(nb.df3, aes(FlowPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "In and Outflow", y = "Predicted Number of Murders")
+
+```
+
+```{r PredProbYouth, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 ggplot(nb.df4, aes(YouthPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "Youth Percentage", y = "Predicted Number of Murders")
 
+```
+
+```{r PredProbMale, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
 ggplot(nb.df5, aes(MalePercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "Male Percentage", y = "Predicted Number of Murders")
+
+```
+
+```{r PredProbMarriage, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 ggplot(nb.df6, aes(MarriagePercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
