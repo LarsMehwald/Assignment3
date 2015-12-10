@@ -6,8 +6,8 @@
 
 Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-              "car", "MASS", "PerformanceAnalytics", "pscl", "AER", "ggmap"
-#              , "rworldmap", "boot", "foreign", "rgdal","maptools", 
+              "car", "MASS", "PerformanceAnalytics", "pscl", "AER", "ggmap", "boot"
+#              , "rworldmap", "foreign", "rgdal","maptools", 
 #              "gpclib",
 #              "maps", "mapproj", "RColorBrewer"
                )

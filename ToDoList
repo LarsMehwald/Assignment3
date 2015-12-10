@@ -11,7 +11,7 @@ Important notes:
 Data and model:
 - Categorical data: Do we want another categorical variable (other than EastWest) to do conditional predicted probabilities?
 - Operationalisation of IV: is there a better way to operationalise social capital? Number of refugee initiatives (problem: large amount of 0)? 
-- Control variable: finding a better measure for education, marraige is problematic because it measures the number of new marriages per year and not the total amount of marriaged couples [there is measure from 2011 census]
+- Control variable: finding a better measure for education, marraige is problematic because it measures the number of new marriages per year and not the total amount of marriaged couples [there is measure from 2011 census], checking the coding for male percentage!
 - Rescaling the variables so the coefficients make sense 
 - Better interpret our regression outputs, e.g. with incident rates (what is the substantial meaning of a regression result?). 
 - Map: we should include the map created by Daniel.

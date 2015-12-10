@@ -12,7 +12,7 @@ bibliography:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r LoadingRfiles, echo=FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+```{r LoadingRfiles, echo=FALSE, warning=FALSE, message=FALSE}
 
 # Cache = TRUE
 # So in case something is changed upstram, this needs to be removed!
@@ -83,7 +83,7 @@ In addition individual level data would improve the analysis by allowing for a m
 ### OLS regression analysis
 ```{r plotOLS, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
-source("Analysis/RPackages.R")
+# source("Analysis/RPackages.R")
 stargazer(OLSViolent, OLSMurderRate, OLSMurder,
           type = "latex",
           header = FALSE, 
