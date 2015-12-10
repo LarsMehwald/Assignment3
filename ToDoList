@@ -13,9 +13,16 @@ In line R commands:
 `r round(coef(OLSViolent)[2], digits=2)`
 
 Data and model:
+<<<<<<< Updated upstream
 - Operationalisation of IV: is there a better way to operationalise social capital? Number of refugee initiatives? 
 - Control variable: finding a better measure for education, checking the coding for male percentage!
 - Better interpret our regression outputs, e.g. with incident rates (what is the substantial meaning of a regression result?) and predicted probabilities. 
+=======
+- Categorical data: Do we want another categorical variable (other than EastWest) to do conditional predicted probabilities? No, I believe, adding another categorical variable would be only more problematic and right now we don't have any theoretical argumentation for this. 
+- Operationalisation of IV: is there a better way to operationalise social capital? Number of refugee initiatives (problem: large amount of 0)? 
+- Control variable: finding a better measure for education 
+- Better interpret our regression outputs, e.g. with incident rates (what is the substantial meaning of a regression result?). 
+>>>>>>> Stashed changes
 - Map: we should include the map created by Daniel.
 - Problems not addressed/solved in research: the aggregation level (i.e. district) might be too high to find network effect, operationalisation of social capital, reverse causality (solution: instrumental regression? panel data? individual level data?), data availability highly restricted in the field of crime in Germany (crime data for 2013 and 2014, no coherent data for political motivated crimes in Germany)
 - Explain choice of model; theoretical dimension of social capital variables; rational for control vairables
