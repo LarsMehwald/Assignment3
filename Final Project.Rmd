@@ -2,7 +2,7 @@
 title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
-output: word_document
+output: pdf_document
 bibliography:
 - References/RpackageCitations.bib
 - References/References.bib
@@ -45,17 +45,20 @@ Hence, we are interested in responding to the question: how do social networks a
 We have data from three main sources:  
 
 1. German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" [PKS])  
-2. The Regional Database Germany published by the Federal Statistical Office and the statistical Offices of the Laender.  
+2. The Regional Database Germany published by the Federal Statistical Office and the Statistical Offices of the Laender.  
 3. German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")  
 
 ### Data gathering process
+It is best practice in reproducible research to gather the data dynamically from the respective web pages. This way the research remains up-to-date as data is being updated. To perform this task transparently, it is necessary to evaluate if a data source has been updated - which can be performed with a unique SHA1 hash.  
 
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In our case, we could only find a stable link for the PKS statistics. All the other data sets by the Statistical Offices of the Laender had session IDs included into the link to the respective data sets. This prevented us from gatherin the data dynamically. Therefore we downloaded the data sets manually and consequentially loaded them. 
 
 ### Dependent Variable
-Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing time series for district level crime for more years than 2013 and 2014. However, we were not able to use the most recent data for the year 2014, because socio economic data at the district level in the Regional Database Germany is mostly available only before 2013 and in some cases only before 2012 for all districts.   
+Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing time series for district level crime for more years than 2013 and 2014. However, we were not able to use the most recent data for the year 2014, because socio economic data at the district level in the Regional Database Germany is mostly available only before 2013 and in some cases only before 2012 for all districts. German Federal Police has published further statistics on the aggregate level for every year from many decades. We urge the German Federal Police to adopt best practices in the field of open data and provide the crime statistics on a desaggregated levels for this time period.  
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This data is also disaggregated regarding the type of crime. One limitation to this statistics, however, is that they are missing the dark figure of crime --the unreported number of crime in this area. Different methods exist to assess the dark figure of crime, but it is difficult to assess their reliability. Hence, depending on the type of crime, the reported numbers might contain a structural bias, i.e. some types of crime are reported at a different rate than others (e.g. when insurance companies require individual reporting). Since we focus on crimes that disrupt the social community, we expect a high level of reporting and this reporting to be consistently high across different types of disruptive crimes. It is possible to focus on one type of crime for our dependent variable, but also to construct a dependent variable summarizing different types of crime. The latter approach might prove utile, since this provides greater variance in the dependent variable.   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This data is also disaggregated regarding the type of crime. One limitation to this statistics, however, is that they are missing the dark figure of crime - the unreported number of crime in this area. Different methods exist to assess the dark figure of crime, but it is difficult to assess their reliability. Hence, depending on the type of crime, the reported numbers might contain a structural bias, i.e. some types of crime are reported at a different rate than others (e.g. when insurance companies require individual reporting). Furthermore a change in the amount of reported crimes can be attributed potentially to the level of activitly of the police - and not to the actual level of crime within a given community. Since we focus on crimes that disrupt the social community, we expect a high level of reporting and this reporting to be consistently high across different types of disruptive crimes. It is possible to focus on one type of crime for our dependent variable, but also to construct a dependent variable summarizing different types of crime. The latter approach might prove utile, since this provides greater variance in the dependent variable. 
+
+Problem of aggregation level on the district level: `r round(mean(DistrictData$TotalPopulation*100000), digits=-3)`. The constraint is the DV, because socio economic data is often provided on a sublevel 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Following this approach, we construct two measures for violent and non-violent crimes, for which we used a simple addition method, including all crimes fitting each category. After this addition, we then proceed by creating crime rates for total, violent, and non-violent crimes. This computation will allow for better comparison between districts. 
 
@@ -75,7 +78,7 @@ Share of foreigners
 
 Marriage: also registered partnership (could also be used as independent explanatory variable)
 
-Furthermore we control for the size of the total population.
+Furthermore we control for the size of the total population (not in all models).
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In addition we included a dummy variable for districts of former East and West Germany. This distinction might prove useful to control for different socialization of citizens under different institutional regimes: it might be the case that these institutional factors have shaped the process of social capital formation. Former West Germany is coded as1 and former East Germany is coded as 2. Berlin is coded as 2 for two reasons. First it was not officially listed as one of the German Laender ("Berlin Frage"). Second it is deemed to be distinct from former West Germany.
 
@@ -98,7 +101,6 @@ For this research, we have conducted a cross-district study to estimate the rela
 ### OLS regression analysis
 ```{r plotOLS, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
-# source("Analysis/RPackages.R") # this line is needed if header is cached
 stargazer(OLSViolent, OLSMurderRate, OLSMurder,
           type = "latex",
           header = FALSE, 

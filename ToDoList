@@ -1,22 +1,23 @@
 To Do List until Friday, 11 December 2015:
 
-Current word count: ~ 2500 (10/12/2015, 7pm)
+Current word count: ~ 2850 (10/12/2015, 8pm)
 
 Important notes: 
 - When knit a new pdf file, make sure you have closed the latest pdf version of the document, otherwise it is going to crash (if it is viewed with another program than the standard one).
-- Always include a line break in the beginning of a code chunk.
-- I cached the Master Code chunk. Hence if there are any changes in the data or in the analysis, hence this (cache option) needs to be removed to change the output. 
-- I have taken out some packages, because it just takes too long to load. 
+- Always include a line break in the beginning of a code chunk - otherwise one gets an error message.
+- I cached the Master Code chunk (every once in a while). Hence if there are any changes in the data or in the analysis, hence this (cache option) needs to be removed to change the output. 
+- I have taken out some packages out of the loading process, because it just takes too long to load. 
 
 Data and model:
-- Categorical data: Do we want another categorical variable (other than EastWest) to do conditional predicted probabilities?
 - Operationalisation of IV: is there a better way to operationalise social capital? Number of refugee initiatives? 
 - Control variable: finding a better measure for education, checking the coding for male percentage!
-- Better interpret our regression outputs, e.g. with incident rates (what is the substantial meaning of a regression result?). 
+- Better interpret our regression outputs, e.g. with incident rates (what is the substantial meaning of a regression result?) and predicted probabilities. 
 - Map: we should include the map created by Daniel.
 - Problems not addressed/solved in research: the aggregation level (i.e. district) might be too high to find network effect, operationalisation of social capital, reverse causality (solution: instrumental regression? panel data? individual level data?), data availability highly restricted in the field of crime in Germany (crime data for 2013 and 2014, no coherent data for political motivated crimes in Germany)
 - Explain choice of model; theoretical dimension of social capital variables; rational for control vairables
 - We need to describe the data gathering process.
+- We need to version control the data that we can download from the web with SHA1 hashes (lecture 6).
+- We need to dynamically download the foundation data set (if possible).
 
 Presentable output:
 - Homepage: we need sinthesize our results in a reasonable manner, attract the readers attention and find some story line through our research. In order to create a homepage with GitHub, we need to have an index.html file in a new branch (with a specific name) in our repository.
