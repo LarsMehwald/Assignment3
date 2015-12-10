@@ -48,6 +48,10 @@ We have data from three main sources:
 2. The Regional Database Germany published by the Federal Statistical Office and the statistical Offices of the Laender.  
 3. German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")  
 
+### Data gathering process
+
+
+
 ### Dependent Variable
 Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing time series for district level crime for more years than 2013 and 2014. However, we were not able to use the most recent data for the year 2014, because socio economic data at the district level in the Regional Database Germany is mostly available only before 2013 and in some cases only before 2012 for all districts.   
 
@@ -67,23 +71,28 @@ We want to measure different dimensions of our independent variable social capit
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In addition we included a dummy variable for districts of former East and West Germany. This distinction might prove useful to control for different socialization of citizens under different institutional regimes: it might be the case that these institutional factors have shaped the process of social capital formation. Former West Germany is coded as1 and former East Germany is coded as 2. Berlin is coded as 2 for two reasons. First it was not officially listed as one of the German Laender ("Berlin Frage"). Second it is deemed to be distinct from former West Germany.
+
+### Optimal data set 
+Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. An optimal data set, however, would have the following characteristics.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It would contain time series data for every unit of observation ("Kreis"). This would enable us to use a fixed effects model (since we already have cross-sectional data) and thereby controlling for unobserved heterogeneity between the observations. This data would also enable us to address the most severe challenge to this analysis: reverse causality. People are deemed to respond to a criminal environment and it is likely that this response is correlated with our independent variables (i.e. people with higher social capital tend to move out of areas with high crime rates).  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On optimal dataset would also contain more detailed data. First, this would allow more elaborate control variables. This is important, because so far it is not possible to use a fixed-effects model that would at least control of unobserved heterogeneity. Second, this would yield the possibility to use better measurements and further dimensions of social capital.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In addition individual level data would improve the analysis by allowing for a multi-level analysis controlling for individuals characteristics. This could also address the main challenge of reversed causality since migration between different districts could be explicitly modelled. This would also reduce the interpretative challenge of ecological fallacy due to the high level of aggregation (currently at the "Kreis" level).
+
 ## Methodology and analysis 
 For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagement in the community, political participation and community stability-- and the incidence of violent and non-violent crime. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Since crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.
-
-## Optimal data set 
-Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. An optimal data set, however, would have the following characteristics.  
-It would contain time series data for every unit of observation ("Kreis"). This would enable us to use a fixed effects model (since we already have cross-sectional data) and thereby controlling for unobserved heterogeneity between the observations. This data would also enable us to address the most severe challenge to this analysis: reverse causality. People are deemed to respond to a criminal environment and it is likely that this response is correlated with our independent variables (i.e. people with higher social capital tend to move out of areas with high crime rates).  
-On optimal dataset would also contain more detailed data. First, this would allow more elaborate control variables. This is important, because so far it is not possible to use a fixed-effects model that would at least control of unobserved heterogeneity. Second, this would yield the possibility to use better measurements and further dimensions of social capital.  
-In addition individual level data would improve the analysis by allowing for a multi-level analysis controlling for individuals characteristics. This could also address the main challenge of reversed causality since migration between different districts could be explicitly modelled. This would also reduce the interpretative challenge of ecological fallacy due to the high level of aggregation (currently at the "Kreis" level).
 
 ## Regression analysis 
 
 ### OLS regression analysis
 ```{r plotOLS, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
-# source("Analysis/RPackages.R")
+# source("Analysis/RPackages.R") # this line is needed if header is cached
 stargazer(OLSViolent, OLSMurderRate, OLSMurder,
           type = "latex",
           header = FALSE, 
