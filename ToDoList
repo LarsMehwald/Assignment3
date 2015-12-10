@@ -9,6 +9,7 @@ Data and model:
 - Map: we should include the map created by Daniel.
 - Problems not addressed/solved in research: the aggregation level (i.e. district) might be too high to find network effect, operationalisation of social capital, reverse causality (solution: instrumental regression? panel data? individual level data?), data availability highly restricted in the field of crime in Germany (crime data for 2013 and 2014, no coherent data for political motivated crimes in Germany)
 - Explain choice of model; theoretical dimension of social capital variables; rational for control vairables
+- I excluded "gpclib" from the R Packages, since I cannot load it. 
 
 Presentable output:
 - Homepage: we need sinthesize our results in a reasonable manner, attract the readers attention and find some story line through our research. In order to create a homepage with GitHub, we need to have an index.html file in a new branch (with a specific name) in our repository.

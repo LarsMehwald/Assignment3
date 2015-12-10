@@ -12,8 +12,9 @@ bibliography:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r LoadingRfiles, include=FALSE, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
-# source("MasterFile.R")
+```{r LoadingRfiles, echo=FALSE, warning=FALSE, message=FALSE}
+
+source("MasterFile.R")
 ```
 
 ## Introduction 
@@ -38,10 +39,11 @@ Hence, we are interested in responding to the question: how do social networks a
 
 ## Data
 ### Data sources:
-We have data from three main sources: 
-1. German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" [PKS])
-2. The Regional Database Germany published by the Federal Statistical Office and the statistical Offices of the Laender. 
-3. German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")
+We have data from three main sources:  
+
+1. German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" [PKS])  
+2. The Regional Database Germany published by the Federal Statistical Office and the statistical Offices of the Laender.  
+3. German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")  
 
 ### Dependent Variable
 Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing time series for district level crime for more years than 2013 and 2014. However, we were not able to use the most recent data for the year 2014, because socio economic data at the district level in the Regional Database Germany is mostly available only before 2013 and in some cases only before 2012 for all districts.   
@@ -65,7 +67,7 @@ We want to measure different dimensions of our independent variable social capit
 ## Methodology and analysis 
 For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagement in the community, political participation and community stability-- and the incidence of violent and non-violent crime. 
 
-Since crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Since crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.
 
 ## Optimal data set 
 Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. An optimal data set, however, would have the following characteristics.  
@@ -73,13 +75,14 @@ It would contain time series data for every unit of observation ("Kreis"). This 
 On optimal dataset would also contain more detailed data. First, this would allow more elaborate control variables. This is important, because so far it is not possible to use a fixed-effects model that would at least control of unobserved heterogeneity. Second, this would yield the possibility to use better measurements and further dimensions of social capital.  
 In addition individual level data would improve the analysis by allowing for a multi-level analysis controlling for individuals characteristics. This could also address the main challenge of reversed causality since migration between different districts could be explicitly modelled. This would also reduce the interpretative challenge of ecological fallacy due to the high level of aggregation (currently at the "Kreis" level).
 
+## Regression analysis 
+
+
+
 ## Conclusion 
 A preliminary analysis of the model specification shows that the negative binomial model does not change the statistical significance of the main explainatory variables.  
 Moreover, only some independent variables attain statistical significance for violent crimes.  
 Further model specifications are require in order to improve the reliability of these findings.  
 However, further estimations are needed to improve the interpretations of the coeficients, since the estimated coefficents are log likelihoods.
-
-## Regression analysis 
-
 
 # References
