@@ -2,6 +2,8 @@ To Do List until Friday, 11 December 2015:
 
 Current word count: ~ 2400 (10/12/2015, 2pm)
 
+Important note: When knit a new pdf file, make sure you have closed the latest pdf version of the document, otherwise it is going to crash. 
+
 Data and model:
 - Categorical data: Do we want another categorical variable (other than EastWest) to do conditional predicted probabilities?
 - Operationalisation of IV: is there a better way to operationalise social capital? Number of refugee initiatives (problem: large amount of 0)? 
