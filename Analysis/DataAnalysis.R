@@ -34,7 +34,8 @@ summary(DistrictData$TurnoutPercentage)
 # Murder Rate Histogram
 histMurder <- ggplot(DistrictData, aes(MurderRate)) + 
   geom_histogram(binwidth=1, colour="black", fill="white")
-plot(histMurder) 
+# plot(histMurder) # commented out so it does not appear in final document 
+
 # We can observe that the homicide count is right skewed
 # OLS regression models are inappropiate when small number of events
 # Poisson models offer a good alternative
@@ -58,11 +59,11 @@ OLSMurderRate <- lm(MurderRate ~
 summary(OLSMurderRate)
 
 # Linear regression model 3
-OLSMurderRate <- lm(Murder ~
+OLSMurder <- lm(Murder ~
                       FoundationsDensity100k + FlowRate + TurnoutPercentage + 
                       ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + TotalPopulation + EastWest,
                     data=DistrictData)
-summary(OLSMurderRate)
+summary(OLSMurder)
 
 ########################
 # Declaring integer data for analysis

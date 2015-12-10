@@ -14,12 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r LoadingRfiles, echo=FALSE, warning=FALSE, message=FALSE}
 
-library("repmis")
-possible_dir <- c("D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3", 
-                  "~/HSoG/DataAnalysis/GitHub/Assignment3")
-set_valid_wd(possible_dir)
-rm(possible_dir)
-
 source("MasterFile.R")
 ```
 
@@ -83,7 +77,16 @@ In addition individual level data would improve the analysis by allowing for a m
 
 ## Regression analysis 
 
+```{r plotOLSMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
+stargazer(OLSViolent, OLSMurderRate, OLSMurder,
+          type = "latex",
+          header = FALSE, # important not to have stargazer information in markdown file 
+          title = "OLS regression models for the dependent variables violent crime, murder rate and total number of murders",
+          digits = 2,
+#          no.space = TRUE, # single.row = TRUE
+          omit.stat = c("f", "ser"))
+```
 
 ## Conclusion 
 A preliminary analysis of the model specification shows that the negative binomial model does not change the statistical significance of the main explainatory variables.  
