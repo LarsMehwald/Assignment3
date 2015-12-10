@@ -77,7 +77,8 @@ In addition individual level data would improve the analysis by allowing for a m
 
 ## Regression analysis 
 
-```{r plotOLSMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+### OLS regression analysis
+```{r plotOLS, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 stargazer(OLSViolent, OLSMurderRate, OLSMurder,
           type = "latex",
@@ -88,10 +89,24 @@ stargazer(OLSViolent, OLSMurderRate, OLSMurder,
           omit.stat = c("f", "ser"))
 ```
 
+### Poisson, quasi-poisson and negative binomial regression analysis
+```{r plotPoissonNegativeBinomial, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
+          type = "latex",
+          header = FALSE, 
+          title = "Poisson, quasi-poisson and negative binomial regression models",
+          digits = 2,
+#          no.space = TRUE, # single.row = TRUE
+          omit.stat = c("f", "ser"))
+```
+
 ## Conclusion 
 A preliminary analysis of the model specification shows that the negative binomial model does not change the statistical significance of the main explainatory variables.  
 Moreover, only some independent variables attain statistical significance for violent crimes.  
 Further model specifications are require in order to improve the reliability of these findings.  
 However, further estimations are needed to improve the interpretations of the coeficients, since the estimated coefficents are log likelihoods.
+
+----
 
 # References
