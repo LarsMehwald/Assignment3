@@ -1,13 +1,12 @@
 To Do List until Friday, 11 December 2015:
 
-Current word count: ~ 2000 (7/12/2015, 4pm)
+Current word count: ~ 2400 (10/12/2015, 2pm)
 
 Data and model:
-- Categorical data? ->>>>>>>> Lars, what do you mean with this?
+- Categorical data: Do we want another categorical variable (other than EastWest) to do conditional predicted probabilities?
 - Operationalisation of IV: is there a better way to operationalise social capital? Number of refugee initiatives (problem: large amount of 0)? 
 - Incident rates: better interpret our regression outputs, e.g. with incident rates (what is the substantial meaning of a regression result?). 
 - Map: we should include the map created by Daniel.
-- Encoding of district names. (I solved this problem by using a new DistrictName list from a data frame witout problems)
 - Problems not addressed/solved in research: the aggregation level (i.e. district) might be too high to find network effect, operationalisation of social capital, reverse causality (solution: instrumental regression? panel data? individual level data?), data availability highly restricted in the field of crime in Germany (crime data for 2013 and 2014, no coherent data for political motivated crimes in Germany)
 - Explain choice of model; theoretical dimension of social capital variables; rational for control vairables
 
