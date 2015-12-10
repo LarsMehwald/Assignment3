@@ -20,6 +20,7 @@ class(nb.df1$EastWest) <- "integer"
 nb.df1$Murder <- predict(nb.glm1, nb.df1, type = "response")
 nb.df1
 
+# Turnout
 # Predicted probabilities: East West, with independent variable turnout varying 
 nb.df2 <- data.frame(
   FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
@@ -47,6 +48,7 @@ ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "Voter Turnout", y = "Predicted Number of Murders")
 
+# Flow
 # Predicted probabilities: East West, with independent variable flow varying
 # it is not significant as we would like it to be, but reverse causality
 nb.df3 <- data.frame(
@@ -75,33 +77,7 @@ ggplot(nb.df3, aes(FlowPercentage, Murder)) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "In and Outflow", y = "Predicted Number of Murders")
 
-# Predicted probabilities: East West, with independent variable turnout varying 
-nb.df2 <- data.frame(
-  FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
-  FlowPercentage = mean(DistrictData$FlowPercentage),
-  ForeignerPercentage = mean(DistrictData$ForeignerPercentage),
-  MarriagePercentage = mean(DistrictData$MarriagePercentage),
-  MalePercentage = mean(DistrictData$MalePercentage),
-  YouthPercentage = mean(DistrictData$YouthPercentage),
-  UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
-  TotalPopulation = mean(DistrictData$TotalPopulation),
-  TurnoutPercentage = rep(seq(from = min(DistrictData$TurnoutPercentage), to = max(DistrictData$TurnoutPercentage), length.out = 100), 2),
-  EastWest = factor(rep(1:2, each = 100), levels = 1:2))
-
-class(nb.df2$EastWest) <- "integer"
-nb.df2 <- cbind(nb.df2, predict(nb.glm1, nb.df2, type = "link", se.fit=TRUE))
-nb.df2 <- within(nb.df2, {
-  Murder <- exp(fit)
-  LL <- exp(fit - 1.96 * se.fit)
-  UL <- exp(fit + 1.96 * se.fit)})
-
-class(nb.df2$EastWest) <- "factor"
-
-ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
-  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
-  geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Voter Turnout", y = "Predicted Number of Murders")
-
+# Youth
 # Predicted probabilities: East West, with control variable youth Percentage varying
 nb.df4 <- data.frame(
   FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
@@ -129,6 +105,7 @@ ggplot(nb.df4, aes(YouthPercentage, Murder)) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "Youth Percentage", y = "Predicted Number of Murders")
 
+# Male
 # Predicted probabilities: East West, with control variable male Percentage varying
 nb.df5 <- data.frame(
   FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
@@ -155,3 +132,31 @@ ggplot(nb.df5, aes(MalePercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "Male Percentage", y = "Predicted Number of Murders")
+
+# Marriage
+# Predicted probabilities: East West, with control variable marriage percentage varying
+nb.df6 <- data.frame(
+  FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
+  TurnoutPercentage = mean(DistrictData$TurnoutPercentage),
+  ForeignerPercentage = mean(DistrictData$ForeignerPercentage),
+  MalePercentage = mean(DistrictData$MalePercentage),
+  YouthPercentage = mean(DistrictData$YouthPercentage),
+  FlowPercentage = mean(DistrictData$FlowPercentage),
+  UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
+  TotalPopulation = mean(DistrictData$TotalPopulation),
+  MarriagePercentage = rep(seq(from = min(DistrictData$MarriagePercentage), to = max(DistrictData$MarriagePercentage), length.out = 100), 2),
+  EastWest = factor(rep(1:2, each = 100), levels = 1:2))
+
+class(nb.df6$EastWest) <- "integer"
+nb.df6 <- cbind(nb.df6, predict(nb.glm1, nb.df6, type = "link", se.fit=TRUE))
+nb.df6 <- within(nb.df6, {
+  Murder <- exp(fit)
+  LL <- exp(fit - 1.96 * se.fit)
+  UL <- exp(fit + 1.96 * se.fit)})
+
+class(nb.df6$EastWest) <- "factor"
+
+ggplot(nb.df6, aes(MarriagePercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Marriage Percentage", y = "Predicted Number of Murders")

@@ -2,7 +2,7 @@
 title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
-output: word_document
+output: pdf_document
 bibliography:
 - References/RpackageCitations.bib
 - References/References.bib
@@ -127,6 +127,37 @@ stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
 ```
 
 Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. 
+
+## Predicted probabilities
+
+```{r PredictedProbabilities, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Voter Turnout", y = "Predicted Number of Murders")
+
+ggplot(nb.df3, aes(FlowPercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "In and Outflow", y = "Predicted Number of Murders")
+
+ggplot(nb.df4, aes(YouthPercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Youth Percentage", y = "Predicted Number of Murders")
+
+ggplot(nb.df5, aes(MalePercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Male Percentage", y = "Predicted Number of Murders")
+
+ggplot(nb.df6, aes(MarriagePercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Marriage Percentage", y = "Predicted Number of Murders")
+
+```
 
 ## Conclusion 
 A preliminary analysis of the model specification shows that the negative binomial model does not change the statistical significance of the main explanatory variables.  
