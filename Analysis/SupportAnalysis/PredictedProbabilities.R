@@ -7,12 +7,12 @@
 
 # Predicted probabilities: East West, all else set to the mean
 nb.df1 <- data.frame(FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
-                     FlowRate = mean(DistrictData$FlowRate),
+                     FlowPercentage = mean(DistrictData$FlowPercentage),
                      TurnoutPercentage = mean(DistrictData$TurnoutPercentage),
-                     ForeignerRate = mean(DistrictData$ForeignerRate),
-                     MarriageRate = mean(DistrictData$MarriageRate),
-                     MaleRate = mean(DistrictData$MaleRate),
-                     YouthRate = mean(DistrictData$YouthRate),
+                     ForeignerPercentage = mean(DistrictData$ForeignerPercentage),
+                     MarriagePercentage = mean(DistrictData$MarriagePercentage),
+                     MalePercentage = mean(DistrictData$MalePercentage),
+                     YouthPercentage = mean(DistrictData$YouthPercentage),
                      UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
                      TotalPopulation = mean(DistrictData$TotalPopulation),
                      EastWest = factor(1:2, levels = 1:2))
@@ -23,11 +23,11 @@ nb.df1
 # Predicted probabilities: East West, with independent variable turnout varying 
 nb.df2 <- data.frame(
   FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
-  FlowRate = mean(DistrictData$FlowRate),
-  ForeignerRate = mean(DistrictData$ForeignerRate),
-  MarriageRate = mean(DistrictData$MarriageRate),
-  MaleRate = mean(DistrictData$MaleRate),
-  YouthRate = mean(DistrictData$YouthRate),
+  FlowPercentage = mean(DistrictData$FlowPercentage),
+  ForeignerPercentage = mean(DistrictData$ForeignerPercentage),
+  MarriagePercentage = mean(DistrictData$MarriagePercentage),
+  MalePercentage = mean(DistrictData$MalePercentage),
+  YouthPercentage = mean(DistrictData$YouthPercentage),
   UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
   TotalPopulation = mean(DistrictData$TotalPopulation),
   TurnoutPercentage = rep(seq(from = min(DistrictData$TurnoutPercentage), to = max(DistrictData$TurnoutPercentage), length.out = 100), 2),
@@ -52,13 +52,13 @@ ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
 nb.df3 <- data.frame(
   FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
   TurnoutPercentage = mean(DistrictData$TurnoutPercentage),
-  ForeignerRate = mean(DistrictData$ForeignerRate),
-  MarriageRate = mean(DistrictData$MarriageRate),
-  MaleRate = mean(DistrictData$MaleRate),
-  YouthRate = mean(DistrictData$YouthRate),
+  ForeignerPercentage = mean(DistrictData$ForeignerPercentage),
+  MarriagePercentage = mean(DistrictData$MarriagePercentage),
+  MalePercentage = mean(DistrictData$MalePercentage),
+  YouthPercentage = mean(DistrictData$YouthPercentage),
   UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
   TotalPopulation = mean(DistrictData$TotalPopulation),
-  FlowRate = rep(seq(from = min(DistrictData$FlowRate), to = max(DistrictData$FlowRate), length.out = 100), 2),
+  FlowPercentage = rep(seq(from = min(DistrictData$FlowPercentage), to = max(DistrictData$FlowPercentage), length.out = 100), 2),
   EastWest = factor(rep(1:2, each = 100), levels = 1:2))
 
 class(nb.df3$EastWest) <- "integer"
@@ -70,7 +70,7 @@ nb.df3 <- within(nb.df3, {
 
 class(nb.df3$EastWest) <- "factor"
 
-ggplot(nb.df3, aes(FlowRate, Murder)) +
+ggplot(nb.df3, aes(FlowPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "In and Outflow", y = "Predicted Number of Murders")
@@ -78,11 +78,11 @@ ggplot(nb.df3, aes(FlowRate, Murder)) +
 # Predicted probabilities: East West, with independent variable turnout varying 
 nb.df2 <- data.frame(
   FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
-  FlowRate = mean(DistrictData$FlowRate),
-  ForeignerRate = mean(DistrictData$ForeignerRate),
-  MarriageRate = mean(DistrictData$MarriageRate),
-  MaleRate = mean(DistrictData$MaleRate),
-  YouthRate = mean(DistrictData$YouthRate),
+  FlowPercentage = mean(DistrictData$FlowPercentage),
+  ForeignerPercentage = mean(DistrictData$ForeignerPercentage),
+  MarriagePercentage = mean(DistrictData$MarriagePercentage),
+  MalePercentage = mean(DistrictData$MalePercentage),
+  YouthPercentage = mean(DistrictData$YouthPercentage),
   UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
   TotalPopulation = mean(DistrictData$TotalPopulation),
   TurnoutPercentage = rep(seq(from = min(DistrictData$TurnoutPercentage), to = max(DistrictData$TurnoutPercentage), length.out = 100), 2),
@@ -102,17 +102,17 @@ ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "Voter Turnout", y = "Predicted Number of Murders")
 
-# Predicted probabilities: East West, with control variable youth rate varying
+# Predicted probabilities: East West, with control variable youth Percentage varying
 nb.df4 <- data.frame(
   FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
   TurnoutPercentage = mean(DistrictData$TurnoutPercentage),
-  ForeignerRate = mean(DistrictData$ForeignerRate),
-  MarriageRate = mean(DistrictData$MarriageRate),
-  MaleRate = mean(DistrictData$MaleRate),
-  FlowRate = mean(DistrictData$FlowRate),
+  ForeignerPercentage = mean(DistrictData$ForeignerPercentage),
+  MarriagePercentage = mean(DistrictData$MarriagePercentage),
+  MalePercentage = mean(DistrictData$MalePercentage),
+  FlowPercentage = mean(DistrictData$FlowPercentage),
   UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
   TotalPopulation = mean(DistrictData$TotalPopulation),
-  YouthRate = rep(seq(from = min(DistrictData$YouthRate), to = max(DistrictData$YouthRate), length.out = 100), 2),
+  YouthPercentage = rep(seq(from = min(DistrictData$YouthPercentage), to = max(DistrictData$YouthPercentage), length.out = 100), 2),
   EastWest = factor(rep(1:2, each = 100), levels = 1:2))
 
 class(nb.df4$EastWest) <- "integer"
@@ -124,22 +124,22 @@ nb.df4 <- within(nb.df4, {
 
 class(nb.df4$EastWest) <- "factor"
 
-ggplot(nb.df4, aes(YouthRate, Murder)) +
+ggplot(nb.df4, aes(YouthPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Youth Rate", y = "Predicted Number of Murders")
+  labs(x = "Youth Percentage", y = "Predicted Number of Murders")
 
-# Predicted probabilities: East West, with control variable male rate varying
+# Predicted probabilities: East West, with control variable male Percentage varying
 nb.df5 <- data.frame(
   FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
   TurnoutPercentage = mean(DistrictData$TurnoutPercentage),
-  ForeignerRate = mean(DistrictData$ForeignerRate),
-  MarriageRate = mean(DistrictData$MarriageRate),
-  YouthRate = mean(DistrictData$YouthRate),
-  FlowRate = mean(DistrictData$FlowRate),
+  ForeignerPercentage = mean(DistrictData$ForeignerPercentage),
+  MarriagePercentage = mean(DistrictData$MarriagePercentage),
+  YouthPercentage = mean(DistrictData$YouthPercentage),
+  FlowPercentage = mean(DistrictData$FlowPercentage),
   UnemployedPercentage = mean(DistrictData$UnemployedPercentage),
   TotalPopulation = mean(DistrictData$TotalPopulation),
-  MaleRate = rep(seq(from = min(DistrictData$MaleRate), to = max(DistrictData$MaleRate), length.out = 100), 2),
+  MalePercentage = rep(seq(from = min(DistrictData$MalePercentage), to = max(DistrictData$MalePercentage), length.out = 100), 2),
   EastWest = factor(rep(1:2, each = 100), levels = 1:2))
 
 class(nb.df5$EastWest) <- "integer"
@@ -151,7 +151,7 @@ nb.df5 <- within(nb.df5, {
 
 class(nb.df5$EastWest) <- "factor"
 
-ggplot(nb.df5, aes(MaleRate, Murder)) +
+ggplot(nb.df5, aes(MalePercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Male Rate", y = "Predicted Number of Murders")
+  labs(x = "Male Percentage", y = "Predicted Number of Murders")
