@@ -82,13 +82,13 @@ names(DistrictData)[3] <- "year"
 # Creation of relative measurements
 ########################
 
-# Marraig rate: Number of marriages per 100,000 inhabitants 
-DistrictData$MarriageRate <- 
+# Marraig rate: Number of new marriages in percent 
+DistrictData$MarriagePercentage <- 
   (DistrictData$HusbandAndWifeTotal / 
-     DistrictData$TotalPopulation) * 100000
+     DistrictData$TotalPopulation) * 100
 
 # Proportion of male population
-DistrictData$MaleRate <- 
+DistrictData$MalePercentage <- 
   (DistrictData$MalePopulation / 
      DistrictData$TotalPopulation) * 100
 
@@ -105,9 +105,9 @@ DistrictData$MaleRate <-
 
 # Share of young individuals # I don't think we should include 0-17. Very low probability of child comiting crimes. 
 # Youth Rate is a better control variable
-DistrictData$YouthRate <- 
+DistrictData$YouthPercentage <- 
   (DistrictData$Pop18to24 / 
-     DistrictData$TotalPopulation) * 100000
+     DistrictData$TotalPopulation) * 100
 
 # Share of Believers
 # Problematic: rates are significant lower in former East Germany 
@@ -115,16 +115,16 @@ DistrictData$YouthRate <-
 # (DistrictData$BelieversTotal / 
 #   DistrictData$TotalPopulation) * 100000
 
-# Share of Foreigners per District
-DistrictData$ForeignerRate <-
+# Share of Foreigners per District in percent
+DistrictData$ForeignerPercentage <-
   (DistrictData$ForeignersTotal /
-     DistrictData$TotalPopulation) * 100000
+     DistrictData$TotalPopulation) * 100
 
-# Total Mobility rate 
-DistrictData$FlowRate <- 
+# Total mobility rate in percent
+DistrictData$FlowPercentage <- 
   ((DistrictData$OutflowTotal +
      DistrictData$InfluxTotal) /
-     DistrictData$TotalPopulation) * 100000
+     DistrictData$TotalPopulation) * 100
 
 ########################
 # Create composite dependent variable:
@@ -185,7 +185,6 @@ DistrictData$CrimeTotal <-
 DistrictData$CrimeRate <- 
   (DistrictData$CrimeTotal / 
      DistrictData$TotalPopulation) * 100000
-
 
 ########################
 # Encoding DistrictName to UTF-8

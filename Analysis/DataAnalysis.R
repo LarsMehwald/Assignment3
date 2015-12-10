@@ -27,9 +27,18 @@ DistrictData <- na.omit(DistrictData)
 ########################
 
 # Summary statistics of independent variables 
-summary(DistrictData$FoundationsTotal)
-summary(DistrictData$FlowTotal)
+summary(DistrictData$FoundationsDensity100k)
+summary(DistrictData$FlowPercentage)
 summary(DistrictData$TurnoutPercentage)
+
+# Summary statistics of control variables 
+summary(DistrictData$ForeignerPercentage)
+summary(DistrictData$MarriagePercentage)
+summary(DistrictData$MalePercentage)
+summary(DistrictData$YouthPercentage)
+summary(DistrictData$UnemployedPercentage)
+summary(DistrictData$TotalPopulation)
+summary(DistrictData$EastWest)
 
 # Murder Rate Histogram
 histMurder <- ggplot(DistrictData, aes(MurderRate)) + 
@@ -46,22 +55,22 @@ histMurder <- ggplot(DistrictData, aes(MurderRate)) +
 
 # Linear regression model 1
 OLSViolent <- lm(ViolentCrimeRate ~
-                    FoundationsDensity100k + FlowRate + TurnoutPercentage + 
-                    ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                    FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
+                    ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + EastWest,
                   data=DistrictData)
 summary(OLSViolent)
 
 # Linear regression model 2
 OLSMurderRate <- lm(MurderRate ~
-                  FoundationsDensity100k + FlowRate + TurnoutPercentage + 
-                  ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + EastWest,
+                  FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
+                  ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + EastWest,
                 data=DistrictData)
 summary(OLSMurderRate)
 
 # Linear regression model 3
 OLSMurder <- lm(Murder ~
-                      FoundationsDensity100k + FlowRate + TurnoutPercentage + 
-                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + TotalPopulation + EastWest,
+                      FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
+                      ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + TotalPopulation + EastWest,
                     data=DistrictData)
 summary(OLSMurder)
 
@@ -82,8 +91,8 @@ DistrictData$EastWest <- as.integer(DistrictData$EastWest)
 
 # Poission model 1
 poisson.glm1 <- glm(Murder ~ 
-                      FoundationsDensity100k + FlowRate + TurnoutPercentage + 
-                      ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + TotalPopulation + EastWest,
+                      FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
+                      ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + TotalPopulation + EastWest,
                     data=DistrictData, 
                family = poisson())
 
@@ -112,8 +121,8 @@ incidentrate1 <- exp(poisson.est1)
 
 # Quasi Poission model 1
 quasipoisson.glm1 <- glm(Murder ~ 
-                           FoundationsDensity100k + FlowRate + TurnoutPercentage + 
-                           ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + TotalPopulation + EastWest,
+                           FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
+                           ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + TotalPopulation + EastWest,
                          data=DistrictData, 
                     family = quasipoisson())
 
@@ -127,8 +136,8 @@ incidentrate.qpoisson <- exp(est.qpoisson)
 
 # negative Binomial model 1
 nb.glm1 <- glm.nb(Murder ~ 
-                    FoundationsDensity100k + FlowRate + TurnoutPercentage + 
-                    ForeignerRate + MarriageRate + MaleRate + YouthRate + UnemployedPercentage + TotalPopulation + EastWest,
+                    FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
+                    ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + TotalPopulation + EastWest,
                   data=DistrictData)
 summary(nb.glm1)
 
