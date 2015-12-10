@@ -126,7 +126,9 @@ stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
 
 ## Predicted probabilities
 
-```{r PredProbTurnout, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+Predicted probabilities yield the possibility to visualize the statistical and substantial effect of the different variables. In the following predicted probabilities are shown conditional on the dichotomous variable EastWest. 
+
+```{r PredProbTurnout, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 
 ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
@@ -135,7 +137,7 @@ ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
 
 ```
 
-```{r PredProbFlow, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+```{r PredProbFlow, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 
 ggplot(nb.df3, aes(FlowPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
@@ -144,7 +146,7 @@ ggplot(nb.df3, aes(FlowPercentage, Murder)) +
 
 ```
 
-```{r PredProbYouth, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+```{r PredProbYouth, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 
 ggplot(nb.df4, aes(YouthPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
@@ -153,7 +155,7 @@ ggplot(nb.df4, aes(YouthPercentage, Murder)) +
 
 ```
 
-```{r PredProbMale, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+```{r PredProbMale, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 
 ggplot(nb.df5, aes(MalePercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
@@ -162,7 +164,7 @@ ggplot(nb.df5, aes(MalePercentage, Murder)) +
 
 ```
 
-```{r PredProbMarriage, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+```{r PredProbMarriage, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 
 ggplot(nb.df6, aes(MarriagePercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
