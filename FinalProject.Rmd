@@ -2,7 +2,7 @@
 title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
-output: pdf_document
+output: word_document
 bibliography:
 - References/RpackageCitations.bib
 - References/References.bib
@@ -56,9 +56,9 @@ It is best practice in reproducible research to gather the data dynamically from
 ### Dependent Variable
 Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing time series for district level crime for more years than 2013 and 2014. However, we were not able to use the most recent data for the year 2014, because socio economic data at the district level in the Regional Database Germany is mostly available only before 2013 and in some cases only before 2012 for all districts. German Federal Police has published further statistics on the aggregate level for every year from many decades. We urge the German Federal Police to adopt best practices in the field of open data and provide the crime statistics on a desaggregated levels for this time period.  
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This data is also disaggregated regarding the type of crime. One limitation to this statistics, however, is that they are missing the dark figure of crime - the unreported number of crime in this area. Different methods exist to assess the dark figure of crime, but it is difficult to assess their reliability. Hence, depending on the type of crime, the reported numbers might contain a structural bias, i.e. some types of crime are reported at a different rate than others (e.g. when insurance companies require individual reporting). Furthermore a change in the amount of reported crimes can be attributed potentially to the level of activitly of the police - and not to the actual level of crime within a given community. Since we focus on crimes that disrupt the social community, we expect a high level of reporting and this reporting to be consistently high across different types of disruptive crimes. It is possible to focus on one type of crime for our dependent variable, but also to construct a dependent variable summarizing different types of crime. The latter approach might prove utile, since this provides greater variance in the dependent variable. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This data is also disaggregated regarding the type of crime. Another limitation to this statistics, however, is that these statistics are missing the dark figure of crime - the unreported number of crime in this area. Different methods exist to assess the dark figure of crime, but it is difficult to assess their reliability. Hence, depending on the type of crime, the reported numbers might contain a structural bias, i.e. some types of crime are reported at a different rate than others (e.g. when insurance companies require individual reporting). Furthermore a change in the amount of reported crimes can be attributed potentially to the level of activitly of the police - and not to the actual level of crime within a given community. Since we focus on crimes that disrupt the social community, we expect a high level of reporting and this reporting to be consistently high across different types of disruptive crimes. It is possible to focus on one type of crime for our dependent variable, but also to construct a dependent variable summarizing different types of crime. The latter approach might prove utile, since this provides greater variance in the dependent variable. 
 
-Problem of aggregation level on the district level: `r round(mean(DistrictData$TotalPopulation*100000), digits=-3)`. The constraint is the DV, because socio economic data is often provided on a sublevel 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Another problem arises due to the level of aggregation. The smallest level of aggregation in the PKS is the district level. However about [insert formula here] persons live within an average district in Germany. Contrary the social capital theory rests on network effects within the social environment of persons. The variables for the district level may be an appropriate proxy for the conditions on a micro level (i.e. network effects). This paralllel development of micro and macro indicators however would need to be shown in order to strengthen the confidence into our findings. As of now, this research is constrained by the statistics provided by the German Federal Police: other socio economic variables are provided on a smaller level of aggregation (i.e. Gemeinde). 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Following this approach, we construct two measures for violent and non-violent crimes, for which we used a simple addition method, including all crimes fitting each category. After this addition, we then proceed by creating crime rates for total, violent, and non-violent crimes. This computation will allow for better comparison between districts. 
 
@@ -110,10 +110,10 @@ stargazer(OLSViolent, OLSMurderRate, OLSMurder,
           omit.stat = c("f", "ser"))
 ```
 
-Here should be some interpretation of the regression results `r round(coef(OLSViolent)[2], digits=2)`. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. 
+Here should be some interpretation of the regression results . Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. Here should be some interpretation of the regression results. 
 
 ### Poisson, quasi-poisson and negative binomial regression analysis
-```{r plotPoissonNegativeBinomial, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+```{r plotGLM, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
           type = "latex",
