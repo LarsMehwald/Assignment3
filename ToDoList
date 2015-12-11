@@ -12,7 +12,18 @@ stargazer(nb.df1,
           type = "latex")
 ```
 
+```{r SummaryStatisticsIV, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
+# Creating a reduced data set
+DistrictDataReducedIV <- DistrictData[,c("FoundationsDensity100k", "FlowPercentage", "TurnoutPercentage", "ForeignerPercentage", "MarriagePercentage", "MalePercentage", "YouthPercentage", "UnemployedPercentage", "TotalPopulation", "EastWest")]
+
+# Creation of summary statistics
+stargazer(DistrictDataReducedIV,
+          nobs = FALSE,
+          header = FALSE,
+          digits=1,
+          type = "latex")
+```
 
 
 In line R commands - RMD conversion to PDF does not work when inserted - I dont know why:
