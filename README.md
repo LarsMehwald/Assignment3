@@ -22,6 +22,8 @@ The main outputs of this research project are as follow:
 
 All of which source their output from the MasterFile.R. This file in turn sources every other required file. 
 
+Additionally, we have created a branch of this repository called gh-pages containing the website with our findings.
+
 ## Describing the repository - File Structure
     .
     ├──
@@ -33,6 +35,8 @@ All of which source their output from the MasterFile.R. This file in turn source
     |  ├──RPackkages.R                   # Compilation of R packages 
     |  ├──SupportAnalysis                 # Further codes to be sourced by DataAnalysis.R
     |  | ├──RawData                       # Folder containing raw data files in .csv format before cleaning 
+    ├──index.html                         # HTML file containing website
+    ├──index.Rmd                         # R Markdown file creating website
     ├──Literature                        # Folder contaiing pdf files with all the literature used for this paper
     ├──MasterFile.R                      # Main sourcing file to run complete Data Analysis.
     ├──README.md                         # Readme File
