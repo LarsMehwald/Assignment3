@@ -16,7 +16,15 @@ nb.df1 <- data.frame(FoundationsDensity100k = mean(DistrictData$FoundationsDensi
                      TotalPopulation = mean(DistrictData$TotalPopulation),
                      EastWest = factor(1:2, levels = 1:2))
 class(nb.df1$EastWest) <- "integer"
+
 nb.df1$Murder <- predict(nb.glm1, nb.df1, type = "response")
+
+nb.df1 <- nb.df1[,c("EastWest", "Murder")]
+
+nb.df1$EastWest <- ordered(nb.df1$EastWest,
+                           levels = c(1,2),
+                           labels = c("West", "East"))
+
 nb.df1
 
 # Turnout
