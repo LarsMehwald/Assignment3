@@ -80,7 +80,24 @@ Crime statistics were obtained from the German Federal Police's crime statistic 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is possible to focus only on one type of crime as our variable of interest, but also to aggregate different types of crime into one single cathegory. First we are considering only two cathegories of crime: violent and non-violent crime. These two measures of crime follow a simple addition method, including in each of them their respective fitting crimes.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Furthermore, given the limitations of our data we have to assume that this cross-sectional data for district crime are a simple count of independent events. In addition, we are more interested in those types of crimes that disrupte a community the most. Thus, our main variable of interest is murder. There are two ways to see and analysis the occurence of murders. In terms of its frequency, e.g. count of occurrances per district in a year, or for easier comparison purposes in terms of murders per population by district. 
-This is relevant to remember for the estimation process. 
+This is relevant to remember for the estimation process.  
+
+```{r SummaryStatisticsDV, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+# Creating a reduced data set
+DistrictDataReduced <- DistrictData[,c("NonViolentCrimeRate", 
+                                       "ViolentCrimeRate",
+                                       "MurderRate",
+                                       "Murder")]
+
+# Creation of summary statistics
+stargazer(DistrictDataReduced,
+          nobs = FALSE,
+          header = FALSE,
+          digits=1,
+          type = "latex")
+```
+
 
 ## Independent Variables
 All data is provided by the German statistical bureau.

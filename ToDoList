@@ -1,6 +1,6 @@
 To Do List until Friday, 11 December 2015:
 
-Current word count: ~ 3000 (10/12/2015, 10pm)
+Current word count: ~ 3200 (11/12/2015, 1pm)
 
 In line R commands - RMD conversion to PDF does not work when inserted - I dont know why:
 `r round(mean(DistrictData$TotalPopulation * 100000), digits=3) `
