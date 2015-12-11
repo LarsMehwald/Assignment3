@@ -5,37 +5,7 @@
 # Creating maps with geocoding and geolocation
 ########################
 
-# Loading required packages 
-Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
-          "xtable", "stargazer", "texreg", "lmtest", "sandwich", "Zelig",
-          "ggmap", "rworldmap", "sp", "RColorBrewer", "car", "MASS", 
-          "maps", "mapproj", "PerformanceAnalytics", "pscl", "AER", "rgdal", 
-          "maptools", "gpclib")
-lapply(Packages, require, character.only = TRUE)
-
-# Setting the commonly used working directory
-possible_dir <- c('D:/Eigene Dokumente/!1 Vorlesungen/!! WS 2015/Introduction to Collaborative Social Science Data Analysis/Assignment3', 
-                  '~/HSoG/DataAnalysis/GitHub/Assignment3')
-set_valid_wd(possible_dir)
-rm(possible_dir)
-
-# Citing R packages 
-#LoadandCite(Packages, file = 'References/RpackageCitations.bib')
-rm(Packages)
-
-# Loading data set from csv file
-DistrictData <- read.csv(file="Analysis/data/DistrictData2013.csv")
-
-# Removing ranking column (it was added in the saving process in DataMerging.R)
-DistrictData <- DistrictData[,-1]
-
-# Converting Character Vectors between Encodings from latin1 to UTF-8
-# More compatibility with German characters
-DistrictData$DistrictName <- iconv(DistrictData$DistrictName, from ="latin1", to = "UTF-8")
-
-########################
-# Geo codes and maps 
-########################
+########## SpatialPolygononsDataFrame
 
 # Loading Shape files downloaded from GADM database (www.gadm.org): by country: Germany (shapefile)
 spdf <- readOGR(dsn="Analysis/data/DEU_adm_shp", layer= "DEU_adm2") # loading layer for districts
@@ -94,7 +64,7 @@ DistrictData_subset[2,1]=11000
 DistrictData_subset[1,1]=02000
 
 # Delete Bodensee observation in SPDF
-GermanDistricts@data <- GermanDistricts@data[-6,]
+GermanDistricts <- GermanDistricts[-6,]
 
 # Order both dataframes by district ID 
 DistrictData_subset <- DistrictData_subset[order(DistrictData_subset$district),]
@@ -106,15 +76,15 @@ DistrictData_subset$district <- as.integer(DistrictData_subset$district)
 # Merge DistrictData and GermanDistricts by "district"
 GermanDistricts@data <- left_join(GermanDistricts@data, DistrictData_subset, by="district")
 
-ggplot(GermanDistricts, aes(long, lat, group = group)) +
-  geom_polygon(aes(fill = GermanDistricts@data$MurderRate), colour = alpha("white", 1/2), size = 0.2) + 
-  geom_polygon(data = state_df, colour = "white", fill = NA) +
-  scale_fill_brewer(palette = "PuRd")
+# Cut data into classes
+cuts <- cut(GermanDistricts@data$MurderRate, c(0,1,2,3,4,5,10,15,29.270), right = FALSE)
+levels(cuts) <- c("0", "1", "2", "3","4", "5", "10", "15 or higher")
+cuts <- as.integer(as.character(cuts))
 
+# Assign colors
+colours <- brewer.pal(8,"OrRd") # Pick color palette
 
-ggplot(GermanDistricts) + geom_polygon(aes(long, lat, group = group, fill = GermanDistricts@data$MurderRate))+
-  scale_fill_brewer(palette = "Reds")
-
+spplot(GermanDistricts, "MurderRate", col.regions=colours, at=cuts)
 
 
 #########################
@@ -122,14 +92,16 @@ ggplot(GermanDistricts) + geom_polygon(aes(long, lat, group = group, fill = Germ
 #########################
 
 # Cut data into classes
-classes <- cut(DistrictData_subset$MurderRate, c(0,1,2,3,4,5,10,15,29.270), right = FALSE)
-levels(classes) <- c("0", "1", "2", "3","4", "5", "10", "15 or higher")
+DistrictData_subset$classes <- cut(DistrictData_subset$MurderRate, c(0,1,2,3,4,5,10,15,29.270), right = FALSE, 
+               include.lowest = TRUE, labels =c("0", "1", "2", "3","4", "5", "10", "15 or higher"))
+labels= c("0", "1", "2", "3","4", "5", "10", "15 or higher")
 
 # Assign colors
-colours <- brewer.pal(8,"Reds") # Pick color palette
+colours <- brewer.pal(8,"OrRd") # Pick color palette
 
 # Plot the shapefiles colored
-plot(GermanDistricts,border = "darkgrey", col = colours[classes])
+plot(GermanDistricts,border = "darkgrey", col = colours[DistrictData_subset$classes])
+legend("left", fill = colours, legend = labels, title = "Murder Rate", cex = 1)
 
 ########################## Problem: rows have to match one to one for this to work. not sure they are matching
 

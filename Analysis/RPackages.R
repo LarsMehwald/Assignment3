@@ -9,7 +9,7 @@ Packages <- c("rio", "dplyr", "tidyr", "repmis", "httr", "knitr", "ggplot2",
               "car", "MASS", "PerformanceAnalytics", "pscl", "AER", "ggmap", "boot"
               , "rworldmap", "foreign", "rgdal","maptools", 
               "gpclib",
-              "maps", "mapproj", "RColorBrewer"
+              "maps", "mapproj", "RColorBrewer","rgeos"
                )
 
 lapply(Packages, require, character.only = TRUE)
