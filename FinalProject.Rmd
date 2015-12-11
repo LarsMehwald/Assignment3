@@ -1,0 +1,184 @@
+---
+title: "Social Capital and Crime in Germany"
+author: "Daniel Salgado Moreno and Lars Mehwald"
+date: "11 December 2015"
+output: pdf_document
+bibliography:
+- References/RpackageCitations.bib
+- References/References.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r LoadingRfiles, echo=FALSE, warning=FALSE, message=FALSE}
+
+# Cache = TRUE
+# So in case something is changed upstram, this needs to be removed!
+
+source("MasterFile.R")
+```
+
+## Introduction 
+Most of crime studies are based on the rational choice assumptions of legal and criminal returns and the importance of deterrence to reduce criminal behaviors [@becker1968]. However, less has been written about the relevance of social interactions explaining criminal behaviours. This work draws on new data in Germany and investigates this relationship with different measurements for social capital and various statistical analyses. Though several methodological problems persist throughout the research, a preliminary conclusion can be drawn: higher voter turnout in federal elections (civic participation) is highly correlated with lower murder rates. Further theoretical and empirical research is required to assess the causal relationship between social capital and homicides. 
+
+## Theory
+Social capital can be summerized as the links, shared values, and understandings in society that enable individuals and groups to trust each other and so work as a group to overcome collective action problems [@OECD]. The concept of social capital gained importance after Robert Putnam used it to describe the anomic state of the American society at the beginning of the 21st century [@putnam2001bowling]. He argued that a decrease in community linkages that once held societies together, translates into a loss of social capital [@putnam2001bowling]. Social capital is commonly defined using a five dimensional analysis framework, which includes: social participation, civic participation, reciprocity and trust, social networks, and social support and views of the local areas [@WhitingHarper2003]. Putnam [@putnam2001bowling] subdivides the engagement component of social capital into social and civic participation, reclassifying participation into a subset of different participation spheres that contain political, civic and religious participation, workplace connections, informal social ties, and philanthropy, altruism, and volunteering [@Messneretal2004]. Furthermore, among other forms of political participation, he describes voting, political knowledge and interest, party identification, and involvements in political campaigns as subcategories of civic participation. Others types of participation include membership and attendance, as well as involvement in charity, religious and community associations. However, Putnam also recognizes that not all forms of social capital produce positive outcomes, due to strong association between some forms of bounding social capital with hostility against minorities or community outsiders, and the possibility of information flow disruptions [@Messneretal2004]. Moreover, according to Putnam the most harmful effect of a diminishing social capital in the United States is the increase in crime rates. Thus, his most important conclusion is the direct link between social capital and crime [@putnam2001bowling]. The underlining argument is that criminal behaviour takes place not because people are poor, but also because networks and institutions are dysfunctional.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The causal link between social capital and crime follows the logic of social disorganization theory [@Messneretal2004]. Hence, disorganized communities present high levels of economic deprivation, residential instability, and population heterogeneity, making harder the development of primary and secondary social networks among individuals and between communities. Thus, the given community suffers from a cronic incapacity to exert social control, especially over criminal behavior of young adults [@Messneretal2004]. Furthermore, social networks serve as the information infrastructure of social capital, allowing for reinforcement of positive or negative individual behaviour. Disrupted social ties tend to favor destructive forms of bounding social capital, like criminal organizations, that may emerge in response to absent of other forms of linking social capital. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ever since Robert Putnam coined the term social capital in the late nineties, a vast literature has focused on the relationship between violent crimes and social capital. Lederman [@Ledermanetal2002] identified that the prevalence of trust on community members has an effect on violent crimes and that the social cohesion through participation and membership in community organizations only impact violent crime levels depending on the type of religious and social organisation engaged. Additionally, Hanslaimer [@hanslmaier2015mehr] showed that altruism has a general negative effect on violent crimes, but other indicators of social capital only proved to be related to other types of high impact crime and not to violent crime. 
+
+Hence, we are interested in responding to the question: how do social networks and bonds in a given community determine the level of violent crime? 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Additionally, we expect to observe that in societies with anomic and disorganization symptoms there are lower levels of social capital. Within these societies, groups and member interactions find themselves in a disruptive phase, damaging social bonds, norms, values, understandings and commitment. Environments where people lack a strong moral order lead to individual members to behave more egoistically therefore diminishing social capital. Disintegration of members of the community weakens social cohesion and promotes individualism that end in 'Machiavellian' competition, fostering feelings of status insecurity. Moreover, certain social milieus tend to be more vulnerable and respond therefore with violence. In addition, social capital provides means for informal punishment within a given community. Therefore more social capital leads to more abiding to social norms. In contrast communities that lack of social capital can merely punish norm diverging behaviour informally to a lesser extent and therefore are expected to have a higher crime rate.   
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Our main hypothesis is that the more social capital a community has, the less crime there would be observed as a result of its collective action mechanisms. Thus, we expect to observe that communities with anomic symptoms will tend to have more crime.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Social Capital is a multi-dimensional concept that consist of "varios social elements that promote individual and collective action" [@Ledermanetal2002]. As a consequence of its high complexity, measuring social capital carries some difficulties. However, researchers have shown consistent results when using indicators for social capital based on participation in community organizations, attitudes of civil action, and the sense of membership to the community [@Ledermanetal2002]. Even more complex is the relation between social capital and crime, since the causal connection between the two may go in both directions, meaning that crime also can impact social capital. More violent crime could disrupt community bonds and reduce the social capital, or it could encourage some form of social capital through the formation of community engagement in fighting crime.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;With new data available for crime statistics for the years 2013 at the districts' level in Germany it is relevant to study the incidence of high impact crimes and its relation to social capital formation. Results might be meaningful as rational for public intervention using crime reduction strategies that help build-up social capital at the community level (e.g. funding of sport clubs, gathering community, subsidies for staying in a community), instead of more aggressive interventionist policing strategies. Strategies that are less police intensive might have higher public support and might be seen as more legitimate. Social engagement at the local level might also help increase trust levels across community members and encourage more altruistic behaviors among them. Furthermore, social capital investment might be more cost-efficient compared to more aggressive policing tactics, which effects tend to be perceived only in the more immediate time, whereas social capital investments and their effects might stretch out for longer time.
+
+## Data
+### Data sources:
+We have data from three main sources:  
+
+1. German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" [PKS])  
+2. The Regional Database Germany published by the Federal Statistical Office and the Statistical Offices of the Laender.  
+3. German Federal Foundations Association ("Bundesverband Deutscher Stiftungen")  
+
+### Data gathering process
+It is best practice in reproducible research to gather the data dynamically from the respective web pages. This way the research remains up-to-date as data is being updated. To perform this task transparently, it is necessary to evaluate if a data source has been updated in the meantime - which can be performed by assigning a unique SHA1 hash to data sets.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In our case, we could only find a stable link for the PKS statistics. All the other data sets by the Statistical Offices of the Laender had session IDs included into the link to the respective data sets. This prevented us from gathering the data dynamically. Therefore we downloaded the data sets manually and consequentially used them for statistical analyses. 
+
+### Dependent Variable
+Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing time series for district level crime for more years than 2013 and 2014. However, we were not able to use the most recent data for the year 2014, because socio economic data at the district level in the Regional Database Germany is mostly available only before 2013 and in some cases only before 2012 for all districts. German Federal Police has published further statistics on the aggregate level for every year from many decades. We urge the German Federal Police to adopt best practices in the field of open data and provide the crime statistics on a disaggregated levels for this time period.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Another limitation to this statistics, however, is that these statistics are missing the dark figure of crime - the unreported number of crime in this area. Different methods exist to assess the dark figure of crime, but it is difficult to assess their reliability. Hence, depending on the type of crime, the reported numbers might contain a structural bias, i.e. some types of crime are reported at a different rate than others (e.g. when insurance companies require individual reporting). Furthermore a change in the amount of reported crimes can be attributed potentially to the level of activitly of the police - and not to the actual level of crime within a given community. Since we focus on crimes that disrupt the social community, we expect a high level of reporting and this reporting to be consistently high across different types of disruptive crimes. It is possible to focus on one type of crime for our dependent variable, but also to construct a dependent variable summarizing different types of crime. The latter approach might prove utile, since this provides greater variance in the dependent variable. This can be performed, because the PKS data is  disaggregated regarding several types of crime. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Another problem arises due to the level of aggregation. The smallest level of aggregation in the PKS is the district level. However about [insert formula here] persons live within an average district in Germany. Contrary, the social capital theory rests on network effects within the social environment of one person. The variables for the district level may be an appropriate proxy for the conditions on a personal (micro) level (i.e. network effects). This paralllel development of micro and macro indicators however would need to be shown in order to strengthen the confidence into our findings. As of now, this research is constrained by the statistics provided by the German Federal Police: other socio economic variables are provided on a smaller level of aggregation (i.e. Gemeinde). Hence we would like to stress again that the German Federal Police - in cooperation with the police of the Laender - shall adopt best practices and provide more open data.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Following this approach, we construct two measures for violent and non-violent crimes, for which we used a simple addition method, including all crimes fitting each category. After this addition, we then proceed by creating crime rates for total, violent, and non-violent crimes (per 100,000 persons). This computation allows for better comparison between districts.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Furthermore, given the limitations of our data, we have to assume that this cross-sectional data for crime on a district level is a simple count of independent events. This is relevant assumption for the estimation process. This assumption might be challenges by crimes committed by organized groups.   
+
+### Independent Variables
+All data is provided by the German statistical bureau.
+We want to measure different dimensions of our independent variable social capital. First, we used the data on foundations density in every district as an indicator of community engagement. Foundation density is an indicator of the total number of foundations in each German district per 100 thousand inhabitants. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A second indicator for social capital we used was the total flow of persons coming in and out of each district. This indicator served as an approximation to the concept of community membership. The assumption behind this indicator is that the more people moving in and out of a district, the less a person leaving in that district feels part of the community, which is might be also true for people moving. Since social capital requires time to build up, we expect higher crime rates in areas with high fluctuations.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The third dimension of social capital we tried to measure was the civil action within a community. We then looked at the voting turnout during the federal elections of 2013 in Germany to estimate the effect of social capital on crime through the participation of community members in policy decisions while deciding on the next government.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).
+
+Share of foreigners
+
+Marriage: also registered partnership (could also be used as independent explanatory variable)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Furthermore we control for the size of the population. It is necessary to include this control variable in models where it is not possible to use crime rates, i.e. where the dependent variable needs to be integer level. In these cases a positive coefficient indicates the notion that more crimes are committed in districts with more people.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In addition we included a dummy variable for districts of former East and West Germany. This distinction might prove useful to control for different socialization of citizens under different institutional regimes: it might be the case that these institutional factors have shaped the process of social capital formation. Former West Germany is coded as1 and former East Germany is coded as 2. Berlin is coded as 2 for two reasons. First it was not officially listed as one of the German Laender ("Berlin Frage"). Second it is deemed to be distinct from former West Germany.
+
+### Optimal data set 
+Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. An optimal data set, however, would have the following characteristics.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It would contain time series data for every unit of observation ("Kreis"). This would enable us to use a fixed effects model (since we already have cross-sectional data) and thereby controlling for unobserved heterogeneity between the observations. This data would also enable us to address the most severe challenge to this analysis: reverse causality. People are deemed to respond to a criminal environment and it is likely that this response is correlated with our independent variables (i.e. people with higher social capital tend to move out of areas with high crime rates).  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On optimal dataset would also contain more detailed data. First, this would allow more elaborate control variables. This is important, because so far it is not possible to use a fixed-effects model that would at least control of unobserved heterogeneity. Second, this would yield the possibility to use better measurements and further dimensions of social capital.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In addition individual level data would improve the analysis by allowing for a multi-level analysis controlling for individuals characteristics. This could also address the main challenge of reversed causality since migration between different districts could be explicitly modelled. This would also reduce the interpretative challenge of ecological fallacy due to the high level of aggregation (currently at the "Kreis" level).
+
+## Methodology and analysis 
+For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagement in the community, political participation and community stability-- and the incidence of violent and non-violent crime. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Since crime events are discrete events, the possible crime rates for any given population size are those corresponding to integer counts of crimes. Change in population sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.
+
+## Regression analysis 
+
+### OLS regression analysis
+```{r plotOLS, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+stargazer(OLSViolent, OLSMurderRate, OLSMurder,
+          type = "latex",
+          header = FALSE, 
+          title = "OLS regression models for the dependent variables violent crime, murder rate and total number of murders",
+          digits = 2,
+          omit.stat = c("f", "ser"))
+```
+
+
+### Poisson, quasi-poisson and negative binomial regression analysis
+```{r plotGLM, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
+          type = "latex",
+          header = FALSE, 
+          title = "Poisson, quasi-poisson and negative binomial regression models",
+          digits = 2,
+          omit.stat = c("f", "ser"))
+
+# in case we dont want to have the tables centered: http://stackoverflow.com/questions/33543159/how-to-align-stargazer-table-to-the-left-when-type-latex
+```
+
+
+## Predicted probabilities
+
+Predicted probabilities yield the possibility to visualize the statistical and substantial effect of the different variables. In the following predicted probabilities are shown conditional on the dichotomous variable EastWest. 
+
+```{r PredProbTurnout, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
+
+ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Voter Turnout", y = "Predicted Number of Murders")
+
+```
+
+```{r PredProbFlow, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
+
+ggplot(nb.df3, aes(FlowPercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "In and Outflow", y = "Predicted Number of Murders")
+
+```
+
+```{r PredProbYouth, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
+
+ggplot(nb.df4, aes(YouthPercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Youth Percentage", y = "Predicted Number of Murders")
+
+```
+
+```{r PredProbMale, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
+
+ggplot(nb.df5, aes(MalePercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Male Percentage", y = "Predicted Number of Murders")
+
+```
+
+```{r PredProbMarriage, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
+
+ggplot(nb.df6, aes(MarriagePercentage, Murder)) +
+  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
+  geom_line(aes(colour = EastWest), size = 2) +
+  labs(x = "Marriage Percentage", y = "Predicted Number of Murders")
+
+```
+
+## Conclusion 
+A preliminary analysis of the model specification shows that the negative binomial model does not change the statistical significance of the main explanatory variables.  
+Moreover, only some independent variables attain statistical significance for violent crimes.  
+Further model specifications are require in order to improve the reliability of these findings.  
+However, further estimations are needed to improve the interpretations of the coefficients, since the estimated coefficients are log likelihoods.
+
+----
+
+# References
