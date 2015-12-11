@@ -3,10 +3,10 @@ title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
 output:
-  word_document: default
   pdf_document:
     fig_caption: yes
     number_sections: yes
+  word_document: default
 bibliography:
 - References/RpackageCitations.bib
 - References/References.bib
@@ -147,6 +147,11 @@ For this research, we have conducted a cross-district study to estimate the rela
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Poisson regression model can be expressed as in the following equation: 
 $$log(E(\mu|\lambda))=\alpha+x´\beta$$ 
+Where the model is expressed as the logarithm of the expected count outcome, and the $\alpha$ is the intercept and *(X´)* a set of predictor variables. The singularity of the Poisson model compared to the OLS regression is that the latter assumes a normal distribution of expected values and variance, while the first with a single parameter $\mu$ assumes that the $E(Y)=Var(Y)=\mu$. Therefore, when analysing the regression outputs for a Poisson model we are intereseted in assessing whether the estimated mean equals the variance of the model [@MacDonald2011]. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nontheless, this last asssumption of mean equals variance of the model, rarely is met with data available for crime according to MacDonald and Lattimore [-@MacDonald2011]. It is more common to observe that the variance is greater or less than the mean. In the first case, we refere to a case of overdispersion, the latter to underdispersion. The basic interpretation tells us that the model fit shows less or more variation than expected according to the Poisson model [@MacDonald2011]. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In other words, underdispersion occures when the observed average count of the outcome is zero and there are very few observations with high counts. On the other hand, overdispersion occurs when a high number of observations have very large counts. To test for overdispersion we run a dispersion test command includede in the AER [@R-AER] R-package. In the overdispersion test the null hypothesis states *Ho:*$\lambda=1$ and the alternative hypothesis is that the true dispersion is greater than 1. In our data the z-statistic is $4.81$, the p-values are small enough $7.633014e-07$ so we can say that they are statistically significant, and the estimated dispersion is $2.59$ therefore we can assume overdispersion in our counting data. 
 
 {{{{{Since crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.}}}}}}
 
@@ -175,7 +180,6 @@ stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
 
 # in case we dont want to have the tables centered: http://stackoverflow.com/questions/33543159/how-to-align-stargazer-table-to-the-left-when-type-latex
 ```
-
 
 # Predicted probabilities
 
@@ -248,8 +252,8 @@ Further model specifications are require in order to improve the reliability of 
 However, further estimations are needed to improve the interpretations of the coefficients, since the estimated coefficients are log likelihoods.
 
 ---
-nocite:
-| @CiteR, @R-AER, @R-boot, @R-car, @R-dplyr, @R-ggmap, @R-ggplot2, @R-httr, @R-knitr, @R-lmtest, @R-MASS, @R-PerformanceAnalytics, @R-pscl, @R-repmis, 
+nocite:| 
+ @CiteR, @R-AER, @R-boot, @R-car, @R-dplyr, @R-ggmap, @R-ggplot2, @R-httr, @R-knitr, @R-lmtest, @R-MASS, @R-PerformanceAnalytics, @R-pscl, @R-repmis, @R-rio, @R-sandwich, @R-stargazer, @R-texreg, @R-tidyr, @R-xtable, @R-Zelig, @R-rworldmap, @R-foreign, @R-rgdal, @R-maptools, @R-gpclib, @R-maps, @R-mapproj, @R-RColorBrewer
 ...
 
 

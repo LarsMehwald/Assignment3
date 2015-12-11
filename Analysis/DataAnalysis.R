@@ -105,12 +105,15 @@ poisson.glm1 <- glm(Murder ~
 
 # Dispersion Test
 # The overdispersion test assess the "goodness of fit" for the poisson model
-dispersiontest(poisson.glm1)
+disp.test <- dispersiontest(poisson.glm1)
 # p-values too small: therefore negative binomial model needed
 # mean=var: condition for Poisson model (basic poisson model assumption)
 # if mean < var: overdispersion
 # use mle: correcting s.e.
 # summary(poisson.glm): Residual deviance>degrees of freedom : if so = overdispersion
+z <- disp.test[1]
+p 
+
 
 # Visual assesment
 summary(poisson.glm1) # if Residual deviance>degrees of freedom : if so = overdispersion
