@@ -104,11 +104,8 @@ DistrictData$MalePercentage <-
 # (DistrictData$TurnoutPercentage * DistrictData$EntitledVoteTotal / 100)
 # TurnoutPercentage is coded in % between 0 and 100
 
-# Share of young individuals # I don't think we should include 0-17. Very low probability of child comiting crimes. 
-# Youth Rate is a better control variable
-DistrictData$YouthPercentage <- 
-  (DistrictData$Pop18to24 / 
-     DistrictData$TotalPopulation) * 100
+# Share of young individuals, pop18to24 is already in percent 
+DistrictData$YouthPercentage <- (DistrictData$Pop18to24)
 
 # Share of Believers
 # Problematic: rates are significant lower in former East Germany 

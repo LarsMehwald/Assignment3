@@ -85,7 +85,7 @@ est2$Stars <- ifelse(est2$NumberStars == 3, "***",
                      ifelse(est2$NumberStars == 2, "**",
                             ifelse(est2$NumberStars == 1, "*", "")))
 est2 <- est2[c(1,3)]
-names(est2) <- c("Quasi-Poisson", "_")
+names(est2) <- c("Quasi-Poisson", "_ ")
 
 ########################
 # Incident rates: negative binomial 
@@ -124,7 +124,7 @@ est3$Stars <- ifelse(est3$NumberStars == 3, "***",
                      ifelse(est3$NumberStars == 2, "**",
                             ifelse(est3$NumberStars == 1, "*", "")))
 est3 <- est3[c(1,3)]
-names(est3) <- c("Negative Binomial", "_")
+names(est3) <- c("Negative Binomial", "_  ")
 
 ########################
 # Incident rates: summary table
@@ -135,3 +135,5 @@ est4 <- cbind(est1, est2, est3)
 
 # delete intercept
 est4 <- est4[-1,]
+
+est4
