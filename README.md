@@ -1,17 +1,26 @@
-# Third Pair Assignment
+# Final Project
 **Authors:** [Lars Mehwald](https://github.com/LarsMehwald) and [Daniel Salgado Moreno](https://github.com/dsalgadom)
 
 **Seminar:** [MPP-E1180: Introduction to Collaborative Social Science Data   Analysis](https://github.com/HertieDataScience/SyllabusAndLectures)
 
 **Instructure:** [Christopher Gandrud](https://github.com/christophergandrud)
 
-**Task 3:** Data collection and statistical analyses 
+**Final Project** Collaborative Reaserch Project 
 
-**IMPORTANT NOTE:** Work in Porgress. Please ask authors for permission before citing   
+**IMPORTANT NOTE:** Work in Porgress. Please ask authors for permission before citing.  
 
 ## Task to perform
-In the third pair assignment you will *gather web based data* from at least two sources, *merge the data sets*, conduct *basic descriptive and inferential statistics* on the data to *address a relevant research question* and briefly *describe the results* including with dynamically generated tables and figures.  
-Students are encouraged to access data and perform statistical analyses with an eye to *answering questions relevant for their Collaborative Research Project*. Deadline 13 November, the write up should be 1,500 words maximum and use literate programming, 10% of final grade.
+For the Collaborative Research Project you will pose an interesting social science question and attempt to answer it using standard academic practices including original data collection and statistical analysis. The project should be considered a ‘dry run’ for your thesis. The project has three presentation outputs designed to present your research to multiple audiences. The first is a oral presentation (10 minute maximum) given in the final class. The second is a standard academic paper (5,000 words maximum) that is fully reproducible and dynamically generated. The third is a website designed to present key aspects of your research in an engaging way to a general audience. The paper and website are due in the Final Exam Week. 
+
+## File Structure: 
+
+The main outputs of this research project are as follow: 
+
++ [Final Academic Paper](https://github.com/LarsMehwald/CSSR_FinalProject_Salgado_Mehwald/blob/master/Final_Project.pdf)
++ [Website](http://rpubs.com/LarsMehwald/133039)
++ [Presentation](http://larsmehwald.github.io/CSSR_FinalProject_Salgado_Mehwald)
+
+All of which source their output from the MasterFile.R. This file in turn sources every other required file. 
 
 ## Describing the repository - File Structure
     .
@@ -21,8 +30,11 @@ Students are encouraged to access data and perform statistical analyses with an 
     |  ├──DataMerging.R                  # Merging secuence necessary for DistrictData.csv construction in R file format
     |  ├──GeoCodesMaps.R                 # Construction of Maps based on Geo coding in R file format
     |  ├──data                           # Folder containing all .csv files saved after data cleaning in corresponding R files
+    |  ├──RPackkages.R                   # Compilation of R packages 
+    |  ├──SupportAnalysis                 # Further codes to be sourced by DataAnalysis.R
     |  | ├──RawData                       # Folder containing raw data files in .csv format before cleaning 
     ├──Literature                        # Folder contaiing pdf files with all the literature used for this paper
+    ├──MasterFile.R                      # Main sourcing file to run complete Data Analysis.
     ├──README.md                         # Readme File
     ├──References                        # Folder containing all bib files
     |  ├──Refereences.bib                # File containing all literatur references

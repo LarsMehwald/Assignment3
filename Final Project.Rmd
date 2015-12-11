@@ -3,10 +3,10 @@ title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
 output:
-  word_document: default
   pdf_document:
     fig_caption: yes
     number_sections: yes
+  word_document: default
 bibliography:
 - References/RpackageCitations.bib
 - References/References.bib
