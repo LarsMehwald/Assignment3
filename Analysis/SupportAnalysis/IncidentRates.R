@@ -46,7 +46,7 @@ est1$Stars <- ifelse(est1$NumberStars == 3, "***", # &#9733; is HTML star, but d
                      ifelse(est1$NumberStars == 2, "**",
                             ifelse(est1$NumberStars == 1, "*", "")))
 est1 <- est1[c(1,3)]
-names(est1) <- c("IncidentRate Poisson", "_")
+names(est1) <- c("Poisson", "_")
 
 ########################
 # Incident rates: quasi-poisson
@@ -85,7 +85,7 @@ est2$Stars <- ifelse(est2$NumberStars == 3, "***",
                      ifelse(est2$NumberStars == 2, "**",
                             ifelse(est2$NumberStars == 1, "*", "")))
 est2 <- est2[c(1,3)]
-names(est2) <- c("IncidentRate Quasi-Poisson", "_")
+names(est2) <- c("Quasi-Poisson", "_")
 
 ########################
 # Incident rates: negative binomial 
@@ -124,7 +124,7 @@ est3$Stars <- ifelse(est3$NumberStars == 3, "***",
                      ifelse(est3$NumberStars == 2, "**",
                             ifelse(est3$NumberStars == 1, "*", "")))
 est3 <- est3[c(1,3)]
-names(est3) <- c("IncidentRate negative binomial", "_")
+names(est3) <- c("Negative Binomial", "_")
 
 ########################
 # Incident rates: summary table
