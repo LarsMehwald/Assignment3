@@ -2,21 +2,6 @@ To Do List until Friday, 11 December 2015:
 
 Current word count: ~ 3650 (11/12/2015, 3pm)
 
-
-, @R-rio, @R-sandwich, @R-stargazer, @R-texreg, @R-tidyr, @R-xtable, @R-Zelig, @R-rworldmap, @R-foreign, @R-rgdal, @R-maptools, @R-gpclib, @R-maps, @R-mapproj, @R-RColorBrewer
-
-disp.test.z
-disp.test.p
-disp.test.est
-
-stargazer(est4, 
-          title = "Incident rates for the the poisson, quasi-poisson and negative binomial model", 
-          header = FALSE, 
-          summary= FALSE, 
-          type="latex", 
-          digits = 3,
-          notes = "* p<0.1; ** p<0.05; *** p<0.01")
-
 In line R commands - RMD conversion to PDF does not work when inserted - I dont know why:
 `r round(mean(DistrictData$TotalPopulation * 100000), digits=3) `
 `r round(coef(OLSViolent)[2], digits=2)`
@@ -25,8 +10,7 @@ British English
 
 Data and model:
 - Map: we should include the map created by Daniel.
-- Problems not addressed/solved in research: the aggregation level (i.e. district) might be too high to find network effect, operationalisation of social capital, reverse causality (solution: instrumental regression? panel data? individual level data?), data availability highly restricted in the field of crime in Germany (crime data for 2013 and 2014, no coherent data for political motivated crimes in Germany)
-- Explain choice of model OLS, Poisson, quasi-poisson, negative binomial
+- Problems not addressed/solved in research: the aggregation level (i.e. district) might be too high to find network effect, operationalisation of social capital, reverse causality (solution: instrumental regression? panel data? individual level data?), data availability highly restricted in the field of crime in Germany 
 
 Presentable output:
 - Homepage: we need sinthesize our results in a reasonable manner, attract the readers attention and find some story line through our research. In order to create a homepage with GitHub, we need to have an index.html file in a new branch (with a specific name) in our repository.
