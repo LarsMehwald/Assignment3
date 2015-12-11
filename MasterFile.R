@@ -21,7 +21,7 @@ source("References/CiteRPackages.R")
 source("Analysis/DataMerging.R")
 
 # Creating a map 
-# source("Analysis/GeoCodesMaps.R")
+source("Analysis/GeoCodesMaps.R")
 
 # Performing the analyses
 source("Analysis/DataAnalysis.R")
