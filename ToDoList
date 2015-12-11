@@ -1,8 +1,7 @@
 To Do List until Friday, 11 December 2015:
 
 Presentable output:
-- Homepage: we need sinthesize our results in a reasonable manner, attract the readers attention and find some story line through our research. In order to create a homepage with GitHub, we need to have an index.html file in a new branch (with a specific name) in our repository.
-- Correct the spelling, British English
+- Correct the spelling on webpage, British English
 - Rename the repository. 
 - We need to update the repository and R files: delete files not used, comment in the readme file and so on.
 - Citing R packages. 
