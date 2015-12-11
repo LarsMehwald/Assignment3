@@ -17,8 +17,8 @@ For the Collaborative Research Project you will pose an interesting social scien
 The main outputs of this research project are as follow: 
 
 + [Final Academic Paper](https://github.com/LarsMehwald/CSSR_FinalProject_Salgado_Mehwald/blob/master/Final_Project.pdf)
-+ [Website](http://rpubs.com/LarsMehwald/133039)
-+ [Presentation](http://larsmehwald.github.io/CSSR_FinalProject_Salgado_Mehwald)
++ [Website](http://larsmehwald.github.io/CSSR_FinalProject_Salgado_Mehwald)
++ [Presentation](http://rpubs.com/LarsMehwald/133039)
 
 All of which source their output from the MasterFile.R. This file in turn sources every other required file. 
 
