@@ -119,8 +119,8 @@ disp.test.z <- as.numeric(disp.test.z)
 disp.test.p <- disp.test[2]
 disp.test.p <- as.numeric(disp.test.p)
 
-disp.test.est <- disp.test[2]
-disp.test.est <- as.numeric(disp.test.p)
+disp.test.est <- disp.test[3]
+disp.test.est <- as.numeric(disp.test.est)
 
 # Visual assesment
 summary(poisson.glm1) # if Residual deviance>degrees of freedom : if so = overdispersion

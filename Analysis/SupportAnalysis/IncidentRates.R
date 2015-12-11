@@ -14,10 +14,10 @@
 # Adding coefficients and confident intervals into new data frame 
 
 # Extract coefficients and create confidence intervals for three levels of significance
-est1 <- cbind(Estimate = coef(nb.glm1), 
-              confint(nb.glm1, level=0.90),
-              confint(nb.glm1, level=0.95),
-              confint(nb.glm1, level=0.99))
+est1 <- cbind(Estimate = coef(poisson.glm1), 
+              confint(poisson.glm1, level=0.90),
+              confint(poisson.glm1, level=0.95),
+              confint(poisson.glm1, level=0.99))
 est1 <- data.frame(est1)
 
 # Adding three variables (1=TRUE) describing whether coefficient is significant at 
@@ -53,10 +53,10 @@ names(est1) <- c("IncidentRate Poisson", "_")
 ########################
 
 # Extract coefficients and create confidence intervals for three levels of significance
-est2 <- cbind(Estimate = coef(nb.glm1), 
-              confint(nb.glm1, level=0.90),
-              confint(nb.glm1, level=0.95),
-              confint(nb.glm1, level=0.99))
+est2 <- cbind(Estimate = coef(quasipoisson.glm1), 
+              confint(quasipoisson.glm1, level=0.90),
+              confint(quasipoisson.glm1, level=0.95),
+              confint(quasipoisson.glm1, level=0.99))
 est2 <- data.frame(est2)
 
 # Adding three variables (1=TRUE) describing whether coefficient is significant at 
@@ -90,11 +90,6 @@ names(est2) <- c("IncidentRate Quasi-Poisson", "_")
 ########################
 # Incident rates: negative binomial 
 ########################
-
-# Extracting the estimated coefficents and confident intervals, then creating their exponential object
-
-# Incident rates and statistical significance
-# Adding coefficients and confident intervals into new data frame 
 
 # Extract coefficients and create confidence intervals for three levels of significance
 est3 <- cbind(Estimate = coef(nb.glm1), 
@@ -136,10 +131,10 @@ names(est3) <- c("IncidentRate negative binomial", "_")
 ########################
 
 # combine all data frames
+est4 <- cbind(est1, est2, est3)
 
 # delete intercept
-
-# rename the variables
+est4 <- est4[-1,]
 
 # stargazer(est1, header = FALSE, summary= FALSE, type="html", digits = 4)
-# header 
+# header + notes 
