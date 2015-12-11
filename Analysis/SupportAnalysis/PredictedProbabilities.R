@@ -25,6 +25,8 @@ nb.df1$EastWest <- ordered(nb.df1$EastWest,
                            levels = c(1,2),
                            labels = c("West", "East"))
 
+names(nb.df1) <- c("EastWest", "Predicted Murders")
+
 nb.df1
 
 # Turnout
