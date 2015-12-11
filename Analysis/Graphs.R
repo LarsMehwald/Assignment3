@@ -47,15 +47,15 @@ histMurderRate <- ggplot(DistrictData, aes(MurderRate)) +
   xlab("Murder Rate per district") +
   ylab("District count") +
   ggtitle("District count for Murder Rates: right skewed")
-plot(histMurderRate)
+#plot(histMurderRate)
 
 # Murder Histogram
-histMurder <- ggplot(DistrictData, aes(murderAndManslaughter)) + 
+histMurder <- ggplot(DistrictData, aes(Murder)) + 
   geom_histogram(binwidth=1, colour="black", fill="red") + 
-  xlab("Murders") +
-  ylab("Counts per district") +
-  ggtitle("District count for Murder count: right skewed")
-plot(histMurder) 
+  xlab("Murder count per district") +
+  ylab("District count") +
+  ggtitle("Murder count distribution across districts: right skewed")
+#plot(histMurder) 
 
 # We can observe that the Murders count is right skewed
 # OLS regression models are inappropiate when small number of events
@@ -68,7 +68,7 @@ plot(histMurder)
 # Correlation Plot using R package: "PerformanceAnalytics"
 # Needs to 
 correlation.matrix <- DistrictData[, c(48,55,41,54,23,51,52,53,17)]
-chart.Correlation(correlation.matrix, historgram=T)
+#chart.Correlation(correlation.matrix, historgram=T)
 
 #################################
 # Top 10 tables
