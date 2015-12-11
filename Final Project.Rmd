@@ -27,7 +27,7 @@ source("MasterFile.R")
 __________________________________________________________________________________________________
 
 > **Abstract:** The current research project studies the relation between social capital and crime.
-We raise the question about how does social capital in a given community determine the level of violent crime higher unemployment is associated with higher levels of crime, and there are (on average) fewer murders occuring in the area of former East Germany. More heterogenous districts tend to be confronted with (on average) a greater number of murders. These results failed to prove a significant relation between social capital and crimes, due to methodological difficulties related to data access and available information on crime statistics.Relevance, Research Question, Main Findings
+We raise the question about how does social capital in a community determine the level of violent crime. Our results are not conclusive, but they showed a positive correlation between levels of unemployment and levels of crime. They also showed a relation between more heterogenous districts greater number of murders. However, these results failed to confirm a significant relation between measures of social capital and violent crimes, mainly due to methodological difficulties related to data access and available information on crime statistics.
 
 __________________________________________________________________________________________________
 
