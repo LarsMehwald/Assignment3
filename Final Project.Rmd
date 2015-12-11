@@ -154,6 +154,7 @@ Where the model is expressed as the logarithm of the expected count outcome, and
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In other words, underdispersion occures when the observed average count of the outcome is zero and there are very few observations with high counts. On the other hand, overdispersion occurs when a high number of observations have very large counts. To test for overdispersion we run a dispersion test command includede in the AER [@R-AER] R-package. In the overdispersion test the null hypothesis states *Ho:*$\lambda=1$ and the alternative hypothesis is that the true dispersion is greater than 1. In our data the z-statistic is $4.81$, the p-values are small enough $7.633014e-07$ so we can say that they are statistically significant, and the estimated dispersion is $2.59$ therefore we can assume overdispersion in our counting data. 
 
 {{{{{Since crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.}}}}}}
+`r print(z)`
 
 # Regression analysis 
 

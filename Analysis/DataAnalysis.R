@@ -112,8 +112,9 @@ disp.test <- dispersiontest(poisson.glm1)
 # use mle: correcting s.e.
 # summary(poisson.glm): Residual deviance>degrees of freedom : if so = overdispersion
 z <- disp.test[1]
-p 
-
+z <- as.numeric(z)
+z <- round(z, digits = 3)
+print(z)
 
 # Visual assesment
 summary(poisson.glm1) # if Residual deviance>degrees of freedom : if so = overdispersion
@@ -152,7 +153,7 @@ nb.glm1 <- glm.nb(Murder ~
 summary(nb.glm1)
 
 # Incident rates
-source("Analysis/SupportAnalysis/IncidentRates.R")
+# source("Analysis/SupportAnalysis/IncidentRates.R")
 
 # Predicted probabilities
 source("Analysis/SupportAnalysis/PredictedProbabilities.R")
