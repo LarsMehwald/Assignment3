@@ -54,20 +54,27 @@ histMurder <- ggplot(DistrictData, aes(MurderRate)) +
 ########################
 
 # Linear regression model 1
+OLSNonViolent <- lm(NonViolentCrimeRate ~
+                   FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
+                   ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + EastWest,
+                 data=DistrictData)
+summary(OLSNonViolent)
+
+# Linear regression model 2
 OLSViolent <- lm(ViolentCrimeRate ~
                     FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
                     ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + EastWest,
                   data=DistrictData)
 summary(OLSViolent)
 
-# Linear regression model 2
+# Linear regression model 3
 OLSMurderRate <- lm(MurderRate ~
                   FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
                   ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + EastWest,
                 data=DistrictData)
 summary(OLSMurderRate)
 
-# Linear regression model 3
+# Linear regression model 4
 OLSMurder <- lm(Murder ~
                       FoundationsDensity100k + FlowPercentage + TurnoutPercentage + 
                       ForeignerPercentage + MarriagePercentage + MalePercentage + YouthPercentage + UnemployedPercentage + TotalPopulation + EastWest,
