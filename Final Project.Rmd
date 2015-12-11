@@ -56,6 +56,11 @@ plot(histMurder)
 
 ```
 
+### Data gathering process
+It is best practice in reproducible research to gather the data dynamically from the respective web pages. This way the research remains up-to-date as data is being updated. To perform this task transparently, it is necessary to evaluate if a data source has been updated in the meantime - which can be performed by assigning a unique SHA1 hash to data sets.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In our case, we could only find a stable link for the PKS statistics. All the other data sets by the Statistical Offices of the Laender had session IDs included into the link to the respective data sets. This prevented us from gathering the data dynamically. Therefore we downloaded the data sets manually and consequentially used them for statistical analyses. The data provided by the German Federal Foundations Association is stored in a pdf file on their web page. We needed to download this file, extract the data manually and then process it into the statistical analysis.  
+
 ### Dependent Variable
 Crime statistics were obtained from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS) for only one year 2013 on a district level ("Kreis"). The first limitation we encounter was that the PKS is not providing time series for district level crime for more years than 2013 and 2014. However, we were not able to use the most recent data for the year 2014, because socio economic data at the district level in the Regional Database Germany is mostly available only before 2013 and in some cases only before 2012 for all districts.   
 
