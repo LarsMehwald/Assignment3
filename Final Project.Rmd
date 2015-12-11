@@ -77,7 +77,15 @@ We want to measure different dimensions of our independent variable social capit
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The third dimension of social capital we tried to measure was the civil action within a community. We then looked at the voting turnout during the federal elections of 2013 in Germany to estimate the effect of social capital on crime through the participation of community members in policy decisions while deciding on the next government.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moreover we need district level data for other variables to control for local heterogeneity. We want to control for factors that influence the rational choice for committing a crime. First, unemployment changes the opportunity costs of punishment, i.e. imprisonment. In addition we want to control for a district's composition in age (younger persons are found to be more involved in crimes), gender (men are found to be more related to crimes).  
+
+Share of foreigners
+
+Marriage: also registered partnership (could also be used as independent explanatory variable)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Furthermore we control for the size of the population. It is necessary to include this control variable in models where it is not possible to use crime rates, i.e. where the dependent variable needs to be integer level. In these cases a positive coefficient indicates the notion that more crimes are committed in districts with more people.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In addition we included a dummy variable for districts of former East and West Germany. This distinction might prove useful to control for different socialization of citizens under different institutional regimes: it might be the case that these institutional factors have shaped the process of social capital formation. Former West Germany is coded as1 and former East Germany is coded as 2. Berlin is coded as 2 for two reasons. First it was not officially listed as one of the German Laender ("Berlin Frage"). Second it is deemed to be distinct from former West Germany.
 
 ## Methodology and analysis 
 For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagement in the community, political participation and community stability-- and the incidence of violent and non-violent crime, with specific focuse on murders. 
