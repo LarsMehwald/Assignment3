@@ -2,7 +2,8 @@
 title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
-output: 
+output:
+  word_document: default
   pdf_document:
     fig_caption: yes
     number_sections: yes
@@ -100,6 +101,19 @@ stargazer(DistrictDataReduced,
 ## Independent Variables
 As mentioned above, all socio economic data is provided by the Federal Statistical Office and the statistical Offices of the Laender. The multi-dimensional characteristic of social capital allows us to use a wide range of indicators to operasionalise the effect of this complex concept. Due to data availablility restrictions we use only three indicators to measure social capital as an indepdendent variable in our analysis. 
 
+```{r SummaryStatisticsIV, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+# Creating a reduced data set
+DistrictDataReducedIV <- DistrictData[,c("FoundationsDensity100k", "FlowPercentage", "TurnoutPercentage", "ForeignerPercentage", "MarriagePercentage", "MalePercentage", "YouthPercentage", "UnemployedPercentage", "TotalPopulation", "EastWest")]
+
+# Creation of summary statistics
+stargazer(DistrictDataReducedIV,
+          nobs = FALSE,
+          header = FALSE,
+          digits=1,
+          type = "latex")
+```
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;First, we used the data on foundations density in per district as an indicator of community engagement. Foundation density is an indicator of the total number of foundations in each German district devided by 100 thousand inhabitants. The underlining assumption behind engagment in the community and its implication for crime lies in its potential negative relation. Thus, the higher the foundation density per inhabitants in a district, the lower the level of repoerted crime. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A second indicator for social capital we used was the total flow of migrants coming in and out of each district during 2013. This indicator served as an approximation to the concept of community membership. The assumption behind this indicator is that the more people moving in and out of a district, the less a person leaving in that district feels part of the community, which is might be also true for people moving. Since social capital requires time to build up, we expect higher crime rates in areas with high fluctuations.  
@@ -128,6 +142,11 @@ For this research, we have conducted a cross-district study to estimate the rela
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When considering the frequency of occurrences of crimes, as in the case of our analysis with murders, we are interested in the distribution of observations per unit. However, some crimes like homicide are very rare, and when the average counts are small, the distribution of outcomes is skewed to the right. Such a skewed distribution might cause that an ordinary least square (OLS) regression analysis that assumes a norma distribution in the error terms around the expected average is simply not appropriate [@MacDonald2011]. Thus, our analysis requires a different method, based on another type of distribution. The appropriate distribution is the Poisson distribution, which is unimodal and skewed to the right. It is represented by a single parameter $\lambda > 0$, meaning that its mean and variance are identical: $E(Y) = Var(Y) = \lambda$. The more simple Poisson formulation is: $$ Pr (Y| \lambda) = \frac { e^{-\lambda} \lambda^Y} {Y! }$$for Y=0,1,2,3,4,5,... Where Y is the outcome represented by a count and $\lambda$ is the parameter representing the expected probability of the count (e.g. count of crimes) according to a Poisson distribution. For crime analysis we are interested to know what is that predicts the number of crime counts taking into consideration the probability of outcome occurrences through a Poisson distribution [@MacDonald2011]. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nevertheless, if we include additional predictors then we have to use the approach proposed by econometricians who expanded the Poission probability distribution into a set of generalised linear models (GLM). Hence, this method is particularly useful when explaining the expected response variable as counts ($E(Y=crime counts|\lambda)$) by a set of independent variables ($X´$) and when assuming a linear relationship between outcomes and predictors ($E(Y|\lambda=x´\beta)$). The GLM formulation is: $$Pr(Y|X´,\mu)=\frac{e^{-\mu}\mu^Y}{Y!}$$ where the parameter $\mu$ captures the distribution of observed outcomes (Y) that are still Poisson [@MacDonald2011]. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The basic assumptions of count models, specifically in our case the Poisson regression and its different variations estimate the expected rate, $E(\lambda)$ of observed crime outcomes *(Y)* according to a Poisson distribution. Due to its intrinsict right skewed characteristic, the logarithm of the Poisson probability distribution should be approximatly linear. To achieve this the Poisson regression model relies on assumptions related to a log-linear model [@MacDonald2011]. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Poisson regression model can be expressed as in the following equation: 
+$$log(E(\mu|\lambda))=\alpha+x´\beta$$ 
 
 {{{{{Since crime events are discrete events, the possible crime rates for any given populations size are those corresponding to integer counts of crimes. Change in populations sizes will lead to violating the assumption of homogeneity of error variance. Second, normal or symmetrical error distributions of crime rates cannot be assumed. So the error distribution is skewed to the lower bound (to the left). Thus, a more formal way to accommodate over-dispersion in a count data regression model is to use a negative binomial model as tables 2 to 5 show.}}}}}}
 
@@ -161,6 +180,16 @@ stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
 # Predicted probabilities
 
 Predicted probabilities yield the possibility to visualise the statistical and substantial effect of the different variables. In the following predicted probabilities are shown conditional on the dichotomous variable EastWest. 
+
+```{r PredictedMurderEastWest, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+# Creation of summary statistics
+stargazer(nb.df1,
+          nobs = FALSE,
+          header = FALSE,
+          digits=1,
+          type = "latex")
+```
 
 ```{r PredProbTurnout, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 
