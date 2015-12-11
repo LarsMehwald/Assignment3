@@ -6,8 +6,14 @@
 
 # Scrapping the data
 URL_PKS_Kreise_13_14 <- "http://www.bka.de/SharedDocs/Downloads/DE/Publikationen/PolizeilicheKriminalstatistik/2014/BKATabellen/FaelleLaenderKreiseStaedte/tb01__FaelleGrundtabelleKreiseFallentwicklung__csv,templateId=raw,property=publicationFile.csv/tb01__FaelleGrundtabelleKreiseFallentwicklung__csv.csv"
-PKS_Kreise_13_14 <- read.csv(URL_PKS_Kreise_13_14, sep=";")
+PKS_Kreise_13_14 <- source_data(URL_PKS_Kreise_13_14, 
+                                       sep=";", 
+                                       header = FALSE,
+                                       sha1 = "732388ad307b140902560b73c9b66550ad0cdbf9")
 rm(URL_PKS_Kreise_13_14)
+
+# Deleting first row
+PKS_Kreise_13_14 <- PKS_Kreise_13_14[-1,]
 
 # Delete (for now) unimportant variables
 PKS_Kreise_13_14 <- PKS_Kreise_13_14[,-c(1, 7:15)]
