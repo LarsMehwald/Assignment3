@@ -65,7 +65,7 @@ We have data from three main sources:
 ## Data gathering process
 It is best practice in reproducible research to gather the data dynamically from the respective web pages. This way the research remains up-to-date as data is being updated. To perform this task transparently, it is necessary to evaluate if a data source has been updated in the meantime - which can be performed by assigning a unique SHA1 hash to data sets.  
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Crime data was compile through a stable link for the PKS statistics directly from their website. The required socio economic data for all 402 German districts is publicly available through the Regional Database Germany and it is published by the Federal Statistical Office and the statistical Offices of the Federal States (*Länder*). However, it is not posible to source the application programming interface (API) from the website, since it is only reserved for registered users. The API required a session IDs to be included into the link to the respective data tables. This prevented us from gathering the data dynamically. Therefore all socio economic data was downloaded manually and store into csv files, then consequentially used for the statistical analyses without any prior manipulation. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Crime data was compile through a stable link for the PKS statistics directly from their website. The required socio economic data for all 402 German districts is publicly available through the Regional Database Germany and it is published by the Federal Statistical Office and the statistical Offices of the Federal States (*Laender*). However, it is not posible to source the application programming interface (API) from the website, since it is only reserved for registered users. The API required a session IDs to be included into the link to the respective data tables. This prevented us from gathering the data dynamically. Therefore all socio economic data was downloaded manually and store into csv files, then consequentially used for the statistical analyses without any prior manipulation. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The data provided by the German Federal Foundations Association is contained in a pdf file available in their web page. First, we needed to download the pdf file, then extract the data manually to an excel spreadsheet and finally process it into the statistical analysis.  
 
@@ -127,14 +127,17 @@ stargazer(DistrictDataReducedIV,
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In addition we included a dummy variable for districts of former East and West Germany. This distinction might prove useful to control for different socialisation processes of citizens under different institutional regimes during longer periods of time: it might be the case that specific institutional factors have shaped the process of social capital formation. Former West Germany is coded as 1 and former East Germany is coded as 2. Berlin is coded as 2 for two reasons. First it was not officially listed as one of the German Laender ("Berlin Frage"). Second it is deemed to be distinct from former West Germany.
 
 ## Optimal data set 
-Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. An optimal data set, however, would have the following characteristics.  
-It would contain time series data for every unit of observation ("Kreis"). This would enable us to use a fixed effects model (since we already have cross-sectional data) and thereby controlling for unobserved heterogeneity between the observations. This data would also enable us to address the most severe challenge to this analysis: reverse causality. People are deemed to respond to a criminal environment and it is likely that this response is correlated with our independent variables (i.e. people with higher social capital tend to move out of areas with high crime rates).  
+Throughout the analysis we face severe data constraints that inhibit an in depth analysis of the theoretical relationship. An optimal data set, however, would have the following characteristics. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It would contain time series data for every unit of observation ("Kreis"). This would enable us to use a fixed effects model (since we already have cross-sectional data) and thereby controlling for unobserved heterogeneity between the observations. This data would also enable us to address the most severe challenge to this analysis: reverse causality. People are deemed to respond to a criminal environment and it is likely that this response is correlated with our independent variables (i.e. people with higher social capital tend to move out of areas with high crime rates).  
+
 On optimal dataset would also contain more detailed data. First, this would allow more elaborate control variables. This is important, because so far it is not possible to use a fixed-effects model that would at least control of unobserved heterogeneity. Second, this would yield the possibility to use better measurements and further dimensions of social capital.  
-In addition individual level data would improve the analysis by allowing for a multi-level analysis controlling for individuals characteristics. This could also address the main challenge of reversed causality since migration between different districts could be explicitly modelled. This would also reduce the interpretative challenge of ecological fallacy due to the high level of aggregation (currently at the "Kreis" level).
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In addition individual level data would improve the analysis by allowing for a multi-level analysis controlling for individuals characteristics. This could also address the main challenge of reversed causality since migration between different districts could be explicitly modelled. This would also reduce the interpretative challenge of ecological fallacy due to the high level of aggregation (currently at the "Kreis" level).
 
 # Methodology and analysis
 ## Criteria for model selection
-For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital --engagement in the community, political participation and community stability-- and the incidence of violent and non-violent crime, with specific focus on murders. 
+For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital - engagement in the community, political participation and community stability - and the incidence of violent and non-violent crime, with specific focus on murders. 
 
 ```{r histogramMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
@@ -147,10 +150,10 @@ plot(histMurder)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nevertheless, if we include additional predictors then we have to use the approach proposed by econometricians who expanded the Poission probability distribution into a set of generalised linear models (GLM). Hence, this method is particularly useful when explaining the expected response variable as counts ($E(Y=crime counts|\lambda)$) by a set of independent variables ($X'$) and when assuming a linear relationship between outcomes and predictors ($E(Y|\lambda=x´\beta)$). The GLM formulation is: $$Pr(Y|X',\mu)=\frac{e^{-\mu}\mu^Y}{Y!}$$ where the parameter $\mu$ captures the distribution of observed outcomes (Y) that are still Poisson [@MacDonald2011]. 
 
 ## Model assumptions
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The basic assumptions of count models, specifically in our case the Poisson regression and its different variations estimate the expected rate, $E(\lambda)$ of observed crime outcomes *(Y)* according to a Poisson distribution. Due to its intrinsict right skewed characteristic, the logarithm of the Poisson probability distribution should be approximatly linear. To achieve this the Poisson regression model relies on assumptions related to a log-linear model [@MacDonald2011]. 
+The basic assumptions of count models, specifically in our case the Poisson regression and its different variations estimate the expected rate, $E(\lambda)$ of observed crime outcomes *(Y)* according to a Poisson distribution. Due to its intrinsict right skewed characteristic, the logarithm of the Poisson probability distribution should be approximatly linear. To achieve this the Poisson regression model relies on assumptions related to a log-linear model [@MacDonald2011].  
 
 ## Poisson regression
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Poisson regression model can be expressed as in the following equation: 
+The Poisson regression model can be expressed as in the following equation: 
 $$log(E(\mu|\lambda))=\alpha+x'\beta$$ 
 Where the model is expressed as the logarithm of the expected count outcome, and the $\alpha$ is the intercept and *(X')* a set of predictor variables. The singularity of the Poisson model compared to the OLS regression is that the latter assumes a normal distribution of expected values and variance, while the first with a single parameter $\mu$ assumes that the $E(Y)=Var(Y)=\mu$. Therefore, when analysing the regression outputs for a Poisson model we are intereseted in assessing whether the estimated mean equals the variance of the model [@MacDonald2011]. 
 
@@ -159,7 +162,7 @@ Where the model is expressed as the logarithm of the expected count outcome, and
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In other words, underdispersion occures when the observed average count of the outcome is zero and there are very few observations with high counts. On the other hand, overdispersion occurs when a high number of observations have very large counts. To test for overdispersion we run a dispersion test command includede in the AER [@R-AER] R-package. In the overdispersion test the null hypothesis states *Ho:*$\lambda=1$ and the alternative hypothesis is that the true dispersion is greater than 1. In our data the z-statistic is $4.81$, the p-values are small enough $7.633014e-07$ so we can say that they are statistically significant, and the estimated dispersion is $2.59$ therefore we can assume overdispersion in our counting data. Additionally, using a quasi-poisson regression model allows for a correction in the standard errors of the estimated coefficients, if we observed overdispersion. 
 
 ## Negative binomial regression: correcting overdispersion
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The most commonly used correction for overdispersion is to use a negative binomial model istead. This model assumes that at different values of the observed outcome *(Y=crime counts)* we get a mixture of Poisson and gamma distributed estimations. The expected value follows a Poisson distribution ($\lambda=\mu$) but with a variance with a gamma distribution ($\lambda=\mu^2/k$). The negative binomial distribution includes both such as: 
+The most commonly used correction for overdispersion is to use a negative binomial model istead. This model assumes that at different values of the observed outcome *(Y=crime counts)* we get a mixture of Poisson and gamma distributed estimations. The expected value follows a Poisson distribution ($\lambda=\mu$) but with a variance with a gamma distribution ($\lambda=\mu^2/k$). The negative binomial distribution includes both such as: 
 $$E(Y)=\mu$$ and $$var(Y)=\mu+\mu^2/k^{-1}$$
 For which the parameter $k>0$ describes the gamma distribution with the skwede distribution to the right. Thus, when $k=0$, the formula comes back to the original Poisson formulation and the expected mean and the variance will be equal. The higher the value of $k$, the higher the amount of overdispersion [@MacDonald2011]. 
 
@@ -279,7 +282,6 @@ However, further estimations are needed to improve the interpretations of the co
 nocite:| 
  @CiteR, @R-AER, @R-boot, @R-car, @R-dplyr, @R-ggmap, @R-ggplot2, @R-httr, @R-knitr, @R-lmtest, @R-MASS, @R-PerformanceAnalytics, @R-pscl, @R-repmis, @R-rio, @R-sandwich, @R-stargazer, @R-texreg, @R-tidyr, @R-xtable, @R-Zelig, @R-rworldmap, @R-foreign, @R-rgdal, @R-maptools, @R-gpclib, @R-maps, @R-mapproj, @R-RColorBrewer
 ...
-
 
 ----
 
