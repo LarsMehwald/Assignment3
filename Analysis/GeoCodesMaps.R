@@ -8,7 +8,7 @@
 ########## SpatialPolygononsDataFrame
 
 # Loading Shape files downloaded from GADM database (www.gadm.org): by country: Germany (shapefile)
-spdf <- readOGR(dsn="Analysis/data/DEU_adm_shp", layer= "DEU_adm2") # loading layer for districts
+spdf <- readOGR(dsn="Analysis/data/DEU_adm_shp", layer= "DEU_adm2", verbose=FALSE) # loading layer for districts
 # following guidlines in: https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf
 spdf <- spTransform(spdf, CRS("+init=epsg:4326")) # transforming layers in the map 
 

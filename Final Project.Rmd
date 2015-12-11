@@ -74,10 +74,6 @@ Crime statistics were obtained from the German Federal Police's crime statistic 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Crime data is also disaggregated regarding the type of offence. One limitation to this statistics, however, is that they fail to account for the dark figure of crime --the unreported number of crime in this area. Different methods exist to assess the dark figure of crime, but it is difficult to assess their reliability. Hence, depending on the type of crime, the reported numbers might contain a structural bias, i.e. some types of crime are reported at a different rate than others (e.g. when insurance companies require individual reporting). Focusing mainly on crimes that disrupt communities the most, we expect a high level of reporting and this reporting to be consistently high across different types of the most disruptive crimes like murders. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is possible to focus only on one type of crime as our variable of interest, but also to aggregate different types of crime into one single category First we are considering only two categories of crime: violent and non-violent crime. These two measures of crime follow a simple addition method, including in each of them their respective fitting crimes.
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Furthermore, given the limitations of our data we have to assume that this cross-sectional data for district crime are a simple count of independent events. In addition, we are more interested in those types of crimes that disrupt a community the most. Thus, our main variable of interest is murder. There are two ways to see and analyse the occurrence of murders. In terms of its frequency, e.g. count of occurrences per district in a year, or, for easier comparison purposes, in terms of murders per population by district. 
-
 ```{r SummaryStatisticsDV, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 # Creating a reduced data set
@@ -92,6 +88,25 @@ stargazer(DistrictDataReduced,
           header = FALSE,
           digits=1,
           type = "latex")
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is possible to focus only on one type of crime as our variable of interest, but also to aggregate different types of crime into one single category First we are considering only two categories of crime: violent and non-violent crime. These two measures of crime follow a simple addition method, including in each of them their respective fitting crimes.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Furthermore, given the limitations of our data we have to assume that this cross-sectional data for district crime are a simple count of independent events. In addition, we are more interested in those types of crimes that disrupt a community the most. Thus, our main variable of interest is murder. There are two ways to see and analyse the occurrence of murders. In terms of its frequency, e.g. count of occurrences per district in a year, or, for easier comparison purposes, in terms of murders per population by district. 
+
+```{r MapDt, echo=FALSE, warning=FALSE, message=FALSE, fig.width=20, fig.height=20, results='asis'}
+
+# Cut data into classes
+DistrictData_subset$classes <- cut(DistrictData_subset$MurderRate, c(0,1,2,3,4,5,10,15,29.270), right = FALSE, include.lowest = TRUE, labels =c("0", "1", "2", "3","4", "5", "10", "15 or higher"))
+labels= c("0", "1", "2", "3","4", "5", "10", "15 or higher")
+
+# Assign colors
+colours <- brewer.pal(8,"OrRd") # Pick color palette
+
+# Plot the shapefiles colored
+plot(GermanDistricts,border = "black", col = colours[DistrictData_subset$classes])
+legend("left", fill = colours, legend = labels, title = "Murder Rates", cex = 1.5)
+
 ```
 
 ## Independent Variables
