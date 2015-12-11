@@ -3,10 +3,10 @@ title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
 output:
+  word_document: default
   pdf_document:
     fig_caption: yes
     number_sections: yes
-  word_document: default
 bibliography:
 - References/RpackageCitations.bib
 - References/References.bib
@@ -216,8 +216,7 @@ stargazer(est4,
 ```
 
 # Predicted probabilities
-
-Predicted probabilities yield the possibility to visualise the statistical and substantial effect of the different variables. In the following predicted probabilities are shown conditional on the dichotomous variable EastWest. 
+Predicted probabilities yield the possibility to visualise the statistical and substantial effect of the different variables. In the following predicted probabilities are shown conditional on the dichotomous variable EastWest. Table 6 shows the predicted number of murders for average districts (i.e. all variables set at their mean) in the area of the former West and East. The small difference between the predicted number of murders already indicate, that there might be no statistically significant difference between the two areas.  
 
 ```{r PredictedMurderEastWest, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
@@ -225,9 +224,12 @@ Predicted probabilities yield the possibility to visualise the statistical and s
 stargazer(nb.df1,
           nobs = FALSE,
           header = FALSE,
+          summary = FALSE,
           digits=1,
           type = "latex")
 ```
+
+It could be the case, however, that the explanatory and the control variables have a different effect conditional on whether a district belonged to the former East or West. Hence predicted probabilities are calculated for all independent variables conditional on EastWest and plotted out. The results, however, indicate that there is no difference between East and West: neither in terms of its magnitude nor are they statistically distinguishable. The only consistent observation is that the confidence intervals are greater for East - which can be attributed to a smaller number of observations. Examples are reported for voter turnout as well as the flow in and out of a district.   
 
 ```{r PredProbTurnout, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
 
@@ -245,36 +247,6 @@ ggplot(nb.df3, aes(FlowPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
   labs(x = "In and Outflow", y = "Predicted Number of Murders") +
-  theme(legend.title = element_blank())
-
-```
-
-```{r PredProbYouth, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
-
-ggplot(nb.df4, aes(YouthPercentage, Murder)) +
-  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
-  geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Youth Percentage", y = "Predicted Number of Murders") +
-  theme(legend.title = element_blank())
-
-```
-
-```{r PredProbMale, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
-
-ggplot(nb.df5, aes(MalePercentage, Murder)) +
-  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
-  geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Male Percentage", y = "Predicted Number of Murders") +
-  theme(legend.title = element_blank())
-
-```
-
-```{r PredProbMarriage, echo=FALSE, results='asis', warning=FALSE, message=FALSE, fig.width=4, fig.height=3}
-
-ggplot(nb.df6, aes(MarriagePercentage, Murder)) +
-  geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
-  geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Marriage Percentage", y = "Predicted Number of Murders") +
   theme(legend.title = element_blank())
 
 ```
