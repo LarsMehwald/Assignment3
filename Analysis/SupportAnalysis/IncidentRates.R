@@ -142,3 +142,4 @@ names(est3) <- c("IncidentRate negative binomial", "_")
 # rename the variables
 
 # stargazer(est1, header = FALSE, summary= FALSE, type="html", digits = 4)
+# header 
