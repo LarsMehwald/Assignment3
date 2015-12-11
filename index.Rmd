@@ -1,0 +1,20 @@
+---
+title: "index"
+author: "Daniel Salgado Moreno and Lars Wehwald"
+date: "11 December 2015"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r LoadingRfiles, echo=FALSE, warning=FALSE, message=FALSE}
+
+# Cache = TRUE
+# So in case something is changed upstram, this needs to be removed!
+
+source("MasterFile.R")
+```
+
+# Webpage
