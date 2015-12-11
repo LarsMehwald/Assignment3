@@ -135,6 +135,3 @@ est4 <- cbind(est1, est2, est3)
 
 # delete intercept
 est4 <- est4[-1,]
-
-# stargazer(est1, header = FALSE, summary= FALSE, type="html", digits = 4)
-# header + notes 

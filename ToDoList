@@ -9,6 +9,14 @@ disp.test.z
 disp.test.p
 disp.test.est
 
+stargazer(est4, 
+          title = "Incident rates for the the poisson, quasi-poisson and negative binomial model", 
+          header = FALSE, 
+          summary= FALSE, 
+          type="latex", 
+          digits = 3,
+          notes = "* p<0.1; ** p<0.05; *** p<0.01")
+
 In line R commands - RMD conversion to PDF does not work when inserted - I dont know why:
 `r round(mean(DistrictData$TotalPopulation * 100000), digits=3) `
 `r round(coef(OLSViolent)[2], digits=2)`
