@@ -26,7 +26,8 @@ source("MasterFile.R")
 
 __________________________________________________________________________________________________
 
-> **Abstract:** The current research project studies the relation between social capital and crime. Relevance, Research Question, Main Findings
+> **Abstract:** The current research project studies the relation between social capital and crime.
+We raise the question about how does social capital in a given community determine the level of violent crime higher unemployment is associated with higher levels of crime, and there are (on average) fewer murders occuring in the area of former East Germany. More heterogenous districts tend to be confronted with (on average) a greater number of murders. These results failed to prove a significant relation between social capital and crimes, due to methodological difficulties related to data access and available information on crime statistics.Relevance, Research Question, Main Findings
 
 __________________________________________________________________________________________________
 
@@ -270,13 +271,10 @@ ggplot(nb.df3, aes(FlowPercentage, Murder)) +
 
 ```
 
-
-
 # Conclusion 
-A preliminary analysis of the model specification shows that the negative binomial model does not change the statistical significance of the main explanatory variables.  
-Moreover, only some independent variables attain statistical significance for violent crimes.  
-Further model specifications are require in order to improve the reliability of these findings.  
-However, further estimations are needed to improve the interpretations of the coefficients, since the estimated coefficients are log likelihoods.
+After a complex methodological process, our main findings go as follow: higher unemployment is associated with higher levels of crime, and there are (on average) fewer murders occuring in the area of former East Germany. More heterogenous districts tend to be confronted with (on average) a greater number of murders. These results failed to prove a significant relation between social capital and crimes, due to methodological difficulties related to data access and available information on crime statistics.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The remaining challenges for anyone interested in studying the determinants of crime in Germany relate to the accessibility of the criminal data as the main obstacle to overcome. Politicians and police officials, as well as burocratic bodies in Germany might want to reconsider their position to respect to open data and the versatility and accessibility to public information. Our project has contributed to prove that the lack of easy ways to retrieving public information affect the results of any data analysis. Germany is missing a great opportunity to exploit social capital, in terms of networks of people working together to overcome a collective action problem, to find innovative solutions to fight crime.
 
 ---
 nocite:| 
