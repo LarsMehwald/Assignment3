@@ -1,12 +1,10 @@
 To Do List until Friday, 11 December 2015:
 
-Current word count: ~ 3650 (11/12/2015, 3pm)
+Current word count: ~ 4300 (11/12/2015, 6pm)
 
 In line R commands - RMD conversion to PDF does not work when inserted - I dont know why:
 `r round(mean(DistrictData$TotalPopulation * 100000), digits=3) `
 `r round(coef(OLSViolent)[2], digits=2)`
-
-British English
 
 Data and model:
 - Map: we should include the map created by Daniel.
@@ -15,7 +13,7 @@ Data and model:
 Presentable output:
 - Homepage: we need sinthesize our results in a reasonable manner, attract the readers attention and find some story line through our research. In order to create a homepage with GitHub, we need to have an index.html file in a new branch (with a specific name) in our repository.
 - Final paper: Word count: 5000. 
-- Correct the spelling. 
+- Correct the spelling, British English
 - Rename the repository. 
 - We need to update the repository and R files: delete files not used, comment in the readme file and so on.
 - Citing R packages. 
