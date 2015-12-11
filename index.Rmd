@@ -6,9 +6,6 @@ output:
   html_document:
     theme: cosmo
     highlight: kate
-bibliography:
-- References/RpackageCitations.bib
-- References/References.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -17,30 +14,30 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r LoadingRfiles, echo=FALSE, warning=FALSE, message=FALSE}
 
-# Cache = TRUE
-# So in case something is changed upstram, this needs to be removed!
-
 source("MasterFile.R")
 ```
 
-# <span style="color:#2c7fb8"> Introduction </span>
 Welcome to the *Social Capital and Crime in Germany* collaborative data analysis project.  
 
-## <span style="color:#2c7fb8">Who we are</span>
+<c>![](cartoon.gif)
+
+Source: <a href="https://communityleader.wordpress.com/2009/05/08/social-capital-and-crime/">Communit Leader Online</a></c>
+
+# <span style="color:#2c7fb8">Who we are</span>
 We are two Master of Public Policy students at the <a href="hertie-school.org">Hertie School of Governance</a> in Berlin, Germany. We embark on this exciting project as part of the course **MPP-E1180: Introduction to Collaborative Social Science Data Analysis** gave by <a href="http://christophergandrud.blogspot.com/">Christopher Gandrud</a>. 
 A brief presentation of our project is available <a href="https://github.com/LarsMehwald/Assignment3/blob/master/Presentation.html" target="_blank">here</a>
 
 The final paper including all our methodology is available  <a href="https://github.com/LarsMehwald/Assignment3/blob/master/Final_Project.pdf">here</a>
 
-## <span style="color:#2c7fb8">Why social capital</span>
+# <span style="color:#2c7fb8">Why social capital</span>
 Our interest in social capital focus particuraly on the effect it might have as a determinant of crimes. 
 
-## <span style="color:#2c7fb8">Why crime in Germany</span>
+# <span style="color:#2c7fb8">Why crime in Germany</span>
 Crime and the disruption it brings to the communities are one of the main determinants of individual well-being. Therefore, we believe that the study of social capital creation and its potential effect on crime have important policy implications. 
 
 The leading question in our research is *how does social capital in a given community determine the level of violent crime?* 
 
-## <span style="color:#2c7fb8">Data</span>
+# <span style="color:#2c7fb8">Data</span>
 The <a href="http://www.bka.de/SharedDocs/Downloads/DE/Publikationen/PolizeilicheKriminalstatistik/2014/BKATabellen/FaelleLaenderKreiseStaedte/tb01__FaelleGrundtabelleKreiseFallentwicklung__csv,templateId=raw,property=publicationFile.csv/tb01__FaelleGrundtabelleKreiseFallentwicklung__csv.csv)">German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS)</a> is responsible of gathering crime data from all German States. However, the main problem we had during the project was the lack of public access to open data in Germany compare to other advanced economies. While there is micro data widely available for its use and study in countries like the United Kindom, the United States and Sweden, open access to crime data at the district level in Germany remains an unsolved burocratic and political struggle.  
 
 Further data sources for the project were the open resource from the <a href="https://www.regionalstatistik.de/genesis/online">Regional Database Germany</a> and the <a href="http://www.stiftungen.org/uploads/tx_leonhardtdyncontent/downloads/BvDS_Stiftungsdichte_in_den_Landkreisen_2013_11.pdf">Bundesverband Deutscher Stiftungen</a>. 
@@ -92,7 +89,7 @@ stargazer(est4,
           summary= FALSE, 
           type="html", 
           digits = 3,
-          notes = "+ p<0.1; ++ p<0.05; +++ p<0.01")
+          notes = "Notes: + p<0.1; ++ p<0.05; +++ p<0.01")
 ```
 
 # <span style="color:#2c7fb8">Findings and challenges</span>
@@ -118,9 +115,24 @@ ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
   theme(legend.title = element_blank())
 
 ```
-Predicted probabilities yield the possibility to visualise the statistical and substantial effect of the different variables. Nevertheless, different coding and methodological challenges persisted makeing it difficult clearly point out a consistent result. Compareing West and East Germany shows not statistically significant effect. Thus, there might be no statistically significant difference between the two areas.    
+
+Predicted probabilities yield the possibility to visualise the statistical and substantial effect of the different variables. Nevertheless, different coding and methodological challenges persisted makeing it difficult clearly point out a consistent result. Compareing West and East Germany shows not statistically significant effect. Thus, there might be no statistically significant difference between the two areas. 
+
 # <span style="color:#2c7fb8">Remaining challenges</span>
+The road ahead for anyone interested in research about crime in Germany presents itself full of challenges. First, the accessibility of the criminal data will still be the main obstacle to overcome. Politicians and police officials, as well as burocratic bodies in Germany might want to reconsider their position to respect to open data and the versatility and accessibility to information. Our project has contributed to prove that the lack of easy ways to retrieving public information affect the results of any data analysis project. Germany is missing a great opportunity to use social capital, in terms of networks of people working together to overcome a commun action problem, to find innovative solutions to fighting crime.
 
 ----
 
 # References
+
+Becker, Gary S. 1968. “Crime and Punishment: An Economic Approach, 76 J. Pol. Econ. 169 (1968).” Journal of Political Economy.  
+Buonanno, Paolo, and Daniel Montolio. 2009. Jourrnal of Law and Economics vol. 52.  
+Hanslmaier, Michael. 2015. “Mehr Sozialkapital–weniger Kriminalität? Eine Makrosoziologische Längsschnittanalyse Bayerischer Landkreise.” In Empirische Forschung über Kriminalität, pp. 361–404. Springer.  
+Kleiber, Christian, and Achim Zeileis. 2015. AER: Applied Econometrics with R. http://CRAN.R-project.org/package=AER.  
+Lederman, Daniel, Norman Loayza, and Maria Menedez. 2002. “Violent Crime: Does Social Captal Matter?” Economic Development and Cultural Change vol. 50 (no. 3): pp. 509–39.  
+Macdonald, John M., and Pamela K. Lattimore. 2011. In, edited by Alex R. Piquero and David Weisburd, pp. 683–98. Springer.  
+Messner, Steven F., Eric P. Baumer, and Richard Rosenfeld. 2004. American Sociological Review vol. 69: pp.882–p903).  
+OECD. 2012. Insights: Human Capital. doi:http://www.oecd.org/insights/37966934.pdf.  
+Putnam, Robert D. 2001. Bowling Alone: The Collapse and Revival of American Community. Simon; Schuster.  
+Whiting, Elizabeth, and Rosalyn Harper. 2003. Young People and Social Capital. Office for National Statistics, United Kindom.  
+
