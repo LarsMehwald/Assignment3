@@ -61,10 +61,18 @@ legend("left", fill = colours, legend = labels, title = "Murder Rates", cex = 1.
 ```
 
 # <span style="color:#2c7fb8">Analysis </span>
+For this research, we have conducted a cross-district study to estimate the relation of different indicators of social capital - engagement in the community, political participation and community stability - and the incidence of violent and non-violent crime, with specific focus on murders.
 
 ## <span style="color:#2c7fb8">Model selection </span>
 
 ### <span style="color:#2c7fb8">Histogram </span>
+The following historgram shows the distribution of German districts according to the number of murders in each district. 
+```{r histogramMurder, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+plot(histMurder)
+
+```
+When considering the frequency of occurrences of murders, we are interested in the distribution of murders per district. However, some crimes like murders are very rare and when the average count is small, the distribution of outcomes is skewed to the right. Such a skewed distribution might cause that traditional regression analysis are simply not appropriate. Therefore, our analysis required a different method, based on another type of distribution. The appropriate distribution is the Poisson distribution, which is unimodal and skewed to the right. Additionally, due to overdispersion, 
 
 # <span style="color:#2c7fb8">Incidence rates</span>
 The results of our research can be represented as incidence rates. Incidence rates can be interpreted as the number of new cases per population in a given time period - in this research per year. When results are represented as incidence rates, then a one unit change of an independent variable (in our research usually one percentage point) leads to a change of the dependent varibale that corresponds to the deviation from 1 measured in percent. In addition, a rate above 1 indicates an increase and a rate below 1 indicates a decrease of the dependent variable. This sounds more complicate than it really is. For example: a one percentage point increase of unemployment leads to a 3 % increase in the number of murders according to the negative binomial model.  
