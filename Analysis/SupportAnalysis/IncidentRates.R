@@ -42,9 +42,9 @@ est1 <- round(est1, 4)
 # Creating new variable with stars * 
 names(est1) <- c("Coefficient", "NumberStars")
 est1$NumberStars <- as.factor(est1$NumberStars)
-est1$Stars <- ifelse(est1$NumberStars == 3, "***", # &#9733; is HTML star, but didnt work, + works 
-                     ifelse(est1$NumberStars == 2, "**",
-                            ifelse(est1$NumberStars == 1, "*", "")))
+est1$Stars <- ifelse(est1$NumberStars == 3, "+++", # &#9733; is HTML star, but didnt work, + works 
+                     ifelse(est1$NumberStars == 2, "++",
+                            ifelse(est1$NumberStars == 1, "+", "")))
 est1 <- est1[c(1,3)]
 names(est1) <- c("Poisson", "_")
 
@@ -81,9 +81,9 @@ est2 <- round(est2, 4)
 # Creating new variable with stars * 
 names(est2) <- c("Coefficient", "NumberStars")
 est2$NumberStars <- as.factor(est2$NumberStars)
-est2$Stars <- ifelse(est2$NumberStars == 3, "***",
-                     ifelse(est2$NumberStars == 2, "**",
-                            ifelse(est2$NumberStars == 1, "*", "")))
+est2$Stars <- ifelse(est2$NumberStars == 3, "+++",
+                     ifelse(est2$NumberStars == 2, "++",
+                            ifelse(est2$NumberStars == 1, "+", "")))
 est2 <- est2[c(1,3)]
 names(est2) <- c("Quasi-Poisson", "_ ")
 
@@ -120,9 +120,9 @@ est3 <- round(est3, 4)
 # Creating new variable with stars * 
 names(est3) <- c("Coefficient", "NumberStars")
 est3$NumberStars <- as.factor(est3$NumberStars)
-est3$Stars <- ifelse(est3$NumberStars == 3, "***",
-                     ifelse(est3$NumberStars == 2, "**",
-                            ifelse(est3$NumberStars == 1, "*", "")))
+est3$Stars <- ifelse(est3$NumberStars == 3, "+++",
+                     ifelse(est3$NumberStars == 2, "++",
+                            ifelse(est3$NumberStars == 1, "+", "")))
 est3 <- est3[c(1,3)]
 names(est3) <- c("Negative Binomial", "_  ")
 

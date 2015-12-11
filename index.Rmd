@@ -1,8 +1,11 @@
 ---
 title: "Social Capital and Crime in Germany"
-author: "Daniel Salgado Moreno and Lars Wehwald"
+author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
-output: html_document
+output: 
+  html_document:
+    theme: cosmo
+    highlight: kate
 ---
 
 ```{r setup, include=FALSE}
@@ -17,24 +20,81 @@ knitr::opts_chunk$set(echo = TRUE)
 source("MasterFile.R")
 ```
 
-# Introduction
+# <span style="color:#2c7fb8"> Introduction </span>
+Welcome to the *Social Capital and Crime in Germany* collaborative data analysis project.  
 
-## Who we are
+## <span style="color:#2c7fb8">Who we are</span>
+We are two Master of Public Policy students at the <a href="hertie-school.org">Hertie School of Governance</a> in Berlin, Germany. We embark on this exciting project as part of the course **MPP-E1180: Introduction to Collaborative Social Science Data Analysis** gave by <a href="http://christophergandrud.blogspot.com/">Christopher Gandrud</a>. 
+A brief presentation of our project is available <a href="https://github.com/LarsMehwald/Assignment3/blob/master/Presentation.html" target="_blank">here</a>
 
-## Why social capital
+The final paper including all our methodology is available  <a href="https://github.com/LarsMehwald/Assignment3/blob/master/Final_Project.pdf">here</a>
 
-## Why crime in Germany
+## <span style="color:#2c7fb8">Why social capital</span>
+Our interest in social capital focus particuraly on the effect it might have as a determinant of crimes. 
 
-# Map
+## <span style="color:#2c7fb8">Why crime in Germany</span>
+Crime and the disruption it brings to the communities are one of the main determinants of individual well-being. Therefore, we believe that the study of social capital creation and its potential effect on crime have important policy implications. 
 
-# Analysis 
+The leading question in our research is *how does social capital in a given community determine the level of violent crime?* 
 
-## Model selection 
+## <span style="color:#2c7fb8">Data</span>
+The <a href="http://www.bka.de/SharedDocs/Downloads/DE/Publikationen/PolizeilicheKriminalstatistik/2014/BKATabellen/FaelleLaenderKreiseStaedte/tb01__FaelleGrundtabelleKreiseFallentwicklung__csv,templateId=raw,property=publicationFile.csv/tb01__FaelleGrundtabelleKreiseFallentwicklung__csv.csv)">German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS)</a> is responsible of gathering crime data from all German States. However, the main problem we had during the project was the lack of public access to open data in Germany compare to other advanced economies. While there is micro data widely available for its use and study in countries like the United Kindom, the United States and Sweden, open access to crime data at the district level in Germany remains an unsolved burocratic and political struggle.  
 
-### Histogram 
+Further data sources for the project were the open resource from the <a href="https://www.regionalstatistik.de/genesis/online">Regional Database Germany</a> and the <a href="http://www.stiftungen.org/uploads/tx_leonhardtdyncontent/downloads/BvDS_Stiftungsdichte_in_den_Landkreisen_2013_11.pdf">Bundesverband Deutscher Stiftungen</a>. 
 
-# Findings
+# <span style="color:#2c7fb8">Spatial visualisation of murder rates</span>
+There is the possibility that the information layer on the map does not correspond to the dsitrict bounderies displayed here, due to unresolved coding challenges. 
 
-## Incidence rates
+```{r MapDt, fig.cap="Murder rate by district in Germany 2013", echo=FALSE, warning=FALSE, message=FALSE, fig.width=15, fig.height=15, results='asis'}
 
-## Predicted probabilities
+# Cut data into classes
+DistrictData_subset$classes <- cut(DistrictData_subset$MurderRate, c(0,1,2,3,4,5,10,15,29.270), right = FALSE, include.lowest = TRUE, labels =c("0", "1", "2", "3","4", "5", "10", "15 or higher"))
+labels= c("0", "1", "2", "3","4", "5", "10", "15 or higher")
+
+# Assign colors
+colours <- brewer.pal(8,"OrRd") # Pick color palette
+
+# Plot the shapefiles colored
+plot(GermanDistricts,border = "black", col = colours[DistrictData_subset$classes])
+legend("left", fill = colours, legend = labels, title = "Murder Rates", cex = 1.5)
+
+```
+
+# <span style="color:#2c7fb8">Analysis </span>
+
+## <span style="color:#2c7fb8">Model selection </span>
+
+### <span style="color:#2c7fb8">Histogram </span>
+
+# <span style="color:#2c7fb8">Incidence rates</span>
+The results of our research can be represented as incidence rates. Incidence rates can be interpreted as the number of new cases per population in a given time period - in this research per year. When results are represented as incidence rates, then a one unit change of an independent variable (in our research usually one percentage point) leads to a change of the dependent varibale that corresponds to the deviation from 1 measured in percent. In addition, a rate above 1 indicates an increase and a rate below 1 indicates a decrease of the dependent variable. This sounds more complicate than it really is. For example: a one percentage point increase of unemployment leads to a 3 % increase in the number of murders according to the negative binomial model.  
+
+Whether an incidence rate attains statistical significance is indicated by the stars next to the incidence rates. One star indicates that we are fairly conficent that the results are not caused by randomness in 90 % of the cases. Two stars indicate greater confidence: in 95 % of the cases (or 99 % for three stars) the results are not a result of randomness of the data.   
+
+This table shows the central result of our research: no variable that we have constructed to measure the social capital of German districts, e.g. the number of foundations or voter turnout, deviates strongly from 1 (substantial significance), nor does it attain statistical significance.  
+
+```{r incidenceRates, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+stargazer(est4, 
+          title = "Incidence rates calculated through different statistical models: poisson, quasi-poisson and negative binomial model", 
+          header = FALSE, 
+          summary= FALSE, 
+          type="html", 
+          digits = 3,
+          notes = "+ p<0.1; ++ p<0.05; +++ p<0.01")
+```
+
+# <span style="color:#2c7fb8">Findings and challenges</span>
+We made these findings contrary to our initial hypotheses about social capital. We maintain that these non-findings do not devalidate the theory about social capital, we rather attribute the failure to find meaningful statistical result to the data constraints in Germany.  
+
+First, better measurements of social capital (e.g. time spent per day on social activities per person) may better capture the social capital present in a community. In addition the dependent crime variable lacks an important information: the number of crimes committed that have not been reported to the police. The lack of this information can bias the results in a systematic manner. Areas with low social capital might for example have lower reporting rates for crimes. Therefore we would fail to measure the following combination: low social capital and high crime rates.     
+
+Second, data for all relevant variables for smaller units (i.e. smaller than the district "Kreis" level) could better capture the social capital in a given community - and thereby increasing the preciseness of the measurements. So far we have encountered the most severe constraints from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS).  
+
+Third, by expanding the analysis to more time periods would allow to reduce the noise in the analysis through larger number of observations and more elaborate statistical models.  
+
+Fourth, reverse causality needs to be addressed to improve the findings (i.e. correlation does not necessarily imply causation). It could be the case that high number of crimes (e.g. murders) are causing the changes in our independent variables. An example might illustrate the point. We assume that the flow in and out of a district affects the social capital in a district (i.e. the higher the fluctuation, the lesser the chance that people build social relations among them). We hence assume that the higher flow causes lower social capital, which in turn causes higher rimes rates. In reality, however, it might be the case that high crime rates in a district are causing many people to leave - and others to move it. Better data (more time periods and more disaggregated data) would allow for more elaborate statistical analyses that could address this concern.   
+
+Fifth, our statistical models assume that the events of our dependent variable (i.e. crimes) are occuring independently from one another. There are, however, reasons to believe that this is not the case in reality. The presence of organised crime in an area makes crimes correlated with one another. The same problem occurs for spatial correlation: the crimes in one district might affect the number of crimes occuring in another district. Better data (i.e. for more time periods on a smaller unit of observation) would allow to conduct statistical analyses that take these challenges into account. Therefore we were again confronted with data constraints.
+
+## <span style="color:#2c7fb8">Predicted probabilities</span>
