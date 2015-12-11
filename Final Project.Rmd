@@ -192,6 +192,8 @@ stargazer(OLSNonViolent, OLSViolent, OLSMurderRate, OLSMurder,
 ```
 
 ## Poisson, quasi-poisson and negative binomial regression analysis
+
+
 ```{r plotGLM, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
@@ -203,6 +205,8 @@ stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
 
 # in case we dont want to have the tables centered: http://stackoverflow.com/questions/33543159/how-to-align-stargazer-table-to-the-left-when-type-latex
 ```
+
+These results are also represented as incidence rates in table 5. A one unit change of an independent variable leads to a change of the dependent varibale that corresponds to the deciation from 1 measured in percent. A rate above 1 indicates an increase and a rate below 1 a decrease of the dependent variable. Hence a one percentage point increase of unemployment leads to a 3 % increase in the number of murders according to the negative binomial model.  
 
 ```{r incidenceRates, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
