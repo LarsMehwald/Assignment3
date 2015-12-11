@@ -2,15 +2,37 @@ To Do List until Friday, 11 December 2015:
 
 Current word count: ~ 4900 (11/12/2015, 9pm)
 
-The regression output yields a more consistent analysis of the dependent variable murder. None of our independent variables that are deemed to capture a dimension of social capital attains statistical significance - not even the percentage of marriaged persons that attained statistical significance for violent and non-violent crimes (using OLS regression). The control variables indicate that higher unemployment is associated with higher levels of crime, there are (on average) fewer murders occuring in the area of former East Germany, and greater populations result in more murders. Furthermore, more heterogenous districts tend to be confronted with (on average) a greater number of murders. No further control variable attains statistical significance.  
+The results of our research can be represented as incidence rates. Incidence rates can be interpreted as the number of new cases per population in a given time period - in this research per year. When results are represented as incidence rates, then a one unit change of an independent variable (in our research usually one percentage point) leads to a change of the dependent varibale that corresponds to the deviation from 1 measured in percent. In addition, a rate above 1 indicates an increase and a rate below 1 indicates a decrease of the dependent variable. This sounds more complicate than it really is. For example: a one percentage point increase of unemployment leads to a 3 % increase in the number of murders according to the negative binomial model.  
 
-Data and model:
-- Map: we should include the map created by Daniel.
-- Problems not addressed/solved in research: the aggregation level (i.e. district) might be too high to find network effect, operationalisation of social capital, reverse causality (solution: instrumental regression? panel data? individual level data?), data availability highly restricted in the field of crime in Germany 
+Whether an incidence rate attains statistical significance is indicated by the stars next to the incidence rates. One star indicates that we are fairly conficent that the results are not caused by randomness in 90 % of the cases. Two stars indicate greater confidence: in 95 % of the cases (or 99 % for three stars) the results are not a result of randomness of the data.   
+
+This table shows the central result of our research: no variable that we have constructed to measure the social capital of German districts, e.g. the number of foundations or voter turnout, deviates strongly from 1 (substantial significance), nor does it attain statistical significance.  
+
+```{r incidenceRates, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+stargazer(est4, 
+          title = "Incidence rates calculated through different statistical models: poisson, quasi-poisson and negative binomial model", 
+          header = FALSE, 
+          summary= FALSE, 
+          type="html", 
+          digits = 3,
+          notes = "* p<0.1; ** p<0.05; *** p<0.01")
+```
+
+We made these findings contrary to our initial hypotheses about social capital. We maintain that these non-findings do not devalidate the theory about social capital, we rather attribute the failure to find meaningful statistical result to the data constraints in Germany.  
+
+First, better measurements of social capital (e.g. time spent per day on social activities per person) may better capture the social capital present in a community. In addition the dependent crime variable lacks an important information: the number of crimes committed that have not been reported to the police. The lack of this information can bias the results in a systematic manner. Areas with low social capital might for example have lower reporting rates for crimes. Therefore we would fail to measure the following combination: low social capital and high crime rates.     
+
+Second, data for all relevant variables for smaller units (i.e. smaller than the district "Kreis" level) could better capture the social capital in a given community - and thereby increasing the preciseness of the measurements. So far we have encountered the most severe constraints from the German Federal Police's crime statistic ("Polizeiliche Kriminalstatistik" PKS).  
+
+Third, by expanding the analysis to more time periods would allow to reduce the noise in the analysis through larger number of observations and more elaborate statistical models.  
+
+Fourth, reverse causality needs to be addressed to improve the findings (i.e. correlation does not necessarily imply causation). It could be the case that high number of crimes (e.g. murders) are causing the changes in our independent variables. An example might illustrate the point. We assume that the flow in and out of a district affects the social capital in a district (i.e. the higher the fluctuation, the lesser the chance that people build social relations among them). We hence assume that the higher flow causes lower social capital, which in turn causes higher rimes rates. In reality, however, it might be the case that high crime rates in a district are causing many people to leave - and others to move it. Better data (more time periods and more disaggregated data) would allow for more elaborate statistical analyses that could address this concern.   
+
+Fifth, our statistical models assume that the events of our dependent variable (i.e. crimes) are occuring independently from one another. There are, however, reasons to believe that this is not the case in reality. The presence of organised crime in an area makes crimes correlated with one another. The same problem occurs for spatial correlation: the crimes in one district might affect the number of crimes occuring in another district. Better data (i.e. for more time periods on a smaller unit of observation) would allow to conduct statistical analyses that take these challenges into account. Therefore we were again confronted with data constraints.  
 
 Presentable output:
 - Homepage: we need sinthesize our results in a reasonable manner, attract the readers attention and find some story line through our research. In order to create a homepage with GitHub, we need to have an index.html file in a new branch (with a specific name) in our repository.
-- Final paper: Word count: 5000. 
 - Correct the spelling, British English
 - Rename the repository. 
 - We need to update the repository and R files: delete files not used, comment in the readme file and so on.
