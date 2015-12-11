@@ -4,7 +4,6 @@
 # Predicted probabilities
 ########################
 
-
 # Predicted probabilities: East West, all else set to the mean
 nb.df1 <- data.frame(FoundationsDensity100k = mean(DistrictData$FoundationsDensity100k),
                      FlowPercentage = mean(DistrictData$FlowPercentage),
@@ -43,10 +42,15 @@ nb.df2 <- within(nb.df2, {
 
 class(nb.df2$EastWest) <- "factor"
 
+nb.df2$EastWest <- ordered(nb.df2$EastWest,
+                           levels = c(1,2),
+                           labels = c("West", "East"))
+
 ggplot(nb.df2, aes(TurnoutPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Voter Turnout", y = "Predicted Number of Murders")
+  labs(x = "Voter Turnout", y = "Predicted Number of Murders") +
+  theme(legend.title = element_blank())
 
 # Flow
 # Predicted probabilities: East West, with independent variable flow varying
@@ -72,10 +76,15 @@ nb.df3 <- within(nb.df3, {
 
 class(nb.df3$EastWest) <- "factor"
 
+nb.df3$EastWest <- ordered(nb.df3$EastWest,
+                           levels = c(1,2),
+                           labels = c("West", "East"))
+
 ggplot(nb.df3, aes(FlowPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "In and Outflow", y = "Predicted Number of Murders")
+  labs(x = "In and Outflow", y = "Predicted Number of Murders") +
+  theme(legend.title = element_blank())
 
 # Youth
 # Predicted probabilities: East West, with control variable youth Percentage varying
@@ -100,10 +109,15 @@ nb.df4 <- within(nb.df4, {
 
 class(nb.df4$EastWest) <- "factor"
 
+nb.df4$EastWest <- ordered(nb.df4$EastWest,
+                           levels = c(1,2),
+                           labels = c("West", "East"))
+
 ggplot(nb.df4, aes(YouthPercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Youth Percentage", y = "Predicted Number of Murders")
+  labs(x = "Youth Percentage", y = "Predicted Number of Murders") +
+  theme(legend.title = element_blank())
 
 # Male
 # Predicted probabilities: East West, with control variable male Percentage varying
@@ -128,10 +142,15 @@ nb.df5 <- within(nb.df5, {
 
 class(nb.df5$EastWest) <- "factor"
 
+nb.df5$EastWest <- ordered(nb.df5$EastWest,
+                           levels = c(1,2),
+                           labels = c("West", "East"))
+
 ggplot(nb.df5, aes(MalePercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Male Percentage", y = "Predicted Number of Murders")
+  labs(x = "Male Percentage", y = "Predicted Number of Murders") +
+  theme(legend.title = element_blank())
 
 # Marriage
 # Predicted probabilities: East West, with control variable marriage percentage varying
@@ -156,7 +175,12 @@ nb.df6 <- within(nb.df6, {
 
 class(nb.df6$EastWest) <- "factor"
 
+nb.df6$EastWest <- ordered(nb.df6$EastWest,
+                           levels = c(1,2),
+                           labels = c("West", "East"))
+
 ggplot(nb.df6, aes(MarriagePercentage, Murder)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = EastWest), alpha = .25) +
   geom_line(aes(colour = EastWest), size = 2) +
-  labs(x = "Marriage Percentage", y = "Predicted Number of Murders")
+  labs(x = "Marriage Percentage", y = "Predicted Number of Murders") +
+  theme(legend.title = element_blank())
