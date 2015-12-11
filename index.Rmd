@@ -1,5 +1,5 @@
 ---
-title: "index"
+title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Wehwald"
 date: "11 December 2015"
 output: html_document
@@ -17,5 +17,24 @@ knitr::opts_chunk$set(echo = TRUE)
 source("MasterFile.R")
 ```
 
-# Webpage
- fksdjflkj
+# Introduction
+
+## Who we are
+
+## Why social capital
+
+## Why crime in Germany
+
+# Map
+
+# Analysis 
+
+## Model selection 
+
+### Histogram 
+
+# Findings
+
+## Incidence rates
+
+## Predicted probabilities
