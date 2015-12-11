@@ -94,7 +94,7 @@ stargazer(DistrictDataReduced,
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Furthermore, given the limitations of our data we have to assume that this cross-sectional data for district crime are a simple count of independent events. In addition, we are more interested in those types of crimes that disrupt a community the most. Thus, our main variable of interest is murder. There are two ways to see and analyse the occurrence of murders. In terms of its frequency, e.g. count of occurrences per district in a year, or, for easier comparison purposes, in terms of murders per population by district. 
 
-```{r MapDt, fig.cap="Murder rate by district in Germany 2013", echo=FALSE, warning=FALSE, message=FALSE, fig.width=20, fig.height=20, results='asis'}
+```{r MapDt, fig.cap="Murder rate by district in Germany 2013. There is the possibility that the information layer on the map does not correspond to the dsitrict bounderies displayed here, due to unresolved coding challenges.", echo=FALSE, warning=FALSE, message=FALSE, fig.width=20, fig.height=20, results='asis'}
 
 # Cut data into classes
 DistrictData_subset$classes <- cut(DistrictData_subset$MurderRate, c(0,1,2,3,4,5,10,15,29.270), right = FALSE, include.lowest = TRUE, labels =c("0", "1", "2", "3","4", "5", "10", "15 or higher"))
