@@ -120,14 +120,13 @@ For this research, we have conducted a cross-district study to estimate the rela
 ## OLS regression analysis
 ```{r plotOLS, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
-stargazer(OLSViolent, OLSMurderRate, OLSMurder,
+stargazer(OLSNonViolent, OLSViolent, OLSMurderRate, OLSMurder,
           type = "latex",
           header = FALSE, 
-          title = "OLS regression models for the dependent variables violent crime, murder rate and total number of murders",
+          title = "OLS regression models for the dependent variables non-violent crime, violent crime, murder rate and total number of murders",
           digits = 2,
           omit.stat = c("f", "ser"))
 ```
-
 
 ## Poisson, quasi-poisson and negative binomial regression analysis
 ```{r plotGLM, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
