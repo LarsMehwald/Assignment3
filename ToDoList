@@ -5,6 +5,9 @@ Current word count: ~ 3650 (11/12/2015, 3pm)
 
 , @R-rio, @R-sandwich, @R-stargazer, @R-texreg, @R-tidyr, @R-xtable, @R-Zelig, @R-rworldmap, @R-foreign, @R-rgdal, @R-maptools, @R-gpclib, @R-maps, @R-mapproj, @R-RColorBrewer
 
+disp.test.z
+disp.test.p
+disp.test.est
 
 In line R commands - RMD conversion to PDF does not work when inserted - I dont know why:
 `r round(mean(DistrictData$TotalPopulation * 100000), digits=3) `

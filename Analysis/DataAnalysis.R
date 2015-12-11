@@ -111,10 +111,16 @@ disp.test <- dispersiontest(poisson.glm1)
 # if mean < var: overdispersion
 # use mle: correcting s.e.
 # summary(poisson.glm): Residual deviance>degrees of freedom : if so = overdispersion
-z <- disp.test[1]
-z <- as.numeric(z)
-z <- round(z, digits = 3)
-print(z)
+
+# Extracting three values from dispersion test
+disp.test.z <- disp.test[1]
+disp.test.z <- as.numeric(disp.test.z)
+
+disp.test.p <- disp.test[2]
+disp.test.p <- as.numeric(disp.test.p)
+
+disp.test.est <- disp.test[2]
+disp.test.est <- as.numeric(disp.test.p)
 
 # Visual assesment
 summary(poisson.glm1) # if Residual deviance>degrees of freedom : if so = overdispersion
