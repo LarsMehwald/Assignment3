@@ -171,20 +171,16 @@ One obtains then the expected average count:
  $$Exp(log(E\mu|\lambda))=Exp(\alpha+x'\beta=E(\mu|\lambda)=e^{\alpha}+e^{x'\beta}$$
 The importance of the exponential values for the parameters $\beta_{k}$ lies upon the fact that we can interpretated them as incidence ratios, because they are a multiplication of the expected count or incidence of the outcome by a function of the predictor variable ($x$). Thus, what it is of most interest to us for our analysis are the exponential values of the parameters times the predictors ($e^{x'\beta}$). This term of the equation will tell us how much a predictor variable increases the expected count or incidence of crime [@MacDonald2011]. We could then interpret the incidence rates as percentages, for example a value higher than 1 like 1.7, means an increase in the depdentent variable of 70 percent for every one unit change in the predictor ($x$). It is also true, that a vlaue of 0.6 yields a reduction of 40 percent in the crime count for each increasing unit in the explanatory variable. 
 
-```{r incidenceRates, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
-
-stargazer(est4, 
-          title = "Incidence rates for the the poisson, quasi-poisson and negative binomial model", 
-          header = FALSE, 
-          summary= FALSE, 
-          type="latex", 
-          digits = 3,
-          notes = "* p<0.1; ** p<0.05; *** p<0.01")
-```
-
 # Regression analysis 
 
 ## OLS regression analysis
+The regression results for non-violent crimes (model 1) and violent crimes (model 2). Neither of our expected variables that measure dimensions of social capital are consistently significant. Foundations are a significant predictor for non-violent crimes but fail to reach statistical significance for violent crimes. The variable capturing the in and outflow of a given district is statistically significant for non-violent crimes, but contrary to our inital hypothesis: higher flow rates seem to relate to lower levels of non-violent crimes. In addition, the variable for voter turnout flips the sign of the effect.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The control variables mostly have the predicted effect on the number of crimes: unemployment is a positive predictor of crime, higher numbers of marriaged persons are related with lower number in crimes. However contrary to our initial hypothesis, an increase in the share of males in the population does not increase the number of crimes, but rather (significantly) decreases the number of crimes. Furthermore the dummy variable indicates that both crime rates are on average lower in the area of former East Germany.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The OLS regression results for the dependent variable murder display some similarities for both specification models 3 and 4. However the the great difference for the control variable male percentage is another indication that a different model needs to be used.  
+
+
 ```{r plotOLS, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 
 stargazer(OLSNonViolent, OLSViolent, OLSMurderRate, OLSMurder,
@@ -206,6 +202,17 @@ stargazer(poisson.glm1, quasipoisson.glm1, nb.glm1,
           omit.stat = c("f", "ser"))
 
 # in case we dont want to have the tables centered: http://stackoverflow.com/questions/33543159/how-to-align-stargazer-table-to-the-left-when-type-latex
+```
+
+```{r incidenceRates, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+
+stargazer(est4, 
+          title = "Incidence rates for the the poisson, quasi-poisson and negative binomial model", 
+          header = FALSE, 
+          summary= FALSE, 
+          type="latex", 
+          digits = 3,
+          notes = "* p<0.1; ** p<0.05; *** p<0.01")
 ```
 
 # Predicted probabilities
