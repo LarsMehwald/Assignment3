@@ -27,7 +27,7 @@ source("MasterFile.R")
 __________________________________________________________________________________________________
 
 > **Abstract:** The current research project studies the relation between social capital and crime.
-We raise the question about how does social capital in a community determine the level of violent crime. Our results are not conclusive, but they showed a positive correlation between levels of unemployment and levels of crime. They also showed a relation between more heterogenous districts greater number of murders. However, these results failed to confirm a significant relation between measures of social capital and violent crimes, mainly due to methodological difficulties related to data access and available information on crime statistics.
+We raise the question about how does social capital in a community determine the level of violent crime. Our results are not conclusive, but they showed a positive correlation between levels of unemployment and levels of crime. They also showed a relation between more heterogeneous districts greater number of murders. However, these results failed to confirm a significant relation between measures of social capital and violent crimes, mainly due to methodological difficulties related to data access and available information on crime statistics.
 
 __________________________________________________________________________________________________
 
@@ -272,9 +272,9 @@ ggplot(nb.df3, aes(FlowPercentage, Murder)) +
 ```
 
 # Conclusion 
-After a complex methodological process, our main findings go as follow: higher unemployment is associated with higher levels of crime, and there are (on average) fewer murders occuring in the area of former East Germany. More heterogenous districts tend to be confronted with (on average) a greater number of murders. These results failed to prove a significant relation between social capital and crimes, due to methodological difficulties related to data access and available information on crime statistics.
+After a complex methodological process, our main findings go as follow: higher unemployment is associated with higher levels of crime, and there are (on average) fewer murders occurring in the area of former East Germany. More heterogeneous districts tend to be confronted with (on average) a greater number of murders. These results failed to prove a significant relation between social capital and crimes, due to methodological difficulties related to data access and available information on crime statistics.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The remaining challenges for anyone interested in studying the determinants of crime in Germany relate to the accessibility of the criminal data as the main obstacle to overcome. Politicians and police officials, as well as burocratic bodies in Germany might want to reconsider their position to respect to open data and the versatility and accessibility to public information. Our project has contributed to prove that the lack of easy ways to retrieving public information affect the results of any data analysis. Germany is missing a great opportunity to exploit social capital, in terms of networks of people working together to overcome a collective action problem, to find innovative solutions to fight crime.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The remaining challenges for anyone interested in studying the determinants of crime in Germany relate to the accessibility of the criminal data as the main obstacle to overcome. Politicians and police officials, as well as bureaucratic bodies in Germany might want to reconsider their position to respect to open data and the versatility and accessibility to public information. Our project has contributed to prove that the lack of easy ways to retrieving public information affect the results of any data analysis. Germany is missing a great opportunity to exploit social capital, in terms of networks of people working together to overcome a collective action problem, to find innovative solutions to fight crime.
 
 ---
 nocite:| 
