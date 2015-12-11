@@ -2,7 +2,10 @@
 title: "Social Capital and Crime in Germany"
 author: "Daniel Salgado Moreno and Lars Mehwald"
 date: "11 December 2015"
-output: pdf_document
+output: 
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
 bibliography:
 - References/RpackageCitations.bib
 - References/References.bib
@@ -19,6 +22,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 source("MasterFile.R")
 ```
+
+__________________________________________________________________________________________________
+
+> **Abstract:** 
+
+__________________________________________________________________________________________________
 
 ## Introduction 
 Most of crime studies are based on the rational choice assumptions of legal and criminal returns and the importance of deterrence to reduce criminal behaviours [@becker1968]. However, less has been written about the relevance of social interactions explaining criminal behaviours. This work draws on new data in Germany and investigates this relationship with different measurements for social capital and various statistical analyses. Though several methodological problems persist throughout the research, a preliminary conclusion can be drawn: higher voter turnout in federal elections (civic participation) is highly correlated with lower murder rates. Further theoretical and empirical research is required to assess the causal relationship between social capital and homicides. 
@@ -192,6 +201,12 @@ A preliminary analysis of the model specification shows that the negative binomi
 Moreover, only some independent variables attain statistical significance for violent crimes.  
 Further model specifications are require in order to improve the reliability of these findings.  
 However, further estimations are needed to improve the interpretations of the coefficients, since the estimated coefficients are log likelihoods.
+
+---
+nocite:
+| @CiteR, @R-AER, @R-boot, @R-car, @R-dplyr, @R-ggmap, 
+...
+
 
 ----
 
